@@ -19,8 +19,8 @@ export const useFollowPointer = (ref: React.RefObject<HTMLElement | null>): Posi
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
       setPosition({ 
-        x: e.clientX - rect.left/2 -50 , 
-        y: e.clientY - rect.top/2 -50
+        x: e.clientX -50 , 
+        y: e.clientY  -50
       });
     }
   };
