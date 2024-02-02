@@ -19,7 +19,7 @@ export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
   const [interacting, setInteracting] = useState(false);
-
+  if (typeof window !== 'undefined') {
   window.onmousemove = (e) => {
     if (e) {
       const targetElement = e.target as HTMLElement; // Type casting to HTMLElement
@@ -27,6 +27,7 @@ export default function Home() {
       setInteracting(interactableElement ? true : false);
     }
   };
+}
   return (
     <div className="w-full h-full min-h-screen bg-[#ececec] text-black dark:text-white">
       <div>
