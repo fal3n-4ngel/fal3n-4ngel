@@ -15,9 +15,9 @@ function ProjBox(props: projProps) {
       <Image
         src={props.url1}
         alt=""
-        className=" object-cover overflow-hidden   interactable h-full hover:scale-[90%] scale-[95%] md:scale-[100%] transition-all duration-300 rounded-lg "
-        width={1980}
-        height={1000}
+        className=" object-cover overflow-hidden   interactable h-full hover:scale-[100%] scale-[95%] md:scale-[90%] transition-all duration-300 rounded-lg "
+        width={1280}
+        height={640}
       />
       <div className=" flex justify-between md:min-h-[100px] md:p-10 p-5 ">
         <div>

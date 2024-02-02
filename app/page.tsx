@@ -272,27 +272,62 @@ export default function Home() {
             <div className="md:text-6xl text-5xl py-10">Projects</div>
           </FadeUp>
 
-          
-
-           <div className="w-full h-full flex flex-col justify-center items-center">
-           <ProjBox url1="/Flash.png" name="FLASH DRIVE" type="website" event="college project" view="https://flashdrive-f2an.vercel.app/"/>
-           <ProjBox url1="/Sustain.png" name="SUS GOALS" type="website" event="college project" view="https://sus-goals.vercel.app/"/>
-           <ProjBox url1="/Drish.png"name="DRISHTI" type="mobile app" event="define 2022" view="https://github.com/fal3n-4ngel/Drishti-Client"/>
-           <ProjBox url1="/Ctrack.png" name="C TRACKER" type="swing java" event="micro project" view="https://github.com/fal3n-4ngel/CTracker"/>
-           </div>
-        
+          <div className="w-full h-full flex flex-col justify-center items-center">
+            <FadeUp>
+              {" "}
+              <ProjBox
+                url1="/Flash1.png"
+                name="FLASH DRIVE"
+                type="website"
+                event="college project"
+                view="https://flashdrive-f2an.vercel.app/"
+              />
+            </FadeUp>
+            <FadeUp>
+              <ProjBox
+                url1="/Sustain.png"
+                name="SUS GOALS"
+                type="website"
+                event="college project"
+                view="https://sus-goals.vercel.app/"
+              />
+            </FadeUp>
+            <FadeUp>
+              <ProjBox
+                url1="/Drish.png"
+                name="DRISHTI"
+                type="mobile app"
+                event="define 2022"
+                view="https://github.com/fal3n-4ngel/Drishti-Client"
+              />
+            </FadeUp>
+            <FadeUp>
+              {" "}
+              <ProjBox
+                url1="/Ctrack.png"
+                name="C TRACKER"
+                type="swing java"
+                event="micro project"
+                view="https://github.com/fal3n-4ngel/CTracker"
+              />
+            </FadeUp>
+            <FadeUp className="p-10 m-5">
+              <a
+                href="https://github.com/fal3n-4ngel"
+                className="w-fit h-fit p-3 px-5 cursor-pointer hover:scale-105 interactable transition-all text-lg md:text-2xl font-poppins bg-[#121212] dark:bg-[#ececec] dark:text-black text-white rounded-full "
+              >
+                View All Projects
+              </a>
+            </FadeUp>
+          </div>
         </section>
 
         <div className="flex justify-center text-3xl my-[100px] font-thin text-black dark:text-white">
           <div className="flex flex-col text-center">
             :&gt; Adithya Krishnan 2024
-            <a
-              className="hover:cursor-pointer items-center text-center hover:scale-125 hover:text-white transition-all mt-5"
-              href="https://github.com/fal3n-4ngel"
-            >
-              Github
-            </a>
-            <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">ik needs img update , working on it</div>
+            <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">
+             working on it
+            </div>
           </div>
         </div>
       </main>
