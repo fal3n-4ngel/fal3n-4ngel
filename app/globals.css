@@ -24,6 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    
 }
 
 @layer utilities {
@@ -31,3 +32,4 @@ body {
     text-wrap: balance;
   }
 }
+
