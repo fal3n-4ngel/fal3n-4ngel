@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import FadeUp from "./components/FadeUp";
 import AnimatedTextCharacter from "./components/FadeUp";
 import FadeSide from "./components/FadeSide";
+import ProjBox from "./components/ProjBox";
 type Transition$1 =
   | {
       type: string; // The type can be more specific if necessary
@@ -19,17 +20,17 @@ export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
   const [interacting, setInteracting] = useState(false);
-  if (typeof window !== 'undefined') {
-  window.onmousemove = (e) => {
-    if (e) {
-      const targetElement = e.target as HTMLElement; // Type casting to HTMLElement
-      const interactableElement = targetElement.closest(".interactable");
-      setInteracting(interactableElement ? true : false);
-    }
-  };
-}
+  if (typeof window !== "undefined") {
+    window.onmousemove = (e) => {
+      if (e) {
+        const targetElement = e.target as HTMLElement; // Type casting to HTMLElement
+        const interactableElement = targetElement.closest(".interactable");
+        setInteracting(interactableElement ? true : false);
+      }
+    };
+  }
   return (
-    <div className="w-full h-full min-h-screen bg-[#ececec] text-black dark:text-white">
+    <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212] text-black dark:text-white">
       <div>
         <motion.div
           style={{
@@ -57,28 +58,6 @@ export default function Home() {
         <div className="w-full fixed z-[10]">
           <Navbar />
         </div>
-
-        {/* <section className="flex flex-col md:w-[70%] w-full h-full min-h-screen justify-center text-black dark:text-white p-3 z-[0]">
-          <div className="flex flex-col md:text-8xl text-4xl font-poppins-regular p-2 ">
-            <FadeUp className=" flex text-black  font-poppins ">
-              <h1 className="md:text-3xl text-xl p-5">Hello</h1>
-            </FadeUp>
-
-            <div className="transition-all md:flex flex-col hidden  interactable w-fit p-5 ">
-              <AnimatedTextCharacter text="I'm Adithya Krishnan,"></AnimatedTextCharacter>
-              <AnimatedTextCharacter text="a Versatile developer who"></AnimatedTextCharacter>
-              <AnimatedTextCharacter text="likes to code fun stuff"></AnimatedTextCharacter>
-              
-            </div>
-            <div className="transition-all flex flex-col md:hidden w-fit  p-5 ">
-              <AnimatedTextCharacter text="I'm Adithya Krishnan,"></AnimatedTextCharacter>
-              <AnimatedTextCharacter text="a Versatile developer"></AnimatedTextCharacter>
-              <AnimatedTextCharacter text="who likes to "></AnimatedTextCharacter>
-              <AnimatedTextCharacter text="code fun stuff"></AnimatedTextCharacter>
-            </div>
-           
-          </div>
-        </section> */}
 
         <section className="md:w-[70%] w-full justify-center  min-h-screen flex flex-col">
           <FadeUp className=" flex text-black  font-poppins ">
@@ -108,19 +87,13 @@ export default function Home() {
               </FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className="  text-black   ">
-                a Versatile developer 
-              </FadeUp>
+              <FadeUp className="  text-black   ">a Versatile developer</FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className="  text-black   ">
-              who likes to
-              </FadeUp>
+              <FadeUp className="  text-black   ">who likes to</FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className=" text-black ">
-                 code fun stuff.
-              </FadeUp>
+              <FadeUp className=" text-black ">code fun stuff.</FadeUp>
             </div>
           </div>
         </section>
@@ -237,14 +210,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <section className="min-h-screen font-light text-4xl md:w-[75%] p-5 md:p-0 mx-auto flex flex-col justify-center ">
+        {/* <section className="min-h-screen font-light text-4xl md:w-[75%] p-5 md:p-0 mx-auto hidden flex-col justify-center md:flex ">
           <FadeUp>
             <div className="md:text-6xl text-5xl py-10">Projects</div>
           </FadeUp>
 
           <div className="flex w-full h-full justify-center items-center">
             <div className="flex justify-center items-center w-[50%] h-[700px] ">
-              <div className="w-[700px] h-[700px] flex justify-center items-center overflow-hidden">
+              <div className="w-[100%] h-[100%] flex justify-center items-center overflow-hidden interactable">
                 <Image
                   src="/Flash.png"
                   alt=""
@@ -257,7 +230,7 @@ export default function Home() {
             <div className="flex flex-col w-[50%] justify-between items-center h-[700px]  ">
               <div className="flex w-full justify-between  h-[50%]  px-5">
                 <div className="w-[50%]  flex justify-start  overflow-hidden">
-                  <div className="w-[330px] h-[330px] pr-2 overflow-hidden">
+                  <div className="w-[100%] h-[100%] pr-2 overflow-hidden interactable">
                     <Image
                       src="/Ctrack.png"
                       alt=""
@@ -268,7 +241,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="w-[50%]  flex justify-end ">
-                  <div className="w-[330px] h-[330px] pl-2 overflow-hidden">
+                  <div className="w-[100%] h-[100%] pl-2 overflow-hidden interactable">
                     <Image
                       src="/Drish.png"
                       alt=""
@@ -280,7 +253,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="h-[50%] flex items-end px-5">
-                <div className="flex items-end w-full h-[330px] overflow-hidden">
+                <div className="flex items-end w-full h-[330px] overflow-hidden interactable">
                   <Image
                     src="/Sustain.png"
                     alt=""
@@ -293,6 +266,23 @@ export default function Home() {
             </div>
           </div>
         </section> */}
+
+        <section className="min-h-screen font-light text-4xl md:w-[75%] p-5 md:p-0 mx-auto flex flex-col justify-center ">
+          <FadeUp>
+            <div className="md:text-6xl text-5xl py-10">Projects</div>
+          </FadeUp>
+
+          
+
+           <div className="w-full h-full flex flex-col justify-center items-center">
+           <ProjBox url1="/Flash.png" name="FLASH DRIVE" type="website" event="college project" view="https://flashdrive-f2an.vercel.app/"/>
+           <ProjBox url1="/Sustain.png" name="SUS GOALS" type="website" event="college project" view="https://sus-goals.vercel.app/"/>
+           <ProjBox url1="/Drish.png"name="DRISHTI" type="mobile app" event="define 2022" view="https://github.com/fal3n-4ngel/Drishti-Client"/>
+           <ProjBox url1="/Ctrack.png" name="C TRACKER" type="swing java" event="micro project" view="https://github.com/fal3n-4ngel/CTracker"/>
+           </div>
+        
+        </section>
+
         <div className="flex justify-center text-3xl my-[100px] font-thin text-black dark:text-white">
           <div className="flex flex-col text-center">
             :&gt; Adithya Krishnan 2024
@@ -302,13 +292,9 @@ export default function Home() {
             >
               Github
             </a>
-            <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">
-           
-            </div>
+            <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">ik needs img update , working on it</div>
           </div>
         </div>
-
-
       </main>
     </div>
   );

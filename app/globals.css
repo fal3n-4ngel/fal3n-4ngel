@@ -62,3 +62,13 @@ body {
 .z-top {
   z-index: 1000000;
 }
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite; /* Adjust the duration (3s) for a slower spin */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -31,7 +31,7 @@ export const useFollowPointer = (ref: React.RefObject<HTMLElement | null>): Posi
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [ref]);
+  }, [handleMouseMove,ref]);
 
   return position;
 };

@@ -9,6 +9,7 @@ export default function DarkModeSwitch() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setIsOn(localStorage.getItem('theme') === 'light');
+      toggleSwitch();
     }
   }, []);
  
