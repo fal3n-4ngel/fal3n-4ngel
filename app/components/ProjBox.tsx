@@ -20,8 +20,8 @@ function ProjBox(props: projProps) {
         height={640}
       />
       <div className=" flex justify-between md:min-h-[100px] md:p-10 p-5 ">
-        <div>
-          <div className="text-left font-logo md:text-7xl m-1">{props.name}</div>
+        <div className="interactable">
+          <div className="text-left font-logo md:text-7xl m-1 ">{props.name}</div>
           <div className="flex">
             <div className="w-fit h-fit p-1 px-2 text-sm font-poppins bg-[#252525] rounded-full m-1">
               {props.type}
