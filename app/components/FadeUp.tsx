@@ -14,7 +14,7 @@ const FadeUp: React.FC<FadeUpProps> = ({ children }) => {
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 1.0,
+        duration: 0.7,
         delay: 0.2,
       }}
       

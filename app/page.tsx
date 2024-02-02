@@ -28,7 +28,7 @@ export default function Home() {
     }
   };
   return (
-    <div className="w-full h-full min-h-screen bg-[#e0e0e0] text-black dark:text-white">
+    <div className="w-full h-full min-h-screen bg-[#ececec] text-black dark:text-white">
       <div>
         <motion.div
           style={{
@@ -50,7 +50,7 @@ export default function Home() {
         ></motion.div>
       </div>
       <main
-        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#e0e0e0] dark:bg-[#121212] text-black dark:text-white"
+        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#121212] text-black dark:text-white"
         ref={ref}
       >
         <div className="w-full fixed z-[10]">
