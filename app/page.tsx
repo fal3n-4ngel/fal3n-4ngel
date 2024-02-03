@@ -232,6 +232,7 @@ export default function Home() {
                 name="FLASH DRIVE"
                 type="website"
                 event="college project"
+                date="2023"
                 view="https://flashdrive-f2an.vercel.app/"
               />
             </FadeUp>
@@ -241,6 +242,7 @@ export default function Home() {
                 name="SUS GOALS"
                 type="website"
                 event="college project"
+                date="2023"
                 view="https://sus-goals.vercel.app/"
               />
             </FadeUp>
@@ -250,6 +252,7 @@ export default function Home() {
                 name="DRISHTI"
                 type="mobile app"
                 event="define 2022"
+                date="2022"
                 view="https://github.com/fal3n-4ngel/Drishti-Client"
               />
             </FadeUp>
@@ -260,6 +263,7 @@ export default function Home() {
                 name="C TRACKER"
                 type="swing java"
                 event="micro project"
+                date="2023"
                 view="https://github.com/fal3n-4ngel/CTracker"
               />
             </FadeUp>

@@ -6,6 +6,7 @@ type projProps = {
     type:string;
     event:string;
     view:string;
+    date:string
   };
 
 
@@ -23,11 +24,14 @@ function ProjBox(props: projProps) {
         <div className="interactable">
           <div className="text-left font-logo md:text-7xl m-1 text-3xl">{props.name}</div>
           <div className="flex">
-            <div className="w-fit h-fit md:p-1 md:px-2 px-2 text-[10px] font-poppins bg-[#252525] rounded-full m-1">
+            <div className="w-fit h-fit md:p-1 md:px-2 px-2 md:text-sm text-[10px] font-poppins bg-[#252525] rounded-full m-1">
               {props.type}
             </div>
-            <div className="w-fit h-fit md:px-2 md:p-1 px-2 text-[10px] font-poppins bg-[#252525] rounded-full m-1">
+            <div className="w-fit h-fit md:px-2 md:p-1 px-2 md:text-sm text-[10px] font-poppins bg-[#252525] rounded-full m-1">
               {props.event}
+            </div>
+            <div className="w-fit h-fit md:px-4  md:p-1 px-2 md:text-sm  text-[10px] font-poppins bg-[#252525] rounded-full m-1">
+              {props.date}
             </div>
           </div>
         </div>
