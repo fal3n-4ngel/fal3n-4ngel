@@ -8,7 +8,16 @@ import FadeUp from "./components/FadeUp";
 import AnimatedTextCharacter from "./components/FadeUp";
 import FadeSide from "./components/FadeSide";
 import ProjBox from "./components/ProjBox";
-import { RiArrowUpCircleFill, RiArrowUpCircleLine, RiArrowUpDoubleFill, RiArrowUpSFill, RiGithubFill, RiLinkedinBoxFill, RiLinkedinFill, RiMailFill } from "react-icons/ri";
+import {
+  RiArrowUpCircleFill,
+  RiArrowUpCircleLine,
+  RiArrowUpDoubleFill,
+  RiArrowUpSFill,
+  RiGithubFill,
+  RiLinkedinBoxFill,
+  RiLinkedinFill,
+  RiMailFill,
+} from "react-icons/ri";
 type Transition$1 =
   | {
       type: string; // The type can be more specific if necessary
@@ -25,7 +34,7 @@ export default function Home() {
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -151,7 +160,16 @@ export default function Home() {
                 <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold  ">
                   experience
                 </div>
-
+              </FadeUp>
+              <FadeUp>
+                <div className="py-1 interactable">
+                  <div className="font-semibold">
+                    Full stack developer
+                    <span className="text-md text-gray-400"></span>
+                  </div>
+                  <div>deflated pappadam</div>
+                  <div className="font-sans text-gray-400">2022 - Present</div>
+                </div>
                 <div className="py-1 interactable">
                   <div className="font-semibold">Techinal Co Lead </div>
                   <div>IEEE MBCET Chapter</div>
@@ -159,6 +177,9 @@ export default function Home() {
                     Jan 2023 - Feb 2023
                   </div>
                 </div>
+              </FadeUp>
+
+              <FadeUp>
                 <div className="py-1 interactable">
                   <div className="font-semibold">Student Intern</div>
                   <div>UST Global, Thirvanathapuram</div>
@@ -166,8 +187,6 @@ export default function Home() {
                     April 2023 - May 2023
                   </div>
                 </div>
-              </FadeUp>
-              <FadeUp>
                 <div className="py-1 interactable">
                   <div className="font-semibold">
                     Cloud Facilitator
@@ -175,7 +194,7 @@ export default function Home() {
                   </div>
                   <div>GDSC MBCET</div>
                   <div className="font-sans text-gray-400">
-                    nov 2022 - Present
+                    Nov 2022 - Feb 2024
                   </div>
                 </div>
               </FadeUp>
@@ -286,44 +305,52 @@ export default function Home() {
           </div>
         </section>
         <footer className="flex flex-col w-full h-full justify-center text-3xl mt-[40px] py-[80px] font-thin text-black dark:text-white bg-[#e0e0e0] dark:bg-[#101010]">
-        <div className="flex md:flex-row flex-col w-full md:w-[90%] h-full mx-auto text-xl font-poppins  md:justify-between justify-center items-center p-10">
-          <div className="items-start flex justify-start w-fit md:p-0 p-10 text-center">©Adithya Krishnan 2024.</div>
-          <div className="flex  md:flex-row flex-col min-w-[400px]  md:justify-between justify-start items-center text-justify ">
-            <div className="flex flex-col md:flex-row items-start md:justify-between md:w-full"> 
-            <a
-              href="https://github.com/fal3n-4ngel"
-              className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+          <div className="flex md:flex-row flex-col w-full md:w-[90%] h-full mx-auto text-xl font-poppins  md:justify-between justify-center items-center p-10">
+            <div className="items-start flex justify-start w-fit md:p-0 p-10 text-center">
+              ©Adithya Krishnan 2024.
+            </div>
+            <div className="flex  md:flex-row flex-col min-w-[400px]  md:justify-between justify-start items-center text-justify ">
+              <div className="flex flex-col md:flex-row items-start md:justify-between md:w-full">
+                <a
+                  href="https://github.com/fal3n-4ngel"
+                  className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+                >
+                  <RiGithubFill className="h-6 w-6 " /> Github
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/fal3n-4ngel/"
+                  className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+                >
+                  <RiLinkedinBoxFill className="h-6 w-6" />
+                  LinkedIn
+                </a>
+                <a
+                  href="mailto:adiadithyakrishnan@gmail.com"
+                  className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+                >
+                  <RiMailFill className="h-6 w-6" />
+                  Email
+                </a>
+              </div>
+            </div>
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-2 md:p-0 p-10 interactable"
             >
-              <RiGithubFill className="h-6 w-6 " /> Github
-            </a>
-            <a
-              href="https://www.linkedin.com/in/fal3n-4ngel/"
-              className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
-            >
-              <RiLinkedinBoxFill className="h-6 w-6" />
-              LinkedIn
-            </a>
-            <a
-              href="mailto:adiadithyakrishnan@gmail.com"
-              className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
-            >
-              <RiMailFill className="h-6 w-6" />
-              Email
-            </a></div>
-            
+              {" "}
+              Back To Top <RiArrowUpCircleLine className="h-6 w-6" />{" "}
+            </button>
           </div>
-          <button onClick={scrollToTop} className="flex items-center gap-2 md:p-0 p-10 interactable">  Back To Top <RiArrowUpCircleLine className="h-6 w-6"/> </button>
-        </div>
 
-        <div className="flex flex-col text-center text-xl font-poppins  p-4 interactable">
-        &quot;Like I always say, can&apos;t find a door? Make your own.&quot; – Edward Elric, Fullmetal Alchemist
-          <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">
-          - - -
+          <div className="flex flex-col text-center text-xl font-poppins  p-4 interactable">
+            &quot;Like I always say, can&apos;t find a door? Make your
+            own.&quot; – Edward Elric, Fullmetal Alchemist
+            <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">
+              - - -
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
       </main>
-     
     </div>
   );
 }
