@@ -186,7 +186,7 @@ export default function Home() {
                   <div className="font-semibold">Techinal Co Lead </div>
                   <div>IEEE MBCET Chapter</div>
                   <div className="font-sans text-gray-400">
-                    Jan 2023 - Feb 2023
+                    Jan 2023 - Feb 2024
                   </div>
                 </div>
               </FadeUp>
