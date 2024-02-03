@@ -83,7 +83,7 @@ export default function Home() {
         </motion.div>
       </div>
       <main
-        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#121212] text-black dark:text-white"
+        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#121212] text-black dark:text-white overflow-x-hidden"
         ref={ref}
       >
         <div className="w-full fixed z-[10]">
