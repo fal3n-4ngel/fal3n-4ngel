@@ -285,7 +285,7 @@ export default function Home() {
             </FadeUp>
           </div>
         </section>
-        <footer className="flex flex-col w-full h-full justify-center text-3xl mt-[40px] py-[80px] font-thin text-black dark:text-white bg-[#ececec] dark:bg-[#101010]">
+        <footer className="flex flex-col w-full h-full justify-center text-3xl mt-[40px] py-[80px] font-thin text-black dark:text-white bg-[#e0e0e0] dark:bg-[#101010]">
         <div className="flex md:flex-row flex-col w-full md:w-[90%] h-full mx-auto text-xl font-poppins  md:justify-between justify-center items-center p-10">
           <div className="items-start flex justify-start w-fit md:p-0 p-10 text-center">©Adithya Krishnan 2024.</div>
           <div className="flex  md:flex-row flex-col min-w-[400px]  md:justify-between justify-start items-center text-justify ">
