@@ -131,7 +131,7 @@ export default function Home() {
 
         <section className=" w-full h-full ">
           <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins  min-h-screen">
-            <div className="flex flex-col md:w-[60%] md:text-[2.3rem] leading-none text-xl">
+            <div className="flex flex-col md:w-[50%] md:text-[2.3rem] leading-none text-xl">
               <div className="  overflow-hidden ">
                 <FadeUp>
                   <div className="  md:m-10 m-5 ease-in interactable ">
@@ -140,7 +140,7 @@ export default function Home() {
                     projects.
                     {/* <div
                       className={` jB md:text-xl text-lg  text-[#ececec] dark:text-[#121212] ${
-                        jbInter ? "invert" : ""
+                        jbInter ? "mix-blend-multiply" : ""
                       }`}
                     >
                       
@@ -214,7 +214,7 @@ export default function Home() {
                 <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold ">
                   skills
                 </div>
-                <div className="flex flex-col font-normal space-y-1">
+                <div className="flex flex-col font-normal space-y-1 text-justify">
                   <div>Nextjs ,Reactjs ,Angular ,Flutter </div>
                   <div>C , Java , Python , C#</div>
                   <div>Firebase , MongoDB , Sql</div>
