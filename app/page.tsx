@@ -20,12 +20,17 @@ export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
   const [interacting, setInteracting] = useState(false);
+  const [projImage, setProjImage] = useState(false);
+
   if (typeof window !== "undefined") {
     window.onmousemove = (e) => {
       if (e) {
         const targetElement = e.target as HTMLElement; // Type casting to HTMLElement
         const interactableElement = targetElement.closest(".interactable");
         setInteracting(interactableElement ? true : false);
+        const targetImage = e.target as HTMLElement; // Type casting to HTMLElement
+        const interactableImage = targetImage.closest(".projImg");
+        setProjImage(interactableImage?true:false);
       }
     };
   }
@@ -48,8 +53,13 @@ export default function Home() {
             width: `${interacting ? "150px" : "40px"}`,
             height: `${interacting ? "150px" : "40px"}`,
           }}
-          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none mix-blend-difference `}
-        ></motion.div>
+          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${!projImage? 'mix-blend-difference':''} `}
+        >
+
+          {/* {projImage?
+          <a href=""><img src="/Visit.png" alt="" className=" animate-spin-slow "></img></a>
+        :<div></div>} */}
+        </motion.div>
       </div>
       <main
         className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#121212] text-black dark:text-white"
@@ -210,63 +220,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* <section className="min-h-screen font-light text-4xl md:w-[75%] p-5 md:p-0 mx-auto hidden flex-col justify-center md:flex ">
-          <FadeUp>
-            <div className="md:text-6xl text-5xl py-10">Projects</div>
-          </FadeUp>
-
-          <div className="flex w-full h-full justify-center items-center">
-            <div className="flex justify-center items-center w-[50%] h-[700px] ">
-              <div className="w-[100%] h-[100%] flex justify-center items-center overflow-hidden interactable">
-                <Image
-                  src="/Flash.png"
-                  alt=""
-                  className=" object-cover overflow-hidden h-full hover:scale-[90%] transition-all duration-300"
-                  width={1980}
-                  height={1000}
-                />
-              </div>
-            </div>
-            <div className="flex flex-col w-[50%] justify-between items-center h-[700px]  ">
-              <div className="flex w-full justify-between  h-[50%]  px-5">
-                <div className="w-[50%]  flex justify-start  overflow-hidden">
-                  <div className="w-[100%] h-[100%] pr-2 overflow-hidden interactable">
-                    <Image
-                      src="/Ctrack.png"
-                      alt=""
-                      className=" object-cover overflow-hidden  h-full hover:scale-[90%] transition-all duration-300 "
-                      width={1980}
-                      height={1000}
-                    />
-                  </div>
-                </div>
-                <div className="w-[50%]  flex justify-end ">
-                  <div className="w-[100%] h-[100%] pl-2 overflow-hidden interactable">
-                    <Image
-                      src="/Drish.png"
-                      alt=""
-                      className=" object-cover overflow-hidden  h-full hover:scale-[90%] transition-all duration-300 "
-                      width={1980}
-                      height={1000}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="h-[50%] flex items-end px-5">
-                <div className="flex items-end w-full h-[330px] overflow-hidden interactable">
-                  <Image
-                    src="/Sustain.png"
-                    alt=""
-                    className=" object-cover overflow-hidden h-full hover:scale-[90%] transition-all duration-300"
-                    width={1980}
-                    height={1000}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
         <section className="min-h-screen font-light text-4xl md:w-[75%] p-5 md:p-0 mx-auto flex flex-col justify-center ">
           <FadeUp>
             <div className="md:text-6xl text-5xl py-10">Projects</div>
@@ -274,7 +227,6 @@ export default function Home() {
 
           <div className="w-full h-full flex flex-col justify-center items-center">
             <FadeUp>
-              {" "}
               <ProjBox
                 url1="/Flash1.png"
                 name="FLASH DRIVE"
