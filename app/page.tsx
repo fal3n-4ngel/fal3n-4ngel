@@ -53,7 +53,7 @@ export default function Home() {
             width: `${interacting ? "150px" : "40px"}`,
             height: `${interacting ? "150px" : "40px"}`,
           }}
-          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${!projImage? 'mix-blend-difference':''} `}
+          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${!projImage? 'mix-blend-difference':'mix-blend-difference'} `}
         >
 
           {/* {projImage?

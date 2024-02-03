@@ -15,7 +15,7 @@ function ProjBox(props: projProps) {
       <Image
         src={props.url1}
         alt=""
-        className=" object-cover overflow-hidden   projImg h-full hover:scale-[95%] scale-[90%] md:scale-[90%] transition-all duration-300 rounded-lg "
+        className=" object-cover overflow-hidden   interactable projImg h-full hover:scale-[95%] scale-[90%] md:scale-[90%] transition-all duration-300 rounded-lg "
         width={1280}
         height={640}
       />
