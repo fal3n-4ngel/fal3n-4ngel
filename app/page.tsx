@@ -8,6 +8,7 @@ import FadeUp from "./components/FadeUp";
 import AnimatedTextCharacter from "./components/FadeUp";
 import FadeSide from "./components/FadeSide";
 import ProjBox from "./components/ProjBox";
+import { RiArrowUpCircleFill, RiArrowUpCircleLine, RiArrowUpDoubleFill, RiArrowUpSFill, RiGithubFill, RiLinkedinBoxFill, RiLinkedinFill, RiMailFill } from "react-icons/ri";
 type Transition$1 =
   | {
       type: string; // The type can be more specific if necessary
@@ -22,6 +23,12 @@ export default function Home() {
   const [interacting, setInteracting] = useState(false);
   const [projImage, setProjImage] = useState(false);
 
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   if (typeof window !== "undefined") {
     window.onmousemove = (e) => {
       if (e) {
@@ -30,7 +37,7 @@ export default function Home() {
         setInteracting(interactableElement ? true : false);
         const targetImage = e.target as HTMLElement; // Type casting to HTMLElement
         const interactableImage = targetImage.closest(".projImg");
-        setProjImage(interactableImage?true:false);
+        setProjImage(interactableImage ? true : false);
       }
     };
   }
@@ -53,9 +60,10 @@ export default function Home() {
             width: `${interacting ? "150px" : "40px"}`,
             height: `${interacting ? "150px" : "40px"}`,
           }}
-          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${!projImage? 'mix-blend-difference':'mix-blend-difference'} `}
+          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
+            !projImage ? "mix-blend-difference" : "mix-blend-difference"
+          } `}
         >
-
           {/* {projImage?
           <a href=""><img src="/Visit.png" alt="" className=" animate-spin-slow "></img></a>
         :<div></div>} */}
@@ -270,23 +278,52 @@ export default function Home() {
             <FadeUp className="p-10 m-5">
               <a
                 href="https://github.com/fal3n-4ngel"
-                className="w-fit h-fit p-3 px-5 cursor-pointer hover:scale-105 interactable transition-all text-lg md:text-2xl font-poppins bg-[#121212] dark:bg-[#ececec] dark:text-black text-white rounded-full "
+                className="w-fit h-fit p-2 px-5 cursor-pointer hover:scale-105 interactable transition-all text-lg md:text-2xl font-poppins bg-[#121212] dark:bg-[#ececec] dark:text-black text-white rounded-full "
               >
                 View All Projects
               </a>
             </FadeUp>
           </div>
         </section>
+        <footer className="flex flex-col w-full h-full justify-center text-3xl mt-[40px] py-[80px] font-thin text-black dark:text-white bg-[#ececec] dark:bg-[#101010]">
+        <div className="flex md:flex-row flex-col w-full md:w-[90%] h-full mx-auto text-xl font-poppins  md:justify-between justify-center items-center p-10">
+          <div className="items-start flex justify-start w-fit md:p-0 p-10 text-center">©Adithya Krishnan 2024.</div>
+          <div className="flex  md:flex-row flex-col min-w-[400px]  md:justify-between justify-start items-center text-justify ">
+            <div className="flex flex-col md:flex-row items-start md:justify-between md:w-full"> 
+            <a
+              href="https://github.com/fal3n-4ngel"
+              className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+            >
+              <RiGithubFill className="h-6 w-6 " /> Github
+            </a>
+            <a
+              href="https://www.linkedin.com/in/fal3n-4ngel/"
+              className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+            >
+              <RiLinkedinBoxFill className="h-6 w-6" />
+              LinkedIn
+            </a>
+            <a
+              href="mailto:adiadithyakrishnan@gmail.com"
+              className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+            >
+              <RiMailFill className="h-6 w-6" />
+              Email
+            </a></div>
+            
+          </div>
+          <button onClick={scrollToTop} className="flex items-center gap-2 md:p-0 p-10 interactable">  Back To Top <RiArrowUpCircleLine className="h-6 w-6"/> </button>
+        </div>
 
-        <div className="flex justify-center text-3xl my-[100px] font-thin text-black dark:text-white">
-          <div className="flex flex-col text-center">
-            :&gt; Adithya Krishnan 2024
-            <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">
-             working on it
-            </div>
+        <div className="flex flex-col text-center text-xl font-poppins  p-4 interactable">
+        &quot;Like I always say, can&apos;t find a door? Make your own.&quot; – Edward Elric, Fullmetal Alchemist
+          <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">
+          - - -
           </div>
         </div>
+      </footer>
       </main>
+     
     </div>
   );
 }

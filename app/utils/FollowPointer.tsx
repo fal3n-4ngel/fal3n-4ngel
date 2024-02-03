@@ -10,8 +10,8 @@ interface Position {
 export const useFollowPointer = (ref: React.RefObject<HTMLElement | null>): Position => {
     let xh=0,yh=0;
     if (typeof window !== 'undefined') {
-        xh=window.innerWidth/2 -100
-        yh=window.innerHeight/2 -100
+        xh=window.innerWidth/2 -50
+        yh=window.innerHeight/2 -50
     }
   const [position, setPosition] = useState<Position>({ x: xh, y: yh });
 
