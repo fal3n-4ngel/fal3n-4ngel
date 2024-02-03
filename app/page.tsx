@@ -237,7 +237,7 @@ export default function Home() {
             </FadeUp>
             <FadeUp>
               <ProjBox
-                url1="/Sustain.png"
+                url1="/Sustaina1.png"
                 name="SUS GOALS"
                 type="website"
                 event="college project"
