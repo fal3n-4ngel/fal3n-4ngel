@@ -31,6 +31,7 @@ export default function Home() {
   const { x, y } = useFollowPointer(ref);
   const [interacting, setInteracting] = useState(false);
   const [projImage, setProjImage] = useState(false);
+  const [jbInter, setJbInter] = useState(false);
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
@@ -47,6 +48,9 @@ export default function Home() {
         const targetImage = e.target as HTMLElement; // Type casting to HTMLElement
         const interactableImage = targetImage.closest(".projImg");
         setProjImage(interactableImage ? true : false);
+        const targetJb = e.target as HTMLElement; // Type casting to HTMLElement
+        const interactablejB = targetJb.closest(".jB");
+        setJbInter(interactablejB ? true : false);
       }
     };
   }
@@ -130,10 +134,18 @@ export default function Home() {
             <div className="flex flex-col md:w-[60%] md:text-[2.3rem] leading-none text-xl">
               <div className="  overflow-hidden ">
                 <FadeUp>
-                  <div className="  md:m-10 m-5 ease-in interactable">
+                  <div className="  md:m-10 m-5 ease-in interactable ">
                     As a third-year undergraduate pursuing a Btech degree in
                     CSE, I am actively seeking internships and freelancing
-                    projects. ( I&apos;m currently jobless 🚶)
+                    projects.
+                    {/* <div
+                      className={` jB md:text-xl text-lg  text-[#ececec] dark:text-[#121212] ${
+                        jbInter ? "invert" : ""
+                      }`}
+                    >
+                      
+                      ( I&apos;m currently jobless )
+                    </div> */}
                   </div>
                 </FadeUp>
               </div>
