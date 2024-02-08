@@ -32,7 +32,7 @@ export default function Home() {
   const [interacting, setInteracting] = useState(false);
   const [projImage, setProjImage] = useState(false);
   const [jbInter, setJbInter] = useState(false);
-
+  const [offset,setOffset]=useState(0);
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -51,6 +51,12 @@ export default function Home() {
         const targetJb = e.target as HTMLElement; // Type casting to HTMLElement
         const interactablejB = targetJb.closest(".jB");
         setJbInter(interactablejB ? true : false);
+        if(interacting){
+          setOffset(50)
+        }
+        else{
+          setOffset(0)
+        }
       }
     };
   }
@@ -62,16 +68,16 @@ export default function Home() {
             position: "fixed",
             top: `0%`,
             left: `0%`,
-            height: "150px",
-            width: "150px",
+            height: "200px",
+            width: "200px",
           }}
           animate={{
-            x: x,
-            y: y,
+            x: x-offset,
+            y: y-offset,
             top: 0,
             left: 0,
-            width: `${interacting ? "150px" : "40px"}`,
-            height: `${interacting ? "150px" : "40px"}`,
+            width: `${interacting ? "200px" : "40px"}`,
+            height: `${interacting ? "200px" : "40px"}`,
           }}
           className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
             !projImage ? "mix-blend-difference" : "mix-blend-difference"
