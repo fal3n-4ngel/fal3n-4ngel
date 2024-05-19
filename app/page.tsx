@@ -220,7 +220,7 @@ export default function Home() {
                 <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold ">
                   skills
                 </div>
-                <div className="flex flex-col font-normal space-y-1 text-justify">
+                <div className="flex flex-col font-normal space-y-1 text-start">
                   <div>Nextjs ,Reactjs ,Angular ,Flutter </div>
                   <div>C , Java , Python , C#</div>
                   <div>Firebase , MongoDB , Sql</div>
