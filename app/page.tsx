@@ -32,7 +32,7 @@ export default function Home() {
   const [interacting, setInteracting] = useState(false);
   const [projImage, setProjImage] = useState(false);
   const [jbInter, setJbInter] = useState(false);
-  const [offset,setOffset]=useState(0);
+  const [offset, setOffset] = useState(0);
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -51,11 +51,10 @@ export default function Home() {
         const targetJb = e.target as HTMLElement; // Type casting to HTMLElement
         const interactablejB = targetJb.closest(".jB");
         setJbInter(interactablejB ? true : false);
-        if(interacting){
-          setOffset(50)
-        }
-        else{
-          setOffset(0)
+        if (interacting) {
+          setOffset(50);
+        } else {
+          setOffset(0);
         }
       }
     };
@@ -72,8 +71,8 @@ export default function Home() {
             width: "200px",
           }}
           animate={{
-            x: x-offset,
-            y: y-offset,
+            x: x - offset,
+            y: y - offset,
             top: 0,
             left: 0,
             width: `${interacting ? "200px" : "40px"}`,
@@ -180,6 +179,14 @@ export default function Home() {
                 </div>
               </FadeUp>
               <FadeUp>
+                <div className="py-1 interactable">
+                  <div className="font-semibold">
+                    Frontend Developer Intern
+                    <span className="text-md text-gray-400"></span>
+                  </div>
+                  <div>Oronium</div>
+                  <div className="font-sans text-gray-400">April 2024 - Present</div>
+                </div>
                 <div className="py-1 interactable">
                   <div className="font-semibold">
                     Full stack developer
