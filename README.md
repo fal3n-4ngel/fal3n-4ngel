@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"/>
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<div>
+    
+# Adithya Krishnan 
+
 ```
+    💼 Third Year BTech in CSE @ MBCET 
+    💻 Full Stack Developer | Cinephile
+    ⚡  Codes anything as long it's fun
+    💫 Anime • Music • Code • Sleep 
+```
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## My Tech Stack
+[![My Skills](https://skillicons.dev/icons?i=next,angular,react,flutter,tailwind,firebase,dotnet,java,python,c,cs,typescript,mongodb,mysql,&theme=light)](https://github.com/fal3n-4ngel/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Stats
 
-## Learn More
+ ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true)
 
-To learn more about Next.js, take a look at the following resources:
+<p align="center">
+<h2 align='center'> Find Me On </h2>
+</p>
+<p align="center"> 
+  <a href="https://twitter.com/fal3n_4ngel" target="_blank">
+  <img src='https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white'>
+  </a>
+  
+  <a href="https://www.linkedin.com/in/fal3n-4ngel/" target="_blank">
+  <img src='https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white'>
+   </a>
+  
+  <a href="https://github.com/fal3n-4ngel/" target="_blank">
+  <img src='https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white'>
+  </a>
+  <a href="https://g.dev/fal3n-4ngel" target="_blank">
+  <img src='https://img.shields.io/badge/google%20developers-3DDC84?style=for-the-badge&logo=android&logoColor=white'>
+  </a>
+</p>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<p align="center">
+<img
+    width="100"
+    src="https://media1.giphy.com/media/3o7WIx7urV838kHFzW/giphy.gif"
+  />
+</p>
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
