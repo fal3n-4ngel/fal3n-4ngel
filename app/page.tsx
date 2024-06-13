@@ -184,7 +184,7 @@ export default function Home() {
                     Frontend Developer Intern
                     <span className="text-md text-gray-400"></span>
                   </div>
-                  <div>Oronium</div>
+                  <div>Oronium - (remote)</div>
                   <div className="font-sans text-gray-400">
                     April 2024 - Present
                   </div>
@@ -230,11 +230,11 @@ export default function Home() {
                   skills
                 </div>
                 <div className="flex flex-col font-normal space-y-1 text-start">
-                  <div>Nextjs ,Reactjs ,Angular ,Flutter </div>
-                  <div>C , Java , Python , C#</div>
-                  <div>Firebase , MongoDB , Sql</div>
-                  <div>Typescript, Tailwind, Framer Motion , Gsap</div>
-                  <div> .NET , Kotlin, Jetpack Compose</div>
+                  <div>Nextjs, Reactjs, Angular, Flutter</div>
+                  <div>C, Java, Python, C#</div>
+                  <div>Firebase, MongoDB, SQL</div>
+                  <div>Typescript, Tailwind, Framer Motion, Gsap</div>
+                  <div>.NET, Kotlin, Jetpack Compose</div>
                 </div>
               </FadeUp>
               <FadeUp>
