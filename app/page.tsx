@@ -295,10 +295,10 @@ export default function Home() {
               <ProjBox
                 url1="/smartcertify.png"
                 name="SMART CERTIFY"
-                type="Web3 for India Winner"
+                type="Web3 for India "
                 event="Blockhash"
                 date="2023"
-                view="https://better-funds.vercel.app/"
+                view="https://github.com/Deflated-Pappadam/Smart-Certify"
               />
             </FadeUp>
             <FadeUp>
@@ -308,7 +308,7 @@ export default function Home() {
                 type="website - desktop"
                 event="hackathon"
                 date="2024"
-                view="https://github.com/Deflated-Pappadam/Smart-Certify"
+                view="https://better-funds.vercel.app/"
               />
             </FadeUp>
 
