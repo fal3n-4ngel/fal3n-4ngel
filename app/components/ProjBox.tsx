@@ -35,7 +35,7 @@ function ProjBox(props: projProps) {
             </div>
           </div>
         </div>
-        <a href={props.view}><img src="/Visit.png" alt="" className="md:w-[100px] md:h-[100px] w-[60px] h-[60px] animate-spin-slow interactable"></img></a>
+        <a target="_blank" rel="noopener noreferrer" href={props.view}><img src="/Visit.png" alt="" className="md:w-[100px] md:h-[100px] w-[60px] h-[60px] animate-spin-slow interactable"></img></a>
       </div>
     </div>
   );
