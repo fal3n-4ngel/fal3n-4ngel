@@ -185,7 +185,9 @@ export default function Home() {
                     <span className="text-md text-gray-400"></span>
                   </div>
                   <div>Oronium</div>
-                  <div className="font-sans text-gray-400">April 2024 - Present</div>
+                  <div className="font-sans text-gray-400">
+                    April 2024 - Present
+                  </div>
                 </div>
                 <div className="py-1 interactable">
                   <div className="font-semibold">
@@ -288,6 +290,28 @@ export default function Home() {
                 view="https://flashdrive-f2an.vercel.app/"
               />
             </FadeUp>
+
+            <FadeUp>
+              <ProjBox
+                url1="/smartcertify.png"
+                name="SMART CERTIFY"
+                type="Web3 for India Winner"
+                event="Blockhash"
+                date="2023"
+                view="https://better-funds.vercel.app/"
+              />
+            </FadeUp>
+            <FadeUp>
+              <ProjBox
+                url1="/betterfunds.png"
+                name="BETTER FUNDS"
+                type="website - desktop"
+                event="hackathon"
+                date="2024"
+                view="https://github.com/Deflated-Pappadam/Smart-Certify"
+              />
+            </FadeUp>
+
             <FadeUp>
               <ProjBox
                 url1="/Sustaina1.png"
