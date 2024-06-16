@@ -60,7 +60,7 @@ export default function Home() {
     };
   }
   return (
-    <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212] text-black dark:text-white">
+    <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212] dark:custom-scrollbar-dark custom- text-black dark:text-white">
       <div>
         <motion.div
           style={{
@@ -141,8 +141,8 @@ export default function Home() {
                 <FadeUp>
                   <div className="  md:m-10 m-5 ease-in interactable ">
                     As a third-year undergraduate pursuing a Btech degree in
-                    CSE, I am actively seeking internships and freelancing
-                    projects.
+                    Computer Science and Engineering I am actively seeking
+                    internships and freelancing projects.
                     {/* <div
                       className={` jB md:text-xl text-lg  text-[#ececec] dark:text-[#121212] ${
                         jbInter ? "mix-blend-multiply" : ""
@@ -157,17 +157,17 @@ export default function Home() {
               <div className="  overflow-hidden">
                 <FadeUp>
                   <div className="  md:m-10 m-5 ease-in interactable">
-                    With a passion for bringing ideas to life, I thrive on
-                    solving puzzles, fixing bugs, tackling mind-boggling
-                    problems.
+                    I have a passion for bringing ideas to life, thriving on
+                    solving puzzles, fixing bugs, and tackling complex problems.
+                    
                   </div>
                 </FadeUp>
               </div>
               <div className="  overflow-hidden">
                 <FadeUp>
                   <div className="   md:m-10 m-5 ease-in interactable">
-                    I spent my free time either &lsquo;watching or reading or
-                    coding&rsquo; stupid stuff
+                   
+                    In my free time, you can find me engrossed in reading, coding or watching stupid stuffs. 
                   </div>
                 </FadeUp>
               </div>

@@ -12,7 +12,7 @@ type projProps = {
 
 function ProjBox(props: projProps) {
   return (
-    <div className="group md:w-[95%] md:h-[95%] overflow-hidden rounded-2xl text-white bg-[#191919] m-4">
+    <div className="group md:w-[95%] md:h-[95%] overflow-hidden rounded-2xl text-white bg-[#2d2d2d] dark:bg-[#191919] m-4">
       <Image
         src={props.url1}
         alt=""
