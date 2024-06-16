@@ -167,7 +167,7 @@ export default function Home() {
                 <FadeUp>
                   <div className="   md:m-10 m-5 ease-in interactable">
                    
-                    In my free time, you can find me engrossed in reading, coding or watching stupid stuffs. 
+                    In my free time, you can find me engrossed in &lsquo; watching, reading or coding &rsquo; stupid stuffs. 
                   </div>
                 </FadeUp>
               </div>
