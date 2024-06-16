@@ -198,22 +198,23 @@ export default function Home() {
                   <div className="font-sans text-gray-400">2022 - Present</div>
                 </div>
                 <div className="py-1 interactable">
-                  <div className="font-semibold">Techinal Co Lead </div>
-                  <div>IEEE MBCET Chapter</div>
-                  <div className="font-sans text-gray-400">
-                    Jan 2023 - Feb 2024
-                  </div>
-                </div>
-              </FadeUp>
-
-              <FadeUp>
-                <div className="py-1 interactable">
                   <div className="font-semibold">Student Intern</div>
                   <div>UST Global, Thirvanathapuram</div>
                   <div className="font-sans text-gray-400">
                     April 2023 - May 2023
                   </div>
                 </div>
+              </FadeUp>
+
+              <FadeUp>
+              <div className="py-1 interactable">
+                  <div className="font-semibold">Techinal Co Lead </div>
+                  <div>IEEE MBCET Chapter</div>
+                  <div className="font-sans text-gray-400">
+                    Jan 2023 - Feb 2024
+                  </div>
+                </div>
+               
                 <div className="py-1 interactable">
                   <div className="font-semibold">
                     Cloud Facilitator
