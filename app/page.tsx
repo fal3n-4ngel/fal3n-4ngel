@@ -60,7 +60,7 @@ export default function Home() {
     };
   }
   return (
-    <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212] dark:custom-scrollbar-dark custom- text-black dark:text-white">
+    <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212]  text-black dark:text-white">
       <div>
         <motion.div
           style={{
