@@ -136,10 +136,10 @@ export default function Home() {
 
         <section className=" w-full h-full ">
           <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins  min-h-screen">
-            <div className="flex flex-col md:w-[50%] md:text-[2.3rem] leading-none text-xl">
+            <div className="flex flex-col md:w-[50%] md:text-[2.3rem] md:leading-[45px] text-xl">
               <div className="  overflow-hidden ">
                 <FadeUp>
-                  <div className="  md:m-10 m-5 ease-in interactable ">
+                  <div className="md:mx-10 m-5 ease-in interactable ">
                     As a third-year undergraduate pursuing a Btech degree in
                     Computer Science and Engineering I am actively seeking
                     internships and freelancing projects.
@@ -154,25 +154,25 @@ export default function Home() {
                   </div>
                 </FadeUp>
               </div>
-              <div className="  overflow-hidden">
+              <div className="overflow-hidden">
                 <FadeUp>
-                  <div className="  md:m-10 m-5 ease-in interactable">
+                  <div className="  md:mx-10 m-5 ease-in interactable">
                     I have a passion for bringing ideas to life, thriving on
                     solving puzzles, fixing bugs, and tackling complex problems.
                     
                   </div>
                 </FadeUp>
               </div>
-              <div className="  overflow-hidden">
+              <div className="overflow-hidden">
                 <FadeUp>
-                  <div className="   md:m-10 m-5 ease-in interactable">
+                  <div className="md:mx-10 m-5 ease-in interactable">
                    
                     In my free time, you can find me engrossed in &lsquo; watching, reading or coding &rsquo; stupid stuffs. 
                   </div>
                 </FadeUp>
               </div>
             </div>
-            <div className="flex flex-col md:w-[50%] w-[90%] text-base md:pl-[20%] mx-auto tracking-wider ">
+            <div className="flex flex-col md:w-[50%] w-[90%] text-base md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
               <FadeUp>
                 <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold  ">
                   experience
