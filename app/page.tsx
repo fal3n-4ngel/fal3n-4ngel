@@ -18,6 +18,7 @@ import {
   RiLinkedinFill,
   RiMailFill,
 } from "react-icons/ri";
+import useSmoothScroll from "./utils/SmoothScroll";
 type Transition$1 =
   | {
       type: string; // The type can be more specific if necessary
@@ -59,6 +60,7 @@ export default function Home() {
       }
     };
   }
+  useSmoothScroll();
   return (
     <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212]  text-black dark:text-white">
       <div>
