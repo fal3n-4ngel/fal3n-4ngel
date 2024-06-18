@@ -90,7 +90,7 @@ export default function Home() {
         </motion.div>
       </div>
       <main
-        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#121212] text-black dark:text-white overflow-x-hidden"
+        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#111111] text-black dark:text-white overflow-x-hidden"
         ref={ref}
       >
         <div className="w-full fixed z-[10]">
@@ -99,9 +99,9 @@ export default function Home() {
 
         <section className="md:w-[70%] w-full justify-center  min-h-screen flex flex-col">
           <FadeUp className=" flex text-black  font-poppins ">
-            <h1 className="md:text-3xl text-xl p-5">Hello</h1>
+            <h1 className="md:text-[2vw] text-xl p-5">Hello,</h1>
           </FadeUp>
-          <div className="md:flex flex-col hidden tracking-tighter font-poppins-regular leading-none md:text-6xl text-[2.8rem] px-5 interactable w-fit">
+          <div className="md:flex flex-col hidden tracking-tighter font-poppins-regular leading-none md:text-[4vw] text-[2.8rem] px-5 interactable w-fit">
             <div className="md:max-h-[110px] overflow-hidden">
               <FadeUp className=" flex text-black   ">
                 I&apos;m Adithya Krishnan,
@@ -138,7 +138,7 @@ export default function Home() {
 
         <section className=" w-full h-full ">
           <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins  min-h-screen">
-            <div className="flex flex-col md:w-[50%] md:text-[2.3rem] md:leading-[45px] text-xl">
+            <div className="flex flex-col md:w-[50%] md:text-[2vw] md:leading-[45px] text-xl">
               <div className="  overflow-hidden ">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable ">
@@ -174,7 +174,7 @@ export default function Home() {
                 </FadeUp>
               </div>
             </div>
-            <div className="flex flex-col md:w-[50%] w-[90%] text-base md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
+            <div className="flex flex-col md:w-[50%] w-[90%] text-[0.85vw] md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
               <FadeUp>
                 <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold  ">
                   experience
