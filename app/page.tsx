@@ -97,11 +97,11 @@ export default function Home() {
           <Navbar />
         </div>
 
-        <section className="md:w-[70%] w-full justify-center  min-h-screen flex flex-col">
+        <section className="md:w-[80%] w-full justify-center  min-h-screen flex flex-col">
           <FadeUp className=" flex text-black  font-poppins ">
             <h1 className="md:text-[2vw] text-xl p-5">Hello,</h1>
           </FadeUp>
-          <div className="md:flex flex-col hidden tracking-tighter font-poppins-regular leading-none md:text-[4vw] text-[2.8rem] px-5 interactable w-fit">
+          <div className="md:flex flex-col hidden tracking-tighter font-poppins-regular leading-none md:text-[4.4vw] text-[2.8rem] px-5 interactable w-fit">
             <div className="md:max-h-[110px] overflow-hidden">
               <FadeUp className=" flex text-black   ">
                 I&apos;m Adithya Krishnan,
@@ -137,8 +137,8 @@ export default function Home() {
         </section>
 
         <section className=" w-full h-full ">
-          <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins  min-h-screen">
-            <div className="flex flex-col md:w-[50%] md:text-[2vw] md:leading-[45px] text-xl">
+          <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins-regular  min-h-screen">
+            <div className="flex flex-col md:w-[55vw] md:text-[2.1vw] md:leading-[55px] text-xl">
               <div className="  overflow-hidden ">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable ">
@@ -174,7 +174,7 @@ export default function Home() {
                 </FadeUp>
               </div>
             </div>
-            <div className="flex flex-col md:w-[50%] w-[90%] text-[0.85vw] md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
+            <div className="flex flex-col md:w-[50%] w-[90%] md:text-[0.85vw] md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
               <FadeUp>
                 <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold  ">
                   experience
@@ -349,9 +349,10 @@ export default function Home() {
             <FadeUp className="p-10 m-5">
               <a
                 href="https://github.com/fal3n-4ngel"
-                className="w-fit h-fit p-2 px-5 cursor-pointer hover:scale-105 interactable transition-all text-lg md:text-2xl font-poppins bg-[#121212] dark:bg-[#ececec] dark:text-black text-white rounded-full "
+                
+                className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full "
               >
-                View All Projects
+                discover more
               </a>
             </FadeUp>
           </div>
