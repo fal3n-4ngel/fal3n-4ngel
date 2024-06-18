@@ -138,7 +138,7 @@ export default function Home() {
 
         <section className=" w-full h-full ">
           <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins-regular  min-h-screen">
-            <div className="flex flex-col md:w-[55vw] md:text-[2.1vw] md:leading-[55px] text-xl">
+            <div className="flex flex-col md:w-[55vw] md:text-[2.1vw] md:leading-[3vw] text-xl">
               <div className="  overflow-hidden ">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable ">
@@ -174,9 +174,9 @@ export default function Home() {
                 </FadeUp>
               </div>
             </div>
-            <div className="flex flex-col md:w-[50%] w-[90%] md:text-[0.85vw] md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
+            <div className="flex flex-col md:w-[50%] w-[90%] md:text-[0.95vw] md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
               <FadeUp>
-                <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold  ">
+                <div className=" text-2xl md:text-[1.5vw] text-zinc-700 mt-5 py-2 font-semibold  ">
                   experience
                 </div>
               </FadeUp>
@@ -229,7 +229,7 @@ export default function Home() {
                 </div>
               </FadeUp>
               <FadeUp>
-                <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold ">
+                <div className=" text-2xl md:text-[1.5vw] text-zinc-700 mt-5 py-2 font-semibold ">
                   skills
                 </div>
                 <div className="flex flex-col font-normal space-y-1 text-start">
@@ -241,7 +241,7 @@ export default function Home() {
                 </div>
               </FadeUp>
               <FadeUp>
-                <div className=" text-2xl text-zinc-700 mt-5 py-2 font-semibold ">
+                <div className=" text-2xl md:text-[1.5vw] text-zinc-700 mt-5 py-2 font-semibold ">
                   awards
                 </div>
                 <div className="flex flex-col font-normal space-y-1">
