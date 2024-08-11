@@ -186,7 +186,7 @@ export default function Home() {
                     Nissan Digital LLP
                   </a>
                   <div className="font-sans text-gray-400">
-                    June 2024 - Present
+                    July 2024 - Present
                   </div>
                 </div>
                 <div className="py-1 interactable">
