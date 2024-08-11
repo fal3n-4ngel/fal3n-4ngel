@@ -139,37 +139,29 @@ export default function Home() {
         <section className=" w-full h-full ">
           <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins-regular  min-h-screen">
             <div className="flex flex-col md:w-[55vw] md:text-[2.1vw] md:leading-[3vw] text-xl">
-              <div className="  overflow-hidden ">
-                <FadeUp>
-                  <div className="md:mx-10 m-5 ease-in interactable ">
-                    As a third-year undergraduate pursuing a Btech degree in
-                    Computer Science and Engineering I am actively seeking
-                    internships and freelancing projects.
-                    {/* <div
-                      className={` jB md:text-xl text-lg  text-[#ececec] dark:text-[#121212] ${
-                        jbInter ? "mix-blend-multiply" : ""
-                      }`}
-                    >
-                      
-                      ( I&apos;m currently jobless )
-                    </div> */}
-                  </div>
-                </FadeUp>
-              </div>
               <div className="overflow-hidden">
                 <FadeUp>
-                  <div className="  md:mx-10 m-5 ease-in interactable">
-                    I have a passion for bringing ideas to life, thriving on
-                    solving puzzles, fixing bugs, and tackling complex problems.
-                    
+                  <div className="md:mx-10 m-5 ease-in interactable">
+                    As a final-year undergraduate pursuing a BTech degree in
+                    Computer Science and Engineering, I am currently engaged in
+                    an internship while actively seeking full-time job
+                    opportunities and freelance projects.
                   </div>
                 </FadeUp>
               </div>
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
-                   
-                    In my free time, you can find me engrossed in &lsquo; watching, reading or coding &rsquo; stupid stuffs. 
+                    I have a passion for bringing ideas to life, thriving on
+                    solving puzzles, fixing bugs, and tackling complex problems.
+                  </div>
+                </FadeUp>
+              </div>
+              <div className="overflow-hidden">
+                <FadeUp>
+                  <div className="md:mx-10 m-5 ease-in interactable">
+                    In my free time, you can find me engrossed in
+                    &lsquo;watching, reading or coding&rsquo; stupid stuff
                   </div>
                 </FadeUp>
               </div>
@@ -183,12 +175,34 @@ export default function Home() {
               <FadeUp>
                 <div className="py-1 interactable">
                   <div className="font-semibold">
-                    Frontend Developer Intern
+                    SDE Intern
                     <span className="text-md text-gray-400"></span>
                   </div>
-                  <div>Oronium - (remote)</div>
+                  <a
+                    href="https://www.nissanmotor.jobs/ami/india/ndi/index.html?ref=adithyakrishnan.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Nissan Digital LLP
+                  </a>
                   <div className="font-sans text-gray-400">
-                    April 2024 - Present
+                    June 2024 - Present
+                  </div>
+                </div>
+                <div className="py-1 interactable">
+                  <div className="font-semibold">
+                    Fullstack Developer Intern
+                    <span className="text-md text-gray-400"></span>
+                  </div>
+                  <a
+                    href="https://www.oronium.com?ref=adithyakrishnan.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Oronium - (remote)
+                  </a>
+                  <div className="font-sans text-gray-400">
+                    April 2024 - July 2024
                   </div>
                 </div>
                 <div className="py-1 interactable">
@@ -209,14 +223,14 @@ export default function Home() {
               </FadeUp>
 
               <FadeUp>
-              <div className="py-1 interactable">
+                <div className="py-1 interactable">
                   <div className="font-semibold">Techinal Co Lead </div>
                   <div>IEEE MBCET Chapter</div>
                   <div className="font-sans text-gray-400">
                     Jan 2023 - Feb 2024
                   </div>
                 </div>
-               
+
                 <div className="py-1 interactable">
                   <div className="font-semibold">
                     Cloud Facilitator
@@ -349,7 +363,6 @@ export default function Home() {
             <FadeUp className="p-10 m-5">
               <a
                 href="https://github.com/fal3n-4ngel"
-                
                 className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full "
               >
                 discover more
