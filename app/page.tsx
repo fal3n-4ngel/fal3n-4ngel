@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFollowPointer } from "./utils/FollowPointer";
 import { animate, motion, useAnimation } from "framer-motion";
 import Navbar from "./components/Navbar";
@@ -19,6 +19,8 @@ import {
   RiMailFill,
 } from "react-icons/ri";
 import useSmoothScroll from "./utils/SmoothScroll";
+import DynamicPlaceholder from "./components/DynamicaPlaceholder";
+import ProjBoxGithub from "./components/ProjectBoxGithub";
 type Transition$1 =
   | {
       type: string; // The type can be more specific if necessary
@@ -27,6 +29,16 @@ type Transition$1 =
     }
   | undefined;
 
+  type Repo = {
+    id: number;
+    name: string;
+    html_url: string;
+    description: string;
+    created_at: string;
+    fork: boolean;
+    stargazers_count: number;
+  };
+
 export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
@@ -34,6 +46,14 @@ export default function Home() {
   const [projImage, setProjImage] = useState(false);
   const [jbInter, setJbInter] = useState(false);
   const [offset, setOffset] = useState(0);
+  const [repos, setRepos] = useState<Repo[]>([]);
+  const [showMore, setShowMore] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  
+
+  // Toggle "discover more" section
+  const toggleMore = () => setShowMore(!showMore);
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -60,6 +80,37 @@ export default function Home() {
       }
     };
   }
+   // Fetch GitHub repositories
+   useEffect(() => {
+    async function fetchRepos() {
+      const response = await fetch("https://api.github.com/users/fal3n-4ngel/repos");
+      const data = await response.json();
+
+      // Filter to exclude forks and repos with 0 stars
+      const filteredRepos = data
+       .filter((repo: Repo) => !repo.fork || repo.stargazers_count > 0)
+        // Sort by stars (descending) and by creation date (latest)
+        .sort((a: Repo, b: Repo) => {
+          if (b.stargazers_count === a.stargazers_count || b.stargazers_count != a.stargazers_count) {
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          }
+          return b.stargazers_count - a.stargazers_count;
+        });
+
+      setRepos(filteredRepos);
+    }
+    fetchRepos();
+  }, []);
+  // Show next 3 projects
+  const showMoreProjects = () => {
+    setVisibleCount((prevCount) => Math.min(prevCount + 3, repos.length));
+  };
+
+  // Show less, resetting to initial state (first 6 projects)
+  const showLessProjects = () => {
+    setVisibleCount(6);
+  };
+  
   useSmoothScroll();
   return (
     <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212]  text-black dark:text-white">
@@ -90,7 +141,7 @@ export default function Home() {
         </motion.div>
       </div>
       <main
-        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#111111] text-black dark:text-white overflow-x-hidden"
+        className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#0c0c0c] text-black dark:text-white overflow-x-hidden"
         ref={ref}
       >
         <div className="w-full fixed z-[10]">
@@ -296,7 +347,7 @@ export default function Home() {
             <div className="md:text-6xl text-5xl py-10">Projects</div>
           </FadeUp>
 
-          <div className="w-full h-full flex flex-col justify-center items-center">
+          <div className="w-full h-full flex  flex-wrap justify-center items-center">
             <FadeUp>
               <ProjBox
                 url1="/Flash1.png"
@@ -353,20 +404,65 @@ export default function Home() {
               {" "}
               <ProjBox
                 url1="/Ctrack.png"
-                name="C TRACKER"
+                name="C-TRACKER"
                 type="swing java"
                 event="micro project"
                 date="2023"
                 view="https://github.com/fal3n-4ngel/CTracker"
               />
             </FadeUp>
+           
+            {
+          repos.slice(0, visibleCount).map((repo) => (
+            <ProjBoxGithub
+              key={repo.id}
+              url1={Math.random() * 11} // Fetch image based on repo name
+              name={repo.name.toUpperCase()}
+              type="website"
+              event="GitHub project"
+              date={new Date(repo.created_at).getFullYear().toString()}
+              view={repo.html_url}
+            />
+          ))}
+        
+
+    
+
             <FadeUp className="p-10 m-5">
-              <a
-                href="https://github.com/fal3n-4ngel"
-                className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full "
-              >
-                discover more
-              </a>
+            <div className="p-10 m-5 flex flex-col items-center">
+          {/* Show More Button: If there are more projects to show */}
+          {visibleCount < repos.length && (
+            <button
+              onClick={showMoreProjects}
+              className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full mb-5"
+            >
+              Show More
+            </button>
+            
+          )}
+           
+
+          {/* Show Less Button: Only if more than the initial 6 projects are shown */}
+          {visibleCount > 6 && (
+            <button
+              onClick={showLessProjects}
+              className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
+            >
+              Show Less
+            </button>
+          )}
+          <div className="flex flex-col items-center mt-8 bg-[#f4f4f4] dark:bg-[#2e3440] p-2 rounded-full shadow-md text-center">
+      
+      <div className="flex items-center justify-center">
+        <svg className="w-6 h-6 mr-2 text-[#5e81ac] dark:text-[#88c0d0]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+        <p className="text-base font-light text-[#2e3440] dark:text-[#e5e9f0]">
+          Projects are dynamically fetched from GitHub
+        </p>
+      </div>
+    </div>
+        </div>
             </FadeUp>
           </div>
         </section>
