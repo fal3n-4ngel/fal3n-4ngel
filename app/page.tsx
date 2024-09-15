@@ -108,7 +108,7 @@ export default function Home() {
 
   // Show less, resetting to initial state (first 6 projects)
   const showLessProjects = () => {
-    setVisibleCount(6);
+    setVisibleCount((prevCount) => Math.min(prevCount - 3, repos.length));
   };
   
   useSmoothScroll();
@@ -443,7 +443,7 @@ export default function Home() {
            
 
           {/* Show Less Button: Only if more than the initial 6 projects are shown */}
-          {visibleCount > 6 && (
+          {visibleCount >= 3 && (
             <button
               onClick={showLessProjects}
               className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
