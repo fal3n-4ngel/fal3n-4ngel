@@ -453,11 +453,11 @@ export default function Home() {
           )}
           <div className="flex flex-col items-center mt-8 bg-[#f4f4f4] dark:bg-[#2e3440] p-2 rounded-full shadow-md text-center">
       
-      <div className="flex items-center justify-center">
-        <svg className="w-6 h-6 mr-2 text-[#5e81ac] dark:text-[#88c0d0]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="flex items-center justify-center w-full">
+        <svg className="w-6 h-6 md:mr-2 text-[#5e81ac] dark:text-[#88c0d0]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
         </svg>
-        <p className="text-base font-light text-[#2e3440] dark:text-[#e5e9f0]">
+        <p className="md:text-base font-light text-[#2e3440] dark:text-[#e5e9f0] text-xs">
           Projects are dynamically fetched from GitHub
         </p>
       </div>
