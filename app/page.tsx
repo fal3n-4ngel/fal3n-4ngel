@@ -436,7 +436,7 @@ export default function Home() {
               onClick={showMoreProjects}
               className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full mb-5"
             >
-              Show More
+              discover More
             </button>
             
           )}
@@ -448,7 +448,7 @@ export default function Home() {
               onClick={showLessProjects}
               className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
             >
-              Show Less
+              show Less
             </button>
           )}
           <div className="flex flex-col items-center mt-8 bg-[#f4f4f4] dark:bg-[#2e3440] p-2 rounded-full shadow-md text-center">
