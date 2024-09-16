@@ -1,33 +1,19 @@
-"use client";
-import Image from "next/image";
+"use client";;
 import { useEffect, useRef, useState } from "react";
 import { useFollowPointer } from "./utils/FollowPointer";
-import { animate, motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import FadeUp from "./components/FadeUp";
-import AnimatedTextCharacter from "./components/FadeUp";
-import FadeSide from "./components/FadeSide";
 import ProjBox from "./components/ProjBox";
 import {
-  RiArrowUpCircleFill,
   RiArrowUpCircleLine,
-  RiArrowUpDoubleFill,
-  RiArrowUpSFill,
   RiGithubFill,
   RiLinkedinBoxFill,
-  RiLinkedinFill,
   RiMailFill,
 } from "react-icons/ri";
 import useSmoothScroll from "./utils/SmoothScroll";
-import DynamicPlaceholder from "./components/DynamicaPlaceholder";
 import ProjBoxGithub from "./components/ProjectBoxGithub";
-type Transition$1 =
-  | {
-      type: string; // The type can be more specific if necessary
-      damping: number;
-      stiffness: number;
-    }
-  | undefined;
+
 
 type Repo = {
   id: number;
@@ -44,14 +30,10 @@ export default function Home() {
   const { x, y } = useFollowPointer(ref);
   const [interacting, setInteracting] = useState(false);
   const [projImage, setProjImage] = useState(false);
-  const [jbInter, setJbInter] = useState(false);
   const [offset, setOffset] = useState(0);
   const [repos, setRepos] = useState<Repo[]>([]);
-  const [showMore, setShowMore] = useState(false);
   const [visibleCount, setVisibleCount] = useState(0);
 
-  // Toggle "discover more" section
-  const toggleMore = () => setShowMore(!showMore);
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -61,15 +43,12 @@ export default function Home() {
   if (typeof window !== "undefined") {
     window.onmousemove = (e) => {
       if (e) {
-        const targetElement = e.target as HTMLElement; 
+        const targetElement = e.target as HTMLElement;
         const interactableElement = targetElement.closest(".interactable");
         setInteracting(interactableElement ? true : false);
         const targetImage = e.target as HTMLElement;
         const interactableImage = targetImage.closest(".projImg");
         setProjImage(interactableImage ? true : false);
-        const targetJb = e.target as HTMLElement; 
-        const interactablejB = targetJb.closest(".jB");
-        setJbInter(interactablejB ? true : false);
         if (interacting) {
           setOffset(50);
         } else {
@@ -78,7 +57,7 @@ export default function Home() {
       }
     };
   }
-  // Fetch GitHub repositories
+
   useEffect(() => {
     async function fetchRepos() {
       const response = await fetch(
@@ -86,10 +65,9 @@ export default function Home() {
       );
       const data = await response.json();
 
-      // Filter to exclude forks and repos with 0 stars
       const filteredRepos = data
         .filter((repo: Repo) => !repo.fork || repo.stargazers_count > 0)
-        // Sort by stars (descending) and by creation date (latest)
+
         .sort((a: Repo, b: Repo) => {
           if (
             b.stargazers_count === a.stargazers_count ||
@@ -107,12 +85,11 @@ export default function Home() {
     }
     fetchRepos();
   }, []);
- 
+
   const showMoreProjects = () => {
     setVisibleCount((prevCount) => Math.min(prevCount + 3, repos.length));
   };
 
- 
   const showLessProjects = () => {
     setVisibleCount((prevCount) => Math.min(prevCount - 3, repos.length));
   };
@@ -138,13 +115,11 @@ export default function Home() {
             height: `${interacting ? "200px" : "40px"}`,
           }}
           className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
-            !projImage ? "mix-blend-difference" : "mix-blend-difference"
+            !projImage
+              ? "mix-blend-difference"
+              : " opacity-0 transition-all duration-300 overflow-hidden"
           } `}
-        >
-          {/* {projImage?
-          <a href=""><img src="/Visit.png" alt="" className=" animate-spin-slow "></img></a>
-        :<div></div>} */}
-        </motion.div>
+        ></motion.div>
       </div>
       <main
         className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#0c0c0c] text-black dark:text-white overflow-x-hidden"
@@ -166,13 +141,11 @@ export default function Home() {
             </div>
             <div className="md:max-h-[115px] h-[80px] overflow-hidden">
               <FadeUp className="  text-black   ">
-                a  developer with a highly
+                a developer with a highly
               </FadeUp>
             </div>
             <div className="md:max-h-[115px] h-[80px] overflow-hidden">
-              <FadeUp className=" text-black   ">
-                distractable brain.
-              </FadeUp>
+              <FadeUp className=" text-black   ">distractable brain.</FadeUp>
             </div>
           </div>
           <div className="md:hidden flex flex-col  tracking-tighter leading-none md:text-6xl space-grotesk text-4xl px-5 interactable text-left">
@@ -200,30 +173,32 @@ export default function Home() {
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
                     As a final-year undergraduate pursuing a BTech degree in
-                    Computer Science and Engineering, I am currently engaged in
-                    an internship while actively seeking full-time job
-                    opportunities and freelance projects.
+                    Computer Science and Engineering, I`m currently interning
+                    while also on the lookout for full-time gigs and freelance
+                    projects.
                   </div>
                 </FadeUp>
               </div>
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
-                    I have a passion for bringing ideas to life, thriving on
-                    solving puzzles, fixing bugs, and tackling complex problems.
+                    I love bringing ideas to life, solving tricky puzzles,
+                    squashing bugs, and tackling complex challenges that get the
+                    gears turning
                   </div>
                 </FadeUp>
               </div>
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
-                    In my free time, you can find me either &lsquo; watching,
-                    reading or coding &rsquo; stupid stuff
+                    When I`m not working, you`ll catch me watching anime,
+                    reading random stuff, or tinkering with some fun/lame side
+                    projects.
                   </div>
                 </FadeUp>
               </div>
             </div>
-            <div className="flex flex-col md:w-[50%] w-[90%] md:text-[0.90vw] space-grotesk md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
+            <div className="flex flex-col md:w-[50%] w-[90%] md:text-[0.90vw] sm:space-grotek font-poppins-regular  md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
               <FadeUp>
                 <div className=" text-2xl md:text-[1.5vw] text-zinc-700 mt-5 py-2 font-semibold  ">
                   experience
@@ -256,7 +231,7 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Oronium - (remote)
+                    Oronium
                   </a>
                   <div className="font-sans text-gray-400">
                     April 2024 - July 2024
@@ -266,10 +241,16 @@ export default function Home() {
               <FadeUp>
                 <div className="py-1 interactable">
                   <div className="font-semibold">
-                    Full stack developer
+                    Fullstack Developer
                     <span className="text-md text-gray-400"></span>
                   </div>
-                  <div>deflated pappadam</div>
+                  <a
+                    href="https://github.com/Deflated-Pappadam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    deflated pappadam
+                  </a>
                   <div className="font-sans text-gray-400">2022 - Present</div>
                 </div>
                 <div className="py-1 interactable">
@@ -307,10 +288,13 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col font-normal space-y-1 text-start">
                   <div>Nextjs, Angularjs, .NET, Reactjs</div>
-                  <div>C, Java, Python, C#, Javascript, Typescript, Nix, Shell Scripting </div>
+                  <div>
+                    C, Java, Python, C#, Javascript, Typescript, Nix, Shell
+                    Scripting{" "}
+                  </div>
                   <div>Firebase, MongoDB, SQL</div>
                   <div>Tailwind, Framer Motion, Gsap</div>
-                  <div>.Flutter Kotlin, Jetpack Compose</div>
+                  <div>Flutter, Kotlin, Jetpack Compose</div>
                 </div>
               </FadeUp>
               <FadeUp>
@@ -423,7 +407,7 @@ export default function Home() {
             {repos.slice(0, visibleCount).map((repo) => (
               <ProjBoxGithub
                 key={repo.id}
-                url1={Math.random() * 11} // Fetch image based on repo name
+                url1={Math.random() * 11}
                 name={repo.name.toUpperCase()}
                 type="website"
                 event="GitHub project"
@@ -434,7 +418,6 @@ export default function Home() {
 
             <FadeUp className="p-10 m-5">
               <div className="p-10 m-5 flex flex-col items-center">
-              
                 {visibleCount < repos.length && (
                   <button
                     onClick={showMoreProjects}
@@ -444,7 +427,6 @@ export default function Home() {
                   </button>
                 )}
 
-              
                 {visibleCount >= 3 && (
                   <button
                     onClick={showLessProjects}
@@ -455,9 +437,8 @@ export default function Home() {
                 )}
                 <div className="flex flex-col w-full  items-center mt-8  p-2 rounded-full shadow-md text-center">
                   <div className="flex items-center justify-center w-full">
-                   
                     <p className="md:text-base font-light text-[#2e3440] dark:text-[#e5e9f0] text-xs">
-                      Projects are dynamically fetched through GitHub Api 
+                      Projects are dynamically fetched through GitHub Api
                     </p>
                   </div>
                 </div>
