@@ -7,12 +7,14 @@ import FadeUp from "./components/FadeUp";
 import ProjBox from "./components/ProjBox";
 import {
   RiArrowUpCircleLine,
+  RiFile2Fill,
   RiGithubFill,
   RiLinkedinBoxFill,
   RiMailFill,
 } from "react-icons/ri";
 import useSmoothScroll from "./utils/SmoothScroll";
 import ProjBoxGithub from "./components/ProjectBoxGithub";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 type Repo = {
   id: number;
@@ -96,6 +98,7 @@ export default function Home() {
   useSmoothScroll();
   return (
     <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212]  text-black dark:text-white">
+      <GoogleAnalytics trackPageViews />
       <div>
         <motion.div
           style={{
@@ -453,7 +456,7 @@ export default function Home() {
             <div className="items-start flex justify-start w-fit md:p-0 p-10 text-center">
               © Adithya Krishnan 2024.
             </div>
-            <div className="flex  md:flex-row flex-col min-w-[400px]  md:justify-between justify-start items-center text-justify ">
+            <div className="flex  md:flex-row flex-col min-w-[600px]  md:justify-between justify-start items-center text-justify ">
               <div className="flex flex-col md:flex-row items-start md:justify-between md:w-full">
                 <a
                   href="https://github.com/fal3n-4ngel"
@@ -474,6 +477,15 @@ export default function Home() {
                 >
                   <RiMailFill className="h-6 w-6" />
                   Email
+                </a>
+                <a
+                  href="/Resume- Adithya Krishnan.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"
+                >
+                  <RiFile2Fill className="h-6 w-6" />
+                  Resume
                 </a>
               </div>
             </div>
