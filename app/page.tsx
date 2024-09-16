@@ -29,15 +29,15 @@ type Transition$1 =
     }
   | undefined;
 
-  type Repo = {
-    id: number;
-    name: string;
-    html_url: string;
-    description: string;
-    created_at: string;
-    fork: boolean;
-    stargazers_count: number;
-  };
+type Repo = {
+  id: number;
+  name: string;
+  html_url: string;
+  description: string;
+  created_at: string;
+  fork: boolean;
+  stargazers_count: number;
+};
 
 export default function Home() {
   const ref = useRef(null);
@@ -50,8 +50,6 @@ export default function Home() {
   const [showMore, setShowMore] = useState(false);
   const [visibleCount, setVisibleCount] = useState(0);
 
-  
-
   // Toggle "discover more" section
   const toggleMore = () => setShowMore(!showMore);
   const scrollToTop = () => {
@@ -63,13 +61,13 @@ export default function Home() {
   if (typeof window !== "undefined") {
     window.onmousemove = (e) => {
       if (e) {
-        const targetElement = e.target as HTMLElement; // Type casting to HTMLElement
+        const targetElement = e.target as HTMLElement; 
         const interactableElement = targetElement.closest(".interactable");
         setInteracting(interactableElement ? true : false);
-        const targetImage = e.target as HTMLElement; // Type casting to HTMLElement
+        const targetImage = e.target as HTMLElement;
         const interactableImage = targetImage.closest(".projImg");
         setProjImage(interactableImage ? true : false);
-        const targetJb = e.target as HTMLElement; // Type casting to HTMLElement
+        const targetJb = e.target as HTMLElement; 
         const interactablejB = targetJb.closest(".jB");
         setJbInter(interactablejB ? true : false);
         if (interacting) {
@@ -80,19 +78,27 @@ export default function Home() {
       }
     };
   }
-   // Fetch GitHub repositories
-   useEffect(() => {
+  // Fetch GitHub repositories
+  useEffect(() => {
     async function fetchRepos() {
-      const response = await fetch("https://api.github.com/users/fal3n-4ngel/repos");
+      const response = await fetch(
+        "https://api.github.com/users/fal3n-4ngel/repos"
+      );
       const data = await response.json();
 
       // Filter to exclude forks and repos with 0 stars
       const filteredRepos = data
-       .filter((repo: Repo) => !repo.fork || repo.stargazers_count > 0)
+        .filter((repo: Repo) => !repo.fork || repo.stargazers_count > 0)
         // Sort by stars (descending) and by creation date (latest)
         .sort((a: Repo, b: Repo) => {
-          if (b.stargazers_count === a.stargazers_count || b.stargazers_count != a.stargazers_count) {
-            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          if (
+            b.stargazers_count === a.stargazers_count ||
+            b.stargazers_count != a.stargazers_count
+          ) {
+            return (
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime()
+            );
           }
           return b.stargazers_count - a.stargazers_count;
         });
@@ -101,16 +107,16 @@ export default function Home() {
     }
     fetchRepos();
   }, []);
-  // Show next 3 projects
+ 
   const showMoreProjects = () => {
     setVisibleCount((prevCount) => Math.min(prevCount + 3, repos.length));
   };
 
-  // Show less, resetting to initial state (first 6 projects)
+ 
   const showLessProjects = () => {
     setVisibleCount((prevCount) => Math.min(prevCount - 3, repos.length));
   };
-  
+
   useSmoothScroll();
   return (
     <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212]  text-black dark:text-white">
@@ -149,47 +155,47 @@ export default function Home() {
         </div>
 
         <section className="md:w-[80%] w-full justify-center  min-h-screen flex flex-col">
-          <FadeUp className=" flex text-black  font-poppins ">
+          <FadeUp className=" flex text-black  space-grotesk ">
             <h1 className="md:text-[2vw] text-xl p-5">Hello,</h1>
           </FadeUp>
-          <div className="md:flex flex-col hidden tracking-tighter font-poppins-regular leading-none md:text-[4.4vw] text-[2.8rem] px-5 interactable w-fit">
-            <div className="md:max-h-[110px] overflow-hidden">
+          <div className="md:flex flex-col hidden tracking-tighter space-grotesk leading-none md:text-[4.4vw] text-[2.8rem] px-5 interactable w-fit">
+            <div className="md:max-h-[115px] h-[80px] overflow-hidden">
+              <FadeUp className=" flex text-black   ">
+                I`m Adithya Krishnan,
+              </FadeUp>
+            </div>
+            <div className="md:max-h-[115px] h-[80px] overflow-hidden">
+              <FadeUp className="  text-black   ">
+                a  developer with a highly
+              </FadeUp>
+            </div>
+            <div className="md:max-h-[115px] h-[80px] overflow-hidden">
+              <FadeUp className=" text-black   ">
+                distractable brain.
+              </FadeUp>
+            </div>
+          </div>
+          <div className="md:hidden flex flex-col  tracking-tighter leading-none md:text-6xl space-grotesk text-4xl px-5 interactable text-left">
+            <div className="h-[40px] overflow-hidden ">
               <FadeUp className=" flex text-black   ">
                 I&apos;m Adithya Krishnan,
               </FadeUp>
             </div>
-            <div className="md:max-h-[110px] overflow-hidden">
-              <FadeUp className="  text-black   ">
-                a Versatile developer who
-              </FadeUp>
-            </div>
-            <div className="md:max-h-[110px] overflow-hidden">
-              <FadeUp className=" text-black   ">
-                likes to code fun stuff.
-              </FadeUp>
-            </div>
-          </div>
-          <div className="md:hidden flex flex-col  tracking-tighter leading-none md:text-6xl text-4xl px-5 interactable text-left">
-            <div className="h-[40px] overflow-hidden ">
-              <FadeUp className=" flex text-black  font-poppins-regular ">
-                I&apos;m Adithya Krishnan,
-              </FadeUp>
+            <div className="h-[40px] overflow-hidden">
+              <FadeUp className="  text-black   ">a developer with</FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className="  text-black   ">a Versatile developer</FadeUp>
+              <FadeUp className="  text-black   ">a highly</FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className="  text-black   ">who likes to</FadeUp>
-            </div>
-            <div className="h-[40px] overflow-hidden">
-              <FadeUp className=" text-black ">code fun stuff.</FadeUp>
+              <FadeUp className=" text-black ">distractable brain.</FadeUp>
             </div>
           </div>
         </section>
 
         <section className=" w-full h-full ">
-          <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center font-poppins-regular  min-h-screen">
-            <div className="flex flex-col md:w-[55vw] md:text-[2.1vw] md:leading-[3vw] text-xl">
+          <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center space-grotesk min-h-screen">
+            <div className="flex flex-col md:w-[55vw] md:text-[2.2vw] md:leading-[3vw] text-xl">
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
@@ -211,13 +217,13 @@ export default function Home() {
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
-                    In my free time, you can find me engrossed in
-                    &lsquo;watching, reading or coding&rsquo; stupid stuff
+                    In my free time, you can find me either &lsquo; watching,
+                    reading or coding &rsquo; stupid stuff
                   </div>
                 </FadeUp>
               </div>
             </div>
-            <div className="flex flex-col md:w-[50%] w-[90%] md:text-[0.95vw] md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
+            <div className="flex flex-col md:w-[50%] w-[90%] md:text-[0.90vw] space-grotesk md:pl-[20%] mx-auto tracking-wider  md:leading-2 ">
               <FadeUp>
                 <div className=" text-2xl md:text-[1.5vw] text-zinc-700 mt-5 py-2 font-semibold  ">
                   experience
@@ -256,6 +262,8 @@ export default function Home() {
                     April 2024 - July 2024
                   </div>
                 </div>
+              </FadeUp>
+              <FadeUp>
                 <div className="py-1 interactable">
                   <div className="font-semibold">
                     Full stack developer
@@ -284,7 +292,7 @@ export default function Home() {
 
                 <div className="py-1 interactable">
                   <div className="font-semibold">
-                    Cloud Facilitator
+                    Google Cloud Facilitator
                     <span className="text-md text-gray-400"></span>
                   </div>
                   <div>GDSC MBCET</div>
@@ -298,11 +306,11 @@ export default function Home() {
                   skills
                 </div>
                 <div className="flex flex-col font-normal space-y-1 text-start">
-                  <div>Nextjs, Reactjs, Angular, Flutter</div>
-                  <div>C, Java, Python, C#</div>
+                  <div>Nextjs, Angularjs, .NET, Reactjs</div>
+                  <div>C, Java, Python, C#, Javascript, Typescript, Nix, Shell Scripting </div>
                   <div>Firebase, MongoDB, SQL</div>
-                  <div>Typescript, Tailwind, Framer Motion, Gsap</div>
-                  <div>.NET, Kotlin, Jetpack Compose</div>
+                  <div>Tailwind, Framer Motion, Gsap</div>
+                  <div>.Flutter Kotlin, Jetpack Compose</div>
                 </div>
               </FadeUp>
               <FadeUp>
@@ -411,58 +419,49 @@ export default function Home() {
                 view="https://github.com/fal3n-4ngel/CTracker"
               />
             </FadeUp>
-           
-            {
-          repos.slice(0, visibleCount).map((repo) => (
-            <ProjBoxGithub
-              key={repo.id}
-              url1={Math.random() * 11} // Fetch image based on repo name
-              name={repo.name.toUpperCase()}
-              type="website"
-              event="GitHub project"
-              date={new Date(repo.created_at).getFullYear().toString()}
-              view={repo.html_url}
-            />
-          ))}
-        
 
-    
+            {repos.slice(0, visibleCount).map((repo) => (
+              <ProjBoxGithub
+                key={repo.id}
+                url1={Math.random() * 11} // Fetch image based on repo name
+                name={repo.name.toUpperCase()}
+                type="website"
+                event="GitHub project"
+                date={new Date(repo.created_at).getFullYear().toString()}
+                view={repo.html_url}
+              />
+            ))}
 
             <FadeUp className="p-10 m-5">
-            <div className="p-10 m-5 flex flex-col items-center">
-          {/* Show More Button: If there are more projects to show */}
-          {visibleCount < repos.length && (
-            <button
-              onClick={showMoreProjects}
-              className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full mb-5"
-            >
-              discover More
-            </button>
-            
-          )}
-           
+              <div className="p-10 m-5 flex flex-col items-center">
+              
+                {visibleCount < repos.length && (
+                  <button
+                    onClick={showMoreProjects}
+                    className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full mb-5"
+                  >
+                    discover More
+                  </button>
+                )}
 
-          {/* Show Less Button: Only if more than the initial 6 projects are shown */}
-          {visibleCount >= 3 && (
-            <button
-              onClick={showLessProjects}
-              className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
-            >
-              show Less
-            </button>
-          )}
-          <div className="flex flex-col items-center mt-8 bg-[#f4f4f4] dark:bg-[#2e3440] p-2 rounded-full shadow-md text-center">
-      
-      <div className="flex items-center justify-center w-full">
-        <svg className="w-6 h-6 md:mr-2 text-[#5e81ac] dark:text-[#88c0d0]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-        </svg>
-        <p className="md:text-base font-light text-[#2e3440] dark:text-[#e5e9f0] text-xs">
-          Projects are dynamically fetched from GitHub
-        </p>
-      </div>
-    </div>
-        </div>
+              
+                {visibleCount >= 3 && (
+                  <button
+                    onClick={showLessProjects}
+                    className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
+                  >
+                    show Less
+                  </button>
+                )}
+                <div className="flex flex-col w-full  items-center mt-8  p-2 rounded-full shadow-md text-center">
+                  <div className="flex items-center justify-center w-full">
+                   
+                    <p className="md:text-base font-light text-[#2e3440] dark:text-[#e5e9f0] text-xs">
+                      Projects are dynamically fetched through GitHub Api 
+                    </p>
+                  </div>
+                </div>
+              </div>
             </FadeUp>
           </div>
         </section>
