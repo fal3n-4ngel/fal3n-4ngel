@@ -150,7 +150,7 @@ export default function Home() {
               <FadeUp className=" text-black   ">distractable brain.</FadeUp>
             </div>
           </div>
-          <div className="md:hidden flex flex-col  tracking-tighter leading-none md:text-6xl space-grotesk text-4xl px-5 interactable text-left">
+          <div className="md:hidden flex flex-col  tracking-tighter leading-none md:text-6xl space-grotesk text-[2.15 rem] px-5 interactable text-left">
             <div className="h-[40px] overflow-hidden ">
               <FadeUp className=" flex text-black   ">
                 I&apos;m Adithya Krishnan,
