@@ -17,7 +17,7 @@ function Navbar() {
           <div className='md:flex hidden '><DarkModeSwitch /></div>
           
         </div> */}
-      <a href="/" className="font-poppins md:text-[1.2vw] text-[2.0rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
+      <a href="/" className="font-poppins md:text-[1.2vw] text-[2.0rem] dark:text-white text-black hover:opacity-25 transition-all duration-300 md:min-w-[100px]">
         Adi.
       </a>
       <div className="md:flex hidden gap-8 items-center">

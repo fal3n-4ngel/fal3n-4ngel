@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { useFollowPointer } from "./utils/FollowPointer";
 import { motion } from "framer-motion";
@@ -13,7 +13,6 @@ import {
 } from "react-icons/ri";
 import useSmoothScroll from "./utils/SmoothScroll";
 import ProjBoxGithub from "./components/ProjectBoxGithub";
-
 
 type Repo = {
   id: number;
@@ -421,18 +420,21 @@ export default function Home() {
                 {visibleCount < repos.length && (
                   <button
                     onClick={showMoreProjects}
-                    className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full mb-5"
+                    className="flex  items-center gap-2 w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full mb-5"
                   >
-                    discover More
+                    <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
+                    discover more{" "}
+                    <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
                   </button>
                 )}
 
-                {visibleCount >= 3 && (
+                {visibleCount >= 1 && (
                   <button
                     onClick={showLessProjects}
-                    className="w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
+                    className="flex gap-2 items-center w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
                   >
-                    show Less
+                    <RiArrowUpCircleLine className="h-6 w-6 " /> collapse
+                    <RiArrowUpCircleLine className="h-6 w-6 " />
                   </button>
                 )}
                 <div className="flex flex-col w-full  items-center mt-8  p-2 rounded-full shadow-md text-center">
