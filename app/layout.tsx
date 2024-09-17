@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.adithyakrishnan.com"),
-  title: "Adithya Krishnan",
-  description: "Developer | Human | Cinephile",
+  title: "Adithya Krishnan ",
+  description: "a developer with a highly distractable brain",
   keywords: [
     "developer",
     "web development",
@@ -34,13 +34,22 @@ export const metadata: Metadata = {
     "mern stack",
     "react developer",
     "react",
+    "dotnet",
+    "dotnet developer",
+    "dotnet core",
+    ".net",
+    "c#",
+    "c sharp",
+    "c sharp developer",
+    "c sharp dotnet",
     "nextjs",
     "nissan",
     "nissan digital",
     "nissan digital india",
     "nissan digital india pvt ltd",
     "oronium",
-    "google",
+    "programmer",
+    "coding",
     "google developer",
     "google developer student clubs",
   ],
@@ -48,15 +57,16 @@ export const metadata: Metadata = {
   creator: "Adithya Krishnan",
   publisher: "Adithya Krishnan",
   openGraph: {
-    title: "Adithya Krishnan",
-    description: "Developer | Human | Cinephile",
+    title: "Adithya Krishnan ",
+    description: "a developer with a highly distractable brain",
     url: "https://www.adithyakrishnan.com",
     siteName: "Adithya Krishnan's Portfolio",
     images: [
       {
-        url: "/logo.png",
+        url: "https://www.adithyakrishnan.com/logo.png",
         width: 1200,
         height: 630,
+        alt: "Adithya Krishnan's Portfolio",
       },
     ],
     locale: "en_US",
@@ -64,9 +74,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Adithya Krishnan",
-    description: "Developer | Human | Cinephile",
-    images: ["/logo.png"],
+    title: "Adithya Krishnan ",
+    description: "a developer with a highly distractable brain",
+    images: ["https://www.adithyakrishnan.com/logo.png"],
+    creator: "@fal3n4ngel",
   },
   robots: {
     index: true,
@@ -82,6 +93,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
     apple: "/logo.png",
+    shortcut: "/logo.png",
+  },
+  alternates: {
+    canonical: "https://www.adithyakrishnan.com",
   },
 };
 
