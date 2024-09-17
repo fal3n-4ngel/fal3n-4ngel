@@ -1,37 +1,84 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import Image from "next/image";
+"use client";
 import Link from "next/link";
+import { RiArrowLeftCircleLine } from "react-icons/ri";
+import Navbar from "./components/Navbar";
+import { useFollowPointer } from "./utils/FollowPointer";
+import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+export default function Custom404() {
+  const ref = useRef(null);
+  const { x, y } = useFollowPointer(ref);
+  const [interacting, setInteracting] = useState(false);
+  const [projImage, setProjImage] = useState(false);
+  const [offset, setOffset] = useState(0);
 
-function Page() {
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  if (typeof window !== "undefined") {
+    window.onmousemove = (e) => {
+      if (e) {
+        const targetElement = e.target as HTMLElement;
+        const interactableElement = targetElement.closest(".interactable");
+        setInteracting(interactableElement ? true : false);
+        const targetImage = e.target as HTMLElement;
+        const interactableImage = targetImage.closest(".projImg");
+        setProjImage(interactableImage ? true : false);
+        if (interacting) {
+          setOffset(50);
+        } else {
+          setOffset(0);
+        }
+      }
+    };
+  }
   return (
-    <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212]  text-black dark:text-white flex flex-col justify-between items-center">
-      <div className="w-full fixed z-[10]">
+    <div className="w-full h-screen bg-[#121212] text-white flex flex-col justify-between items-center pb-10">
+      <div>
+        <motion.div
+          style={{
+            position: "fixed",
+            top: `0%`,
+            left: `0%`,
+            height: "200px",
+            width: "200px",
+          }}
+          animate={{
+            x: x - offset,
+            y: y - offset,
+            top: 0,
+            left: 0,
+            width: `${interacting ? "200px" : "40px"}`,
+            height: `${interacting ? "200px" : "40px"}`,
+          }}
+          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
+            !projImage
+              ? "mix-blend-difference"
+              : " opacity-0 transition-all duration-300 overflow-hidden"
+          } `}
+        >
+          <img src="/ghost.png"></img>
+        </motion.div>
+      </div>
+      <div
+        className="w-full h-full flex flex-col items-center justify-between pb-10"
+        ref={ref}
+      >
         <Navbar />
-      </div>
-      <div></div>
-      <div className="flex justify-center items-center flex-col">
-        <Image src="/404.png" alt="" width={400} height={400} className="md:hidden flex"></Image>
-        <Image src="/404.png" alt="" width={600} height={600} className="hidden md:flex"></Image>
-        <h2 className="font-poppins text-[1.5rem] md:text-[3rem] tracking-tighter text-center md:p-0 px-5">
-          404: I think you might be a little lost....
-        </h2>
-        <div className="flex md:flex-row flex-col gap-2 text-[1rem] font-medium ">
-          <div className="p-1  text-lg md:text-[1.1rem] font-light">
-            Why not visit my
-          </div>
+        <h1 className="text-[25vw] md:text-[9vw] font-light font-elgoc mb-8 interactable">
+          404
+        </h1>
 
-          <Link
-            href="/"
-            className="border-black border font-light rounded-full px-4 py-1 hover:bg-black hover:text-white text-center transition-all dark:border-white dark:hover:bg-[#3d3d3d]"
-          >
-            HOMEPAGE
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-xl hover:underline interactable uppercase space-grotesk"
+        >
+          Back to Homepage
+        </Link>
       </div>
-      <div></div>
     </div>
   );
 }
-
-export default Page;

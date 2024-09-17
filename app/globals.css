@@ -40,6 +40,13 @@ html,body {
   }
 }
 
+@font-face {
+  font-family: "Elgoc-Thin";
+  src: url("/fonts/Elgoc-Thin.otf");
+}
+
+
+
 .font-arone {
   font-family: "AR One Sans", sans-serif;
 }
