@@ -27,10 +27,10 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
           commit_message: Update Generated Readme
           branch: master
-          commit_user_name: readme-scribe 🤖
+          commit_user_name: fal3n-4ngel✨
           commit_user_email: actions@github.com
-          commit_author: readme-scribe 🤖 <actions@github.com>
+          commit_author: fal3n-4ngel✨ <actions@github.com>
