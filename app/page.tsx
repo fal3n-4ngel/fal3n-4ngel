@@ -136,18 +136,18 @@ export default function Home() {
             <h1 className="md:text-[2vw] text-xl p-5">Hello,</h1>
           </FadeUp>
           <div className="md:flex flex-col hidden tracking-tighter space-grotesk leading-none md:text-[4.4vw] text-[2.8rem] px-5 interactable w-fit">
-            <div className="md:max-h-[115px] h-[80px] overflow-hidden">
-              <FadeUp className=" flex text-black   ">
+            <div className="md:max-h-[115px] h-[90px] overflow-hidden">
+              <FadeUp className=" flex text-black ">
                 I`m Adithya Krishnan,
               </FadeUp>
             </div>
-            <div className="md:max-h-[115px] h-[80px] overflow-hidden">
-              <FadeUp className="  text-black   ">
+            <div className="md:max-h-[115px] h-[90px] overflow-hidden">
+              <FadeUp className="  text-black ">
                 a developer with a highly
               </FadeUp>
             </div>
-            <div className="md:max-h-[115px] h-[80px] overflow-hidden">
-              <FadeUp className=" text-black   ">distractable brain.</FadeUp>
+            <div className="md:max-h-[115px] h-[90px] overflow-hidden">
+              <FadeUp className=" text-black ">distractable brain.</FadeUp>
             </div>
           </div>
           <div className="md:hidden flex flex-col  tracking-tighter leading-none md:text-6xl space-grotesk text-[2.15rem] px-5 interactable text-left">
