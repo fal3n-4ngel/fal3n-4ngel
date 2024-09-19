@@ -23,26 +23,6 @@
 
  ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true)
 
-<p align="center">
-<h2 align='center'> Find Me On </h2>
-</p>
-<p align="center"> 
-  <a href="https://twitter.com/fal3n_4ngel" target="_blank">
-  <img src='https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white'>
-  </a>
-  
-  <a href="https://www.linkedin.com/in/fal3n-4ngel/" target="_blank">
-  <img src='https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white'>
-   </a>
-  
-  <a href="https://github.com/fal3n-4ngel/" target="_blank">
-  <img src='https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white'>
-  </a>
-  <a href="https://g.dev/fal3n-4ngel" target="_blank">
-  <img src='https://img.shields.io/badge/google%20developers-3DDC84?style=for-the-badge&logo=android&logoColor=white'>
-  </a>
-</p>
-
 <details>
   <summary>Check out what I'm currently working on</summary>
   
@@ -66,12 +46,35 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [wheremyfiji/ShikiWatch](https://github.com/wheremyfiji/ShikiWatch) - Unofficial Android and Windows application for Shikimori (today)
+  - [ThaUnknown/miru](https://github.com/ThaUnknown/miru) - Bittorrent streaming software for cats. Stream anime torrents, real-time with no waiting for downloads. (today)
+  - [questdb/questdb](https://github.com/questdb/questdb) - QuestDB is an open source time-series database for fast ingest and SQL queries (today)
+  - [kubepug/kubepug](https://github.com/kubepug/kubepug) - Kubernetes PreUpGrade (Checker) (today)
   - [Genymobile/scrcpy](https://github.com/Genymobile/scrcpy) - Display and control your Android device (1 day ago)
-  - [ChristinaMathews/Web-Assignment-1](https://github.com/ChristinaMathews/Web-Assignment-1) -  (2 days ago)
-  - [fal3n-4ngel/fal3n-4ngel](https://github.com/fal3n-4ngel/fal3n-4ngel) -  (4 days ago)
-  - [fal3n-4ngel/Project-Shelter](https://github.com/fal3n-4ngel/Project-Shelter) - Our project aims at providing a donation gateway aimed at aiding strayed animals. Via our medium, both the benefactors and the reciepents get maximum benefit as the entire processes is multi-ended and self sustained. Project Shelters guarantee that the benefactors are given a choice to profit off the NFTs minted, as a token for good intent. (4 days ago)
-  - [fal3n-4ngel/Cloud9](https://github.com/fal3n-4ngel/Cloud9) -  (4 days ago)
 </details>
+
+
+<p align="center">
+<h2 align='center'> Find Me On </h2>
+</p>
+<p align="center"> 
+  <a href="https://twitter.com/fal3n_4ngel" target="_blank">
+  <img src='https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white'>
+  </a>
+  
+  <a href="https://www.linkedin.com/in/fal3n-4ngel/" target="_blank">
+  <img src='https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white'>
+   </a>
+  
+  <a href="https://github.com/fal3n-4ngel/" target="_blank">
+  <img src='https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white'>
+  </a>
+  <a href="https://g.dev/fal3n-4ngel" target="_blank">
+  <img src='https://img.shields.io/badge/google%20developers-3DDC84?style=for-the-badge&logo=android&logoColor=white'>
+  </a>
+</p>
+
+
 
 
 <p align="center">
