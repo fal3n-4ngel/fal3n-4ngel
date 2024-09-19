@@ -43,6 +43,36 @@
   </a>
 </p>
 
+<details>
+  <summary>Check out what I'm currently working on</summary>
+  
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 days ago)
+  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (3 days ago)
+  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (3 days ago)
+  - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (3 days ago)
+  - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (4 days ago)
+</details>
+
+<details>
+  <summary>Lately, I have worked on</summary>
+  
+  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (4 days ago)
+  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (4 days ago)
+  - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (2 months ago)
+  - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (2 months ago)
+  - [update : description](https://github.com/Chackoz/Tuples/pull/3) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
+</details>
+
+<details>
+  <summary>These are super cool</summary>
+  
+  - [Genymobile/scrcpy](https://github.com/Genymobile/scrcpy) - Display and control your Android device (1 day ago)
+  - [ChristinaMathews/Web-Assignment-1](https://github.com/ChristinaMathews/Web-Assignment-1) -  (2 days ago)
+  - [fal3n-4ngel/fal3n-4ngel](https://github.com/fal3n-4ngel/fal3n-4ngel) -  (4 days ago)
+  - [fal3n-4ngel/Project-Shelter](https://github.com/fal3n-4ngel/Project-Shelter) - Our project aims at providing a donation gateway aimed at aiding strayed animals. Via our medium, both the benefactors and the reciepents get maximum benefit as the entire processes is multi-ended and self sustained. Project Shelters guarantee that the benefactors are given a choice to profit off the NFTs minted, as a token for good intent. (4 days ago)
+  - [fal3n-4ngel/Cloud9](https://github.com/fal3n-4ngel/Cloud9) -  (4 days ago)
+</details>
+
 
 <p align="center">
 <img
@@ -50,4 +80,8 @@
     src="https://media1.giphy.com/media/3o7WIx7urV838kHFzW/giphy.gif"
   />
 </p>
+
+
+
+
 
