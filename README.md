@@ -21,12 +21,12 @@
 
 ## Stats
 
- ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=tokyonight)
+ ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true)
 
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (1 week ago)
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (today)
   - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 week ago)
   - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (1 week ago)
