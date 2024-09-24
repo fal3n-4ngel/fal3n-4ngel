@@ -21,7 +21,7 @@
 
 ## Stats
 
- ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true)
+ ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=tokyonight)
 
 <details>
   <summary>Check out what I'm currently working on</summary>
