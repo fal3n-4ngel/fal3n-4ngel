@@ -26,7 +26,7 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (today)
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 days ago)
   - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 week ago)
   - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (1 week ago)
@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [wheremyfiji/ShikiWatch](https://github.com/wheremyfiji/ShikiWatch) - Unofficial Android and Windows application for Shikimori (5 days ago)
-  - [ThaUnknown/miru](https://github.com/ThaUnknown/miru) - Bittorrent streaming software for cats. Stream anime torrents, real-time with no waiting for downloads. (5 days ago)
-  - [questdb/questdb](https://github.com/questdb/questdb) - QuestDB is an open source time-series database for fast ingest and SQL queries (5 days ago)
-  - [kubepug/kubepug](https://github.com/kubepug/kubepug) - Kubernetes PreUpGrade (Checker) (5 days ago)
-  - [Genymobile/scrcpy](https://github.com/Genymobile/scrcpy) - Display and control your Android device (6 days ago)
+  - [wheremyfiji/ShikiWatch](https://github.com/wheremyfiji/ShikiWatch) - Unofficial Android and Windows application for Shikimori (1 week ago)
+  - [ThaUnknown/miru](https://github.com/ThaUnknown/miru) - Bittorrent streaming software for cats. Stream anime torrents, real-time with no waiting for downloads. (1 week ago)
+  - [questdb/questdb](https://github.com/questdb/questdb) - QuestDB is an open source time-series database for fast ingest and SQL queries (1 week ago)
+  - [kubepug/kubepug](https://github.com/kubepug/kubepug) - Kubernetes PreUpGrade (Checker) (1 week ago)
+  - [Genymobile/scrcpy](https://github.com/Genymobile/scrcpy) - Display and control your Android device (1 week ago)
 </details>
 
 
