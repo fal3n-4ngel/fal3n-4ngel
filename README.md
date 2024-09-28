@@ -26,7 +26,7 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 days ago)
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (4 days ago)
   - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 week ago)
   - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (1 week ago)
@@ -46,8 +46,8 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (today)
-  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (today)
+  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (2 days ago)
+  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (2 days ago)
   - [wheremyfiji/ShikiWatch](https://github.com/wheremyfiji/ShikiWatch) - Unofficial Android and Windows application for Shikimori (1 week ago)
   - [ThaUnknown/miru](https://github.com/ThaUnknown/miru) - Bittorrent streaming software for cats. Stream anime torrents, real-time with no waiting for downloads. (1 week ago)
   - [questdb/questdb](https://github.com/questdb/questdb) - QuestDB is an open source time-series database for fast ingest and SQL queries (1 week ago)
