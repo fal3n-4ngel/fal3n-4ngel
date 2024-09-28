@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [avinash201199/Competitions-and-Programs-List](https://github.com/avinash201199/Competitions-and-Programs-List) - List of competitions with details for college students to participate and  to enhance their skills. (today)
   - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (2 days ago)
   - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (2 days ago)
   - [wheremyfiji/ShikiWatch](https://github.com/wheremyfiji/ShikiWatch) - Unofficial Android and Windows application for Shikimori (1 week ago)
   - [ThaUnknown/miru](https://github.com/ThaUnknown/miru) - Bittorrent streaming software for cats. Stream anime torrents, real-time with no waiting for downloads. (1 week ago)
-  - [questdb/questdb](https://github.com/questdb/questdb) - QuestDB is an open source time-series database for fast ingest and SQL queries (1 week ago)
 </details>
 
 
