@@ -26,18 +26,18 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (4 days ago)
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (5 days ago)
   - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 week ago)
   - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (1 week ago)
-  - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (1 week ago)
+  - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (2 weeks ago)
 </details>
 
 <details>
   <summary>Lately, I have worked on</summary>
   
-  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 week ago)
-  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 week ago)
+  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (2 weeks ago)
+  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (2 weeks ago)
   - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
   - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
   - [update : description](https://github.com/Chackoz/Tuples/pull/3) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
@@ -46,9 +46,9 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [avinash201199/Competitions-and-Programs-List](https://github.com/avinash201199/Competitions-and-Programs-List) - List of competitions with details for college students to participate and  to enhance their skills. (today)
-  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (2 days ago)
-  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (2 days ago)
+  - [avinash201199/Competitions-and-Programs-List](https://github.com/avinash201199/Competitions-and-Programs-List) - List of competitions with details for college students to participate and  to enhance their skills. (1 day ago)
+  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (3 days ago)
+  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (3 days ago)
   - [wheremyfiji/ShikiWatch](https://github.com/wheremyfiji/ShikiWatch) - Unofficial Android and Windows application for Shikimori (1 week ago)
   - [ThaUnknown/miru](https://github.com/ThaUnknown/miru) - Bittorrent streaming software for cats. Stream anime torrents, real-time with no waiting for downloads. (1 week ago)
 </details>
