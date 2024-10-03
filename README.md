@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [linkfrg/dotfiles](https://github.com/linkfrg/dotfiles) - My Hyprland dotfiles (today)
-  - [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) - 🔥🕷️ Crawl4AI: Open-source LLM Friendly Web Crawler &amp; Scrapper (1 day ago)
-  - [avinash201199/Competitions-and-Programs-List](https://github.com/avinash201199/Competitions-and-Programs-List) - List of competitions with details for college students to participate and  to enhance their skills. (3 days ago)
-  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (5 days ago)
-  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (5 days ago)
+  - [linkfrg/dotfiles](https://github.com/linkfrg/dotfiles) - My Hyprland dotfiles (2 days ago)
+  - [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) - 🔥🕷️ Crawl4AI: Open-source LLM Friendly Web Crawler &amp; Scrapper (3 days ago)
+  - [avinash201199/Competitions-and-Programs-List](https://github.com/avinash201199/Competitions-and-Programs-List) - List of competitions with details for college students to participate and  to enhance their skills. (5 days ago)
+  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (1 week ago)
+  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (1 week ago)
 </details>
 
 
