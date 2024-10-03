@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [carbon-design-system/carbon](https://github.com/carbon-design-system/carbon) - A design system built by IBM (today)
+  - [mfts/papermark](https://github.com/mfts/papermark) - Papermark is the open-source DocSend alternative with built-in analytics and custom domains. (today)
+  - [akuse-app/akuse](https://github.com/akuse-app/akuse) - 🌸 Simple and easy to use anime streaming desktop app without ads. (today)
   - [linkfrg/dotfiles](https://github.com/linkfrg/dotfiles) - My Hyprland dotfiles (2 days ago)
   - [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) - 🔥🕷️ Crawl4AI: Open-source LLM Friendly Web Crawler &amp; Scrapper (3 days ago)
-  - [avinash201199/Competitions-and-Programs-List](https://github.com/avinash201199/Competitions-and-Programs-List) - List of competitions with details for college students to participate and  to enhance their skills. (5 days ago)
-  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (1 week ago)
-  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (1 week ago)
 </details>
 
 
