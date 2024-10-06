@@ -30,14 +30,14 @@
   - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (2 weeks ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (2 weeks ago)
   - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (2 weeks ago)
-  - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (2 weeks ago)
+  - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (3 weeks ago)
 </details>
 
 <details>
   <summary>Lately, I have worked on</summary>
   
-  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (2 weeks ago)
-  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (2 weeks ago)
+  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (3 weeks ago)
+  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (3 weeks ago)
   - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
   - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
   - [update : description](https://github.com/Chackoz/Tuples/pull/3) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [carbon-design-system/carbon](https://github.com/carbon-design-system/carbon) - A design system built by IBM (2 days ago)
-  - [mfts/papermark](https://github.com/mfts/papermark) - Papermark is the open-source DocSend alternative with built-in analytics and custom domains. (2 days ago)
-  - [akuse-app/akuse](https://github.com/akuse-app/akuse) - 🌸 Simple and easy to use anime streaming desktop app without ads. (2 days ago)
-  - [linkfrg/dotfiles](https://github.com/linkfrg/dotfiles) - My Hyprland dotfiles (4 days ago)
-  - [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) - 🔥🕷️ Crawl4AI: Open-source LLM Friendly Web Crawler &amp; Scrapper (5 days ago)
+  - [carbon-design-system/carbon](https://github.com/carbon-design-system/carbon) - A design system built by IBM (3 days ago)
+  - [mfts/papermark](https://github.com/mfts/papermark) - Papermark is the open-source DocSend alternative with built-in analytics and custom domains. (3 days ago)
+  - [akuse-app/akuse](https://github.com/akuse-app/akuse) - 🌸 Simple and easy to use anime streaming desktop app without ads. (3 days ago)
+  - [linkfrg/dotfiles](https://github.com/linkfrg/dotfiles) - My Hyprland dotfiles (5 days ago)
+  - [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) - 🔥🕷️ Crawl4AI: Open-source LLM Friendly Web Crawler &amp; Scrapper (6 days ago)
 </details>
 
 
