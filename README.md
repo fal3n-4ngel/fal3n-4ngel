@@ -26,10 +26,10 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (1 week ago)
-  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (2 weeks ago)
-  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (2 weeks ago)
-  - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (2 weeks ago)
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 weeks ago)
+  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (3 weeks ago)
+  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (3 weeks ago)
+  - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (3 weeks ago)
   - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (3 weeks ago)
 </details>
 
@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [carbon-design-system/carbon](https://github.com/carbon-design-system/carbon) - A design system built by IBM (3 days ago)
-  - [mfts/papermark](https://github.com/mfts/papermark) - Papermark is the open-source DocSend alternative with built-in analytics and custom domains. (3 days ago)
-  - [akuse-app/akuse](https://github.com/akuse-app/akuse) - 🌸 Simple and easy to use anime streaming desktop app without ads. (3 days ago)
-  - [linkfrg/dotfiles](https://github.com/linkfrg/dotfiles) - My Hyprland dotfiles (5 days ago)
-  - [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) - 🔥🕷️ Crawl4AI: Open-source LLM Friendly Web Crawler &amp; Scrapper (6 days ago)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (1 day ago)
+  - [codenoid/github-roast](https://github.com/codenoid/github-roast) - Spicy GitHub Roast 🔥 (1 day ago)
+  - [lukasz-madon/awesome-remote-job](https://github.com/lukasz-madon/awesome-remote-job) - A curated list of awesome remote jobs and resources. Inspired by https://github.com/vinta/awesome-python (1 day ago)
+  - [koeqaife/hyprland-material-you](https://github.com/koeqaife/hyprland-material-you) - Dynamic and elegant desktop setup inspired by Material You, featuring auto-generated colors, fluid animations, and ripple effects for a cohesive, customizable user experience. (1 day ago)
+  - [Ace-c/hypr-dots](https://github.com/Ace-c/hypr-dots) - Aesthetic and Clean dots for Arch hyprland (1 day ago)
 </details>
 
 
