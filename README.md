@@ -26,31 +26,31 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
+  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 day ago)
+  - [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) - A list of developer portfolios for your inspiration (1 day ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 day ago)
   - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 weeks ago)
-  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (3 weeks ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (3 weeks ago)
-  - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (3 weeks ago)
-  - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (3 weeks ago)
 </details>
 
 <details>
   <summary>Lately, I have worked on</summary>
   
+  - [feat : new entry - Adithya Krishnan](https://github.com/emmabostian/developer-portfolios/pull/1721) on [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) (1 day ago)
   - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (3 weeks ago)
   - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (3 weeks ago)
   - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
   - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
-  - [update : description](https://github.com/Chackoz/Tuples/pull/3) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
 </details>
 
 <details>
   <summary>These are super cool</summary>
   
-  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (3 days ago)
-  - [codenoid/github-roast](https://github.com/codenoid/github-roast) - Spicy GitHub Roast 🔥 (3 days ago)
-  - [lukasz-madon/awesome-remote-job](https://github.com/lukasz-madon/awesome-remote-job) - A curated list of awesome remote jobs and resources. Inspired by https://github.com/vinta/awesome-python (3 days ago)
-  - [koeqaife/hyprland-material-you](https://github.com/koeqaife/hyprland-material-you) - Dynamic and elegant desktop setup inspired by Material You, featuring auto-generated colors, fluid animations, and ripple effects for a cohesive, customizable user experience. (3 days ago)
-  - [Ace-c/hypr-dots](https://github.com/Ace-c/hypr-dots) - Aesthetic and Clean dots for Arch hyprland (3 days ago)
+  - [amuliyakandathil/academy2](https://github.com/amuliyakandathil/academy2) -  (1 day ago)
+  - [amuliyakandathil/microproject_rainfall_predication](https://github.com/amuliyakandathil/microproject_rainfall_predication) -  (1 day ago)
+  - [amuliyakandathil/final_mini_proj](https://github.com/amuliyakandathil/final_mini_proj) -  (1 day ago)
+  - [amuliyakandathil/Compiler-Design-lab](https://github.com/amuliyakandathil/Compiler-Design-lab) -  (1 day ago)
+  - [amuliyakandathil/Portfolio-Site](https://github.com/amuliyakandathil/Portfolio-Site) -  (1 day ago)
 </details>
 
 
