@@ -26,9 +26,9 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 day ago)
-  - [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) - A list of developer portfolios for your inspiration (1 day ago)
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 day ago)
+  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (2 days ago)
+  - [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) - A list of developer portfolios for your inspiration (2 days ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (2 days ago)
   - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 weeks ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (3 weeks ago)
 </details>
@@ -36,9 +36,9 @@
 <details>
   <summary>Lately, I have worked on</summary>
   
-  - [feat : new entry - Adithya Krishnan](https://github.com/emmabostian/developer-portfolios/pull/1721) on [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) (1 day ago)
-  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (3 weeks ago)
-  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (3 weeks ago)
+  - [feat : new entry - Adithya Krishnan](https://github.com/emmabostian/developer-portfolios/pull/1721) on [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) (2 days ago)
+  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (4 weeks ago)
+  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (4 weeks ago)
   - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
   - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
 </details>
@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [amuliyakandathil/academy2](https://github.com/amuliyakandathil/academy2) -  (1 day ago)
-  - [amuliyakandathil/microproject_rainfall_predication](https://github.com/amuliyakandathil/microproject_rainfall_predication) -  (1 day ago)
-  - [amuliyakandathil/final_mini_proj](https://github.com/amuliyakandathil/final_mini_proj) -  (1 day ago)
-  - [amuliyakandathil/Compiler-Design-lab](https://github.com/amuliyakandathil/Compiler-Design-lab) -  (1 day ago)
-  - [amuliyakandathil/Portfolio-Site](https://github.com/amuliyakandathil/Portfolio-Site) -  (1 day ago)
+  - [amuliyakandathil/academy2](https://github.com/amuliyakandathil/academy2) -  (2 days ago)
+  - [amuliyakandathil/microproject_rainfall_predication](https://github.com/amuliyakandathil/microproject_rainfall_predication) -  (2 days ago)
+  - [amuliyakandathil/final_mini_proj](https://github.com/amuliyakandathil/final_mini_proj) -  (2 days ago)
+  - [amuliyakandathil/Compiler-Design-lab](https://github.com/amuliyakandathil/Compiler-Design-lab) -  (2 days ago)
+  - [amuliyakandathil/Portfolio-Site](https://github.com/amuliyakandathil/Portfolio-Site) -  (2 days ago)
 </details>
 
 
