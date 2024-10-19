@@ -26,17 +26,17 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (1 day ago)
-  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (1 day ago)
-  - [fal3n-4ngel/treasurehunt-nissan](https://github.com/fal3n-4ngel/treasurehunt-nissan) -  (3 days ago)
-  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (6 days ago)
-  - [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) - A list of developer portfolios for your inspiration (6 days ago)
+  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (2 days ago)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (3 days ago)
+  - [fal3n-4ngel/treasurehunt-nissan](https://github.com/fal3n-4ngel/treasurehunt-nissan) -  (5 days ago)
+  - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
+  - [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) - A list of developer portfolios for your inspiration (1 week ago)
 </details>
 
 <details>
   <summary>Lately, I have worked on</summary>
   
-  - [feat : new entry - Adithya Krishnan](https://github.com/emmabostian/developer-portfolios/pull/1721) on [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) (6 days ago)
+  - [feat : new entry - Adithya Krishnan](https://github.com/emmabostian/developer-portfolios/pull/1721) on [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) (1 week ago)
   - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 month ago)
   - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 month ago)
   - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (2 days ago)
-  - [amuliyakandathil/academy2](https://github.com/amuliyakandathil/academy2) -  (6 days ago)
-  - [amuliyakandathil/microproject_rainfall_predication](https://github.com/amuliyakandathil/microproject_rainfall_predication) -  (6 days ago)
-  - [amuliyakandathil/final_mini_proj](https://github.com/amuliyakandathil/final_mini_proj) -  (6 days ago)
-  - [amuliyakandathil/Compiler-Design-lab](https://github.com/amuliyakandathil/Compiler-Design-lab) -  (6 days ago)
+  - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates) - Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins] (1 day ago)
+  - [anotherhadi/nixy](https://github.com/anotherhadi/nixy) - Nixy is a Hyprland NixOS configuration with home-manager, secrets and custom theming all in one place. It&#39;s a simple way to manage your system configuration and dotfiles. (1 day ago)
+  - [FelixKratz/SketchyBar](https://github.com/FelixKratz/SketchyBar) - A highly customizable macOS status bar replacement (2 days ago)
+  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (4 days ago)
+  - [amuliyakandathil/academy2](https://github.com/amuliyakandathil/academy2) -  (1 week ago)
 </details>
 
 
