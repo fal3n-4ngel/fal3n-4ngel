@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG) - &#34;LightRAG: Simple and Fast Retrieval-Augmented Generation&#34; (today)
   - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates) - Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins] (1 day ago)
   - [anotherhadi/nixy](https://github.com/anotherhadi/nixy) - Nixy is a Hyprland NixOS configuration with home-manager, secrets and custom theming all in one place. It&#39;s a simple way to manage your system configuration and dotfiles. (1 day ago)
   - [FelixKratz/SketchyBar](https://github.com/FelixKratz/SketchyBar) - A highly customizable macOS status bar replacement (2 days ago)
   - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (4 days ago)
-  - [amuliyakandathil/academy2](https://github.com/amuliyakandathil/academy2) -  (1 week ago)
 </details>
 
 
