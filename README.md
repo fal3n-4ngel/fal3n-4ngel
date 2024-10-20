@@ -30,7 +30,7 @@
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (4 days ago)
   - [fal3n-4ngel/treasurehunt-nissan](https://github.com/fal3n-4ngel/treasurehunt-nissan) -  (6 days ago)
   - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
-  - [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) - A list of developer portfolios for your inspiration (1 week ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
 </details>
 
 <details>
@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [orxngc/walls-catppuccin-mocha](https://github.com/orxngc/walls-catppuccin-mocha) - orangc&#39;s catppuccin wallpaper repository. (today)
   - [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG) - &#34;LightRAG: Simple and Fast Retrieval-Augmented Generation&#34; (1 day ago)
   - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates) - Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins] (2 days ago)
   - [anotherhadi/nixy](https://github.com/anotherhadi/nixy) - Nixy is a Hyprland NixOS configuration with home-manager, secrets and custom theming all in one place. It&#39;s a simple way to manage your system configuration and dotfiles. (2 days ago)
   - [FelixKratz/SketchyBar](https://github.com/FelixKratz/SketchyBar) - A highly customizable macOS status bar replacement (3 days ago)
-  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (5 days ago)
 </details>
 
 
