@@ -344,6 +344,16 @@ export default function Home() {
           <div className="w-full h-full flex  flex-wrap justify-center items-center">
             <FadeUp>
               <ProjBox
+                url1="/SOYO.png"
+                name="SOYO"
+                type="Stream Own Your Own"
+                event="side project"
+                date="2024"
+                view="https://github.com/fal3n-4ngel/SOYO"
+              />
+            </FadeUp>
+            <FadeUp>
+              <ProjBox
                 url1="/Flash1.png"
                 name="FLASH DRIVE"
                 type="website"
