@@ -26,7 +26,7 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [fal3n-4ngel/Soyo](https://github.com/fal3n-4ngel/Soyo) - SOYO - Stream Own Your Own Effortlessly stream files from your local system via Wi-Fi and enjoy your personal collection anywhere in your home. (today)
+  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via Wi-Fi and enjoy your personal collection anywhere in your home. (today)
   - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (3 days ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (4 days ago)
   - [fal3n-4ngel/treasurehunt-nissan](https://github.com/fal3n-4ngel/treasurehunt-nissan) -  (6 days ago)
@@ -46,7 +46,7 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [fal3n-4ngel/Soyo](https://github.com/fal3n-4ngel/Soyo) - SOYO - Stream Own Your Own Effortlessly stream files from your local system via Wi-Fi and enjoy your personal collection anywhere in your home. (today)
+  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via Wi-Fi and enjoy your personal collection anywhere in your home. (today)
   - [orxngc/walls-catppuccin-mocha](https://github.com/orxngc/walls-catppuccin-mocha) - orangc&#39;s catppuccin wallpaper repository. (today)
   - [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG) - &#34;LightRAG: Simple and Fast Retrieval-Augmented Generation&#34; (1 day ago)
   - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates) - Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins] (2 days ago)
