@@ -26,31 +26,31 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (4 days ago)
+  - [fal3n-4ngel/Soyo](https://github.com/fal3n-4ngel/Soyo) - SOYO - Stream Own Your Own Effortlessly stream files from your local system via Wi-Fi and enjoy your personal collection anywhere in your home. (today)
+  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (3 days ago)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (4 days ago)
+  - [fal3n-4ngel/treasurehunt-nissan](https://github.com/fal3n-4ngel/treasurehunt-nissan) -  (6 days ago)
   - [Chackoz/Tuples](https://github.com/Chackoz/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
-  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 week ago)
-  - [Chackoz/TuplesAi](https://github.com/Chackoz/TuplesAi) - Backend For Tuples (1 week ago)
-  - [fal3n-4ngel/readme](https://github.com/fal3n-4ngel/readme) -  (1 week ago)
 </details>
 
 <details>
   <summary>Lately, I have worked on</summary>
   
-  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 week ago)
-  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 week ago)
+  - [feat : new entry - Adithya Krishnan](https://github.com/emmabostian/developer-portfolios/pull/1721) on [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) (1 week ago)
+  - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 month ago)
+  - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 month ago)
   - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
   - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
-  - [update : description](https://github.com/Chackoz/Tuples/pull/3) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
 </details>
 
 <details>
   <summary>These are super cool</summary>
   
-  - [lllyasviel/stable-diffusion-webui-forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) -  (2 days ago)
-  - [Z4nzu/hackingtool](https://github.com/Z4nzu/hackingtool) - ALL IN ONE Hacking Tool For Hackers (2 days ago)
-  - [wheremyfiji/ShikiWatch](https://github.com/wheremyfiji/ShikiWatch) - Unofficial Android and Windows application for Shikimori (1 week ago)
-  - [ThaUnknown/miru](https://github.com/ThaUnknown/miru) - Bittorrent streaming software for cats. Stream anime torrents, real-time with no waiting for downloads. (1 week ago)
-  - [questdb/questdb](https://github.com/questdb/questdb) - QuestDB is an open source time-series database for fast ingest and SQL queries (1 week ago)
+  - [fal3n-4ngel/Soyo](https://github.com/fal3n-4ngel/Soyo) - SOYO - Stream Own Your Own Effortlessly stream files from your local system via Wi-Fi and enjoy your personal collection anywhere in your home. (today)
+  - [orxngc/walls-catppuccin-mocha](https://github.com/orxngc/walls-catppuccin-mocha) - orangc&#39;s catppuccin wallpaper repository. (today)
+  - [HKUDS/LightRAG](https://github.com/HKUDS/LightRAG) - &#34;LightRAG: Simple and Fast Retrieval-Augmented Generation&#34; (1 day ago)
+  - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates) - Dev environments for numerous languages based on Nix flakes [maintainer=@lucperkins] (2 days ago)
+  - [anotherhadi/nixy](https://github.com/anotherhadi/nixy) - Nixy is a Hyprland NixOS configuration with home-manager, secrets and custom theming all in one place. It&#39;s a simple way to manage your system configuration and dotfiles. (2 days ago)
 </details>
 
 
