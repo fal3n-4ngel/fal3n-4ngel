@@ -26,10 +26,10 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (1 day ago)
-  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (1 day ago)
-  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (5 days ago)
-  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (6 days ago)
+  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (3 days ago)
+  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (3 days ago)
+  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (1 week ago)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (1 week ago)
   - [fal3n-4ngel/treasurehunt-nissan](https://github.com/fal3n-4ngel/treasurehunt-nissan) -  (1 week ago)
 </details>
 
@@ -39,18 +39,18 @@
   - [feat : new entry - Adithya Krishnan](https://github.com/emmabostian/developer-portfolios/pull/1721) on [emmabostian/developer-portfolios](https://github.com/emmabostian/developer-portfolios) (1 week ago)
   - [feat : trusted section](https://github.com/Deflated-Pappadam/gamior/pull/3) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 month ago)
   - [feat : exclusive-collection page](https://github.com/Deflated-Pappadam/gamior/pull/2) on [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) (1 month ago)
-  - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
-  - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (3 months ago)
+  - [update : optimisations](https://github.com/Chackoz/Tuples/pull/5) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (4 months ago)
+  - [fix : api call optimisations](https://github.com/Chackoz/Tuples/pull/4) on [Chackoz/Tuples](https://github.com/Chackoz/Tuples) (4 months ago)
 </details>
 
 <details>
   <summary>These are super cool</summary>
   
-  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (1 day ago)
-  - [NodeArt/angular-commerce](https://github.com/NodeArt/angular-commerce) - Angular components for scaffolding online store (1 day ago)
-  - [Deflated-Pappadam/Trace-Protocol](https://github.com/Deflated-Pappadam/Trace-Protocol) - The TRaCE (Transparent Records and Commodity Exchange) protocol uniquely identifies each product marketed on our platform, linking it to its digital NFT counterpart. (2 days ago)
-  - [Deflated-Pappadam/Smart-Certify](https://github.com/Deflated-Pappadam/Smart-Certify) - &#34;Web3 for India &#34; Winner | BlockHash 2023 - kerala Block Chain Academy | A three tier certificate verification system using blockchian (2 days ago)
-  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (2 days ago)
+  - [anthropics/anthropic-quickstarts](https://github.com/anthropics/anthropic-quickstarts) - A collection of projects designed to help developers quickly get started with building deployable applications using the Anthropic API (today)
+  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (3 days ago)
+  - [NodeArt/angular-commerce](https://github.com/NodeArt/angular-commerce) - Angular components for scaffolding online store (3 days ago)
+  - [Deflated-Pappadam/Trace-Protocol](https://github.com/Deflated-Pappadam/Trace-Protocol) - The TRaCE (Transparent Records and Commodity Exchange) protocol uniquely identifies each product marketed on our platform, linking it to its digital NFT counterpart. (4 days ago)
+  - [Deflated-Pappadam/Smart-Certify](https://github.com/Deflated-Pappadam/Smart-Certify) - &#34;Web3 for India &#34; Winner | BlockHash 2023 - kerala Block Chain Academy | A three tier certificate verification system using blockchian (4 days ago)
 </details>
 
 
