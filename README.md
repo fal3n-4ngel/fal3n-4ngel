@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [foo-dogsquared/nixos-config](https://github.com/foo-dogsquared/nixos-config) - Aiming to be the most overkill NixOS config in the entire world. (today)
   - [anthropics/anthropic-quickstarts](https://github.com/anthropics/anthropic-quickstarts) - A collection of projects designed to help developers quickly get started with building deployable applications using the Anthropic API (today)
   - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (3 days ago)
   - [NodeArt/angular-commerce](https://github.com/NodeArt/angular-commerce) - Angular components for scaffolding online store (3 days ago)
   - [Deflated-Pappadam/Trace-Protocol](https://github.com/Deflated-Pappadam/Trace-Protocol) - The TRaCE (Transparent Records and Commodity Exchange) protocol uniquely identifies each product marketed on our platform, linking it to its digital NFT counterpart. (4 days ago)
-  - [Deflated-Pappadam/Smart-Certify](https://github.com/Deflated-Pappadam/Smart-Certify) - &#34;Web3 for India &#34; Winner | BlockHash 2023 - kerala Block Chain Academy | A three tier certificate verification system using blockchian (4 days ago)
 </details>
 
 
