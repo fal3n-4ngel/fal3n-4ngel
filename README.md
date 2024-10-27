@@ -26,11 +26,11 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (5 days ago)
-  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (5 days ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (today)
+  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (6 days ago)
+  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (6 days ago)
   - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (1 week ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (1 week ago)
-  - [fal3n-4ngel/treasurehunt-nissan](https://github.com/fal3n-4ngel/treasurehunt-nissan) -  (1 week ago)
 </details>
 
 <details>
@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [foo-dogsquared/nixos-config](https://github.com/foo-dogsquared/nixos-config) - Aiming to be the most overkill NixOS config in the entire world. (2 days ago)
-  - [anthropics/anthropic-quickstarts](https://github.com/anthropics/anthropic-quickstarts) - A collection of projects designed to help developers quickly get started with building deployable applications using the Anthropic API (2 days ago)
-  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (5 days ago)
-  - [NodeArt/angular-commerce](https://github.com/NodeArt/angular-commerce) - Angular components for scaffolding online store (5 days ago)
-  - [Deflated-Pappadam/Trace-Protocol](https://github.com/Deflated-Pappadam/Trace-Protocol) - The TRaCE (Transparent Records and Commodity Exchange) protocol uniquely identifies each product marketed on our platform, linking it to its digital NFT counterpart. (6 days ago)
+  - [foo-dogsquared/nixos-config](https://github.com/foo-dogsquared/nixos-config) - Aiming to be the most overkill NixOS config in the entire world. (3 days ago)
+  - [anthropics/anthropic-quickstarts](https://github.com/anthropics/anthropic-quickstarts) - A collection of projects designed to help developers quickly get started with building deployable applications using the Anthropic API (3 days ago)
+  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (6 days ago)
+  - [NodeArt/angular-commerce](https://github.com/NodeArt/angular-commerce) - Angular components for scaffolding online store (6 days ago)
+  - [Deflated-Pappadam/Trace-Protocol](https://github.com/Deflated-Pappadam/Trace-Protocol) - The TRaCE (Transparent Records and Commodity Exchange) protocol uniquely identifies each product marketed on our platform, linking it to its digital NFT counterpart. (1 week ago)
 </details>
 
 
