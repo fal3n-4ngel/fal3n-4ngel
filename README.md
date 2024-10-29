@@ -46,11 +46,11 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (today)
   - [adex-hub/ade-folio](https://github.com/adex-hub/ade-folio) - A sweet short summary of my work. With a lot of hard work put in. Give it a star if you find it useful (1 day ago)
   - [foo-dogsquared/nixos-config](https://github.com/foo-dogsquared/nixos-config) - Aiming to be the most overkill NixOS config in the entire world. (5 days ago)
   - [anthropics/anthropic-quickstarts](https://github.com/anthropics/anthropic-quickstarts) - A collection of projects designed to help developers quickly get started with building deployable applications using the Anthropic API (5 days ago)
   - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (1 week ago)
-  - [NodeArt/angular-commerce](https://github.com/NodeArt/angular-commerce) - Angular components for scaffolding online store (1 week ago)
 </details>
 
 
