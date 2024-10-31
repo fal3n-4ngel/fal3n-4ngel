@@ -26,11 +26,11 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (today)
-  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (1 day ago)
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (2 days ago)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (1 day ago)
+  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 days ago)
+  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (3 days ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (4 days ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (1 week ago)
-  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (1 week ago)
 </details>
 
 <details>
@@ -46,10 +46,10 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (today)
-  - [adex-hub/ade-folio](https://github.com/adex-hub/ade-folio) - A sweet short summary of my work. With a lot of hard work put in. Give it a star if you find it useful (1 day ago)
-  - [foo-dogsquared/nixos-config](https://github.com/foo-dogsquared/nixos-config) - Aiming to be the most overkill NixOS config in the entire world. (5 days ago)
-  - [anthropics/anthropic-quickstarts](https://github.com/anthropics/anthropic-quickstarts) - A collection of projects designed to help developers quickly get started with building deployable applications using the Anthropic API (5 days ago)
+  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 days ago)
+  - [adex-hub/ade-folio](https://github.com/adex-hub/ade-folio) - A sweet short summary of my work. With a lot of hard work put in. Give it a star if you find it useful (3 days ago)
+  - [foo-dogsquared/nixos-config](https://github.com/foo-dogsquared/nixos-config) - Aiming to be the most overkill NixOS config in the entire world. (1 week ago)
+  - [anthropics/anthropic-quickstarts](https://github.com/anthropics/anthropic-quickstarts) - A collection of projects designed to help developers quickly get started with building deployable applications using the Anthropic API (1 week ago)
   - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (1 week ago)
 </details>
 
