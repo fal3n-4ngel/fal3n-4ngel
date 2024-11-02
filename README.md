@@ -26,8 +26,8 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
+  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (today)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (3 days ago)
-  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (4 days ago)
   - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (5 days ago)
   - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (6 days ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (1 week ago)
