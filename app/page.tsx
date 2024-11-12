@@ -220,7 +220,7 @@ export default function Home() {
                     Nissan Digital LLP
                   </a>
                   <div className="font-sans text-gray-400">
-                    July 2024 - Present
+                    July 2024 - Dec 2024
                   </div>
                 </div>
                 <div className="py-1 interactable">
@@ -489,7 +489,7 @@ export default function Home() {
                   Email
                 </a>
                 <a
-                  href="/Resume- Adithya Krishnan.pdf"
+                  href="/Resume Adithya Krishnan Nov.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 hover:animate-pulse hover:scale-[110%] transition-all interactable"

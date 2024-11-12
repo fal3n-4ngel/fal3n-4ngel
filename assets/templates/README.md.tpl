@@ -31,13 +31,6 @@
 </details>
 
 <details>
-  <summary>Lately, I have worked on</summary>
-  {{range recentPullRequests 5}}
-  - [{{.Title}}]({{.URL}}) on [{{.Repo.Name}}]({{.Repo.URL}}) ({{humanize .CreatedAt}})
-  {{- end}}
-</details>
-
-<details>
   <summary>These are super cool</summary>
   {{range recentStars 5}}
   - [{{.Repo.Name}}]({{.Repo.URL}}) - {{.Repo.Description}} ({{humanize .StarredAt}})
