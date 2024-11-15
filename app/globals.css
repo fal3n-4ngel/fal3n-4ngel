@@ -78,7 +78,7 @@ html,body {
 }
 
 .animate-spin-slow {
-  animation: spin 3s linear infinite; /* Adjust the duration (3s) for a slower spin */
+  animation: spin 6s linear infinite; 
 }
 
 @keyframes spin {

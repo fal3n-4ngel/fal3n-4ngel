@@ -119,7 +119,7 @@ export default function Home() {
           className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
             !projImage
               ? "mix-blend-difference"
-              : " opacity-0 transition-all duration-300 overflow-hidden"
+              : " opacity-0 scale-0 transition-all duration-300 overflow-hidden"
           } `}
         ></motion.div>
       </div>
