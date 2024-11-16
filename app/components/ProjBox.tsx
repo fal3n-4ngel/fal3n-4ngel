@@ -101,7 +101,7 @@ function ProjBox({
             <p className="text-sm uppercase tracking-wider text-neutral-500 mb-2">
               DESCRIPTION
             </p>
-            <p className="md:text-xl text-lg font-light leading-relaxed work-sans text-justify">
+            <p className="md:text-xl text-lg font-light leading-relaxed work-sans  md:text-justify">
               {description}
             </p>
           </div>
