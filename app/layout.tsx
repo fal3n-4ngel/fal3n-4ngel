@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "portfolio",
     "web developer",
     "software developer",
+    "software engineer",
+    "sde",
+    "softare development engineer",
     "full stack developer",
     "front end developer",
     "back end developer",
@@ -58,7 +61,7 @@ export const metadata: Metadata = {
   publisher: "Adithya Krishnan",
   openGraph: {
     title: "Adithya Krishnan ",
-    description: "a developer with a highly distractable brain",
+    description: "a Software Engineer crafting Digital Experiences.",
     url: "https://www.adithyakrishnan.com",
     siteName: "Adithya Krishnan's Portfolio",
     images: [
