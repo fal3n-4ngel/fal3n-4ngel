@@ -1,50 +1,141 @@
-import Image from "next/image";
 import React from "react";
-type projProps = {
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+type ProjProps = {
   url1: string;
   name: string;
   type: string;
   event: string;
-  view: string;
   date: string;
+  view: string;
+  description?: string;
 };
 
-function ProjBox(props: projProps) {
+function ProjBox({
+  url1,
+  name,
+  type,
+  event,
+  date,
+  view,
+  description,
+}: ProjProps) {
   return (
-    <div className="group md:w-[95%] md:h-[95%] overflow-hidden rounded-2xl dark:text-white text-black  bg-[#fafafa] dark:bg-[#191919] m-2 md:m-8">
-      <Image
-        src={props.url1}
-        alt=""
-        className=" object-cover overflow-hidden  projImg h-full hover:scale-[95%] scale-[90%] md:scale-[90%] transition-all duration-300 rounded-lg "
-        width={1280}
-        height={640}
-      />
-      <div className=" flex justify-between md:min-h-[100px] md:p-10 p-5 ">
-        <div className="interactable">
-          <div className="text-left font-logo md:text-7xl m-1 text-3xl">
-            {props.name}
-          </div>
-          <div className="flex flex-wrap">
-            <div className="w-fit h-fit md:p-1 md:px-2 px-2 md:text-sm text-[10px] font-poppins bg-[#efefef] dark:bg-[#252525] rounded-full m-1">
-              {props.type}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="w-full md:w-[95%] md:h-[95%] min-w-[75vw] text-white p-6 md:p-12 bg-[#07070748]  rounded-lg shadow-lg"
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="mb-12"
+      >
+        <h2 className="text-4xl md:text-7xl font-light tracking-tight mb-2 space-grotesk">
+          {name}
+        </h2>
+        <h3 className="text-2xl md:text-4xl font-light tracking-wide text-neutral-400 space-grotesk">
+          {type}
+        </h3>
+      </motion.div>
+
+      {/* Image */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="relative w-full aspect-video mb-12 overflow-hidden rounded-lg"
+      >
+        <Image
+          src={url1}
+          alt={name}
+          fill
+          className="object-cover transition-transform duration-700 hover:scale-105"
+        />
+      </motion.div>
+
+      {/* Details */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="grid grid-cols-1 md:grid-cols-12 gap-8"
+      >
+        {/* Metadata */}
+        <div className="md:col-span-3 md:space-y-3 row-span-3 ">
+          <div className="flex md:flex-col flex-row justify-between items-center  md:items-start w-full md:space-y-3 ">
+            <div>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">
+                TYPE
+              </p>
+              <p className="text-lg font-light work-sans">{type}</p>
             </div>
-            <div className="w-fit h-fit md:px-2 md:p-1 px-2 md:text-sm text-[10px] font-poppins bg-[#efefef] dark:bg-[#252525] rounded-full m-1">
-              {props.event}
+            <div>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">
+                EVENT
+              </p>
+              <p className="text-lg font-light work-sans">{event}</p>
             </div>
-            <div className="w-fit h-fit md:px-4  md:p-1 px-2 md:text-sm md:flex hidden text-[10px] font-poppins bg-[#efefef] dark:bg-[#252525] rounded-full m-1">
-              {props.date}
+            <div>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">
+                YEAR
+              </p>
+              <p className="text-lg font-light work-sans">{date}</p>
             </div>
           </div>
         </div>
-        <a target="_blank" rel="noopener noreferrer" href={props.view}>
-          <img
-            src="/Visit.png"
-            alt=""
-            className="md:w-[100px] md:h-[100px] w-[60px] h-[60px] animate-spin-slow interactable"
-          ></img>
-        </a>
-      </div>
-    </div>
+
+        {/* Description */}
+        {description && (
+          <div className="md:col-span-7">
+            <p className="text-sm uppercase tracking-wider text-neutral-500 mb-2">
+              DESCRIPTION
+            </p>
+            <p className="md:text-xl text-lg font-light leading-relaxed work-sans text-justify">
+              {description}
+            </p>
+          </div>
+        )}
+
+        {/* View Button */}
+        <div className="md:col-span-2 flex justify-end items-start">
+          <motion.a
+            href={view}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative inline-flex items-center justify-center"
+          >
+            <div className="h-16 w-16 rounded-full border border-neutral-700 flex items-center justify-center transition-all duration-300 group-hover:border-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </div>
+          </motion.a>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

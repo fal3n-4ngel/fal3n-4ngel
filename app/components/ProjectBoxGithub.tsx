@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-type projProps = {
+type GithubProjProps = {
   url1: number;
   name: string;
   type: string;
   event: string;
-  view: string;
   date: string;
+  view: string;
 };
 
-const randomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16); // Replace with your theme color or adjust logic
+const randomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
 
 const generateRects = (seed: number) => {
-  const numRects = Math.floor(Math.random() * 11) + 5; // Generate a random number of rectangles
+  const numRects = Math.floor(Math.random() * 11) + 5;
   const rects = [];
   for (let i = 0; i < numRects; i++) {
     rects.push({
@@ -27,22 +28,51 @@ const generateRects = (seed: number) => {
   return rects;
 };
 
-function ProjBoxGithub(props: projProps) {
-  const [rects, setRects] = useState(generateRects(props.url1));
+const GithubProjectBox = ({ url1, name, type, event, date, view }: GithubProjProps) => {
+  const [rects, setRects] = useState(generateRects(url1));
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setRects(generateRects(props.url1));
-    }, 2000); // Update every 2 seconds
+      setRects(generateRects(url1));
+    }, 2000);
 
-    return () => clearInterval(intervalId); // Clean up interval on component unmount
-  }, [props.url1]);
+    return () => clearInterval(intervalId);
+  }, [url1]);
 
   return (
-    <div className="group md:w-[95%] md:h-[95%] overflow-hidden rounded-2xl dark:text-white text-black  bg-[#fafafa] dark:bg-[#191919] md:m-8 m-2  ">
-      <div className="z-0 object-cover overflow-hidden interactable projImg h-full hover:scale-[95%] scale-[90%] md:scale-[90%] transition-all duration-300 rounded-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" className="w-full h-auto z-0">
-          <rect width="1280" height="640" fill="#ececec" /> {/* Light background for light mode */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="w-full md:w-[95%] md:h-[95%] min-w-[75vw] text-white p-6 md:p-12 bg-[#07070748] rounded-lg shadow-lg"
+    >
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="mb-12"
+      >
+        <h2 className="text-4xl md:text-7xl font-light tracking-tight mb-2 space-grotesk">
+          {name}
+        </h2>
+      </motion.div>
+
+      {/* Dynamic SVG Background */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="relative w-full aspect-video mb-12 overflow-hidden rounded-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1280 640"
+          className="w-full h-auto bg-neutral-900"
+        >
           {rects.map((rect, index) => (
             <rect
               key={index}
@@ -52,31 +82,86 @@ function ProjBoxGithub(props: projProps) {
               height={rect.height}
               fill={rect.fill}
               opacity={rect.opacity}
-              className="z-0 transition-all duration-1000" // Smooth transition for fill and opacity
+              className="transition-all duration-1000"
             />
           ))}
         </svg>
-      </div>
+      </motion.div>
 
-      <div className="flex justify-between md:min-h-[100px] md:p-10 p-5 overflow-hidden ">
-        <div className="interactable">
-          <div className="text-left font-logo md:text-7xl m-1 text-3xl md:max-w-full max-w-[40%]">{props.name}</div>
-          <div className="flex flex-wrap">
-           
-            <div className="w-fit h-fit md:px-2 md:p-1 px-2 md:text-sm text-[10px] font-poppins bg-[#efefef] dark:bg-[#252525] rounded-full m-1">
-              {props.event}
+      {/* Footer with Tags and Link */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+         className="grid grid-cols-1 md:grid-cols-12 gap-8"
+      >
+   <div className="md:col-span-3 md:space-y-3 row-span-3 ">
+        <div className="flex md:flex-col flex-row justify-between items-center  md:items-start w-full md:space-y-3 ">
+            <div>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">
+                TYPE
+              </p>
+              <p className="text-lg font-light work-sans">{type}</p>
             </div>
-            <div className="w-fit h-fit md:px-4 md:p-1 px-2 md:text-sm text-[10px] font-poppins bg-[#efefef] dark:bg-[#252525] rounded-full m-1">
-              {props.date}
+            <div>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">
+                EVENT
+              </p>
+              <p className="text-lg font-light work-sans">{event}</p>
+            </div>
+            <div>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">
+                YEAR
+              </p>
+              <p className="text-lg font-light work-sans">{date}</p>
             </div>
           </div>
+        
         </div>
-        <a target="_blank" rel="noopener noreferrer" href={props.view} >
-          <img src="/Visit.png" alt="" className="md:w-[100px] md:h-[100px] w-[60px] h-[60px] animate-spin-slow interactable" />
-        </a>
-      </div>
-    </div>
-  );
-}
+        {/* Description */}
+      
+          <div className="md:col-span-7">
+            <p className="text-sm uppercase tracking-wider text-neutral-500 mb-2">
+              DESCRIPTION
+            </p>
+            <p className="text-justify text-lg font-light leading-relaxed work-sans">
+            This project is dynamically fetched from GitHub, showcasing real-time repository data and updates. Visit the GitHub page to explore the complete codebase, documentation, and development history, and stay up-to-date with the latest changes and improvements
+            </p>
+          </div>
 
-export default ProjBoxGithub;
+       {/* View Button */}
+       <div className="md:col-span-2 flex justify-end items-start">
+          <motion.a
+            href={view}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative inline-flex items-center justify-center"
+          >
+            <div className="h-16 w-16 rounded-full border border-neutral-700 flex items-center justify-center transition-all duration-300 group-hover:border-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </div>
+          </motion.a>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default GithubProjectBox;

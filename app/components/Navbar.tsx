@@ -17,36 +17,68 @@ function Navbar() {
           <div className='md:flex hidden '><DarkModeSwitch /></div>
           
         </div> */}
-      <a href="/" className="font-poppins md:text-[1.2vw] text-[2.0rem] dark:text-white text-black hover:opacity-25 transition-all duration-300 md:min-w-[100px]">
+      <a
+        href="/"
+        className="font-poppins md:text-[1.2vw] text-[2.0rem] dark:text-white text-black hover:opacity-25 transition-all duration-300 md:min-w-[100px]"
+      >
         Adi.
       </a>
       <div className="md:flex hidden gap-8 items-center">
-        <a href="https://github.com/fal3n-4ngel" className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
+        <a
+          href="https://github.com/fal3n-4ngel"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
           github
         </a>
-        <a href="https://www.linkedin.com/in/fal3n-4ngel/" className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
+        <a
+          href="https://www.linkedin.com/in/fal3n-4ngel/"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
           linkedin
         </a>
-        <a href="https://x.com/fal3n_4ngel"className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
-          twitter
+        <a
+          href="/Resume Adithya Krishnan Nov.pdf"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
+          resume
         </a>
       </div>
       <div className="flex md:hidden gap-4 items-center">
-        <a href="https://github.com/fal3n-4ngel" className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
+        <a
+          href="https://github.com/fal3n-4ngel"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
           <Image src="icons/github.svg" width={20} height={20} alt="github" />
         </a>
-        <a href="https://www.linkedin.com/in/fal3n-4ngel/" className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
-        <Image src="icons/linkedin.svg" width={20} height={20} alt="linkedin" />
+        <a
+          href="https://www.linkedin.com/in/fal3n-4ngel/"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
+          <Image
+            src="icons/linkedin.svg"
+            width={20}
+            height={20}
+            alt="linkedin"
+          />
         </a>
-        <a href="https://x.com/fal3n_4ngel"className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
-        <Image src="icons/x.svg" width={20} height={20} alt="x" />
+        <a
+          href="/Resume Adithya Krishnan Nov.pdf"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
+          <Image src="icons/resume.svg" width={20} height={20} alt="x" />
         </a>
-        <a href="mailto:hello@adithyakrishnan.com"className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
-        <Image src="icons/mail.svg" width={20} height={20} alt="mail" />
+        <a
+          href="mailto:hello@adithyakrishnan.com"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
+          <Image src="icons/mail.svg" width={20} height={20} alt="mail" />
         </a>
       </div>
       <div className="md:flex hidden gap-2 items-center">
-      <a href="mailto:hello@adithyakrishnan.com" className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300">
+        <a
+          href="mailto:hello@adithyakrishnan.com"
+          className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
+        >
           hello@adithyakrishnan.com
         </a>
         <div className="hidden ">

@@ -15,6 +15,7 @@ import {
 import useSmoothScroll from "./utils/SmoothScroll";
 import ProjBoxGithub from "./components/ProjectBoxGithub";
 import { GoogleAnalytics } from "nextjs-google-analytics";
+import GithubProjectBox from "./components/ProjectBoxGithub";
 
 type Repo = {
   id: number;
@@ -121,7 +122,7 @@ export default function Home() {
               ? "mix-blend-difference"
               : " opacity-0 scale-0 transition-all duration-300 overflow-hidden"
           } `}
-        ></motion.div>
+        > <img src="/ghost.png" className="z-[-1] opacity-25"></img></motion.div>
       </div>
       <main
         className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#0c0c0c] text-black dark:text-white overflow-x-hidden"
@@ -143,11 +144,11 @@ export default function Home() {
             </div>
             <div className="md:max-h-[8vh] h-[8vh] overflow-hidden">
               <FadeUp className="  text-black ">
-                a developer with a highly
+                a Software Engineer crafting
               </FadeUp>
             </div>
             <div className="md:max-h-[8vh] h-[8vh] overflow-hidden">
-              <FadeUp className=" text-black ">distractable brain.</FadeUp>
+              <FadeUp className=" text-black ">Digital Experiences.</FadeUp>
             </div>
           </div>
           <div className="md:hidden flex flex-col  tracking-tighter leading-none md:text-6xl space-grotesk text-[2.15rem] px-5 interactable text-left">
@@ -157,13 +158,13 @@ export default function Home() {
               </FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className="  text-black   ">a developer with</FadeUp>
+              <FadeUp className="  text-black   ">a Software Engineer</FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className="  text-black   ">a highly</FadeUp>
+              <FadeUp className="  text-black   "> crafting</FadeUp>
             </div>
             <div className="h-[40px] overflow-hidden">
-              <FadeUp className=" text-black ">distractable brain.</FadeUp>
+              <FadeUp className=" text-black ">Digital Experiences.</FadeUp>
             </div>
           </div>
         </section>
@@ -181,20 +182,12 @@ export default function Home() {
                   </div>
                 </FadeUp>
               </div>
-              <div className="overflow-hidden">
-                <FadeUp>
-                  <div className="md:mx-10 m-5 ease-in interactable">
-                    I love bringing ideas to life, solving tricky puzzles,
-                    squashing bugs, and tackling complex challenges that get the
-                    gears turning
-                  </div>
-                </FadeUp>
-              </div>
+
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
                     When I`m not working, you`ll catch me watching anime,
-                    reading random stuff, or tinkering with some fun/lame side
+                    reading random stuff, or messing with some fun side
                     projects.
                   </div>
                 </FadeUp>
@@ -243,7 +236,7 @@ export default function Home() {
               <FadeUp>
                 <div className="py-1 interactable">
                   <div className="font-semibold">
-                    Fullstack Developer
+                    Co Founder | Developer
                     <span className="text-md text-gray-400"></span>
                   </div>
                   <a
@@ -284,21 +277,7 @@ export default function Home() {
                   </div>
                 </div>
               </FadeUp>
-              <FadeUp>
-                <div className=" text-2xl md:text-[1.5vw] text-zinc-700 mt-5 py-2 font-semibold ">
-                  skills
-                </div>
-                <div className="flex flex-col font-normal space-y-1 text-start">
-                  <div>Nextjs, Angularjs, .NET, Reactjs</div>
-                  <div>
-                    C, Java, Python, C#, Javascript, Typescript, Nix, Shell
-                    Scripting{" "}
-                  </div>
-                  <div>Firebase, MongoDB, SQL</div>
-                  <div>Tailwind, Framer Motion, Gsap</div>
-                  <div>Flutter, Kotlin, Jetpack Compose</div>
-                </div>
-              </FadeUp>
+
               <FadeUp>
                 <div className=" text-2xl md:text-[1.5vw] text-zinc-700 mt-5 py-2 font-semibold ">
                   awards
@@ -338,49 +317,54 @@ export default function Home() {
 
         <section className="min-h-screen font-light text-4xl md:w-[75%] p-5 md:p-0 mx-auto flex flex-col justify-center ">
           <FadeUp>
-            <div className="md:text-6xl text-5xl py-10">Projects</div>
+            <div className="md:text-6xl text-5xl py-10 work-sans">My Works</div>
           </FadeUp>
 
           <div className="w-full h-full flex  flex-wrap justify-center items-center">
             <FadeUp>
               <ProjBox
-                url1="/SOYO.png"
-                name="SOYO"
-                type="Stream Own Your Own"
-                event="side project"
-                date="2024"
-                view="https://github.com/fal3n-4ngel/SOYO"
+                url1="/Flash1.png"
+                name="FLASH DRIVE"
+                type="Website"
+                event="College Project"
+                date="2023"
+                view="https://flashdrive-f2an.vercel.app/"
+                description="A Next.js web platform featuring an AI image generator with custom-trained Stable Diffusion model and a few other arcade games. Built with Firebase and EpicRealism image model , it`s just a DBMS course project that evolved into a playground for implementing advanced web technologies."
               />
             </FadeUp>
             <FadeUp>
               <ProjBox
-                url1="/Flash1.png"
-                name="FLASH DRIVE"
-                type="website"
-                event="college project"
+                url1="/smartcertify.png"
+                name="SMART CERTIFY"
+                type="Website | Blockchain "
+                event="BlockHash "
                 date="2023"
-                view="https://flashdrive-f2an.vercel.app/"
+                view="https://github.com/Deflated-Pappadam/Smart-Certify"
+                description="A blockchain based certification platform thatuniquely identifies organizations through secure wallet IDs and authenticates users via AADHAR integration, ensuring tamper-proof documentation.This project secured the winning spot at BlockHash 2023 by the Kerala Blockchain Academy."
               />
             </FadeUp>
 
             <FadeUp>
               <ProjBox
-                url1="/smartcertify.png"
-                name="SMART CERTIFY"
-                type="Web3 for India "
-                event="Blockhash"
-                date="2023"
-                view="https://github.com/Deflated-Pappadam/Smart-Certify"
+                url1="/SOYO.png"
+                name="Stream Own Your Own"
+                type="Website"
+                event="Side Project"
+                date="2024"
+                description="A Next.js-powered local streaming solution that turns your computer into a personal media server. Built to solve the problem of limited mobile storage, SOYO lets you stream your video library across all devices on your network through a clean, modern interface."
+                view="https://github.com/fal3n-4ngel/SOYO"
               />
             </FadeUp>
+
             <FadeUp>
               <ProjBox
                 url1="/betterfunds.png"
                 name="BETTER FUNDS"
-                type="website - desktop"
-                event="hackathon"
+                type="Website - desktop"
+                event="Zilckathon"
                 date="2024"
                 view="https://better-funds.vercel.app/"
+                description="Developed in a 24-hour hackathon (Zilckathon - HFT), Better Funds is a blockchain-based incentivized crowdfunding platform. Contributors earn tokens proportional to their contributions, which can be redeemed in a marketplace."
               />
             </FadeUp>
 
@@ -388,20 +372,22 @@ export default function Home() {
               <ProjBox
                 url1="/Sustaina1.png"
                 name="SUS GOALS"
-                type="website"
-                event="college project"
+                type="Website"
+                event="College Project"
                 date="2023"
                 view="https://sus-goals.vercel.app/"
+                description="A college project centered on promoting sustainable development goals (SDGs). SUS Goals provides users with daily tasks to complete and keeps a global counter of the tasks completed , thus helping SDG's through an engaging digital experience."
               />
             </FadeUp>
             <FadeUp>
               <ProjBox
                 url1="/Drish.png"
                 name="DRISHTI"
-                type="mobile app"
-                event="define 2022"
+                type="Mobile App"
+                event="Define 2022"
                 date="2022"
                 view="https://github.com/fal3n-4ngel/Drishti-Client"
+                description="Drishti simplifies hazard reporting and notifications, focusing on incidents like snapped powerlines or broken pipelines. Developed for Define Hack 2022, it enables users to report hazards, receive alerts, and track report status, while admins manage responses through a web service."
               />
             </FadeUp>
             <FadeUp>
@@ -409,20 +395,21 @@ export default function Home() {
               <ProjBox
                 url1="/Ctrack.png"
                 name="C-TRACKER"
-                type="swing java"
-                event="micro project"
+                type="Java | Swing"
+                event="College Project"
                 date="2023"
                 view="https://github.com/fal3n-4ngel/CTracker"
+                description="A Java Swing GUI application tailored as an academic-themed task manager. C-Tracker employs SQLite for efficient database management and features tools for adding, editing, deleting, and tracking academic tasks."
               />
             </FadeUp>
 
             {repos.slice(0, visibleCount).map((repo) => (
-              <ProjBoxGithub
+              <GithubProjectBox
                 key={repo.id}
                 url1={Math.random() * 11}
                 name={repo.name.toUpperCase()}
-                type="website"
-                event="GitHub project"
+                type="GitHub Repository"
+                event="Projects"
                 date={new Date(repo.created_at).getFullYear().toString()}
                 view={repo.html_url}
               />
@@ -452,7 +439,7 @@ export default function Home() {
                 )}
                 <div className="flex flex-col w-full  items-center mt-8  p-2 rounded-full shadow-md text-center">
                   <div className="flex items-center justify-center w-full">
-                    <p className="md:text-base font-light text-[#2e3440] dark:text-[#e5e9f0] text-xs">
+                    <p className="md:text-base font-light text-[#2e3440] dark:text-[#e5e9f0] text-xs work-sans">
                       Projects are dynamically fetched through GitHub Api
                     </p>
                   </div>
