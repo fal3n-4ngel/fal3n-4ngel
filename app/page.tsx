@@ -116,6 +116,7 @@ export default function Home() {
             left: 0,
             width: `${interacting ? "200px" : "40px"}`,
             height: `${interacting ? "200px" : "40px"}`,
+           
           }}
           className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
             !projImage
@@ -134,7 +135,7 @@ export default function Home() {
 
         <section className="md:w-[80%] w-full justify-center  min-h-screen flex flex-col">
           <FadeUp className=" flex text-black  space-grotesk ">
-            <h1 className="md:text-[2vw] text-xl p-5">Hello,</h1>
+            <h1 className="md:text-[2vw] text-xl p-5 work-sans">Hello,</h1>
           </FadeUp>
           <div className="md:flex flex-col hidden tracking-tighter space-grotesk leading-none md:text-[4.4vw] text-[2.8rem] px-5 interactable w-fit">
             <div className="md:max-h-[8vh] h-[8vh] overflow-hidden">

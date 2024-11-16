@@ -53,12 +53,14 @@ function ProjBox({
         transition={{ duration: 0.8, delay: 0.4 }}
         className="relative w-full aspect-video mb-12 overflow-hidden rounded-lg"
       >
+        <a href={view}>
         <Image
           src={url1}
           alt={name}
-          fill
+                  fill
           className="object-cover transition-transform duration-700 hover:scale-105"
         />
+        </a>
       </motion.div>
 
       {/* Details */}
@@ -113,7 +115,7 @@ function ProjBox({
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative inline-flex items-center justify-center"
+            className="group relative inline-flex items-center justify-center interactable"
           >
             <div className="h-16 w-16 rounded-full border border-neutral-700 flex items-center justify-center transition-all duration-300 group-hover:border-white">
               <svg
