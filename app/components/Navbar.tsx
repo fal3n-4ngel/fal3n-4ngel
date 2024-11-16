@@ -65,7 +65,7 @@ function Navbar() {
           href="/Resume Adithya Krishnan Nov.pdf"
           className="font-poppins md:text-[1vw] text-[2.5rem] dark:text-white text-black hover:opacity-25 transition-all duration-300"
         >
-          <Image src="icons/resume.svg" width={20} height={20} alt="x" />
+          <Image src="icons/resume.svg" width={15} height={15} alt="x" />
         </a>
         <a
           href="mailto:hello@adithyakrishnan.com"
