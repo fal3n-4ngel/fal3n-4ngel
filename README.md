@@ -26,9 +26,9 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (2 days ago)
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (4 days ago)
-  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (1 week ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (4 days ago)
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (6 days ago)
+  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 weeks ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (2 weeks ago)
   - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (2 weeks ago)
 </details>
@@ -36,8 +36,8 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (1 day ago)
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (6 days ago)
+  - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (3 days ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
   - [hyprutils/hyprgui](https://github.com/hyprutils/hyprgui) - GUI for configuring Hyprland, written in blazingly fast Rust! 🚀🦀 (1 week ago)
   - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 weeks ago)
   - [adex-hub/ade-folio](https://github.com/adex-hub/ade-folio) - A sweet short summary of my work. With a lot of hard work put in. Give it a star if you find it useful (2 weeks ago)
