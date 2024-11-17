@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useFollowPointer } from "./utils/FollowPointer";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import Navbar from "./components/Navbar";
 import FadeUp from "./components/FadeUp";
 import ProjBox from "./components/ProjBox";
 import {
   RiArrowUpCircleLine,
   RiFile2Fill,
+  RiGamepadLine,
   RiGithubFill,
   RiLinkedinBoxFill,
   RiMailFill,
@@ -16,6 +17,9 @@ import useSmoothScroll from "./utils/SmoothScroll";
 import ProjBoxGithub from "./components/ProjectBoxGithub";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import GithubProjectBox from "./components/ProjectBoxGithub";
+import SkillsSection from "./components/SkillSection";
+import GhostGame from "./components/GhostGame";
+import GhostEscape from "./components/GhostGame";
 
 type Repo = {
   id: number;
@@ -97,9 +101,126 @@ export default function Home() {
   };
 
   useSmoothScroll();
+
+  interface Position {
+    x: number;
+    y: number;
+  }
+  const [isEscaping, setIsEscaping] = useState<boolean>(false);
+  const [hasEscaped, setHasEscaped] = useState<boolean>(false);
+  const [dimensions, setDimensions] = useState<{
+    width: number;
+    height: number;
+  }>({
+    width: 0,
+    height: 0,
+  });
+
+  const pathRef = useRef<Position[]>([]); // Store the path here
+
+  // Update dimensions on mount and window resize
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
+  const generateRandomPath = (): Position[] => {
+    const points: Position[] = [];
+    const numPoints = 10;
+    const padding = 50; // Allow for wider coverage
+    const { width, height } = dimensions;
+
+    for (let i = 0; i < numPoints; i++) {
+      points.push({
+        x: padding + Math.random() * (width - 2 * padding),
+        y: padding + Math.random() * (height - 2 * padding),
+      });
+    }
+
+    // Ensure loop: add the first point to the end
+    if (points.length > 0) {
+      points.push(points[0]);
+    }
+
+    return points;
+  };
+
+  const triggerEscape = () => {
+    if (!isEscaping) {
+      // Generate a new path only when starting the escape
+      pathRef.current = generateRandomPath();
+      setIsEscaping(true);
+    }
+  };
+
+  const resetEscape = () => {
+    setIsEscaping(false);
+  };
+
+  const ghostVariants: Variants = {
+    initial: {
+      x: dimensions.width / 2,
+      y: dimensions.height / 2,
+      scale: 0.2,
+      opacity: 0,
+    },
+    breakFree: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 2, ease: "easeOut" },
+    },
+    escape: {
+      x: pathRef.current.map((p) => p.x), // Use the stable path
+      y: pathRef.current.map((p) => p.y),
+      rotate: [0, 10, -10, 0],
+      scale: [1, 1.1, 0.9, 1],
+      transition: {
+        duration: 20, // Slower movement
+        ease: "easeInOut",
+        repeat: Infinity,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
   return (
     <div className="w-full h-full min-h-screen bg-[#ececec] dark:bg-[#121212]  text-black dark:text-white">
       <GoogleAnalytics trackPageViews />
+
+      <div>
+        <AnimatePresence>
+          {isEscaping && dimensions.width > 0 && (
+            <motion.div
+              className="fixed z-10  interactable"
+              initial="initial"
+              animate={["breakFree", "spin", "escape"]}
+              exit="exit"
+              variants={ghostVariants}
+            >
+
+              <img
+                src="/ghostwhite.png"
+                onClick={() => resetEscape()}
+                alt="Escaping Ghost"
+                className="w-28 h-28 opacity-90 interactable"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
       <div>
         <motion.div
           style={{
@@ -116,15 +237,23 @@ export default function Home() {
             left: 0,
             width: `${interacting ? "200px" : "40px"}`,
             height: `${interacting ? "200px" : "40px"}`,
-           
           }}
           className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
             !projImage
               ? "mix-blend-difference"
               : " opacity-0 scale-0 transition-all duration-100 overflow-hidden"
           } `}
-        > <img src="/ghost.png" className="z-[-1] opacity-25"></img></motion.div>
+        >
+          {" "}
+          <img
+            src="/ghost.png"
+            className={`z-[-1] opacity-25 ${
+              hasEscaped || isEscaping ? "hidden" : "flex"
+            }`}
+          ></img>
+        </motion.div>
       </div>
+
       <main
         className="w-full flex flex-col min-h-screen items-center justify-between bg-[#ececec] dark:bg-[#0c0c0c] text-black dark:text-white overflow-x-hidden"
         ref={ref}
@@ -174,7 +303,6 @@ export default function Home() {
           <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center space-grotesk min-h-screen">
             <div className="flex flex-col md:w-[55vw] md:text-[2.2vw] md:leading-[3vw] text-xl">
               <div className="overflow-hidden">
-             
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
                     As a final-year undergraduate pursuing a BTech degree in
@@ -313,6 +441,35 @@ export default function Home() {
                   </div>
                 </div>
               </FadeUp>
+              <div className="max-w-fit py-4 animate-pulse">
+                {!isEscaping && (
+                  <button
+                    onClick={() => triggerEscape()}
+                    className="group relative flex items-center gap-2 px-6 py-1 text-lg font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
+                  >
+                    <img
+                      src="/ghostwhite.png"
+                      alt="Ghost"
+                      className="w-12 h-12  group-hover:opacity-100 transition-opacity"
+                    />
+                    Release the Ghost
+                    <span className="absolute -bottom-6 left-0 right-0 text-sm opacity-60"></span>
+                  </button>
+                )}
+                {isEscaping && (
+                  <button
+                    onClick={() => resetEscape()}
+                    className="group relative flex items-center gap-2 px-6 py-3 text-lg font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
+                  >
+                    <img
+                      src="/ghostwhite.png"
+                      alt="Ghost"
+                      className="w-8 h-8 opacity-75 group-hover:opacity-100 transition-opacity"
+                    />
+                    Catch The Ghost
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </section>
