@@ -30,6 +30,10 @@ type Repo = {
   fork: boolean;
   stargazers_count: number;
 };
+interface Position {
+  x: number;
+  y: number;
+}
 
 export default function Home() {
   const ref = useRef(null);
@@ -39,7 +43,15 @@ export default function Home() {
   const [offset, setOffset] = useState(0);
   const [repos, setRepos] = useState<Repo[]>([]);
   const [visibleCount, setVisibleCount] = useState(0);
-
+  const [isEscaping, setIsEscaping] = useState<boolean>(false);
+  const [hasEscaped, setHasEscaped] = useState<boolean>(false);
+  const [dimensions, setDimensions] = useState<{
+    width: number;
+    height: number;
+  }>({
+    width: 0,
+    height: 0,
+  });
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -102,20 +114,6 @@ export default function Home() {
 
   useSmoothScroll();
 
-  interface Position {
-    x: number;
-    y: number;
-  }
-  const [isEscaping, setIsEscaping] = useState<boolean>(false);
-  const [hasEscaped, setHasEscaped] = useState<boolean>(false);
-  const [dimensions, setDimensions] = useState<{
-    width: number;
-    height: number;
-  }>({
-    width: 0,
-    height: 0,
-  });
-
   const pathRef = useRef<Position[]>([]); // Store the path here
 
   // Update dimensions on mount and window resize
@@ -132,17 +130,27 @@ export default function Home() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const generateRandomPath = (): Position[] => {
-    const points: Position[] = [];
+  const generateRandomPath = (startPos: { x: number; y: number }) => {
+    const points = [startPos]; // Start from the mouse position
     const numPoints = 10;
     const padding = 50; // Allow for wider coverage
     const { width, height } = dimensions;
 
     for (let i = 0; i < numPoints; i++) {
-      points.push({
+      const controlPoint1 = {
         x: padding + Math.random() * (width - 2 * padding),
         y: padding + Math.random() * (height - 2 * padding),
-      });
+      };
+      const controlPoint2 = {
+        x: padding + Math.random() * (width - 2 * padding),
+        y: padding + Math.random() * (height - 2 * padding),
+      };
+      const endPoint = {
+        x: padding + Math.random() * (width - 2 * padding),
+        y: padding + Math.random() * (height - 2 * padding),
+      };
+
+      points.push(controlPoint1, controlPoint2, endPoint);
     }
 
     // Ensure loop: add the first point to the end
@@ -156,7 +164,7 @@ export default function Home() {
   const triggerEscape = () => {
     if (!isEscaping) {
       // Generate a new path only when starting the escape
-      pathRef.current = generateRandomPath();
+      pathRef.current = generateRandomPath({x,y});
       setIsEscaping(true);
     }
   };
@@ -180,10 +188,10 @@ export default function Home() {
     escape: {
       x: pathRef.current.map((p) => p.x), // Use the stable path
       y: pathRef.current.map((p) => p.y),
-      rotate: [0, 10, -10, 0],
+      rotate: [0, 25, -10, 5, 0, 35, -10, -5, 0, 15, -10, 0, 0, 5, -10, 0],
       scale: [1, 1.1, 0.9, 1],
       transition: {
-        duration: 20, // Slower movement
+        duration: 80, // Slower movement
         ease: "easeInOut",
         repeat: Infinity,
       },
@@ -209,7 +217,6 @@ export default function Home() {
               exit="exit"
               variants={ghostVariants}
             >
-
               <img
                 src="/ghostwhite.png"
                 onClick={() => resetEscape()}
@@ -441,11 +448,12 @@ export default function Home() {
                   </div>
                 </div>
               </FadeUp>
+              <FadeUp>
               <div className="max-w-fit py-4 animate-pulse">
                 {!isEscaping && (
                   <button
                     onClick={() => triggerEscape()}
-                    className="group relative flex items-center gap-2 px-6 py-1 text-lg font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
+                    className="group relative flex items-center gap-2 px-6 py-1 md:text-[1vw]  font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
                   >
                     <img
                       src="/ghostwhite.png"
@@ -459,17 +467,20 @@ export default function Home() {
                 {isEscaping && (
                   <button
                     onClick={() => resetEscape()}
-                    className="group relative flex items-center gap-2 px-6 py-3 text-lg font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
+                    className="group relative flex items-center gap-2 px-6 py-3 md:text-[1vw] font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
                   >
                     <img
                       src="/ghostwhite.png"
                       alt="Ghost"
-                      className="w-8 h-8 opacity-75 group-hover:opacity-100 transition-opacity"
+                      className="w-8 h-8 opacity-75 group-hover:opacity-100 transition-opacity "
                     />
                     Catch The Ghost
                   </button>
+                  
+                  
                 )}
               </div>
+              </FadeUp>
             </div>
           </div>
         </section>
