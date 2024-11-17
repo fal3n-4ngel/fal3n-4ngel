@@ -12,7 +12,13 @@ import { TbBrandNextjs } from "react-icons/tb";
 import { BsDatabase } from "react-icons/bs";
 import { BiTerminal } from "react-icons/bi";
 
-const SkillIcon = ({ icon: Icon, label }) => (
+// Define the type for the icon prop
+interface SkillIconProps {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}
+
+const SkillIcon: React.FC<SkillIconProps> = ({ icon: Icon, label }) => (
   <div className="flex flex-col items-center justify-center p-4 transition-transform duration-300 hover:scale-110 interactable">
     <Icon className="w-8 h-8 md:w-12 md:h-12 mb-2 text-primary" />
     <span className="text-sm md:text-base text-center">{label}</span>
