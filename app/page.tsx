@@ -121,7 +121,7 @@ export default function Home() {
           className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
             !projImage
               ? "mix-blend-difference"
-              : " opacity-0 scale-0 transition-all duration-300 overflow-hidden"
+              : " opacity-0 scale-0 transition-all duration-100 overflow-hidden"
           } `}
         > <img src="/ghost.png" className="z-[-1] opacity-25"></img></motion.div>
       </div>
@@ -174,6 +174,7 @@ export default function Home() {
           <div className="flex md:flex-row flex-col w-[80%] mx-auto justify-center items-center space-grotesk min-h-screen">
             <div className="flex flex-col md:w-[55vw] md:text-[2.2vw] md:leading-[3vw] text-xl">
               <div className="overflow-hidden">
+             
                 <FadeUp>
                   <div className="md:mx-10 m-5 ease-in interactable">
                     As a final-year undergraduate pursuing a BTech degree in
@@ -361,7 +362,7 @@ export default function Home() {
               <ProjBox
                 url1="/betterfunds.png"
                 name="BETTER FUNDS"
-                type="Website - desktop"
+                type="Website | Desktop"
                 event="Zilckathon"
                 date="2024"
                 view="https://better-funds.vercel.app/"
@@ -449,9 +450,9 @@ export default function Home() {
             </FadeUp>
           </div>
         </section>
-        <footer className="flex flex-col w-full h-full justify-center text-3xl mt-[40px] py-[80px] font-thin text-black dark:text-white bg-[#ececec] dark:bg-[#111111]">
-          <div className="flex md:flex-row flex-col w-full md:w-[90%] h-full mx-auto text-xl font-poppins  md:justify-between justify-center items-center p-10">
-            <div className="items-start flex justify-start w-fit md:p-0 p-10 text-center">
+        <footer className="flex flex-col w-full h-full justify-center text-3xl mt-[40px] py-[40px] font-thin text-black dark:text-white bg-[#ececec] dark:bg-[#101010]">
+          <div className="flex md:flex-row flex-col w-full md:w-[90%] h-full mx-auto text-xl font-poppins  md:justify-between justify-center items-center ">
+            <div className="items-start flex justify-start w-fit md:p-0 p-5 text-center">
               © Adithya Krishnan 2024.
             </div>
             <div className="flex  md:flex-row flex-col min-w-[600px]  md:justify-between justify-start items-center text-justify ">

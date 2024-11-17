@@ -63,7 +63,7 @@ const GithubProjectBox = ({
         transition={{ duration: 0.6, delay: 0.2 }}
         className="mb-12"
       >
-        <h2 className="text-4xl md:text-7xl font-light tracking-tight mb-2 space-grotesk">
+        <h2 className="text-4xl md:text-7xl font-light tracking-tight mb-2 space-grotesk interactable">
           {name}
         </h2>
       </motion.div>
@@ -74,7 +74,7 @@ const GithubProjectBox = ({
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative w-full aspect-video mb-12 overflow-hidden rounded-lg"
+        className="relative w-full aspect-video  overflow-hidden rounded-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +104,7 @@ const GithubProjectBox = ({
         transition={{ duration: 0.6, delay: 0.6 }}
         className="grid grid-cols-1 md:grid-cols-12 gap-8"
       >
-        <div className="md:col-span-3 md:space-y-3 row-span-3 ">
+        <div className="md:col-span-3  row-span-3 ">
           <div className="flex md:flex-col flex-row justify-between items-center  md:items-start w-full md:space-y-3 ">
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
