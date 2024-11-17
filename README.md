@@ -36,11 +36,11 @@
 <details>
   <summary>These are super cool</summary>
   
+  - [richards199999/Thinking-Claude](https://github.com/richards199999/Thinking-Claude) - Let your Claude able to think (today)
   - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (4 days ago)
   - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
   - [hyprutils/hyprgui](https://github.com/hyprutils/hyprgui) - GUI for configuring Hyprland, written in blazingly fast Rust! 🚀🦀 (2 weeks ago)
   - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 weeks ago)
-  - [adex-hub/ade-folio](https://github.com/adex-hub/ade-folio) - A sweet short summary of my work. With a lot of hard work put in. Give it a star if you find it useful (2 weeks ago)
 </details>
 
 
