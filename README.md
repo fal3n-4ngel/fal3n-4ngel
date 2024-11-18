@@ -17,7 +17,7 @@
 </div>
 
 ## My Tech Stack
-[![My Skills](https://skillicons.dev/icons?i=next,angular,react,flutter,tailwind,firebase,dotnet,java,python,c,cs,typescript,mongodb,mysql,&theme=light)](https://github.com/fal3n-4ngel/)
+[![My Skills](https://skillicons.dev/icons?i=next,angular,react,electron,tauri,dotnet,flutter,tailwind,firebase,java,python,c,cs,typescript,mongodb,mysql,&theme=light)](https://github.com/fal3n-4ngel/)
 
 ## Stats
 
