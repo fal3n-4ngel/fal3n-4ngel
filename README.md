@@ -17,7 +17,10 @@
 </div>
 
 ## My Tech Stack
-[![My Skills](https://skillicons.dev/icons?i=next,angular,react,flutter,tailwind,firebase,dotnet,java,python,c,cs,typescript,mongodb,mysql,&theme=light)](https://github.com/fal3n-4ngel/)
+
+[![My Skills](https://skillicons.dev/icons?i=next,angular,react,electron,dotnet,tauri,flutter,tailwind,kotlin&theme=light)](https://github.com/fal3n-4ngel/)
+
+[![My Skills](https://skillicons.dev/icons?i=java,python,c,cs,typescript,js,firebase,mongodb,mysql&theme=light)](https://github.com/fal3n-4ngel/)
 
 ## Stats
 
@@ -26,21 +29,21 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (5 days ago)
+  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (today)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (6 days ago)
   - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (1 week ago)
   - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 weeks ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (2 weeks ago)
-  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (2 weeks ago)
 </details>
 
 <details>
   <summary>These are super cool</summary>
   
-  - [richards199999/Thinking-Claude](https://github.com/richards199999/Thinking-Claude) - Let your Claude able to think (today)
-  - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (4 days ago)
+  - [fal3n-4ngel/Sklauncher-Arch](https://github.com/fal3n-4ngel/Sklauncher-Arch) - How to download and install SKLauncher Minecraft in Arch Linux (today)
+  - [richards199999/Thinking-Claude](https://github.com/richards199999/Thinking-Claude) - Let your Claude able to think (1 day ago)
+  - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (5 days ago)
   - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
   - [hyprutils/hyprgui](https://github.com/hyprutils/hyprgui) - GUI for configuring Hyprland, written in blazingly fast Rust! 🚀🦀 (2 weeks ago)
-  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 weeks ago)
 </details>
 
 
