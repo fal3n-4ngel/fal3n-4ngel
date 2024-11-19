@@ -29,8 +29,8 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (today)
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (6 days ago)
+  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (1 day ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
   - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (1 week ago)
   - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 weeks ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (2 weeks ago)
@@ -39,11 +39,11 @@
 <details>
   <summary>These are super cool</summary>
   
-  - [fal3n-4ngel/Sklauncher-Arch](https://github.com/fal3n-4ngel/Sklauncher-Arch) - How to download and install SKLauncher Minecraft in Arch Linux (today)
-  - [richards199999/Thinking-Claude](https://github.com/richards199999/Thinking-Claude) - Let your Claude able to think (1 day ago)
-  - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (5 days ago)
+  - [AarhamH/chamber](https://github.com/AarhamH/chamber) - Small, performant, and ergonomic audio library built with Tauri (1 day ago)
+  - [fal3n-4ngel/Sklauncher-Arch](https://github.com/fal3n-4ngel/Sklauncher-Arch) - How to download and install SKLauncher Minecraft in Arch Linux (1 day ago)
+  - [richards199999/Thinking-Claude](https://github.com/richards199999/Thinking-Claude) - Let your Claude able to think (2 days ago)
+  - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (6 days ago)
   - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
-  - [hyprutils/hyprgui](https://github.com/hyprutils/hyprgui) - GUI for configuring Hyprland, written in blazingly fast Rust! 🚀🦀 (2 weeks ago)
 </details>
 
 
