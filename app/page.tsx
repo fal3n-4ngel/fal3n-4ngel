@@ -665,7 +665,7 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="flex flex-col text-center text-xl font-poppins  p-4 interactable">
+          <div className="flex flex-col text-center text-xl font-poppins  p-4 interactable mt-5">
             &quot;Like I always say, can&apos;t find a door? Make your
             own.&quot; – Edward Elric, Fullmetal Alchemist
             <div className="text-slate-600 font-light text-center text-xl md:text-2xl mt-10">
