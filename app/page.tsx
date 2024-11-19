@@ -164,7 +164,7 @@ export default function Home() {
   const triggerEscape = () => {
     if (!isEscaping) {
       // Generate a new path only when starting the escape
-      pathRef.current = generateRandomPath({x,y});
+      pathRef.current = generateRandomPath({ x, y });
       setIsEscaping(true);
     }
   };
@@ -396,21 +396,21 @@ export default function Home() {
 
               <FadeUp>
                 <div className="py-1 interactable">
-                  <div className="font-semibold">Techinal Co Lead </div>
-                  <div>IEEE MBCET Chapter</div>
-                  <div className="font-sans text-gray-400">
-                    Jan 2023 - Feb 2024
-                  </div>
-                </div>
-
-                <div className="py-1 interactable">
                   <div className="font-semibold">
                     Google Cloud Facilitator
                     <span className="text-md text-gray-400"></span>
                   </div>
                   <div>GDSC MBCET</div>
                   <div className="font-sans text-gray-400">
-                    Nov 2022 - Feb 2024
+                    Nov 2022 - Dec 2023
+                  </div>
+                </div>
+
+                <div className="py-1 interactable">
+                  <div className="font-semibold">Techinal Co Lead </div>
+                  <div>IEEE MBCET Chapter</div>
+                  <div className="font-sans text-gray-400">
+                    Jan 2023 - Feb 2024
                   </div>
                 </div>
               </FadeUp>
@@ -449,37 +449,35 @@ export default function Home() {
                 </div>
               </FadeUp>
               <FadeUp>
-              <div className="max-w-fit py-4 animate-pulse">
-                {!isEscaping && (
-                  <button
-                    onClick={() => triggerEscape()}
-                    className="group relative flex items-center gap-2 px-6 py-1 md:text-[1vw]  font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
-                  >
-                    <img
-                      src="/ghostwhite.png"
-                      alt="Ghost"
-                      className="w-12 h-12  group-hover:opacity-100 transition-opacity"
-                    />
-                    Release the Ghost
-                    <span className="absolute -bottom-6 left-0 right-0 text-sm opacity-60"></span>
-                  </button>
-                )}
-                {isEscaping && (
-                  <button
-                    onClick={() => resetEscape()}
-                    className="group relative flex items-center gap-2 px-6 py-3 md:text-[1vw] font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
-                  >
-                    <img
-                      src="/ghostwhite.png"
-                      alt="Ghost"
-                      className="w-8 h-8 opacity-75 group-hover:opacity-100 transition-opacity "
-                    />
-                    Catch The Ghost
-                  </button>
-                  
-                  
-                )}
-              </div>
+                <div className="max-w-fit py-4 animate-pulse">
+                  {!isEscaping && (
+                    <button
+                      onClick={() => triggerEscape()}
+                      className="group relative flex items-center gap-2 px-6 py-1 md:text-[1vw]  font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
+                    >
+                      <img
+                        src="/ghostwhite.png"
+                        alt="Ghost"
+                        className="w-12 h-12  group-hover:opacity-100 transition-opacity"
+                      />
+                      Release the Ghost
+                      <span className="absolute -bottom-6 left-0 right-0 text-sm opacity-60"></span>
+                    </button>
+                  )}
+                  {isEscaping && (
+                    <button
+                      onClick={() => resetEscape()}
+                      className="group relative flex items-center gap-2 px-6 py-3 md:text-[1vw] font-medium bg-white dark:bg-zinc-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 interactable"
+                    >
+                      <img
+                        src="/ghostwhite.png"
+                        alt="Ghost"
+                        className="w-8 h-8 opacity-75 group-hover:opacity-100 transition-opacity "
+                      />
+                      Catch The Ghost
+                    </button>
+                  )}
+                </div>
               </FadeUp>
             </div>
           </div>
