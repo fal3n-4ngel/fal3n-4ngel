@@ -29,7 +29,7 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
-  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (2 days ago)
+  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (today)
   - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
   - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (1 week ago)
   - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (2 weeks ago)
