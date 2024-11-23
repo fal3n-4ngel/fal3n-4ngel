@@ -17,7 +17,6 @@ const FadeUp: React.FC<FadeUpProps> = ({ children }) => {
         duration: 0.5,
         delay: 0.1,
       }}
-      
     >
       {children}
     </motion.div>

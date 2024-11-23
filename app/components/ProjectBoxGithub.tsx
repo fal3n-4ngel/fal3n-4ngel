@@ -53,7 +53,7 @@ const GithubProjectBox = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full md:w-[95%] md:h-[95%] min-w-[75vw] text-white p-6 md:p-12 bg-[#07070748] rounded-lg shadow-lg"
+      className="w-full min-w-[75vw] rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:w-[95%] md:p-12"
     >
       {/* Header */}
       <motion.div
@@ -63,7 +63,7 @@ const GithubProjectBox = ({
         transition={{ duration: 0.6, delay: 0.2 }}
         className="mb-12"
       >
-        <h2 className="text-4xl md:text-7xl font-light tracking-tight mb-2 space-grotesk interactable">
+        <h2 className="space-grotesk interactable mb-2 text-4xl font-light tracking-tight md:text-7xl">
           {name}
         </h2>
       </motion.div>
@@ -74,12 +74,12 @@ const GithubProjectBox = ({
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative  aspect-video  overflow-hidden rounded-lg md:w-[80%]"
+        className="relative aspect-video overflow-hidden rounded-lg md:w-[80%]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1280 640"
-          className="w-full h-auto bg-neutral-900"
+          className="h-auto w-full bg-neutral-900"
         >
           {rects.map((rect, index) => (
             <rect
@@ -102,37 +102,37 @@ const GithubProjectBox = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="grid grid-cols-1 md:grid-cols-12 gap-8  md:w-[80%]"
+        className="grid grid-cols-1 gap-8 md:w-[80%] md:grid-cols-12"
       >
-        <div className="md:col-span-3  row-span-3 ">
-          <div className="flex md:flex-col flex-row justify-between items-center  md:items-start w-full md:space-y-3 ">
+        <div className="row-span-3 md:col-span-3">
+          <div className="flex w-full flex-row items-center justify-between md:flex-col md:items-start md:space-y-3">
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 TYPE
               </p>
-              <p className="text-lg font-light work-sans">{type}</p>
+              <p className="work-sans text-lg font-light">{type}</p>
             </div>
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 EVENT
               </p>
-              <p className="text-lg font-light work-sans">{event}</p>
+              <p className="work-sans text-lg font-light">{event}</p>
             </div>
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 YEAR
               </p>
-              <p className="text-lg font-light work-sans">{date}</p>
+              <p className="work-sans text-lg font-light">{date}</p>
             </div>
           </div>
         </div>
         {/* Description */}
 
         <div className="md:col-span-7">
-          <p className="text-sm uppercase tracking-wider text-neutral-500 mb-2">
+          <p className="mb-2 text-sm uppercase tracking-wider text-neutral-500">
             DESCRIPTION
           </p>
-          <p className="text-justify text-lg font-light leading-relaxed work-sans">
+          <p className="work-sans text-justify text-lg font-light leading-relaxed">
             This project is dynamically fetched from GitHub, showcasing
             real-time repository data and updates. Visit the GitHub page to
             explore the complete codebase, documentation, and development
@@ -142,16 +142,16 @@ const GithubProjectBox = ({
         </div>
 
         {/* View Button */}
-        <div className="md:col-span-2 flex justify-end items-start">
+        <div className="flex items-start justify-end md:col-span-2">
           <motion.a
             href={view}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative inline-flex items-center justify-center interactable"
+            className="interactable group relative inline-flex items-center justify-center"
           >
-            <div className="h-16 w-16 rounded-full border border-neutral-700 flex items-center justify-center transition-all duration-300 group-hover:border-white">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-neutral-700 transition-all duration-300 group-hover:border-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

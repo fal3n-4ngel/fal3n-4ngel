@@ -27,7 +27,7 @@ function ProjBox({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full md:w-[95%] md:h-[95%] min-w-[75vw] text-white p-6 md:p-12 bg-[#07070748]  rounded-lg shadow-lg"
+      className="w-full min-w-[75vw] rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:w-[95%] md:p-12"
     >
       {/* Header */}
       <motion.div
@@ -37,10 +37,10 @@ function ProjBox({
         transition={{ duration: 0.6, delay: 0.2 }}
         className="mb-4"
       >
-        <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2 work-sans interactable">
+        <h2 className="work-sans interactable mb-2 text-4xl font-light tracking-tight md:text-5xl">
           {name}
         </h2>
-        <h3 className="text-2xl md:text-3xl font-light tracking-wide text-neutral-400 space-grotesk">
+        <h3 className="space-grotesk text-2xl font-light tracking-wide text-neutral-400 md:text-3xl">
           {type}
         </h3>
       </motion.div>
@@ -51,15 +51,15 @@ function ProjBox({
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative md:w-[80%] aspect-video mb-6 overflow-hidden rounded-lg "
+        className="relative mb-6 aspect-video overflow-hidden rounded-lg md:w-[80%]"
       >
         <a href={view}>
-        <Image
-          src={url1}
-          alt={name}
-                  fill
-          className="object-cover transition-transform duration-700 hover:scale-105 projImg"
-        />
+          <Image
+            src={url1}
+            alt={name}
+            fill
+            className="projImg object-cover transition-transform duration-700 hover:scale-105"
+          />
         </a>
       </motion.div>
 
@@ -69,28 +69,28 @@ function ProjBox({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="grid grid-cols-1 md:grid-cols-12 gap-8 md:w-[80%]"
+        className="grid grid-cols-1 gap-8 md:w-[80%] md:grid-cols-12"
       >
         {/* Metadata */}
-        <div className="md:col-span-3 md:space-y-3 row-span-3 ">
-          <div className="flex md:flex-col flex-row justify-between items-center  md:items-start w-full md:space-y-3 ">
+        <div className="row-span-3 md:col-span-3 md:space-y-3">
+          <div className="flex w-full flex-row items-center justify-between md:flex-col md:items-start md:space-y-3">
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 TYPE
               </p>
-              <p className="text-lg font-light work-sans">{type}</p>
+              <p className="work-sans text-lg font-light">{type}</p>
             </div>
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 EVENT
               </p>
-              <p className="text-lg font-light work-sans">{event}</p>
+              <p className="work-sans text-lg font-light">{event}</p>
             </div>
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 YEAR
               </p>
-              <p className="text-lg font-light work-sans">{date}</p>
+              <p className="work-sans text-lg font-light">{date}</p>
             </div>
           </div>
         </div>
@@ -98,26 +98,26 @@ function ProjBox({
         {/* Description */}
         {description && (
           <div className="md:col-span-7">
-            <p className="text-sm uppercase tracking-wider text-neutral-500 mb-2">
+            <p className="mb-2 text-sm uppercase tracking-wider text-neutral-500">
               DESCRIPTION
             </p>
-            <p className="md:text-xl text-lg font-light leading-relaxed work-sans  md:text-justify">
+            <p className="work-sans text-lg font-light leading-relaxed md:text-justify md:text-xl">
               {description}
             </p>
           </div>
         )}
 
         {/* View Button */}
-        <div className="md:col-span-2 flex justify-end items-start">
+        <div className="flex items-start justify-end md:col-span-2">
           <motion.a
             href={view}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative inline-flex items-center justify-center interactable"
+            className="interactable group relative inline-flex items-center justify-center"
           >
-            <div className="h-16 w-16 rounded-full border border-neutral-700 flex items-center justify-center transition-all duration-300 group-hover:border-white">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-neutral-700 transition-all duration-300 group-hover:border-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

@@ -1,36 +1,31 @@
-"use client"
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
+"use client";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { RiMoonClearFill, RiSunFill } from "react-icons/ri";
 
 export default function DarkModeSwitch() {
   const [isOn, setIsOn] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsOn(localStorage.getItem('theme') === 'light');
-      toggleSwitch();
-    }
-  }, []);
  
 
   const toggleSwitch = () => {
     const newState = !isOn;
     setIsOn(newState);
 
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', newState ? 'dark' : 'light');
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme", newState ? "dark" : "light");
 
       if (newState) {
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
     }
   };
+  
 
   const spring = {
-    type: 'spring',
+    type: "spring",
     stiffness: 700,
     damping: 30,
   };
@@ -39,7 +34,7 @@ export default function DarkModeSwitch() {
     <div
       onClick={toggleSwitch}
       className={`flex-start flex h-[40px] w-[80px] rounded-[50px] bg-zinc-100 p-[5px] shadow-inner hover:cursor-pointer dark:bg-zinc-700 ${
-        isOn && 'place-content-end'
+        isOn && "place-content-end"
       }`}
     >
       <motion.div

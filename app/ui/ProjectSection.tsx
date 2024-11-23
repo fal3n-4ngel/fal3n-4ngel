@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { RiArrowUpCircleLine } from "react-icons/ri";
 import FadeUp from "../components/FadeUp";
@@ -21,7 +21,7 @@ function ProjectSection() {
   useEffect(() => {
     async function fetchRepos() {
       const response = await fetch(
-        "https://api.github.com/users/fal3n-4ngel/repos"
+        "https://api.github.com/users/fal3n-4ngel/repos",
       );
       const data = await response.json();
 
@@ -55,14 +55,14 @@ function ProjectSection() {
   };
 
   return (
-    <section className="min-h-screen font-light text-4xl w-[90%] md:w-[75%] p-5 md:p-0 mx-auto flex flex-col justify-center ">
+    <section className="mx-auto flex min-h-screen w-[90%] flex-col justify-center p-5 text-4xl font-light md:w-[75%] md:p-0">
       <FadeUp>
-        <div className="md:text-6xl text-5xl py-10 work-sans">
+        <div className="work-sans py-10 text-5xl md:text-6xl">
           Selected Works
         </div>
       </FadeUp>
 
-      <div className="w-full h-full flex  flex-wrap justify-center items-center">
+      <div className="flex h-full w-full flex-wrap items-center justify-center">
         <FadeUp>
           <ProjBox
             url1="/Flash1.png"
@@ -157,12 +157,12 @@ function ProjectSection() {
           />
         ))}
 
-        <FadeUp className="p-10 m-5">
-          <div className="p-10 m-5 flex flex-col items-center">
+        <FadeUp className="m-5 p-10">
+          <div className="m-5 flex flex-col items-center p-10">
             {visibleCount < repos.length && (
               <button
                 onClick={showMoreProjects}
-                className="flex  items-center gap-2 w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full mb-5"
+                className="interactable font-poppins mb-5 flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
               >
                 <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
                 discover more{" "}
@@ -173,15 +173,15 @@ function ProjectSection() {
             {visibleCount >= 1 && (
               <button
                 onClick={showLessProjects}
-                className="flex gap-2 items-center w-fit h-fit p-2 px-5 cursor-pointer interactable transition-all text-lg md:text-2xl font-poppins bg-[#afafaf] dark:bg-[#3d3d3d] dark:text-white text-black rounded-full"
+                className="interactable font-poppins flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
               >
-                <RiArrowUpCircleLine className="h-6 w-6 " /> collapse
-                <RiArrowUpCircleLine className="h-6 w-6 " />
+                <RiArrowUpCircleLine className="h-6 w-6" /> collapse
+                <RiArrowUpCircleLine className="h-6 w-6" />
               </button>
             )}
-            <div className="flex flex-col w-full  items-center mt-8  p-2 rounded-full shadow-md text-center">
-              <div className="flex items-center justify-center w-full">
-                <p className="md:text-base font-light text-[#2e3440] dark:text-[#e5e9f0] text-xs work-sans">
+            <div className="mt-8 flex w-full flex-col items-center rounded-full p-2 text-center shadow-md">
+              <div className="flex w-full items-center justify-center">
+                <p className="work-sans text-xs font-light text-[#2e3440] dark:text-[#e5e9f0] md:text-base">
                   Projects are dynamically fetched through GitHub Api
                 </p>
               </div>

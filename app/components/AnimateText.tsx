@@ -58,7 +58,7 @@ const AnimatedTextCharacter: React.FC<CombinedProps> = ({ text }) => {
       variants={container}
       initial="hidden"
       animate={inView ? "visible" : "hidden"} // Conditionally apply animation based on inView
-      className="flex flex-wrap md:text-6xl text-[30px]"
+      className="flex flex-wrap text-[30px] md:text-6xl"
     >
       {letters.map((letter, index) => (
         <motion.span variants={child} key={index}>
