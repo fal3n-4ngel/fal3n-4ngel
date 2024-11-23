@@ -9,11 +9,10 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -101,9 +100,9 @@ html,body {
 }
 
 :root {
-  --scrollbar-bg: #f0f0f0; /* Light mode background */
-  --scrollbar-thumb: #a0a0a0; /* Light mode thumb */
-  --scrollbar-thumb-hover: #909090; /* Light mode thumb hover */
+  --scrollbar-bg: #121212; /* Dark mode background */
+  --scrollbar-thumb: #f8f8f8; /* Dark mode thumb */
+  --scrollbar-thumb-hover: #ececec; /* Dark mode thumb hover */
 }
 
 .dark {
