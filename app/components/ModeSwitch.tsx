@@ -4,22 +4,20 @@ import { motion } from "framer-motion";
 import { RiMoonClearFill, RiSunFill } from "react-icons/ri";
 
 export default function DarkModeSwitch() {
-  const [isOn, setIsOn] = useState(false);
-
+  const [isOn, setIsOn] = useState(true);
+  document.documentElement.classList.add("dark");
  
 
   const toggleSwitch = () => {
-    const newState = !isOn;
+    const newState = isOn;
     setIsOn(newState);
 
     if (typeof window !== "undefined") {
-      localStorage.setItem("theme", newState ? "dark" : "light");
+      localStorage.setItem("theme","dark" );
 
-      if (newState) {
+      
         document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+      
     }
   };
   
