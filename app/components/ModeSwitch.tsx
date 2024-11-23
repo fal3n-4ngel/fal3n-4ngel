@@ -27,7 +27,7 @@ export default function DarkModeSwitch() {
     setIsOn(newState);
 
     if (typeof window !== 'undefined') {
-      const theme = newState ? 'dark' : 'dark';
+      const theme = newState ? 'dark' : 'light';
       localStorage.setItem('theme', theme);
 
       if (newState) {

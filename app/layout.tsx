@@ -110,7 +110,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} custom-scrollbar`}>
+      <body className={`${inter.className} custom-scrollbar dark `}>
         {children}
         <Analytics />
         <SpeedInsights />
