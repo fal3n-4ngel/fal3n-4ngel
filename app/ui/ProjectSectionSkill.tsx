@@ -14,18 +14,32 @@ import {
   Repo,
 } from "../types/projects";
 import { projects, projectSkills, skillIcons } from "../data/projects";
+import { inView } from "framer-motion";
 
 // Main component
 const ProjectsWithSkills: React.FC = () => {
   const [activeProject, setActiveProject] = useState<string | null>(null);
   const { ref: sectionRef, inView: sectionInView } = useInView({
-    threshold: 0.05,
+    threshold: 0.1,
+    triggerOnce: false,
+  });
+
+  const { ref: breakRef, inView: breakInView } = useInView({
+    threshold: 0.1,
     triggerOnce: false,
   });
   const [repos, setRepos] = useState<Repo[]>([]);
   const [visibleCount, setVisibleCount] = useState(0);
+  
+  useEffect(() => {
+    if (breakInView) {
+      setVisibleCount(0);
+    }
+  }, [ breakInView]);
 
   useEffect(() => {
+
+
     async function fetchRepos() {
       const response = await fetch(
         "https://api.github.com/users/fal3n-4ngel/repos",
@@ -61,7 +75,7 @@ const ProjectsWithSkills: React.FC = () => {
   };
 
   return (
-    <section className="h-full min-h-screen w-full">
+    <section className="h-full min-h-screen w-full"  ref={sectionRef}>
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col md:flex-row">
           {/* Scrollable Projects Container */}
@@ -71,8 +85,8 @@ const ProjectsWithSkills: React.FC = () => {
                 Selected Works
               </div>
             </FadeUp>
-
-            <div className="space-y-8" ref={sectionRef}>
+            <div ref={breakRef}></div>
+            <div className="space-y-8" >
               {projects.map((project) => (
                 <ProjectBox
                   key={project.name}
@@ -80,6 +94,7 @@ const ProjectsWithSkills: React.FC = () => {
                   onVisible={() => setActiveProject(project.name)}
                 />
               ))}
+              
               {repos.slice(0, visibleCount).map((repo) => (
                 <GitProjectBox
                   key={repo.id}
@@ -192,19 +207,12 @@ const GitProjectBox: React.FC<GitProjectBoxProps> = ({
   onVisible,
   ...props
 }) => {
-  const { ref, inView } = useInView({
-    threshold: 0.5,
-    triggerOnce: false,
-  });
 
-  useEffect(() => {
-    if (inView) {
-      onVisible();
-    }
-  }, [inView, onVisible]);
+
+
 
   return (
-    <div ref={ref}>
+    <div >
       <GithubProjectBox name={name} {...props} />
     </div>
   );

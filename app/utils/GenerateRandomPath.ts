@@ -8,6 +8,10 @@ export const generateRandomPath = (
 ): Position[] => {
   const { width, height } = dimensions;
   const points: Position[] = [startPos];
+  points.push({
+    x: padding + 200,
+    y: padding + 200,
+  });
 
   for (let i = 0; i < numPoints; i++) {
     points.push({

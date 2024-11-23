@@ -101,7 +101,7 @@ const GithubProjectBox = ({
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.6 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
         className="grid grid-cols-1 gap-8 md:w-[80%] md:grid-cols-12"
       >
         <div className="row-span-3 md:col-span-3">

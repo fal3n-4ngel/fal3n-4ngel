@@ -50,7 +50,7 @@ function ProjBox({
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.4 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
         className="relative mb-6 aspect-video overflow-hidden rounded-lg md:w-[80%]"
       >
         <a href={view}>
@@ -68,7 +68,7 @@ function ProjBox({
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.6 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
         className="grid grid-cols-1 gap-8 md:w-[80%] md:grid-cols-12"
       >
         {/* Metadata */}

@@ -96,7 +96,7 @@ export default function Home() {
       rotate: [0, 25, -10, 5, 0, 35, -10, -5, 0, 15, -10, 0, 0, 5, -10, 0],
       scale: [1, 1.1, 0.9, 1],
       transition: {
-        duration: 80,
+        duration: 60,
         ease: "easeInOut",
         repeat: Infinity,
       },
