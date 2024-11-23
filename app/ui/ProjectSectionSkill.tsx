@@ -142,7 +142,7 @@ const ProjectsWithSkills: React.FC = () => {
           </div>
 
           {/* Fixed Skills Container */}
-          <div className="hidden md:block">
+          <div className="hidden md:block z-0">
             <div
               className={`fixed right-[2vw] top-[20vh] w-[25vw] max-w-[350px] transition-all duration-500 ${
                 sectionInView ? "size-100 opacity-100" : "scale-75 opacity-0"

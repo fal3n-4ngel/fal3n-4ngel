@@ -150,7 +150,7 @@ export default function Home() {
             width: `${interacting ? "200px" : "40px"}`,
             height: `${interacting ? "200px" : "40px"}`,
           }}
-          className={`z-top pointer-events-none hidden rounded-full bg-white md:flex ${
+          className={`z-[10000] pointer-events-none hidden rounded-full bg-white md:flex ${
             !projImage
               ? "mix-blend-difference"
               : "scale-0 overflow-hidden opacity-0 transition-all duration-100"
