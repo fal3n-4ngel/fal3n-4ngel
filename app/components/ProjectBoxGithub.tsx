@@ -74,7 +74,7 @@ const GithubProjectBox = ({
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative w-full aspect-video  overflow-hidden rounded-lg"
+        className="relative  aspect-video  overflow-hidden rounded-lg md:w-[80%]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ const GithubProjectBox = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="grid grid-cols-1 md:grid-cols-12 gap-8"
+        className="grid grid-cols-1 md:grid-cols-12 gap-8  md:w-[80%]"
       >
         <div className="md:col-span-3  row-span-3 ">
           <div className="flex md:flex-col flex-row justify-between items-center  md:items-start w-full md:space-y-3 ">

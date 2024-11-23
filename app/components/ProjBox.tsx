@@ -35,12 +35,12 @@ function ProjBox({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="mb-12"
+        className="mb-4"
       >
-        <h2 className="text-4xl md:text-7xl font-light tracking-tight mb-2 space-grotesk interactable">
+        <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2 work-sans interactable">
           {name}
         </h2>
-        <h3 className="text-2xl md:text-4xl font-light tracking-wide text-neutral-400 space-grotesk">
+        <h3 className="text-2xl md:text-3xl font-light tracking-wide text-neutral-400 space-grotesk">
           {type}
         </h3>
       </motion.div>
@@ -51,7 +51,7 @@ function ProjBox({
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative w-full aspect-video mb-12 overflow-hidden rounded-lg "
+        className="relative md:w-[80%] aspect-video mb-6 overflow-hidden rounded-lg "
       >
         <a href={view}>
         <Image
@@ -69,7 +69,7 @@ function ProjBox({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="grid grid-cols-1 md:grid-cols-12 gap-8"
+        className="grid grid-cols-1 md:grid-cols-12 gap-8 md:w-[80%]"
       >
         {/* Metadata */}
         <div className="md:col-span-3 md:space-y-3 row-span-3 ">
