@@ -29,21 +29,21 @@
 <details>
   <summary>Check out what I'm currently working on</summary>
   
+  - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (today)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (today)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (today)
   - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
   - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 weeks ago)
-  - [Chackoz/DASH](https://github.com/Chackoz/DASH) - Distributed Adaptive Serverless Hosting (3 weeks ago)
-  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (3 weeks ago)
 </details>
 
 <details>
   <summary>These are super cool</summary>
   
+  - [sdras/awesome-actions](https://github.com/sdras/awesome-actions) - A curated list of awesome actions to use on GitHub (today)
   - [AarhamH/chamber](https://github.com/AarhamH/chamber) - Small, performant, and ergonomic audio library built with Tauri (6 days ago)
   - [fal3n-4ngel/Sklauncher-Arch](https://github.com/fal3n-4ngel/Sklauncher-Arch) - How to download and install SKLauncher Minecraft in Arch Linux (6 days ago)
   - [richards199999/Thinking-Claude](https://github.com/richards199999/Thinking-Claude) - Let your Claude able to think (1 week ago)
   - [cassidoo/getting-a-gig](https://github.com/cassidoo/getting-a-gig) - Guide for getting a gig as a tech student. (1 week ago)
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (2 weeks ago)
 </details>
 
 
