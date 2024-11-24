@@ -18,6 +18,7 @@ import {
   RiLinkedinBoxFill,
   RiMailFill,
 } from "react-icons/ri";
+import Image from "next/image";
 
 export default function Home() {
   const ref = useRef(null);
@@ -30,6 +31,11 @@ export default function Home() {
   const [isEscaping, setIsEscaping] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
+  const [isGitHubLogo, setGitHubLogo] = useState(false);
+  const [isLinkedInLogo, setLinkedInLogo] = useState(false);
+  const [isResumeLogo, setResumeLogo] = useState(false);
+  const [isMailLogo, setMailLogo] = useState(false);
+
   useSmoothScroll();
 
   // Mouse interaction handler
@@ -39,6 +45,14 @@ export default function Home() {
         const targetElement = e.target as HTMLElement;
         const interactableElement = targetElement.closest(".interactable");
         setInteracting(interactableElement ? true : false);
+        const githubLogoElement = targetElement.closest(".githubLogo");
+        setGitHubLogo(githubLogoElement ? true : false);
+        const linkedinLogoElement = targetElement.closest(".linkedinLogo");
+        setLinkedInLogo(linkedinLogoElement ? true : false);
+        const resumeLogoElement = targetElement.closest(".resumeLogo");
+        const mailLogoelement = targetElement.closest(".mailLogo");
+        setMailLogo(mailLogoelement ? true : false);
+        setResumeLogo(resumeLogoElement ? true : false);
         const targetImage = e.target as HTMLElement;
         const interactableImage = targetImage.closest(".projImg");
         setProjImage(interactableImage ? true : false);
@@ -150,17 +164,38 @@ export default function Home() {
             width: `${interacting ? "200px" : "40px"}`,
             height: `${interacting ? "200px" : "40px"}`,
           }}
-          className={`z-[10000] pointer-events-none hidden rounded-full bg-white md:flex ${
+          className={`pointer-events-none z-[10000] hidden rounded-full bg-white md:flex ${
             !projImage
               ? "mix-blend-difference"
-              : "scale-0 overflow-hidden opacity-0 transition-all duration-100"
-          } `}
+              : "scale-0 overflow-hidden opacity-0 transition-all duration-200"
+          } ${isGitHubLogo || isLinkedInLogo || isResumeLogo||isMailLogo  ? "animate-pulse" : "bg-white"}`}
         >
           <img
             src="/ghost.png"
-            className={`z-[-1] opacity-25 ${isEscaping ? "hidden" : "flex"}`}
+            className={`z-[-1] opacity-25 ${isEscaping || isGitHubLogo || isLinkedInLogo || isResumeLogo ||isMailLogo  ? "hidden" : "flex"}`}
             alt=""
           ></img>
+
+          {/* <img
+            src="icons/github.svg"
+            alt="github"
+            className={`z-[-1] ${!isGitHubLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
+          />
+          <img
+            src="icons/linkedin.svg"
+            alt="linkedin"
+            className={`z-[-1] ${!isLinkedInLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
+          />
+          <img
+            src="icons/resume.svg"
+            alt="resume"
+            className={`z-[-1] ${!isResumeLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
+          />
+          <img 
+          src="icons/mail.svg" 
+          alt="mail"
+          className={`z-[-1] ${!isMailLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
+          /> */}
         </motion.div>
       </div>
 

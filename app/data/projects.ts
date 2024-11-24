@@ -24,6 +24,7 @@ import {
   SiNextdotjs,
   SiBlockchaindotcom,
   SiSolidity,
+  SiIpfs,
 } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
 import { IconType } from "react-icons";
@@ -104,17 +105,21 @@ export const projects: Project[] = [
   ];
 
 
-  // Skill Icons
+// Updated Skill Icons
 export const skillIcons: Record<string, IconType> = {
   "Next.js": TbBrandNextjs,
   "Angular.js": SiAngular,
   "React.js": DiReact,
+  Flutter: SiFlutter,
   "Tailwind CSS": SiTailwindcss,
   "TypeScript": SiTypescript,
   ".NET": SiDotnet,
   "Python": DiPython,
+  "Stable Diffusion": SiGraphql, // Suggesting this as a placeholder until you add a custom icon
   "Blockchain": SiBlockchaindotcom,
   "Solidity": SiSolidity,
+  Ipfs:SiIpfs,
+  etherium:SiBlockchaindotcom,
   C: SiC,
   Java: DiJava,
   "C#": SiCsharp,
@@ -123,17 +128,20 @@ export const skillIcons: Record<string, IconType> = {
   MySQL: SiMysql,
   Firebase: DiFirebase,
   Kotlin: SiKotlin,
-  Flutter: SiFlutter,
+  
+  
 };
+
+
 
 
 
 // Project skills Mapping
 export const projectSkills: Record<string, string[]> = {
-  "FLASH DRIVE": ["Next.js", "Firebase", "Python","Stable Diffusion"],
+  "FLASH DRIVE": ["Next.js", "Firebase", "Python","Stable Diffusion","Tailwind CSS","Typescript"],
   "STREAM OWN YOUR OWN": ["Next.js", "TypeScript", "Tailwind CSS"],
-  "SMART CERTIFY": ["React.js", "TypeScript", "Blockchain","Solidity","Firebase"],
-  "BETTER FUNDS": ["Next.js", "Blockchain","Solidity", "Tailwind CSS", "MongoDB"],
+  "SMART CERTIFY": ["Next.js", "TypeScript", "Blockchain","Solidity","Firebase","Ipfs","etherium"],
+  "BETTER FUNDS": ["Next.js", "Blockchain","Solidity", "Tailwind CSS", "Firebase","etherium"],
   "SUS GOALS": ["Next.js", "Firebase", "Tailwind CSS","TypeScript"],
   "DRISHTI": ["Flutter", "Firebase","MongoDB"],
   "C-TRACKER": ["Java", "MySQL"],

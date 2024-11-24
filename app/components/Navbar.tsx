@@ -26,19 +26,19 @@ function Navbar() {
       <div className="hidden items-center gap-8 md:flex">
         <a
           href="https://github.com/fal3n-4ngel"
-          className="font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
+          className="githubLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
         >
           github
         </a>
         <a
           href="https://www.linkedin.com/in/fal3n-4ngel/"
-          className="font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
+          className="linkedinLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
         >
           linkedin
         </a>
         <a
           href="/Resume Adithya Krishnan Nov.pdf"
-          className="font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
+          className="resumeLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
         >
           resume
         </a>
@@ -63,7 +63,7 @@ function Navbar() {
         </a>
         <a
           href="/Resume Adithya Krishnan Nov.pdf"
-          className="font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
+          className="resumeLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
         >
           <Image src="icons/resume.svg" width={15} height={15} alt="x" />
         </a>
@@ -77,7 +77,7 @@ function Navbar() {
       <div className="hidden items-center gap-2 md:flex">
         <a
           href="mailto:hello@adithyakrishnan.com"
-          className="font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
+          className="mailLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
         >
           hello@adithyakrishnan.com
         </a>
