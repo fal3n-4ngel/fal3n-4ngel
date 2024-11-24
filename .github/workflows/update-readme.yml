@@ -32,8 +32,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
-          commit_message: Update Generated Readme
+          commit_message: 'docs(README) : update recent data' 
           branch: master
-          commit_user_name: fal3n-4ngel✨
-          commit_user_email: actions@github.com
-          commit_author: fal3n-4ngel✨ <actions@github.com>
+          commit_user_name: fal3n-4ngel
+          commit_user_email: adiadithyakrishnan@gmail.com
+          commit_author: Adithya Krishnan
