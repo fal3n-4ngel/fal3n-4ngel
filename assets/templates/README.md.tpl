@@ -20,7 +20,7 @@
 
 ### 📈 Stats  
 
- ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true)
+ ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=github_dark_dimmed)
 
 <details>
   <summary>🌱 What I'm Up To  </summary>
@@ -37,19 +37,6 @@
 </details>
 
 
-### 🌍 Connect With Me
-
-  <a href="https://twitter.com/fal3n_4ngel"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter"></a>
-  <a href="https://www.linkedin.com/in/fal3n-4ngel/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="https://github.com/fal3n-4ngel"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
-  <a href="https://g.dev/fal3n-4ngel"><img src="https://img.shields.io/badge/Google%20Dev-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Developers"></a>
-
-
-<p align="center">
-<img
-    width="100"
-    src="https://media1.giphy.com/media/3o7WIx7urV838kHFzW/giphy.gif"
-  />
-</p>
+<a href="https://www.buymeacoffee.com/fal3n4ngel" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 
