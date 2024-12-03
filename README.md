@@ -25,21 +25,21 @@
 <details>
   <summary>🌱 What I'm Up To  </summary>
 
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (today)
-  - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (6 days ago)
+  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (2 days ago)
+  - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (1 week ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (1 week ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (1 week ago)
-  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (2 weeks ago)
+  - [Chackoz/Flashdrive](https://github.com/Chackoz/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (3 weeks ago)
 </details>
 
 <details>
   <summary>🔥 Cool Repos`s to check out  </summary>
    
-  - [SamJohn04/Project-Manager](https://github.com/SamJohn04/Project-Manager) - A concise tool for project management and tracking. (1 day ago)
+  - [neviaseb03/Tuples](https://github.com/neviaseb03/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 day ago)
+  - [neviaseb03/Flashdrive](https://github.com/neviaseb03/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 day ago)
+  - [SamJohn04/Project-Manager](https://github.com/SamJohn04/Project-Manager) - A concise tool for project management and tracking. (3 days ago)
   - [sdras/awesome-actions](https://github.com/sdras/awesome-actions) - A curated list of awesome actions to use on GitHub (1 week ago)
-  - [AarhamH/chamber](https://github.com/AarhamH/chamber) - Small, performant, and ergonomic audio library built with Tauri (1 week ago)
-  - [fal3n-4ngel/Sklauncher-Arch](https://github.com/fal3n-4ngel/Sklauncher-Arch) - How to download and install SKLauncher Minecraft in Arch Linux (1 week ago)
-  - [richards199999/Thinking-Claude](https://github.com/richards199999/Thinking-Claude) - Let your Claude able to think (2 weeks ago)
+  - [AarhamH/chamber](https://github.com/AarhamH/chamber) - Small, performant, and ergonomic audio library built with Tauri (2 weeks ago)
 </details>
 
 
