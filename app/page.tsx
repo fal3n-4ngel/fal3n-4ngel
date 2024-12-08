@@ -23,45 +23,84 @@ import Image from "next/image";
 export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
-  const [offset, setOffset] = useState(0);
   const pathRef = useRef<Position[]>([]);
-
-  const [interacting, setInteracting] = useState(false);
   const [projImage, setProjImage] = useState(false);
   const [isEscaping, setIsEscaping] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  const [isGitHubLogo, setGitHubLogo] = useState(false);
-  const [isLinkedInLogo, setLinkedInLogo] = useState(false);
-  const [isResumeLogo, setResumeLogo] = useState(false);
-  const [isMailLogo, setMailLogo] = useState(false);
+  const { cursorState, logoStates, offset } = useCustomCursor();
+  const { isInteracting, interactionType } = cursorState;
+  const {
+    isGitHubLogo,
+    isLinkedInLogo,
+    isResumeLogo,
+    isMailLogo,
+    isProjImage,
+  } = logoStates;
 
   useSmoothScroll();
 
-  // Mouse interaction handler
-  if (typeof window !== "undefined") {
-    window.onmousemove = (e) => {
-      if (e) {
+  function useCustomCursor() {
+    const [cursorState, setCursorState] = useState({
+      isInteracting: false,
+      interactionType: null as
+        | "github"
+        | "linkedin"
+        | "resume"
+        | "mail"
+        | "project"
+        | null,
+    });
+
+    const [offset, setOffset] = useState(0);
+    const [logoStates, setLogoStates] = useState({
+      isGitHubLogo: false,
+      isLinkedInLogo: false,
+      isResumeLogo: false,
+      isMailLogo: false,
+      isProjImage: false,
+    });
+
+    useEffect(() => {
+      const handleMouseMove = (e: MouseEvent) => {
         const targetElement = e.target as HTMLElement;
-        const interactableElement = targetElement.closest(".interactable");
-        setInteracting(interactableElement ? true : false);
-        const githubLogoElement = targetElement.closest(".githubLogo");
-        setGitHubLogo(githubLogoElement ? true : false);
-        const linkedinLogoElement = targetElement.closest(".linkedinLogo");
-        setLinkedInLogo(linkedinLogoElement ? true : false);
-        const resumeLogoElement = targetElement.closest(".resumeLogo");
-        const mailLogoelement = targetElement.closest(".mailLogo");
-        setMailLogo(mailLogoelement ? true : false);
-        setResumeLogo(resumeLogoElement ? true : false);
-        const targetImage = e.target as HTMLElement;
-        const interactableImage = targetImage.closest(".projImg");
-        setProjImage(interactableImage ? true : false);
-        if (interacting) {
-          setOffset(50);
-        } else {
-          setOffset(0);
-        }
-      }
+
+        const getInteractionType = () => {
+          if (targetElement.closest(".projImg")) return "project";
+          return null;
+        };
+
+        const interactionType = getInteractionType();
+        const isInteracting =
+          !!interactionType || !!targetElement.closest(".interactable");
+
+        // Update interaction states
+        setCursorState({
+          isInteracting,
+          interactionType,
+        });
+
+        // Update logo and image states
+        setLogoStates({
+          isGitHubLogo: !!targetElement.closest(".githubLogo"),
+          isLinkedInLogo: !!targetElement.closest(".linkedinLogo"),
+          isResumeLogo: !!targetElement.closest(".resumeLogo"),
+          isMailLogo: !!targetElement.closest(".mailLogo"),
+          isProjImage: !!targetElement.closest(".projImg"),
+        });
+
+        // Update offset based on interaction
+        setOffset(isInteracting ? 70 : 0);
+      };
+
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, []);
+
+    return {
+      cursorState,
+      logoStates,
+      offset,
     };
   }
 
@@ -161,41 +200,20 @@ export default function Home() {
             y: y - offset,
             top: 0,
             left: 0,
-            width: `${interacting ? "200px" : "40px"}`,
-            height: `${interacting ? "200px" : "40px"}`,
+            width: `${isInteracting ? "200px" : "40px"}`,
+            height: `${isInteracting ? "200px" : "40px"}`,
           }}
           className={`pointer-events-none z-[10000] hidden rounded-full bg-white md:flex ${
             !projImage
               ? "mix-blend-difference"
               : "scale-0 overflow-hidden opacity-0 transition-all duration-200"
-          } ${isGitHubLogo || isLinkedInLogo || isResumeLogo||isMailLogo  ? "animate-pulse" : "bg-white"}`}
+          } ${isGitHubLogo || isLinkedInLogo || isResumeLogo || isMailLogo ? "animate-pulse" : "bg-white"}`}
         >
           <img
             src="/ghost.png"
-            className={`z-[-1] opacity-[35%] ${isEscaping || isGitHubLogo || isLinkedInLogo || isResumeLogo ||isMailLogo  ? "hidden" : "flex"}`}
+            className={`z-[-1] opacity-[35%] ${isEscaping ? "hidden" : "flex"}`}
             alt=""
           ></img>
-
-          {/* <img
-            src="icons/github.svg"
-            alt="github"
-            className={`z-[-1] ${!isGitHubLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
-          />
-          <img
-            src="icons/linkedin.svg"
-            alt="linkedin"
-            className={`z-[-1] ${!isLinkedInLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
-          />
-          <img
-            src="icons/resume.svg"
-            alt="resume"
-            className={`z-[-1] ${!isResumeLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
-          />
-          <img 
-          src="icons/mail.svg" 
-          alt="mail"
-          className={`z-[-1] ${!isMailLogo ? "hidden" : "flex"} scale-125 bg-black text-black transition-all duration-200`}
-          /> */}
         </motion.div>
       </div>
 
@@ -207,7 +225,7 @@ export default function Home() {
           <Navbar />
         </div>
 
-        <section className="flex min-h-screen w-full flex-col justify-center md:w-[80vw] p-4">
+        <section className="flex min-h-screen w-full flex-col justify-center p-4 md:w-[80vw]">
           <FadeUp className="space-grotesk flex text-black">
             <h1 className="work-sans p-5 text-xl md:text-[2vw]">Hello,</h1>
           </FadeUp>
