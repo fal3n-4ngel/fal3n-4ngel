@@ -172,7 +172,7 @@ export default function Home() {
         >
           <img
             src="/ghost.png"
-            className={`z-[-1] opacity-25 ${isEscaping || isGitHubLogo || isLinkedInLogo || isResumeLogo ||isMailLogo  ? "hidden" : "flex"}`}
+            className={`z-[-1] opacity-[35%] ${isEscaping || isGitHubLogo || isLinkedInLogo || isResumeLogo ||isMailLogo  ? "hidden" : "flex"}`}
             alt=""
           ></img>
 
@@ -200,14 +200,14 @@ export default function Home() {
       </div>
 
       <main
-        className="flex min-h-screen w-full flex-col items-center justify-between overflow-x-hidden bg-[#ececec] text-black dark:bg-[#0c0c0c] dark:text-white"
+        className="flex min-h-screen w-full flex-col items-center justify-between overflow-x-hidden bg-[#ececec] text-black dark:bg-[#0a0a0a] dark:text-white"
         ref={ref}
       >
         <div className="fixed z-[10] w-full">
           <Navbar />
         </div>
 
-        <section className="flex min-h-screen w-full flex-col justify-center md:w-[80%]">
+        <section className="flex min-h-screen w-full flex-col justify-center md:w-[80vw] p-4">
           <FadeUp className="space-grotesk flex text-black">
             <h1 className="work-sans p-5 text-xl md:text-[2vw]">Hello,</h1>
           </FadeUp>
