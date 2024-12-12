@@ -25,17 +25,17 @@
 <details>
   <summary>🌱 What I'm Up To  </summary>
 
-  - [zen-browser/www](https://github.com/zen-browser/www) - 🌐 Homepage for @zen-browser! (6 days ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (1 week ago)
-  - [Deflated-Pappadam/gamior](https://github.com/Deflated-Pappadam/gamior) -  (1 week ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (2 weeks ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (2 weeks ago)
+  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (1 month ago)
+  - [fal3n-4ngel/FindThePair](https://github.com/fal3n-4ngel/FindThePair) - Dynamic Content - PHP , Web Assigment (1 month ago)
 </details>
 
 <details>
   <summary>🔥 Cool Repos`s to check out  </summary>
    
-  - [zen-browser/desktop](https://github.com/zen-browser/desktop) - 🌀 Experience tranquillity while browsing the web without people tracking you! (6 days ago)
+  - [zen-browser/desktop](https://github.com/zen-browser/desktop) - 🌀 Experience tranquillity while browsing the web without people tracking you! (1 week ago)
   - [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤯 Lobe Chat - an open-source, modern-design AI chat framework. Supports Multi AI Providers( OpenAI / Claude 3 / Gemini / Ollama / Qwen /  DeepSeek), Knowledge Base (file upload / knowledge management / RAG ), Multi-Modals (Vision/TTS/Plugins/Artifacts). One-click FREE deployment of your private ChatGPT/ Claude application. (1 week ago)
   - [neviaseb03/Tuples](https://github.com/neviaseb03/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
   - [neviaseb03/Flashdrive](https://github.com/neviaseb03/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
