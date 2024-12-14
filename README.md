@@ -25,7 +25,7 @@
 <details>
   <summary>🌱 What I'm Up To  </summary>
 
-  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) -  (today)
+  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) -  (2 days ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (1 week ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (2 weeks ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (2 weeks ago)
@@ -39,7 +39,7 @@
   - [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤯 Lobe Chat - an open-source, modern-design AI chat framework. Supports Multi AI Providers( OpenAI / Claude 3 / Gemini / Ollama / Qwen /  DeepSeek), Knowledge Base (file upload / knowledge management / RAG ), Multi-Modals (Vision/TTS/Plugins/Artifacts). One-click FREE deployment of your private ChatGPT/ Claude application. (1 week ago)
   - [neviaseb03/Tuples](https://github.com/neviaseb03/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
   - [neviaseb03/Flashdrive](https://github.com/neviaseb03/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
-  - [SamJohn04/Project-Manager](https://github.com/SamJohn04/Project-Manager) - A concise tool for project management and tracking. (1 week ago)
+  - [SamJohn04/Project-Manager](https://github.com/SamJohn04/Project-Manager) - A concise tool for project management and tracking. (2 weeks ago)
 </details>
 
 
