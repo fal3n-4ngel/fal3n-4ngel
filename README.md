@@ -35,11 +35,11 @@
 <details>
   <summary>🔥 Cool Repos`s to check out  </summary>
    
+  - [KiKaraage/ArcWTF](https://github.com/KiKaraage/ArcWTF) - A userChrome.css theme to bring Arc Browser look on Windows to Firefox. Work with Windows, Linux and macOS ✨ (today)
+  - [janhq/jan](https://github.com/janhq/jan) - Jan is an open source alternative to ChatGPT that runs 100% offline on your computer. Multiple engine support (llama.cpp, TensorRT-LLM) (today)
+  - [soulhotel/FF-ULTIMA](https://github.com/soulhotel/FF-ULTIMA) - The Firefox theme with too many options.. FF Ultima. (today)
   - [mitul-s/paprback.co](https://github.com/mitul-s/paprback.co) - Paprback is a showcase for your bookshelves, and place to manage all your readings. A full-stack project that I built to correctly learn React. (1 day ago)
   - [zen-browser/desktop](https://github.com/zen-browser/desktop) - 🌀 Experience tranquillity while browsing the web without people tracking you! (1 week ago)
-  - [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤯 Lobe Chat - an open-source, modern-design AI chat framework. Supports Multi AI Providers( OpenAI / Claude 3 / Gemini / Ollama / Qwen /  DeepSeek), Knowledge Base (file upload / knowledge management / RAG ), Multi-Modals (Vision/TTS/Plugins/Artifacts). One-click FREE deployment of your private ChatGPT/ Claude application. (2 weeks ago)
-  - [neviaseb03/Tuples](https://github.com/neviaseb03/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (2 weeks ago)
-  - [neviaseb03/Flashdrive](https://github.com/neviaseb03/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (2 weeks ago)
 </details>
 
 
