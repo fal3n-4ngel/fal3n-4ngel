@@ -25,8 +25,8 @@
 <details>
   <summary>🌱 What I'm Up To  </summary>
 
-  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) -  (3 days ago)
-  - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (1 week ago)
+  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) -  (5 days ago)
+  - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (2 weeks ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (3 weeks ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (3 weeks ago)
   - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (1 month ago)
@@ -35,11 +35,11 @@
 <details>
   <summary>🔥 Cool Repos`s to check out  </summary>
    
+  - [mitul-s/paprback.co](https://github.com/mitul-s/paprback.co) - Paprback is a showcase for your bookshelves, and place to manage all your readings. A full-stack project that I built to correctly learn React. (1 day ago)
   - [zen-browser/desktop](https://github.com/zen-browser/desktop) - 🌀 Experience tranquillity while browsing the web without people tracking you! (1 week ago)
-  - [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤯 Lobe Chat - an open-source, modern-design AI chat framework. Supports Multi AI Providers( OpenAI / Claude 3 / Gemini / Ollama / Qwen /  DeepSeek), Knowledge Base (file upload / knowledge management / RAG ), Multi-Modals (Vision/TTS/Plugins/Artifacts). One-click FREE deployment of your private ChatGPT/ Claude application. (1 week ago)
-  - [neviaseb03/Tuples](https://github.com/neviaseb03/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (1 week ago)
-  - [neviaseb03/Flashdrive](https://github.com/neviaseb03/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (1 week ago)
-  - [SamJohn04/Project-Manager](https://github.com/SamJohn04/Project-Manager) - A concise tool for project management and tracking. (2 weeks ago)
+  - [lobehub/lobe-chat](https://github.com/lobehub/lobe-chat) - 🤯 Lobe Chat - an open-source, modern-design AI chat framework. Supports Multi AI Providers( OpenAI / Claude 3 / Gemini / Ollama / Qwen /  DeepSeek), Knowledge Base (file upload / knowledge management / RAG ), Multi-Modals (Vision/TTS/Plugins/Artifacts). One-click FREE deployment of your private ChatGPT/ Claude application. (2 weeks ago)
+  - [neviaseb03/Tuples](https://github.com/neviaseb03/Tuples) - A vibrant online community for engineers to share knowledge, collaborate on projects, and network with peers. (2 weeks ago)
+  - [neviaseb03/Flashdrive](https://github.com/neviaseb03/Flashdrive) - What&#39;s Flash Drive? a place where dumb projects meets professional display. (2 weeks ago)
 </details>
 
 
