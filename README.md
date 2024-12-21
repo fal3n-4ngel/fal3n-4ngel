@@ -35,10 +35,10 @@
 <details>
   <summary>🔥 Cool Repos`s to check out  </summary>
    
-  - [KiKaraage/ArcWTF](https://github.com/KiKaraage/ArcWTF) - A userChrome.css theme to bring Arc Browser look on Windows to Firefox. Work with Windows, Linux and macOS ✨ (2 days ago)
-  - [janhq/jan](https://github.com/janhq/jan) - Jan is an open source alternative to ChatGPT that runs 100% offline on your computer. Multiple engine support (llama.cpp, TensorRT-LLM) (2 days ago)
-  - [soulhotel/FF-ULTIMA](https://github.com/soulhotel/FF-ULTIMA) - The Firefox theme with too many options.. FF Ultima. (2 days ago)
-  - [mitul-s/paprback.co](https://github.com/mitul-s/paprback.co) - Paprback is a showcase for your bookshelves, and place to manage all your readings. A full-stack project that I built to correctly learn React. (3 days ago)
+  - [KiKaraage/ArcWTF](https://github.com/KiKaraage/ArcWTF) - A userChrome.css theme to bring Arc Browser look on Windows to Firefox. Work with Windows, Linux and macOS ✨ (4 days ago)
+  - [janhq/jan](https://github.com/janhq/jan) - Jan is an open source alternative to ChatGPT that runs 100% offline on your computer. Multiple engine support (llama.cpp, TensorRT-LLM) (4 days ago)
+  - [soulhotel/FF-ULTIMA](https://github.com/soulhotel/FF-ULTIMA) - The Firefox theme with too many options.. FF Ultima. (4 days ago)
+  - [mitul-s/paprback.co](https://github.com/mitul-s/paprback.co) - Paprback is a showcase for your bookshelves, and place to manage all your readings. A full-stack project that I built to correctly learn React. (5 days ago)
   - [zen-browser/desktop](https://github.com/zen-browser/desktop) - 🌀 Experience tranquillity while browsing the web without people tracking you! (2 weeks ago)
 </details>
 
