@@ -15,7 +15,7 @@
 
 
 <details>
-  <summary>🌱 worklog  </summary>
+  <summary>🌱 Worklog  </summary>
 
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (2 days ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (3 weeks ago)
@@ -25,7 +25,7 @@
 </details>
 
 <details>
-  <summary>🔥 picks </summary>
+  <summary>🔥 Picks </summary>
    
   - [aurora-0025/stocker](https://github.com/aurora-0025/stocker) - A simple webapp to view your stock price changes over a period  of time (2 days ago)
   - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard / infinite canvas SDK (3 days ago)
