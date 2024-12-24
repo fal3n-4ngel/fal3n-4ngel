@@ -25,23 +25,37 @@ import {
   SiBlockchaindotcom,
   SiSolidity,
   SiIpfs,
+  SiTauri,
 } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
 import { IconType } from "react-icons";
+import { BsDistributeHorizontal } from "react-icons/bs";
+import { CgServerless } from "react-icons/cg";
 
 
 // Project Data
 export const projects: Project[] = [
+  {
+    url1: "/dash.png",
+    name: "DASH",
+    type: "Desktop App",
+    event: "College Project (Main)",
+    date: "2024",
+    view: "https://github.com/Chackoz/Dash-Desktop",
+    description:
+      "DASH - Distributed Adaptive Serverless Hosting offers a distributed, cost-effective, and efficient alternative for hosting serverless functions. It delivers a streamlined peer to peer solution, designed with developers in mind providing simplicity and effectiveness without compromising performance.",
+  },
     {
       url1: "/Flash1.png",
       name: "FLASH DRIVE",
       type: "Website",
-      event: "College Project",
+      event: "College Project (Minor)",
       date: "2023",
       view: "https://flashdrive-f2an.vercel.app/",
       description:
         "A Next.js web platform featuring an AI image generator with custom-trained Stable Diffusion model and a few other arcade games. Built with Firebase and EpicRealism image model, it's just a DBMS course project that evolved into a playground for implementing advanced web technologies.",
     },
+    
     {
       url1: "/SOYO.png",
       name: "STREAM OWN YOUR OWN",
@@ -118,6 +132,9 @@ export const skillIcons: Record<string, IconType> = {
   "Stable Diffusion": SiGraphql, // Suggesting this as a placeholder until you add a custom icon
   "Blockchain": SiBlockchaindotcom,
   "Solidity": SiSolidity,
+  Tauri:SiTauri,
+  'Peer to Peer':BsDistributeHorizontal,
+  'Serverless':CgServerless,
   Ipfs:SiIpfs,
   etherium:SiBlockchaindotcom,
   C: SiC,
@@ -127,7 +144,8 @@ export const skillIcons: Record<string, IconType> = {
   PostgreSQL: SiPostgresql,
   MySQL: SiMysql,
   Firebase: DiFirebase,
-  Kotlin: SiKotlin,
+  Kotlin: SiKotlin
+  
   
   
 };
@@ -138,7 +156,9 @@ export const skillIcons: Record<string, IconType> = {
 
 // Project skills Mapping
 export const projectSkills: Record<string, string[]> = {
+ 
   "FLASH DRIVE": ["Next.js", "Firebase", "Python","Stable Diffusion","Tailwind CSS","Typescript"],
+  "DASH": ["Next.js", "Tauri", "Python",'Serverless',"Peer to Peer","Tailwind CSS","Typescript"],
   "STREAM OWN YOUR OWN": ["Next.js", "TypeScript", "Tailwind CSS"],
   "SMART CERTIFY": ["Next.js", "TypeScript", "Blockchain","Solidity","Firebase","Ipfs","etherium"],
   "BETTER FUNDS": ["Next.js", "Blockchain","Solidity", "Tailwind CSS", "Firebase","etherium"],

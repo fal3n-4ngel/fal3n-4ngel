@@ -57,7 +57,8 @@ function ProjBox({
           <Image
             src={url1}
             alt={name}
-            fill
+            width={1920}
+            height={1080}
             className="projImg object-cover transition-transform duration-700 hover:scale-105"
           />
         </a>
