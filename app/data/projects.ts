@@ -56,6 +56,7 @@ export const projects: Project[] = [
         "A Next.js web platform featuring an AI image generator with custom-trained Stable Diffusion model and a few other arcade games. Built with Firebase and EpicRealism image model, it's just a DBMS course project that evolved into a playground for implementing advanced web technologies.",
     },
     
+    
     {
       url1: "/SOYO.png",
       name: "STREAM OWN YOUR OWN",
@@ -156,9 +157,8 @@ export const skillIcons: Record<string, IconType> = {
 
 // Project skills Mapping
 export const projectSkills: Record<string, string[]> = {
- 
+ "DASH": ["Next.js", "Tauri", "Python",'Serverless',"Peer to Peer","Tailwind CSS","Typescript"],
   "FLASH DRIVE": ["Next.js", "Firebase", "Python","Stable Diffusion","Tailwind CSS","Typescript"],
-  "DASH": ["Next.js", "Tauri", "Python",'Serverless',"Peer to Peer","Tailwind CSS","Typescript"],
   "STREAM OWN YOUR OWN": ["Next.js", "TypeScript", "Tailwind CSS"],
   "SMART CERTIFY": ["Next.js", "TypeScript", "Blockchain","Solidity","Firebase","Ipfs","etherium"],
   "BETTER FUNDS": ["Next.js", "Blockchain","Solidity", "Tailwind CSS", "Firebase","etherium"],
