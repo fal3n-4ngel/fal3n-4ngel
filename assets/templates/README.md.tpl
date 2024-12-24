@@ -15,14 +15,14 @@
 
 
 <details>
-  <summary>🌱 worklog  </summary>
+  <summary>🌱 Worklog  </summary>
 {{range recentContributions 5}}
   - [{{.Repo.Name}}]({{.Repo.URL}}) - {{.Repo.Description}} ({{humanize .OccurredAt}})
   {{- end}}
 </details>
 
 <details>
-  <summary>🔥 picks </summary>
+  <summary>🔥 Picks </summary>
    {{range recentStars 5}}
   - [{{.Repo.Name}}]({{.Repo.URL}}) - {{.Repo.Description}} ({{humanize .StarredAt}})
   {{- end}}
