@@ -1,36 +1,28 @@
-
-
-<div>
+<div>   
     
 # Adithya Krishnan 
-**`Developer | Cinephile | Weeb`**  
+*Developer | Cinephile | Weeb*
 
-    💼 Final Year BTech in CSE @ MBCET 
-    💻 Current Focus: Desktop Apps - Tauri, .NET and Next-gen tools.  
-    💫 Anime • Music • Code • Sleep 
+    💼 final year btech @ mbcet  
+    💻 Current Focus: Desktop Apps - Tauri, .NET and Rust.  
 
 ---
 
 </div>
 
-### 🚀 Tech Stack
-[![Tech Stack](https://skillicons.dev/icons?i=next,react,angular,tauri,electron,dotnet,flutter,tailwind,python,typescript,java&theme=light)](https://github.com/fal3n-4ngel/)  
-
-
-
-### 📈 Stats  
-
+### 📈 numbers? meh.  
  ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=github_dark_dimmed)
 
+
 <details>
-  <summary>🌱 What I'm Up To  </summary>
+  <summary>🌱 worklog  </summary>
 {{range recentContributions 5}}
   - [{{.Repo.Name}}]({{.Repo.URL}}) - {{.Repo.Description}} ({{humanize .OccurredAt}})
   {{- end}}
 </details>
 
 <details>
-  <summary>🔥 Cool Repos`s to check out  </summary>
+  <summary>🔥 picks </summary>
    {{range recentStars 5}}
   - [{{.Repo.Name}}]({{.Repo.URL}}) - {{.Repo.Description}} ({{humanize .StarredAt}})
   {{- end}}
