@@ -267,8 +267,7 @@ export default function Home() {
                 <FadeUp>
                   <div className="interactable m-5 ease-in md:mx-10">
                     As a final-year undergraduate pursuing a BTech degree in
-                    Computer Science and Engineering, I`m currently interning
-                    while also on the lookout for full-time gigs and freelance
+                    Computer Science and Engineering, I`m actively on the lookout for full-time gigs and freelance
                     projects.
                   </div>
                 </FadeUp>
@@ -484,7 +483,7 @@ export default function Home() {
                   Email
                 </a>
                 <a
-                  href="/Resume Adithya Krishnan Nov.pdf"
+                  href="/Resume Adithya Krishnan.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="interactable flex items-center gap-2 transition-all hover:scale-[110%] hover:animate-pulse"
@@ -496,7 +495,7 @@ export default function Home() {
             </div>
             <button
               onClick={scrollToTop}
-              className="interactable flex items-center gap-2 p-10 md:p-0"
+              className="interactable flex items-center gap-2 p-10 md:p-0 z-10"
             >
               {" "}
               Back To Top <RiArrowUpCircleLine className="h-6 w-6" />{" "}
