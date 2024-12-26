@@ -17,7 +17,7 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
-  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (2 days ago)
+  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (4 days ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (3 weeks ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (1 month ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my NixOS system. (1 month ago)
@@ -27,8 +27,8 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [aurora-0025/stocker](https://github.com/aurora-0025/stocker) - A simple webapp to view your stock price changes over a period  of time (2 days ago)
-  - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard / infinite canvas SDK (3 days ago)
+  - [aurora-0025/stocker](https://github.com/aurora-0025/stocker) - A simple webapp to view your stock price changes over a period  of time (4 days ago)
+  - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard / infinite canvas SDK (5 days ago)
   - [KiKaraage/ArcWTF](https://github.com/KiKaraage/ArcWTF) - A userChrome.css theme to bring Arc Browser look on Windows to Firefox. Work with Windows, Linux and macOS ✨ (1 week ago)
   - [janhq/jan](https://github.com/janhq/jan) - Jan is an open source alternative to ChatGPT that runs 100% offline on your computer. Multiple engine support (llama.cpp, TensorRT-LLM) (1 week ago)
   - [soulhotel/FF-ULTIMA](https://github.com/soulhotel/FF-ULTIMA) - The Firefox theme with too many options.. FF Ultima. (1 week ago)
