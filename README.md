@@ -27,11 +27,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
+  - [TrueMyst/BeatPrints](https://github.com/TrueMyst/BeatPrints) - ☕ BeatPrints, create eye-catching, Pinterest-style music posters effortlessly. (today)
   - [aurora-0025/stocker](https://github.com/aurora-0025/stocker) - A simple webapp to view your stock price changes over a period  of time (1 week ago)
   - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard / infinite canvas SDK (1 week ago)
   - [KiKaraage/ArcWTF](https://github.com/KiKaraage/ArcWTF) - A userChrome.css theme to bring Arc Browser look on Windows to Firefox. Work with Windows, Linux and macOS ✨ (2 weeks ago)
-  - [janhq/jan](https://github.com/janhq/jan) - Jan is an open source alternative to ChatGPT that runs 100% offline on your computer. Multiple engine support (llama.cpp, TensorRT-LLM) (2 weeks ago)
-  - [soulhotel/FF-ULTIMA](https://github.com/soulhotel/FF-ULTIMA) - The Firefox theme with too many options.. FF Ultima. (2 weeks ago)
+  - [janhq/jan](https://github.com/janhq/jan) - Jan is an open source alternative to ChatGPT that runs 100% offline on your computer (2 weeks ago)
 </details>
 
 
