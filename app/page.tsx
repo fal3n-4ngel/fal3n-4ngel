@@ -378,7 +378,7 @@ export default function Home() {
                       Web3 for India Winner
                       <span className="text-md text-gray-400"></span>
                     </div>
-                    <div>BlockHash | kerala Block Chain Academy</div>
+                    <div>BlockHash | Kerala Block Chain Academy</div>
                     <a
                       href="https://github.com/Deflated-Pappadam"
                       className="animate-pulse font-sans text-gray-400"

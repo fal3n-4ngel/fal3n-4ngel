@@ -43,7 +43,7 @@ export const projects: Project[] = [
     date: "2024",
     view: "https://github.com/Chackoz/Dash-Desktop",
     description:
-      "DASH - Distributed Adaptive Serverless Hosting offers a distributed, cost-effective, and efficient alternative for hosting serverless functions. It delivers a streamlined peer to peer solution, designed with developers in mind providing simplicity and effectiveness without compromising performance.",
+      "DASH - Distributed Adaptive Serverless Hosting offers a peer to peer, cost-effective, and efficient alternative for hosting serverless functions. It delivers a streamlined solution, designed with developers in mind providing simplicity and effectiveness without compromising performance.",
   },
     {
       url1: "/Flash1.png",
