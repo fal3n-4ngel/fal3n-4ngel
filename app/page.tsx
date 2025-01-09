@@ -230,15 +230,15 @@ export default function Home() {
             <h1 className="work-sans p-5 text-xl md:text-[2vw]">Hello,</h1>
           </FadeUp>
           <div className="space-grotesk interactable hidden w-fit flex-col px-5 text-[2.8rem] leading-none tracking-tighter md:flex md:text-[4.4vw]">
-            <div className="h-[8vh] overflow-hidden md:max-h-[8vh]">
+            <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
               <FadeUp className="flex text-black">I`m Adithya Krishnan,</FadeUp>
             </div>
-            <div className="h-[8vh] overflow-hidden md:max-h-[8vh]">
+            <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
               <FadeUp className="text-black">
                 a Software Engineer crafting
               </FadeUp>
             </div>
-            <div className="h-[8vh] overflow-hidden md:max-h-[8vh]">
+            <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
               <FadeUp className="text-black">Digital Experiences.</FadeUp>
             </div>
           </div>
@@ -375,7 +375,7 @@ export default function Home() {
                 <div className="flex flex-col space-y-1 font-normal">
                   <div className="interactable py-1">
                     <div className="font-semibold">
-                      Web3 for India 2030 Winner
+                      Web3 for India Winner
                       <span className="text-md text-gray-400"></span>
                     </div>
                     <div>BlockHash | kerala Block Chain Academy</div>
@@ -425,7 +425,7 @@ export default function Home() {
                         alt="Ghost"
                         className="h-12 w-12 transition-opacity group-hover:opacity-100"
                       />
-                      Release the Ghost
+                      <div>Release the Ghost</div>
                       <span className="absolute -bottom-6 left-0 right-0 text-sm opacity-60"></span>
                     </button>
                   )}
@@ -448,7 +448,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto my-20 hidden flex-col justify-center p-5 text-4xl font-light md:flex md:w-[75%] md:p-0">
+        <section className="mx-auto my-20 hidden flex-col justify-center p-2 text-4xl font-light md:flex md:w-[75%] md:p-0">
           <ProjectsWithSkills />
         </section>
         <section className="my-20 flex flex-col justify-center text-4xl font-light md:hidden md:w-[75%]">
@@ -458,7 +458,7 @@ export default function Home() {
         <footer className="mt-[40px] flex h-full w-full flex-col justify-center bg-[#ececec] py-[40px] text-3xl font-thin text-black dark:bg-[#101010] dark:text-white">
           <div className="font-poppins mx-auto flex h-full w-full flex-col items-center justify-center text-xl md:w-[90%] md:flex-row md:justify-between">
             <div className="flex w-fit items-start justify-start p-5 text-center md:p-0">
-              © Adithya Krishnan 2024.
+              © Adithya Krishnan 2025.
             </div>
             <div className="flex min-w-[600px] flex-col items-center justify-start text-justify md:flex-row md:justify-between">
               <div className="flex flex-col items-start md:w-full md:flex-row md:justify-between">

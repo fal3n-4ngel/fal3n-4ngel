@@ -49,7 +49,7 @@ export const projects: Project[] = [
       url1: "/Flash1.png",
       name: "FLASH DRIVE",
       type: "Website",
-      event: "College Project (Minor)",
+      event: "Side Project",
       date: "2023",
       view: "https://flashdrive-f2an.vercel.app/",
       description:
@@ -70,7 +70,7 @@ export const projects: Project[] = [
     {
       url1: "/smartcertify.png",
       name: "SMART CERTIFY",
-      type: "Website | Blockchain",
+      type: "Website",
       event: "BlockHash",
       date: "2023",
       view: "https://github.com/Deflated-Pappadam/Smart-Certify",
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     {
       url1: "/betterfunds.png",
       name: "BETTER FUNDS",
-      type: "Website | Desktop",
+      type: "Website ",
       event: "Zilckathon",
       date: "2024",
       view: "https://better-funds.vercel.app/",
