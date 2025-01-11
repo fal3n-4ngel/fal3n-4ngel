@@ -30,7 +30,7 @@
   - [johnfanv2/LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) - Driver and tools for controlling Lenovo Legion laptops in Linux including fan control and power mode. (1 week ago)
   - [TrueMyst/BeatPrints](https://github.com/TrueMyst/BeatPrints) - ☕ BeatPrints, create eye-catching, Pinterest-style music posters effortlessly. (1 week ago)
   - [aurora-0025/stocker](https://github.com/aurora-0025/stocker) - A simple webapp to view your stock price changes over a period  of time (2 weeks ago)
-  - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard / infinite canvas SDK (2 weeks ago)
+  - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard / infinite canvas SDK (3 weeks ago)
   - [KiKaraage/ArcWTF](https://github.com/KiKaraage/ArcWTF) - A userChrome.css theme to bring Arc Browser look on Windows to Firefox. Work with Windows, Linux and macOS ✨ (3 weeks ago)
 </details>
 
