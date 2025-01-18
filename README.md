@@ -27,11 +27,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [fal3n-4ngel/Dash-Desktop](https://github.com/fal3n-4ngel/Dash-Desktop) - Distributed Adaptive Serverless Hosting is an advanced cloud infrastructure model that dynamically allocates ( peer to peer ) computing resources based on demand (4 days ago)
+  - [fal3n-4ngel/Dash-Desktop](https://github.com/fal3n-4ngel/Dash-Desktop) - Distributed Adaptive Serverless Hosting is an advanced cloud infrastructure model that dynamically allocates ( peer to peer ) computing resources based on demand (6 days ago)
   - [johnfanv2/LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) - Driver and tools for controlling Lenovo Legion laptops in Linux including fan control and power mode. (2 weeks ago)
   - [TrueMyst/BeatPrints](https://github.com/TrueMyst/BeatPrints) - ☕ BeatPrints, create eye-catching, Pinterest-style music posters effortlessly. (2 weeks ago)
   - [aurora-0025/stocker](https://github.com/aurora-0025/stocker) - A simple webapp to view your stock price changes over a period  of time (3 weeks ago)
-  - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard SDK / infinite canvas SDK (3 weeks ago)
+  - [tldraw/tldraw](https://github.com/tldraw/tldraw) - whiteboard SDK / infinite canvas SDK (4 weeks ago)
 </details>
 
 
