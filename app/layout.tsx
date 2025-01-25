@@ -29,10 +29,33 @@ export const metadata: Metadata = {
     "software developer",
     "software engineer",
     "serverless",
-    'dash',
+    "dash",
     "distributed adaptive serverless hosting",
     "sde",
     "softare development engineer",
+    "deflated pappadam",
+    "deflated",
+    "pappadam",
+    "Equifax",
+    "Equifax India",
+    "Credit Bureau",
+    "Credit Risk",
+    "Identity Protection",
+    "Fraud Detection",
+    "Equifax Workforce Solutions",
+    "Consumer Data Insights",
+    "Data Breach Monitoring",
+    "Financial Technology",
+    "AI in Credit Risk",
+    "Equifax Careers",
+    "Cloud Computing",
+    "Database Management",
+    "Oracle",
+    "Oracle India",
+    "Oracle Cloud Infrastructure",
+    "Java Programming",
+    "Enterprise Software",
+
     "full stack developer",
     "front end developer",
     "back end developer",
@@ -113,7 +136,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} custom-scrollbar dark `}>
+      <body className={`${inter.className} custom-scrollbar dark`}>
         {children}
         <Analytics />
         <SpeedInsights />
