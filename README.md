@@ -27,7 +27,7 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [Dokploy/dokploy](https://github.com/Dokploy/dokploy) - Open Source Alternative to Vercel, Netlify and Heroku. (today)
+  - [Dokploy/dokploy](https://github.com/Dokploy/dokploy) - Open Source Alternative to Vercel, Netlify and Heroku. (2 days ago)
   - [fal3n-4ngel/Dash-Desktop](https://github.com/fal3n-4ngel/Dash-Desktop) - Distributed Adaptive Serverless Hosting is an advanced cloud infrastructure model that dynamically allocates ( peer to peer ) computing resources based on demand (1 week ago)
   - [johnfanv2/LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) - Driver and tools for controlling Lenovo Legion laptops in Linux including fan control and power mode. (3 weeks ago)
   - [TrueMyst/BeatPrints](https://github.com/TrueMyst/BeatPrints) - ☕ BeatPrints, create eye-catching, Pinterest-style music posters effortlessly. (3 weeks ago)
