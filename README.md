@@ -27,8 +27,8 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (1 day ago)
-  - [catppuccin/rofi](https://github.com/catppuccin/rofi) - 🦂 Soothing pastel theme for Rofi (4 days ago)
+  - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (3 days ago)
+  - [catppuccin/rofi](https://github.com/catppuccin/rofi) - 🦂 Soothing pastel theme for Rofi (6 days ago)
   - [Dokploy/dokploy](https://github.com/Dokploy/dokploy) - Open Source Alternative to Vercel, Netlify and Heroku. (2 weeks ago)
   - [fal3n-4ngel/Dash-Desktop](https://github.com/fal3n-4ngel/Dash-Desktop) - Distributed Adaptive Serverless Hosting is an advanced cloud infrastructure model that dynamically allocates ( peer to peer ) computing resources based on demand (3 weeks ago)
   - [johnfanv2/LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) - Driver and tools for controlling Lenovo Legion laptops in Linux including fan control and power mode. (1 month ago)
