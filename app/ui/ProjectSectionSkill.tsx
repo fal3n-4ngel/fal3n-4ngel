@@ -19,12 +19,12 @@ import { inView } from "framer-motion";
 const ProjectsWithSkills: React.FC = () => {
   const [activeProject, setActiveProject] = useState<string | null>(null);
   const { ref: sectionRef, inView: sectionInView } = useInView({
-    threshold: 0.1,
+    threshold: 0.07,
     triggerOnce: false,
   });
 
   const { ref: breakRef, inView: breakInView } = useInView({
-    threshold: 0.1,
+    threshold: 0.0001,
     triggerOnce: false,
   });
   const [repos, setRepos] = useState<Repo[]>([]);
@@ -87,7 +87,7 @@ const ProjectsWithSkills: React.FC = () => {
             <div ref={breakRef}></div>
             <div className="space-y-8" >
               {projects.map((project) => (
-                <ProjectBox
+                <ProjectBoxSelf
                   key={project.name}
                   {...project}
                   onVisible={() => setActiveProject(project.name)}
@@ -178,7 +178,7 @@ const ProjectsWithSkills: React.FC = () => {
 
 export default ProjectsWithSkills;
 
-const ProjectBox: React.FC<ProjectBoxProps> = ({
+const ProjectBoxSelf: React.FC<ProjectBoxProps> = ({
   name,
   onVisible,
   ...props

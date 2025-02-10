@@ -27,7 +27,7 @@ function ProjBox({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full min-w-[75vw] rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:w-[95%] md:p-12"
+      className="w-full rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:p-12"
     >
       {/* Header */}
       <motion.div
