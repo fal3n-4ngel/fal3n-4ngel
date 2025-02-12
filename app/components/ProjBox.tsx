@@ -27,7 +27,7 @@ function ProjBox({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="w-full rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:p-12"
+      className="max-w-fit md:w-[75%] rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:p-12"
     >
       {/* Header */}
       <motion.div
@@ -51,7 +51,7 @@ function ProjBox({
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="relative mb-6 aspect-video overflow-hidden rounded-lg md:w-[80%]"
+        className="relative mb-6 aspect-video overflow-hidden rounded-lg "
       >
         <a href={view}>
           <Image
@@ -70,7 +70,7 @@ function ProjBox({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: 0.2 }}
-        className="grid grid-cols-1 gap-8 md:w-[80%] md:grid-cols-12"
+        className="grid grid-cols-1 gap-8  md:grid-cols-12"
       >
         {/* Metadata */}
         <div className="row-span-3 md:col-span-3 md:space-y-3">

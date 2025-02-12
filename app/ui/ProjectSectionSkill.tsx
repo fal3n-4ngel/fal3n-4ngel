@@ -19,7 +19,7 @@ import { inView } from "framer-motion";
 const ProjectsWithSkills: React.FC = () => {
   const [activeProject, setActiveProject] = useState<string | null>(null);
   const { ref: sectionRef, inView: sectionInView } = useInView({
-    threshold: 0.07,
+    threshold: 0.065,
     triggerOnce: false,
   });
 
@@ -143,7 +143,7 @@ const ProjectsWithSkills: React.FC = () => {
           {/* Fixed Skills Container */}
           <div className="hidden md:block z-0">
             <div
-              className={`fixed right-[2vw] top-[20vh] w-[25vw] max-w-[350px] transition-all duration-500 ${
+              className={`fixed right-[2vw] top-[20vh] w-[30vw] max-w-[350px] transition-all duration-500 ${
                 sectionInView ? "size-100 opacity-100" : "scale-75 opacity-0"
               }`}
             >
@@ -161,8 +161,8 @@ const ProjectsWithSkills: React.FC = () => {
                             : "bg-[#2a2a2a] text-gray-400"
                         }`}
                       >
-                        <Icon className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                        <span className="text-sm">{skill}</span>
+                        <Icon className="mr-2 h-3 w-3 md:h-5 md:w-5" />
+                        <span className="md:text-sm text-xs">{skill}</span>
                       </div>
                     ))}
                   </div>
