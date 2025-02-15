@@ -242,7 +242,7 @@ export default function Home() {
               <FadeUp className="text-black">Digital Experiences.</FadeUp>
             </div>
           </div>
-          <div className="space-grotesk interactable flex flex-col px-5 text-left text-[2rem] leading-none tracking-tighter md:hidden md:text-5xl">
+          <div className="space-grotesk interactable flex flex-col px-5 text-left text-[8.5vw] leading-none tracking-tighter md:hidden md:text-5xl">
             <div className="h-[40px] overflow-hidden">
               <FadeUp className="flex text-black">
                 I&apos;m Adithya Krishnan,
