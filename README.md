@@ -27,11 +27,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (2 weeks ago)
+  - [anthropics/claude-code](https://github.com/anthropics/claude-code) - Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands. (1 day ago)
+  - [teableio/teable](https://github.com/teableio/teable) - ✨ The Next Gen Airtable Alternative: No-Code Postgres (2 days ago)
+  - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (3 weeks ago)
   - [catppuccin/rofi](https://github.com/catppuccin/rofi) - 🦂 Soothing pastel theme for Rofi (3 weeks ago)
   - [Dokploy/dokploy](https://github.com/Dokploy/dokploy) - Open Source Alternative to Vercel, Netlify and Heroku. (1 month ago)
-  - [fal3n-4ngel/Dash-Desktop](https://github.com/fal3n-4ngel/Dash-Desktop) - Distributed Adaptive Serverless Hosting is an advanced cloud infrastructure model that dynamically allocates ( peer to peer ) computing resources based on demand (1 month ago)
-  - [johnfanv2/LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) - Driver and tools for controlling Lenovo Legion laptops in Linux including fan control and power mode. (1 month ago)
 </details>
 
 
