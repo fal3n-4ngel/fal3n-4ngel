@@ -27,8 +27,8 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [anthropics/claude-code](https://github.com/anthropics/claude-code) - Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands. (1 day ago)
-  - [teableio/teable](https://github.com/teableio/teable) - ✨ The Next Gen Airtable Alternative: No-Code Postgres (2 days ago)
+  - [anthropics/claude-code](https://github.com/anthropics/claude-code) - Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands. (3 days ago)
+  - [teableio/teable](https://github.com/teableio/teable) - ✨ The Next Gen Airtable Alternative: No-Code Postgres (4 days ago)
   - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (3 weeks ago)
   - [catppuccin/rofi](https://github.com/catppuccin/rofi) - 🦂 Soothing pastel theme for Rofi (3 weeks ago)
   - [Dokploy/dokploy](https://github.com/Dokploy/dokploy) - Open Source Alternative to Vercel, Netlify and Heroku. (1 month ago)
