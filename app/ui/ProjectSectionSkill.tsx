@@ -143,25 +143,25 @@ const ProjectsWithSkills: React.FC = () => {
           {/* Fixed Skills Container */}
           <div className="hidden md:block z-0">
             <div
-              className={`fixed right-[2vw] top-[20vh] w-[30vw] max-w-[350px] transition-all duration-500 ${
+              className={`fixed right-[2vw] top-[17vh] w-[30vw] max-w-[350px] transition-all duration-500 ${
                 sectionInView ? "size-100 opacity-100" : "scale-75 opacity-0"
               }`}
             >
               <FadeUp>
-                <div className="rounded-xl p-6">
+                <div className="rounded-xl p-6 md:py-0 md:px-4">
                   <div className="work-sans mb-6 text-2xl">Tech Stacks</div>
                   <div className="flex flex-wrap gap-3">
                     {Object.entries(skillIcons).map(([skill, Icon]) => (
                       <div
                         key={skill}
-                        className={`flex items-center rounded-xl p-2 px-4 transition-all duration-300 ${
+                        className={`flex items-center rounded-xl p-2 px-3  transition-all duration-300 text-xs ${
                           activeProject &&
                           projectSkills[activeProject]?.includes(skill)
                             ? "scale-105 bg-white text-black"
                             : "bg-[#2a2a2a] text-gray-400"
                         }`}
                       >
-                        <Icon className="mr-2 h-3 w-3 md:h-5 md:w-5" />
+                        <Icon className="mr-2 h-3 w-3 md:h-4 md:w-4" />
                         <span className="md:text-sm text-xs">{skill}</span>
                       </div>
                     ))}

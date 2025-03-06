@@ -41,7 +41,7 @@ const SkillsSection = () => (
         What I`m Good At
       </div>
 
-      <div className="ml-10 flex flex-wrap gap-6 rounded-xl bg-[#1a1a1a7b] p-10">
+      <div className="ml-10 flex flex-wrap gap-6 rounded-xl bg-[#1a1a1a7b] p-10 ">
         <SkillIcon icon={TbBrandNextjs} label="Next.js" />
         <SkillIcon icon={DiReact} label="React.js" />
         <SkillIcon icon={SiAngular} label="Angular.js" />
