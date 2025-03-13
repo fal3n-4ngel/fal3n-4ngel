@@ -27,8 +27,8 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [lobehub/sd-webui-lobe-theme](https://github.com/lobehub/sd-webui-lobe-theme) - 🅰️ Lobe theme - The modern theme for stable diffusion webui, exquisite interface design, highly customizable UI, and efficiency boosting features. (1 day ago)
-  - [anthropics/claude-code](https://github.com/anthropics/claude-code) - Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands. (1 week ago)
+  - [lobehub/sd-webui-lobe-theme](https://github.com/lobehub/sd-webui-lobe-theme) - 🅰️ Lobe theme - The modern theme for stable diffusion webui, exquisite interface design, highly customizable UI, and efficiency boosting features. (3 days ago)
+  - [anthropics/claude-code](https://github.com/anthropics/claude-code) - Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands. (2 weeks ago)
   - [teableio/teable](https://github.com/teableio/teable) - ✨ The Next Gen Airtable Alternative: No-Code Postgres (2 weeks ago)
   - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (1 month ago)
   - [catppuccin/rofi](https://github.com/catppuccin/rofi) - 🦂 Soothing pastel theme for Rofi (1 month ago)
