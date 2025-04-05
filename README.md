@@ -17,21 +17,21 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
+  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (today)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (3 months ago)
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (3 months ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (4 months ago)
   - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (4 months ago)
-  - [fal3n-4ngel/Compiler-Design-S7](https://github.com/fal3n-4ngel/Compiler-Design-S7) - KTU S7 Compiler Design Lab Programs (5 months ago)
 </details>
 
 <details>
   <summary>🔥 Picks </summary>
    
+  - [n8n-io/self-hosted-ai-starter-kit](https://github.com/n8n-io/self-hosted-ai-starter-kit) - The Self-hosted AI Starter Kit is an open-source template that quickly sets up a local AI environment. Curated by n8n, it provides essential tools for creating secure, self-hosted AI workflows. (today)
   - [lobehub/sd-webui-lobe-theme](https://github.com/lobehub/sd-webui-lobe-theme) - 🅰️ Lobe theme - The modern theme for stable diffusion webui, exquisite interface design, highly customizable UI, and efficiency boosting features. (3 weeks ago)
   - [anthropics/claude-code](https://github.com/anthropics/claude-code) - Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands. (1 month ago)
   - [teableio/teable](https://github.com/teableio/teable) - ✨ The Next Gen Airtable Alternative: No-Code Postgres (1 month ago)
   - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (1 month ago)
-  - [catppuccin/rofi](https://github.com/catppuccin/rofi) - 🦂 Soothing pastel theme for Rofi (2 months ago)
 </details>
 
 
