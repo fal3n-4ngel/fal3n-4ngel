@@ -27,11 +27,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
+  - [edankwan/penis.js](https://github.com/edankwan/penis.js) -  (today)
+  - [lusionltd/WebGL-Scroll-Sync](https://github.com/lusionltd/WebGL-Scroll-Sync) -  (today)
   - [n8n-io/self-hosted-ai-starter-kit](https://github.com/n8n-io/self-hosted-ai-starter-kit) - The Self-hosted AI Starter Kit is an open-source template that quickly sets up a local AI environment. Curated by n8n, it provides essential tools for creating secure, self-hosted AI workflows. (3 days ago)
   - [lobehub/sd-webui-lobe-theme](https://github.com/lobehub/sd-webui-lobe-theme) - 🅰️ Lobe theme - The modern theme for stable diffusion webui, exquisite interface design, highly customizable UI, and efficiency boosting features. (4 weeks ago)
   - [anthropics/claude-code](https://github.com/anthropics/claude-code) - Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands. (1 month ago)
-  - [teableio/teable](https://github.com/teableio/teable) - ✨ The Next Gen Airtable Alternative: No-Code Postgres (1 month ago)
-  - [iyaja/llama-fs](https://github.com/iyaja/llama-fs) - A self-organizing file system with llama 3 (2 months ago)
 </details>
 
 
