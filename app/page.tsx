@@ -281,7 +281,7 @@ export default function Home() {
                 <FadeUp>
                   <div className="interactable m-5 ease-in md:mx-10">
               
-                  I build at the edge of design and engineering — with purpose, not just polish.
+                  Building at the edge of design and engineering — with purpose, not just polish.
                   </div>
                 </FadeUp>
               </div>
