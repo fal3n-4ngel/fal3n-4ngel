@@ -39,7 +39,7 @@ export const projects: Project[] = [
     url1: "/dash.png",
     name: "DASH",
     type: "Desktop App",
-    event: "College Project (Main)",
+    event: "College Project",
     date: "2024",
     view: "https://github.com/Chackoz/Dash-Desktop",
     description:
@@ -91,7 +91,7 @@ export const projects: Project[] = [
     url1: "/betterfunds.png",
     name: "BETTER FUNDS",
     type: "Website ",
-    event: "Zilckathon",
+    event: "Hackathon",
     date: "2024",
     view: "https://better-funds.vercel.app/",
     description:
@@ -101,7 +101,7 @@ export const projects: Project[] = [
     url1: "/Sustaina1.png",
     name: "SUS GOALS",
     type: "Website",
-    event: "College Project",
+    event: "Side Project",
     date: "2023",
     view: "https://sus-goals.vercel.app/",
     description:
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     url1: "/Drish.png",
     name: "DRISHTI",
     type: "Mobile App",
-    event: "Define 2022",
+    event: "Hackathon",
     date: "2022",
     view: "https://github.com/fal3n-4ngel/Drishti-Client",
     description:
@@ -120,7 +120,7 @@ export const projects: Project[] = [
   {
     url1: "/Ctrack.png",
     name: "C-TRACKER",
-    type: "Java | Swing",
+    type: "Java | Swing App",
     event: "College Project",
     date: "2023",
     view: "https://github.com/fal3n-4ngel/CTracker",

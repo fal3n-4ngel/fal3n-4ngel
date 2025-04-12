@@ -75,12 +75,12 @@ function ProjBox({
         {/* Metadata */}
         <div className="row-span-3 md:col-span-3 md:space-y-3">
           <div className="flex w-full flex-row items-center justify-between md:flex-col md:items-start md:space-y-3">
-            <div>
+            {/* <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 TYPE
               </p>
               <p className="work-sans text-lg font-light">{type}</p>
-            </div>
+            </div> */}
             <div>
               <p className="text-sm uppercase tracking-wider text-neutral-500">
                 EVENT
@@ -109,7 +109,7 @@ function ProjBox({
         )}
 
         {/* View Button */}
-        <div className="flex items-start justify-end md:col-span-2">
+        <div className="flex items-start justify-end md:col-span-2 animate-pulse">
           <motion.a
             href={view}
             target="_blank"
@@ -118,6 +118,7 @@ function ProjBox({
             whileTap={{ scale: 0.95 }}
             className="interactable group relative inline-flex items-center justify-center"
           >
+            
             <div className="flex h-16 w-16 items-center justify-center rounded-full border border-neutral-700 transition-all duration-300 group-hover:border-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +130,7 @@ function ProjBox({
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="transition-transform duration-300  group-hover:-rotate-45"
               >
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />

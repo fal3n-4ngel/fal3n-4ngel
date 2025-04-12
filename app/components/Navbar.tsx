@@ -38,9 +38,9 @@ function Navbar() {
         </a>
         <a
           href="/Resume Adithya Krishnan.pdf"
-          className="resumeLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]  border-white border-[1px] rounded-full px-4 py-1"
+          className=" flex animate-pulse justify-center items-center resumeLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]  px-4 py-1"
         >
-          resume
+         resume
         </a>
       </div>
       <div className="flex items-center gap-4 md:hidden">
