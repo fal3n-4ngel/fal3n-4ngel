@@ -218,7 +218,7 @@ export default function Home() {
       </div>
 
       <main
-        className="flex min-h-screen w-full flex-col items-center justify-between overflow-x-hidden bg-[#ececec] text-black dark:bg-[#060606] dark:text-white"
+        className="flex min-h-screen w-full flex-col items-center justify-between overflow-x-hidden bg-[#ececec] text-black dark:bg-[#0a0a0a] dark:text-white"
         ref={ref}
       >
         <div className="fixed z-[10] w-full">
@@ -226,6 +226,9 @@ export default function Home() {
         </div>
 
         <section className="flex min-h-screen w-full flex-col justify-center p-4 md:w-[80vw]">
+          <FadeUp className="space-grotesk flex text-black">
+            <h1 className="work-sans p-5 text-xl md:text-[2vw]">Hello,</h1>
+          </FadeUp>
           <div className="space-grotesk interactable hidden w-fit flex-col px-5 text-[2.8rem] leading-none tracking-tighter md:flex md:text-[4.4vw]">
             <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
               <FadeUp className="flex text-black">I`m Adithya Krishnan,</FadeUp>
@@ -263,8 +266,9 @@ export default function Home() {
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="interactable m-5 ease-in md:mx-10">
-                    I turn ideas into performant, scalable web experiences—with
-                    an eye for design and a focus on detail{" "}
+                    As a final-year undergraduate pursuing a BTech degree in
+                    Computer Science and Engineering, I`m actively on the lookout for full-time gigs and freelance
+                    projects.
                   </div>
                 </FadeUp>
               </div>
@@ -272,29 +276,21 @@ export default function Home() {
               <div className="overflow-hidden">
                 <FadeUp>
                   <div className="interactable m-5 ease-in md:mx-10">
-                   
-                  With hands-on experience at Equifax, Nissan Digital, and UST Global, I’ve also built products through hackathons and freelance collaborations.
-                  </div>
-                </FadeUp>
-              </div>
-              <div className="overflow-hidden">
-                <FadeUp>
-                  <div className="interactable m-5 ease-in md:mx-10">
-              
-                  I build at the edge of design and engineering — with purpose, not just polish.
+                    When I`m not working, you`ll catch me watching anime,
+                    reading random stuff, or messing with some fun side
+                    projects.
                   </div>
                 </FadeUp>
               </div>
             </div>
-
             <div className="sm:space-grotek font-poppins-regular md:leading-2 mx-auto flex w-[90%] flex-col tracking-wider md:w-[50%] md:pl-[20%] md:text-[0.90vw]">
               <FadeUp>
-                <div className="mt-5 py-4 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">
+                <div className="mt-5 py-2 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">
                   experience
                 </div>
               </FadeUp>
               <FadeUp>
-                <div className="interactable px-1 py-1">
+                <div className="interactable py-1">
                   <div className="font-semibold">
                     SDE Intern
                     <span className="text-md text-gray-400"></span>
@@ -310,7 +306,7 @@ export default function Home() {
                     July 2024 - Dec 2024
                   </div>
                 </div>
-                <div className="interactable px-1 py-1">
+                <div className="interactable py-1">
                   <div className="font-semibold">
                     Fullstack Developer Intern
                     <span className="text-md text-gray-400"></span>
@@ -328,7 +324,7 @@ export default function Home() {
                 </div>
               </FadeUp>
               <FadeUp>
-                <div className="interactable px-1 py-1">
+                <div className="interactable py-1">
                   <div className="font-semibold">
                     Co Founder | Developer
                     <span className="text-md text-gray-400"></span>
@@ -342,7 +338,7 @@ export default function Home() {
                   </a>
                   <div className="font-sans text-gray-400">2022 - Present</div>
                 </div>
-                <div className="interactable px-1 py-1">
+                <div className="interactable py-1">
                   <div className="font-semibold">Student Intern</div>
                   <div>UST Global, Thirvanathapuram</div>
                   <div className="font-sans text-gray-400">
@@ -352,7 +348,7 @@ export default function Home() {
               </FadeUp>
 
               <FadeUp>
-                <div className="interactable px-1 py-1">
+                <div className="interactable py-1">
                   <div className="font-semibold">
                     Google Cloud Facilitator
                     <span className="text-md text-gray-400"></span>
@@ -363,7 +359,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="interactable px-1 py-1">
+                <div className="interactable py-1">
                   <div className="font-semibold">Techinal Co Lead </div>
                   <div>IEEE MBCET Chapter</div>
                   <div className="font-sans text-gray-400">
@@ -373,11 +369,11 @@ export default function Home() {
               </FadeUp>
 
               <FadeUp>
-                <div className="mt-5 py-4 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">
+                <div className="mt-5 py-2 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">
                   awards
                 </div>
                 <div className="flex flex-col space-y-1 font-normal">
-                  <div className="interactable px-1 py-1">
+                  <div className="interactable py-1">
                     <div className="font-semibold">
                       Web3 for India Winner
                       <span className="text-md text-gray-400"></span>
@@ -390,7 +386,7 @@ export default function Home() {
                       2023 (Team deflated pappadam)
                     </a>
                   </div>
-                  <div className="interactable px-1 py-1">
+                  <div className="interactable py-1">
                     <div className="font-semibold">
                       Best Design , First Runner Up
                       <span className="text-md text-gray-400"></span>
@@ -459,7 +455,7 @@ export default function Home() {
           <ProjectSection />
         </section>
 
-        <footer className="mt-[40px] flex h-full w-full flex-col justify-center py-[40px] text-3xl font-thin text-black dark:text-white">
+        <footer className="mt-[40px] flex h-full w-full flex-col justify-center bg-[#ececec] py-[40px] text-3xl font-thin text-black dark:bg-[#101010] dark:text-white">
           <div className="font-poppins mx-auto flex h-full w-full flex-col items-center justify-center text-xl md:w-[90%] md:flex-row md:justify-between">
             <div className="flex w-fit items-start justify-start p-5 text-center md:p-0">
               © Adithya Krishnan 2025.
@@ -499,7 +495,7 @@ export default function Home() {
             </div>
             <button
               onClick={scrollToTop}
-              className="interactable z-10 flex items-center gap-2 p-10 md:p-0"
+              className="interactable flex items-center gap-2 p-10 md:p-0 z-10"
             >
               {" "}
               Back To Top <RiArrowUpCircleLine className="h-6 w-6" />{" "}

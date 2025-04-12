@@ -6,7 +6,7 @@ import Image from "next/image";
 
 function Navbar() {
   return (
-    <nav className="z-[1] mx-auto mb-10 flex w-full items-center justify-between overflow-hidden bg-[#ececec] px-[20px] py-2 pt-5 dark:bg-transparent md:w-[85vw] md:bg-transparent md:px-[10px] md:pt-10 md:dark:bg-transparent">
+    <nav className="z-[1] mx-auto mb-10 flex w-full items-center justify-between overflow-hidden bg-[#ececec] px-[20px] py-2 pt-5 dark:bg-transparent md:w-[80vw] md:bg-transparent md:px-[10px] md:pt-10 md:dark:bg-transparent">
       {/* <div className="font-poppins md:text-[2.2vw] text-[2.5rem] dark:text-white text-black">Adi.</div>
 
         <div className="flex items-center md:justify-normal  gap-[20px] ">
@@ -19,7 +19,7 @@ function Navbar() {
         </div> */}
       <a
         href="/"
-        className="font-poppins text-[2.0rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:min-w-[100px] md:text-[1.2vw]"
+        className="font-poppins text-[2.0rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:min-w-[100px] md:text-[1.5vw]"
       >
         Adi.
       </a>
@@ -38,7 +38,7 @@ function Navbar() {
         </a>
         <a
           href="/Resume Adithya Krishnan.pdf"
-          className="resumeLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]"
+          className="resumeLogo font-poppins text-[2.5rem] text-black transition-all duration-300 hover:opacity-25 dark:text-white md:text-[1vw]  border-white border-[1px] rounded-full px-4 py-1"
         >
           resume
         </a>
