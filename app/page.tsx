@@ -293,7 +293,22 @@ export default function Home() {
                   experience
                 </div>
               </FadeUp>
-              <FadeUp>
+              <FadeUp><div className="interactable px-1 py-1">
+                  <div className="font-semibold">
+                    Student Associate
+                    <span className="text-md text-gray-400"></span>
+                  </div>
+                  <a
+                    href="https://www.equifax.co.in/?ref=adithyakrishnan.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Equifax
+                  </a>
+                  <div className="font-sans text-gray-400">
+                    Feb 2025 - Present
+                  </div>
+                </div>
                 <div className="interactable px-1 py-1">
                   <div className="font-semibold">
                     SDE Intern
@@ -310,9 +325,12 @@ export default function Home() {
                     July 2024 - Dec 2024
                   </div>
                 </div>
-                <div className="interactable px-1 py-1">
+               
+              </FadeUp>
+              <FadeUp>
+              <div className="interactable px-1 py-1">
                   <div className="font-semibold">
-                    Fullstack Developer Intern
+                    Developer Intern
                     <span className="text-md text-gray-400"></span>
                   </div>
                   <a
@@ -325,22 +343,6 @@ export default function Home() {
                   <div className="font-sans text-gray-400">
                     April 2024 - July 2024
                   </div>
-                </div>
-              </FadeUp>
-              <FadeUp>
-                <div className="interactable px-1 py-1">
-                  <div className="font-semibold">
-                    Co Founder | Developer
-                    <span className="text-md text-gray-400"></span>
-                  </div>
-                  <a
-                    href="https://github.com/Deflated-Pappadam"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    deflated pappadam
-                  </a>
-                  <div className="font-sans text-gray-400">2022 - Present</div>
                 </div>
                 <div className="interactable px-1 py-1">
                   <div className="font-semibold">Student Intern</div>
