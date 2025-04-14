@@ -346,7 +346,7 @@ export default function Home() {
                 </div>
                 <div className="interactable px-1 py-1">
                   <div className="font-semibold">Student Intern</div>
-                  <div>UST Global, Thirvanathapuram</div>
+                  <div>UST Global</div>
                   <div className="font-sans text-gray-400">
                     April 2023 - May 2023
                   </div>
