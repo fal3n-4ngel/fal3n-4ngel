@@ -225,7 +225,7 @@ export default function Home() {
           <Navbar />
         </div>
 
-        <section className="flex min-h-screen w-full flex-col justify-center p-4 md:w-[80vw]">
+        <section className="flex min-h-screen w-full flex-col justify-center p-4 md:w-[80vw] md:mt-10">
           <div className="space-grotesk interactable hidden w-fit flex-col px-5 text-[2.8rem] leading-none tracking-tighter md:flex md:text-[4.4vw]">
             <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
               <FadeUp className="flex text-black">I`m Adithya Krishnan,</FadeUp>
@@ -457,35 +457,35 @@ export default function Home() {
         <section className="mx-auto my-20 hidden flex-col justify-center p-2 text-4xl font-light md:flex md:w-[75%] md:p-0">
           <ProjectsWithSkills />
         </section>
-        <section className="my-20 flex flex-col justify-center text-4xl font-light md:hidden md:w-[75%]">
+        <section className="mt-20 mb-10 flex flex-col justify-center text-4xl font-light md:hidden md:w-[75%]">
           <ProjectSection />
         </section>
 
-        <footer className="mt-[40px] flex h-full w-full flex-col justify-center py-[40px] text-3xl font-thin text-black dark:text-white">
+        <footer className="md:mt-[40px] flex h-full w-full flex-col justify-center md:pb-[40px] text-3xl font-thin text-black dark:text-white border-t-[1px] border-[#ffffff39] pt-28">
           <div className="font-poppins mx-auto flex h-full w-full flex-col items-center justify-center text-xl md:w-[90%] md:flex-row md:justify-between">
-            <div className="flex w-fit items-start justify-start p-5 text-center md:p-0">
+            <div className="md:flex hidden w-fit items-start justify-start p-5 text-center md:p-0">
               © Adithya Krishnan 2025.
             </div>
-            <div className="flex min-w-[600px] flex-col items-center justify-start text-justify md:flex-row md:justify-between">
-              <div className="flex flex-col items-start md:w-full md:flex-row md:justify-between">
+            <div className="flex min-w-[600px] flex-col items-center justify-start text-justify md:flex-row md:justify-between ">
+              <div className="flex flex-col items-start md:w-full md:flex-row md:justify-between gap-4">
                 <a
                   href="https://github.com/fal3n-4ngel"
                   className="interactable flex items-center gap-2 transition-all hover:scale-[110%] hover:animate-pulse"
                 >
-                  <RiGithubFill className="h-6 w-6" /> Github
+                  <RiGithubFill className=" h-8 w-8" /> Github
                 </a>
                 <a
                   href="https://www.linkedin.com/in/fal3n-4ngel/"
                   className="interactable flex items-center gap-2 transition-all hover:scale-[110%] hover:animate-pulse"
                 >
-                  <RiLinkedinBoxFill className="h-6 w-6" />
+                  <RiLinkedinBoxFill className="h-8 w-8" />
                   LinkedIn
                 </a>
                 <a
                   href="mailto:adiadithyakrishnan@gmail.com"
                   className="interactable flex items-center gap-2 transition-all hover:scale-[110%] hover:animate-pulse"
                 >
-                  <RiMailFill className="h-6 w-6" />
+                  <RiMailFill className="h-8 w-8" />
                   Email
                 </a>
                 <a
@@ -494,7 +494,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="interactable flex items-center gap-2 transition-all hover:scale-[110%] hover:animate-pulse"
                 >
-                  <RiFile2Fill className="h-6 w-6" />
+                  <RiFile2Fill className="h-8 w-8" />
                   Resume
                 </a>
               </div>
@@ -504,7 +504,7 @@ export default function Home() {
               className="interactable z-10 flex items-center gap-2 p-10 md:p-0"
             >
               {" "}
-              Back To Top <RiArrowUpCircleLine className="h-6 w-6" />{" "}
+              Back To Top <RiArrowUpCircleLine className="h-8 w-8" />{" "}
             </button>
           </div>
 
@@ -515,6 +515,10 @@ export default function Home() {
               - - -
             </div>
           </div>
+
+          <div className="flex md:hidden text-base w-full items-center justify-center p-10 text-center md:p-0">
+              © Adithya Krishnan 2025.
+            </div>
         </footer>
       </main>
     </div>
