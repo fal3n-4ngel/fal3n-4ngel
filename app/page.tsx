@@ -461,7 +461,7 @@ export default function Home() {
           <ProjectSection />
         </section>
 
-        <footer className="md:mt-[40px] flex h-full w-full flex-col justify-center md:pb-[40px] text-3xl font-thin text-black dark:text-white border-t-[1px] border-[#ffffff39] pt-28">
+        <footer className="py-[40px] flex h-full w-full flex-col justify-center  text-3xl font-thin text-black dark:text-white md:border-t-[1px] border-[#ffffff39] pt-28">
           <div className="font-poppins mx-auto flex h-full w-full flex-col items-center justify-center text-xl md:w-[90%] md:flex-row md:justify-between">
             <div className="md:flex hidden w-fit items-start justify-start p-5 text-center md:p-0">
               © Adithya Krishnan 2025.
@@ -516,7 +516,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex md:hidden text-base w-full items-center justify-center p-10 text-center md:p-0">
+          <div className="flex md:hidden text-base w-full items-center justify-center p-10 text-center md:p-0 pb-20">
               © Adithya Krishnan 2025.
             </div>
         </footer>
