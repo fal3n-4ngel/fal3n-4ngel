@@ -27,7 +27,7 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (6 days ago)
+  - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (1 week ago)
   - [edankwan/penis.js](https://github.com/edankwan/penis.js) -  (1 week ago)
   - [lusionltd/WebGL-Scroll-Sync](https://github.com/lusionltd/WebGL-Scroll-Sync) -  (1 week ago)
   - [n8n-io/self-hosted-ai-starter-kit](https://github.com/n8n-io/self-hosted-ai-starter-kit) - The Self-hosted AI Starter Kit is an open-source template that quickly sets up a local AI environment. Curated by n8n, it provides essential tools for creating secure, self-hosted AI workflows. (1 week ago)
