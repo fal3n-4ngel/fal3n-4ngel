@@ -17,7 +17,7 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
-  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 week ago)
+  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (2 weeks ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (3 months ago)
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (3 months ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (4 months ago)
@@ -30,7 +30,7 @@
   - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (1 week ago)
   - [edankwan/penis.js](https://github.com/edankwan/penis.js) -  (1 week ago)
   - [lusionltd/WebGL-Scroll-Sync](https://github.com/lusionltd/WebGL-Scroll-Sync) -  (1 week ago)
-  - [n8n-io/self-hosted-ai-starter-kit](https://github.com/n8n-io/self-hosted-ai-starter-kit) - The Self-hosted AI Starter Kit is an open-source template that quickly sets up a local AI environment. Curated by n8n, it provides essential tools for creating secure, self-hosted AI workflows. (1 week ago)
+  - [n8n-io/self-hosted-ai-starter-kit](https://github.com/n8n-io/self-hosted-ai-starter-kit) - The Self-hosted AI Starter Kit is an open-source template that quickly sets up a local AI environment. Curated by n8n, it provides essential tools for creating secure, self-hosted AI workflows. (2 weeks ago)
   - [lobehub/sd-webui-lobe-theme](https://github.com/lobehub/sd-webui-lobe-theme) - 🅰️ Lobe theme - The modern theme for stable diffusion webui, exquisite interface design, highly customizable UI, and efficiency boosting features. (1 month ago)
 </details>
 
