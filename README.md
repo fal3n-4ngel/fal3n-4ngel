@@ -27,11 +27,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
+  - [robotostudio/turbo-start-sanity](https://github.com/robotostudio/turbo-start-sanity) - Sanity &#43; Next.js page-builder template (today)
   - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (1 week ago)
   - [edankwan/penis.js](https://github.com/edankwan/penis.js) -  (1 week ago)
   - [lusionltd/WebGL-Scroll-Sync](https://github.com/lusionltd/WebGL-Scroll-Sync) -  (1 week ago)
   - [n8n-io/self-hosted-ai-starter-kit](https://github.com/n8n-io/self-hosted-ai-starter-kit) - The Self-hosted AI Starter Kit is an open-source template that quickly sets up a local AI environment. Curated by n8n, it provides essential tools for creating secure, self-hosted AI workflows. (2 weeks ago)
-  - [lobehub/sd-webui-lobe-theme](https://github.com/lobehub/sd-webui-lobe-theme) - 🅰️ Lobe theme - The modern theme for stable diffusion webui, exquisite interface design, highly customizable UI, and efficiency boosting features. (1 month ago)
 </details>
 
 
