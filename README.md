@@ -17,19 +17,19 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
+  - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (1 day ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (2 weeks ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (3 months ago)
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (4 months ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (4 months ago)
-  - [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) - SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. (4 months ago)
 </details>
 
 <details>
   <summary>🔥 Picks </summary>
    
-  - [lllyasviel/FramePack](https://github.com/lllyasviel/FramePack) - Lets make video diffusion practical! (2 days ago)
-  - [robotostudio/turbo-start-sanity](https://github.com/robotostudio/turbo-start-sanity) - Sanity &#43; Next.js page-builder template (2 days ago)
-  - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (1 week ago)
+  - [lllyasviel/FramePack](https://github.com/lllyasviel/FramePack) - Lets make video diffusion practical! (4 days ago)
+  - [robotostudio/turbo-start-sanity](https://github.com/robotostudio/turbo-start-sanity) - Sanity &#43; Next.js page-builder template (4 days ago)
+  - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (2 weeks ago)
   - [edankwan/penis.js](https://github.com/edankwan/penis.js) -  (2 weeks ago)
   - [lusionltd/WebGL-Scroll-Sync](https://github.com/lusionltd/WebGL-Scroll-Sync) -  (2 weeks ago)
 </details>
