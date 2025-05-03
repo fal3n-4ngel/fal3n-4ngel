@@ -18,17 +18,17 @@
   <summary>🌱 Worklog  </summary>
 
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (1 week ago)
-  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (3 weeks ago)
-  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (3 months ago)
+  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (4 weeks ago)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (4 months ago)
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (4 months ago)
-  - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (4 months ago)
+  - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (5 months ago)
 </details>
 
 <details>
   <summary>🔥 Picks </summary>
    
-  - [simple-icons/simple-icons](https://github.com/simple-icons/simple-icons) - SVG icons for popular brands (5 days ago)
-  - [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) - 📄 A curated list of awesome .cursorrules files (5 days ago)
+  - [simple-icons/simple-icons](https://github.com/simple-icons/simple-icons) - SVG icons for popular brands (1 week ago)
+  - [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) - 📄 A curated list of awesome .cursorrules files (1 week ago)
   - [lllyasviel/FramePack](https://github.com/lllyasviel/FramePack) - Lets make video diffusion practical! (1 week ago)
   - [robotostudio/turbo-start-sanity](https://github.com/robotostudio/turbo-start-sanity) - Sanity &#43; Next.js page-builder template (1 week ago)
   - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (3 weeks ago)
