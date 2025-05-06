@@ -18,7 +18,7 @@
   <summary>🌱 Worklog  </summary>
 
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (1 week ago)
-  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (4 weeks ago)
+  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 month ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (4 months ago)
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (4 months ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (5 months ago)
@@ -27,11 +27,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
+  - [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) - real time face swap and one-click video deepfake with only a single image (1 day ago)
   - [simple-icons/simple-icons](https://github.com/simple-icons/simple-icons) - SVG icons for popular brands (1 week ago)
   - [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) - 📄 A curated list of awesome .cursorrules files (1 week ago)
   - [lllyasviel/FramePack](https://github.com/lllyasviel/FramePack) - Lets make video diffusion practical! (2 weeks ago)
   - [robotostudio/turbo-start-sanity](https://github.com/robotostudio/turbo-start-sanity) - Sanity &#43; Next.js page-builder template (2 weeks ago)
-  - [temporalio/temporal](https://github.com/temporalio/temporal) - Temporal service (3 weeks ago)
 </details>
 
 
