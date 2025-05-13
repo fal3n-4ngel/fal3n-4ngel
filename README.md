@@ -27,7 +27,7 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) - real time face swap and one-click video deepfake with only a single image (6 days ago)
+  - [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) - real time face swap and one-click video deepfake with only a single image (1 week ago)
   - [simple-icons/simple-icons](https://github.com/simple-icons/simple-icons) - SVG icons for popular brands (2 weeks ago)
   - [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) - 📄 A curated list of awesome .cursorrules files (2 weeks ago)
   - [lllyasviel/FramePack](https://github.com/lllyasviel/FramePack) - Lets make video diffusion practical! (3 weeks ago)
