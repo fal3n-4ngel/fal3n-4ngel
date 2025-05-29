@@ -27,8 +27,8 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [helallao/perplexity-ai](https://github.com/helallao/perplexity-ai) - Unofficial API Wrapper for Perplexity.ai &#43; Account Generator with Web Interface (today)
-  - [landing-ai/vision-agent](https://github.com/landing-ai/vision-agent) - Vision agent (1 week ago)
+  - [helallao/perplexity-ai](https://github.com/helallao/perplexity-ai) - Unofficial API Wrapper for Perplexity.ai &#43; Account Generator with Web Interface (2 days ago)
+  - [landing-ai/vision-agent](https://github.com/landing-ai/vision-agent) - Vision agent (2 weeks ago)
   - [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) - real time face swap and one-click video deepfake with only a single image (3 weeks ago)
   - [simple-icons/simple-icons](https://github.com/simple-icons/simple-icons) - SVG icons for popular brands (1 month ago)
   - [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) - 📄 A curated list of awesome .cursorrules files (1 month ago)
