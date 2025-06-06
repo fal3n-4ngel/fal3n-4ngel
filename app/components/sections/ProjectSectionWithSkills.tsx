@@ -1,21 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import ProjBox from "../components/ProjBox";
-import FadeUp from "../components/FadeUp";
+import ProjBox from "../ui/ProjBox";
+import FadeUp from "../ui/FadeUp";
 
-import GithubProjectBox from "../components/ProjectBoxGithub";
+import GithubProjectBox from "../ui/ProjectBoxGithub";
 import { RiArrowUpCircleLine } from "react-icons/ri";
 import {
   GitProjectBoxProps,
   Project,
   ProjectBoxProps,
   Repo,
-} from "../types/projects";
-import { projects, projectSkills, skillIcons } from "../data/projects";
+} from "../../types/projects";
+import { projects, projectSkills, skillIcons } from "../../data/projects";
 import { inView } from "framer-motion";
 
-// Main component
+
 const ProjectsWithSkills: React.FC = () => {
   const [activeProject, setActiveProject] = useState<string | null>(null);
   const { ref: sectionRef, inView: sectionInView } = useInView({

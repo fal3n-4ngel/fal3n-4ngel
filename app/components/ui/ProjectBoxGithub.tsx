@@ -10,34 +10,39 @@ type GithubProjProps = {
   view: string;
 };
 
-const randomColor = () =>
-  "#" + Math.floor(Math.random() * 16777215).toString(16);
-
-const generateRects = (seed: number) => {
-  const numRects = Math.floor(Math.random() * 11) + 5;
-  const rects = [];
-  for (let i = 0; i < numRects; i++) {
-    rects.push({
-      x: Math.random() * 1280,
-      y: Math.random() * 640,
-      width: Math.random() * 200 + 50,
-      height: Math.random() * 200 + 50,
-      fill: randomColor(),
-      opacity: Math.random() * 0.5 + 0.1,
-    });
-  }
-  return rects;
+type Rect = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  fill: string;
+  opacity: number;
 };
 
-const GithubProjectBox = ({
+const randomColor = (): string =>
+  "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+const generateRects = (seed: number): Rect[] => {
+  const numRects = Math.floor(Math.random() * 11) + 5;
+  return Array.from({ length: numRects }, () => ({
+    x: Math.random() * 1280,
+    y: Math.random() * 640,
+    width: Math.random() * 200 + 50,
+    height: Math.random() * 200 + 50,
+    fill: randomColor(),
+    opacity: Math.random() * 0.5 + 0.1,
+  }));
+};
+
+const GithubProjectBox: React.FC<GithubProjProps> = ({
   url1,
   name,
   type,
   event,
   date,
   view,
-}: GithubProjProps) => {
-  const [rects, setRects] = useState(generateRects(url1));
+}) => {
+  const [rects, setRects] = useState<Rect[]>(() => generateRects(url1));
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -47,19 +52,26 @@ const GithubProjectBox = ({
     return () => clearInterval(intervalId);
   }, [url1]);
 
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+  };
+
+  const scaleIn = {
+    initial: { opacity: 0, scale: 0.95 },
+    whileInView: { opacity: 1, scale: 1 },
+    viewport: { once: true },
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      {...fadeInUp}
       transition={{ duration: 0.6 }}
       className="w-full min-w-[75vw] rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:w-[95%] md:p-12"
     >
-      {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        {...fadeInUp}
         transition={{ duration: 0.6, delay: 0.2 }}
         className="mb-12"
       >
@@ -68,11 +80,8 @@ const GithubProjectBox = ({
         </h2>
       </motion.div>
 
-      {/* Dynamic SVG Background */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
+        {...scaleIn}
         transition={{ duration: 0.8, delay: 0.4 }}
         className="relative aspect-video overflow-hidden rounded-lg md:w-[80%]"
       >
@@ -84,49 +93,34 @@ const GithubProjectBox = ({
           {rects.map((rect, index) => (
             <rect
               key={index}
-              x={rect.x}
-              y={rect.y}
-              width={rect.width}
-              height={rect.height}
-              fill={rect.fill}
-              opacity={rect.opacity}
+              {...rect}
               className="transition-all duration-1000"
             />
           ))}
         </svg>
       </motion.div>
 
-      {/* Footer with Tags and Link */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        {...fadeInUp}
         transition={{ duration: 0.4, delay: 0.2 }}
         className="grid grid-cols-1 gap-8 md:w-[80%] md:grid-cols-12"
       >
         <div className="row-span-3 md:col-span-3">
           <div className="flex w-full flex-row items-center justify-between md:flex-col md:items-start md:space-y-3">
-            <div>
-              <p className="text-sm uppercase tracking-wider text-neutral-500">
-                TYPE
-              </p>
-              <p className="work-sans text-lg font-light">{type}</p>
-            </div>
-            <div>
-              <p className="text-sm uppercase tracking-wider text-neutral-500">
-                EVENT
-              </p>
-              <p className="work-sans text-lg font-light">{event}</p>
-            </div>
-            <div>
-              <p className="text-sm uppercase tracking-wider text-neutral-500">
-                YEAR
-              </p>
-              <p className="work-sans text-lg font-light">{date}</p>
-            </div>
+            {[
+              { label: "TYPE", value: type },
+              { label: "EVENT", value: event },
+              { label: "YEAR", value: date },
+            ].map(({ label, value }) => (
+              <div key={label}>
+                <p className="text-sm uppercase tracking-wider text-neutral-500">
+                  {label}
+                </p>
+                <p className="work-sans text-lg font-light">{value}</p>
+              </div>
+            ))}
           </div>
         </div>
-        {/* Description */}
 
         <div className="md:col-span-7">
           <p className="mb-2 text-sm uppercase tracking-wider text-neutral-500">
@@ -141,7 +135,6 @@ const GithubProjectBox = ({
           </p>
         </div>
 
-        {/* View Button */}
         <div className="flex items-start justify-end md:col-span-2">
           <motion.a
             href={view}

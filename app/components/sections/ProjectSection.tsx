@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { RiArrowUpCircleLine } from "react-icons/ri";
-import FadeUp from "../components/FadeUp";
-import ProjBox from "../components/ProjBox";
-import GithubProjectBox from "../components/ProjectBoxGithub";
-import { Project } from "../types/projects";
-import { projects } from "../data/projects";
-
+import FadeUp from "../ui/FadeUp";
+import ProjBox from "../ui/ProjBox";
+import GithubProjectBox from "../ui/ProjectBoxGithub";
+import { Project } from "../../types/projects";
+import { projects } from "../../data/projects";
 
 type GithubRepo = {
   id: number;
@@ -26,7 +25,7 @@ function ProjectSection() {
     async function fetchRepos() {
       try {
         const response = await fetch(
-          "https://api.github.com/users/fal3n-4ngel/repos"
+          "https://api.github.com/users/fal3n-4ngel/repos",
         );
         const data = await response.json();
 
@@ -34,7 +33,10 @@ function ProjectSection() {
           .filter((repo: GithubRepo) => !repo.fork || repo.stargazers_count > 0)
           .sort((a: GithubRepo, b: GithubRepo) => {
             if (b.stargazers_count === a.stargazers_count) {
-              return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+              return (
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+              );
             }
             return b.stargazers_count - a.stargazers_count;
           });
@@ -48,11 +50,11 @@ function ProjectSection() {
   }, []);
 
   const showMoreProjects = () => {
-    setVisibleCount(prev => Math.min(prev + 3, repos.length));
+    setVisibleCount((prev) => Math.min(prev + 3, repos.length));
   };
 
   const showLessProjects = () => {
-    setVisibleCount(prev => Math.max(prev - 3, 0));
+    setVisibleCount((prev) => Math.max(prev - 3, 0));
   };
 
   return (
@@ -79,7 +81,6 @@ function ProjectSection() {
             event="Projects"
             date={new Date(repo.created_at).getFullYear().toString()}
             view={repo.html_url}
-           
           />
         ))}
 
@@ -101,12 +102,12 @@ function ProjectSection() {
                 onClick={showLessProjects}
                 className="interactable font-poppins flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
               >
-                <RiArrowUpCircleLine className="h-6 w-6" /> 
+                <RiArrowUpCircleLine className="h-6 w-6" />
                 collapse
                 <RiArrowUpCircleLine className="h-6 w-6" />
               </button>
             )}
-            
+
             <div className="mt-8 flex w-full flex-col items-center rounded-full p-2 text-center shadow-md">
               <p className="work-sans text-xs font-light text-[#2e3440] dark:text-[#e5e9f0] md:text-base">
                 Projects are dynamically fetched through GitHub API

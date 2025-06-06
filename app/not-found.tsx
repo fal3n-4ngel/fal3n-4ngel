@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { RiArrowLeftCircleLine } from "react-icons/ri";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/sections/Navbar";
 import { useFollowPointer } from "./utils/FollowPointer";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";

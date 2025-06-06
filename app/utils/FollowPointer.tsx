@@ -1,19 +1,21 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from "react";
 
 interface Position {
   x: number;
   y: number;
 }
 
-export const useFollowPointer = (ref: React.RefObject<HTMLElement | null>): Position => {
-  let xh = 0, yh = 0;
-  if (typeof window !== 'undefined') {
+export const useFollowPointer = (
+  ref: React.RefObject<HTMLElement | null>,
+): Position => {
+  let xh = 0,
+    yh = 0;
+  if (typeof window !== "undefined") {
     xh = window.innerWidth / 2 - 50;
     yh = window.innerHeight / 2 - 50;
   }
   const [position, setPosition] = useState<Position>({ x: xh, y: yh });
 
-  // Track the last update time
   const lastUpdateRef = useCallback(() => {
     let lastUpdate = 0;
     const FRAME_RATE = 80; // 80Hz
@@ -27,19 +29,19 @@ export const useFollowPointer = (ref: React.RefObject<HTMLElement | null>): Posi
 
       setPosition({
         x: e.clientX - 20,
-        y: e.clientY - 20
+        y: e.clientY - 20,
       });
-      
+
       lastUpdate = now;
     };
   }, [ref]);
 
   useEffect(() => {
     const handleMouseMove = lastUpdateRef();
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [lastUpdateRef]);
 
