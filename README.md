@@ -2,9 +2,9 @@
     
 # Adithya Krishnan 
 *Developer | Cinephile | Weeb*
-
-    💼 final year btech @ mbcet  
-    💻 Current Focus: Desktop Apps - Tauri, .NET and Rust.  
+  
+    💻 Current Focus: Desktop Apps - Tauri, .NET and Rust.
+    🌐 Portfolio: www.adithyakrishnan.com
 
 ---
 
