@@ -4,10 +4,9 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { useFollowPointer } from "./utils/FollowPointer";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Navbar from "./components/sections/Navbar";
-import FadeUp from "./components/ui/FadeUp";
 import ProjectsWithSkills from "./components/sections/ProjectSectionWithSkills";
 import ProjectSection from "./components/sections/ProjectSection";
-import useSmoothScroll, { scrollToTop } from "./utils/SmoothScroll";
+
 import { generateRandomPath } from "./utils/GenerateRandomPath";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Position } from "./types/position";
@@ -91,8 +90,6 @@ export default function Home() {
   const { isInteracting } = cursorState;
   const { isGitHubLogo, isLinkedInLogo, isResumeLogo, isMailLogo } = logoStates;
 
-  useSmoothScroll();
-
   useEffect(() => {
     const updateDimensions = () => {
       setDimensions({
@@ -105,8 +102,6 @@ export default function Home() {
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-
-  useSmoothScroll();
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -186,7 +181,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-full min-h-screen w-full   bg-[#121212] text-white">
+    <div className="h-full min-h-screen w-full bg-[#121212] text-white">
       <GoogleAnalytics trackPageViews />
 
       <AnimatePresence>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "@studio-freight/lenis";
 
 export default function LenisProvider({
@@ -8,25 +8,43 @@ export default function LenisProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const lenisRef = useRef<Lenis | null>(null);
+  const rafRef = useRef<number>();
+
   useEffect(() => {
     const lenis = new Lenis({
+      lerp: 0.09, 
+      duration: 1.2, 
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      lerp: 0.1,
-      duration: 1.5,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
       smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+      autoResize: true,
     });
 
-    const raf = (time: number) => {
+    lenisRef.current = lenis;
+
+    // Optimized RAF function
+    function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
+      rafRef.current = requestAnimationFrame(raf);
+    }
 
-    requestAnimationFrame(raf);
+    // Start the animation loop
+    rafRef.current = requestAnimationFrame(raf);
 
+    // Cleanup function
     return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
-  return <>{children}</>;
+  return <div data-lenis-prevent={false}>{children}</div>;
 }
