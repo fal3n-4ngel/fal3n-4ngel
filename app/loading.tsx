@@ -12,7 +12,7 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          // Delay completion to show 100% briefly
+         
           setTimeout(() => onComplete(), 300);
           return 100;
         }
@@ -70,7 +70,7 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[10001] flex flex-col items-center justify-center bg-[#020202]"
+      className="fixed inset-0 z-[10001] flex flex-col items-center justify-center bg-[#020202fc]"
       exit={{
         opacity: 0,
         scale: 0.95,
