@@ -6,6 +6,8 @@ interface FadeUpProps extends HTMLMotionProps<"div"> {}
 const FadeUp: React.FC<FadeUpProps> = ({ children }) => {
   const [ref, inView] = useInView({
     triggerOnce: false, // Only trigger once when entering the viewport
+   
+    fallbackInView: false, // Ensure the component is considered in view if it starts in view
   });
 
   return (

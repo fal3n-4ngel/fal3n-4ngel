@@ -18,7 +18,7 @@ export const useFollowPointer = (
 
   const lastUpdateRef = useCallback(() => {
     let lastUpdate = 0;
-    const FRAME_RATE = 80; // 80Hz
+    const FRAME_RATE = 60; // 80Hz
     const FRAME_TIME = 1000 / FRAME_RATE; // ~12.5ms between updates
 
     return (e: MouseEvent) => {
