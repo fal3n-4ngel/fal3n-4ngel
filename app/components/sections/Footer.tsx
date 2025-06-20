@@ -1,5 +1,5 @@
 import { scrollToTop } from "@/app/utils/SmoothScroll";
-import { RiArrowUpCircleLine, RiFile2Fill, RiGithubFill, RiLinkedinBoxFill, RiMailFill } from "react-icons/ri";
+import { RiArrowUpCircleLine, RiFile2Fill, RiGithubFill, RiLinkedinBoxFill, RiMailFill, RiFileList3Fill } from "react-icons/ri";
 
 export const Footer = () => (
   <footer className="py-[40px] flex h-full w-full flex-col justify-center text-3xl font-thin text-black dark:text-white md:border-t-[1px] border-[#ffffff39] pt-28">
@@ -36,6 +36,7 @@ export const Footer = () => (
           >
             <RiFile2Fill className="h-8 w-8" /> Resume
           </a>
+          
         </div>
       </div>
       
@@ -57,5 +58,10 @@ export const Footer = () => (
     <div className="flex md:hidden text-base w-full items-center justify-center p-10 text-center md:p-0 pb-20">
       © Adithya Krishnan 2025.
     </div>
-  </footer>
+
+    <div className="font-poppins mt-8 flex w-full md:flex-row p-4 flex-col items-center justify-center text-center text-base text-slate-500 dark:text-slate-400 pb-8">
+      Not a fan of complex portfolios?<span className="md:hidden"></span> Check out my  &nbsp; <a href="https://minimal.adithyakrishnan.com" className="text-slate-700 dark:text-slate-300 hover:underline">minimal portfolio.</a>
+    </div>
+  
+</footer>
 );
