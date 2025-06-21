@@ -17,10 +17,10 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
+  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 day ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (1 month ago)
-  - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (2 months ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (5 months ago)
-  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (5 months ago)
+  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (6 months ago)
   - [fal3n-4ngel/ollama-chat](https://github.com/fal3n-4ngel/ollama-chat) -  (6 months ago)
 </details>
 
