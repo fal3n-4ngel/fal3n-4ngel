@@ -17,7 +17,7 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
-  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (5 days ago)
+  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (6 days ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 week ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (2 months ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (5 months ago)
