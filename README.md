@@ -17,7 +17,7 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
-  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (2 weeks ago)
+  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (3 weeks ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (3 weeks ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (2 months ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (6 months ago)
@@ -28,7 +28,7 @@
   <summary>🔥 Picks </summary>
    
   - [helallao/perplexity-ai](https://github.com/helallao/perplexity-ai) - Unofficial API Wrapper for Perplexity.ai &#43; Account Generator with Web Interface (1 month ago)
-  - [landing-ai/vision-agent](https://github.com/landing-ai/vision-agent) - Vision agent (1 month ago)
+  - [landing-ai/vision-agent](https://github.com/landing-ai/vision-agent) - Vision agent (2 months ago)
   - [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) - real time face swap and one-click video deepfake with only a single image (2 months ago)
   - [simple-icons/simple-icons](https://github.com/simple-icons/simple-icons) - SVG icons for popular brands (2 months ago)
   - [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) - 📄  Configuration files that enhance Cursor AI editor experience with custom rules and behaviors (2 months ago)
