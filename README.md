@@ -27,11 +27,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
+  - [hotheadhacker/no-as-a-service](https://github.com/hotheadhacker/no-as-a-service) - No-as-a-Service (NaaS) is a simple API that returns a random rejection reason. Use it when you need a realistic excuse, a fun “no,” or want to simulate being turned down in style. (today)
   - [helallao/perplexity-ai](https://github.com/helallao/perplexity-ai) - Unofficial API Wrapper for Perplexity.ai &#43; Account Generator with Web Interface (1 month ago)
   - [landing-ai/vision-agent](https://github.com/landing-ai/vision-agent) - Vision agent (2 months ago)
   - [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) - real time face swap and one-click video deepfake with only a single image (2 months ago)
   - [simple-icons/simple-icons](https://github.com/simple-icons/simple-icons) - SVG icons for popular brands (2 months ago)
-  - [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules) - 📄  Configuration files that enhance Cursor AI editor experience with custom rules and behaviors (2 months ago)
 </details>
 
 
