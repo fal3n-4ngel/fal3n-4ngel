@@ -20,7 +20,7 @@
   - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (1 month ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (1 month ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (3 months ago)
-  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (6 months ago)
+  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (7 months ago)
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (7 months ago)
 </details>
 
@@ -28,7 +28,7 @@
   <summary>🔥 Picks </summary>
    
   - [m4xshen/dotfiles](https://github.com/m4xshen/dotfiles) - My dotfiles for Neovim, Kitty, yabai, SketchyBar (1 week ago)
-  - [hotheadhacker/no-as-a-service](https://github.com/hotheadhacker/no-as-a-service) - No-as-a-Service (NaaS) is a simple API that returns a random rejection reason. Use it when you need a realistic excuse, a fun “no,” or want to simulate being turned down in style. (1 week ago)
+  - [hotheadhacker/no-as-a-service](https://github.com/hotheadhacker/no-as-a-service) - No-as-a-Service (NaaS) is a simple API that returns a random rejection reason. Use it when you need a realistic excuse, a fun “no,” or want to simulate being turned down in style. (2 weeks ago)
   - [helallao/perplexity-ai](https://github.com/helallao/perplexity-ai) - Unofficial API Wrapper for Perplexity.ai &#43; Account Generator with Web Interface (2 months ago)
   - [landing-ai/vision-agent](https://github.com/landing-ai/vision-agent) - Vision agent (2 months ago)
   - [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) - real time face swap and one-click video deepfake with only a single image (2 months ago)
