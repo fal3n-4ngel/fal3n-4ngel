@@ -19,7 +19,7 @@
 
   - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (2 months ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (3 months ago)
-  - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (4 months ago)
+  - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (5 months ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (8 months ago)
   - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (9 months ago)
 </details>
@@ -27,7 +27,7 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) - Official awesome-list of CodeRabbit Starters &amp; Resources ⚡️ (3 weeks ago)
+  - [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) - Official awesome-list of CodeRabbit Starters &amp; Resources ⚡️ (4 weeks ago)
   - [th-ch/youtube-music](https://github.com/th-ch/youtube-music) - YouTube Music Desktop App bundled with custom plugins (1 month ago)
   - [m4xshen/dotfiles](https://github.com/m4xshen/dotfiles) - My dotfiles for Neovim, Kitty, yabai, SketchyBar (2 months ago)
   - [hotheadhacker/no-as-a-service](https://github.com/hotheadhacker/no-as-a-service) - No-as-a-Service (NaaS) is a simple API that returns a random rejection reason. Use it when you need a realistic excuse, a fun “no,” or want to simulate being turned down in style. (2 months ago)
