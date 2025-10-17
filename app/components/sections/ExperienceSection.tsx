@@ -9,7 +9,7 @@ export const ExperienceSection = () => (
     </FadeUp>
     <FadeUp>
       <div className="interactable px-1 py-1">
-        <div className="font-semibold">Student Associate</div>
+        <div className="font-semibold">Software Engineer - Entry </div>
         <a
           href="https://www.equifax.co.in/?ref=adithyakrishnan.com"
           target="_blank"
