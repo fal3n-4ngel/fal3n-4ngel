@@ -1,0 +1,56 @@
+# Auto-label configuration for GitHub Actions
+# This file defines patterns to automatically label PRs
+
+# Component labels
+components:
+  - app/components/**/*
+
+ui:
+  - app/components/ui/**/*
+
+sections:
+  - app/components/sections/**/*
+
+# Type labels
+styles:
+  - '**/*.css'
+  - '**/*.scss'
+  - app/globals.css
+  - tailwind.config.*
+
+typescript:
+  - '**/*.ts'
+  - '**/*.tsx'
+  - tsconfig.json
+
+configuration:
+  - '*.config.*'
+  - '.github/**/*'
+  - package.json
+
+documentation:
+  - '**/*.md'
+  - README.md
+
+dependencies:
+  - package.json
+  - package-lock.json
+
+# Feature labels
+animations:
+  - '**/animations.*'
+  - '**/Fade*'
+  - '**/motion*'
+
+data:
+  - app/data/**/*
+
+hooks:
+  - app/hooks/**/*
+
+utils:
+  - app/utils/**/*
+
+types:
+  - app/types/**/*
+  - '**/*.d.ts'

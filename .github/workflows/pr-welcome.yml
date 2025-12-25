@@ -1,0 +1,44 @@
+name: 🎭 PR Welcome Message
+
+on:
+  pull_request:
+    types: [opened]
+    branches: [portfolio]
+
+jobs:
+  welcome:
+    name: 👋 Welcome Contributor
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 💬 Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 👋 Thanks for contributing to the portfolio!
+              
+              ### 🚀 What happens next?
+              
+              - ✅ Automated checks will run
+              - 🔍 Code quality & type checking
+              - 🏗️ Build verification
+              - 🛡️ Security audit
+              - 📊 Performance analysis
+              
+              ### 📝 Review Checklist
+              
+              - [ ] Code follows the project style
+              - [ ] All checks are passing
+              - [ ] No console errors
+              - [ ] Tested locally
+              
+              ---
+              
+              💡 **Tip**: Use \`npm run format\` to auto-format your code!
+              
+              🤖 *This is an automated message*`
+            })

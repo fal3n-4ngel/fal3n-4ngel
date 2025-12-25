@@ -1,0 +1,43 @@
+name: 📊 Update GitHub Stats
+
+on:
+  schedule:
+    # Runs every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-stats:
+    name: 📈 Update Portfolio Stats
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: portfolio
+          
+      - name: 📊 Generate GitHub Stats
+        uses: anuraghazra/github-readme-stats@master
+        
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: 📦 Fetch latest projects
+        run: |
+          curl -s "https://api.github.com/users/fal3n-4ngel/repos?sort=updated&per_page=10" \
+          > .github/latest-projects.json
+          
+      - name: 📝 Update timestamp
+        run: |
+          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > .github/last-update.txt
+          
+      - name: 📤 Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .github/
+          git diff --staged --quiet || git commit -m "📊 chore: update GitHub stats"
+          git push
