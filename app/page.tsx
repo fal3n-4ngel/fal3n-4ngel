@@ -15,6 +15,9 @@ import { useFollowPointer } from "./utils/FollowPointer";
 const Navbar = dynamic(() => import("./components/sections/Navbar"), {
   ssr: true,
 });
+const CommandPalette = dynamic(() => import("./components/ui/CommandPalette"), {
+  ssr: false,
+});
 const ProjectsWithSkills = dynamic(() => import("./components/sections/ProjectSectionWithSkills"), {
   ssr: false,
 });
@@ -173,19 +176,32 @@ export default function Home() {
           <Navbar />
         </div>
 
-        <HeroSection />
+        <CommandPalette />
 
-        <AboutSection
-          isEscaping={isEscaping}
-          triggerEscape={triggerEscape}
-          resetEscape={resetEscape}
-        />
-        <section className="mx-auto my-20 hidden flex-col justify-center p-2 text-4xl font-light md:flex md:w-[75%] md:p-0">
+        <div id="hero">
+          <HeroSection />
+        </div>
+
+        <div id="about">
+          <AboutSection
+            isEscaping={isEscaping}
+            triggerEscape={triggerEscape}
+            resetEscape={resetEscape}
+          />
+        </div>
+        <section
+          id="projects"
+          className="mx-auto my-20 hidden flex-col justify-center p-2 text-4xl font-light md:flex md:w-[75%] md:p-0"
+        >
           <ProjectsWithSkills />
         </section>
-        <section className="mb-10 mt-20 flex flex-col justify-center text-4xl font-light md:hidden md:w-[75%]">
+        <section
+          id="projects-mobile"
+          className="mb-10 mt-20 flex flex-col justify-center text-4xl font-light md:hidden md:w-[75%]"
+        >
           <ProjectSection />
         </section>
+
         <Footer />
       </main>
     </div>

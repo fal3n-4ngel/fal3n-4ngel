@@ -5,7 +5,7 @@ import { AwardsSection } from "./AwardsSection";
 import { ExperienceSection } from "./ExperienceSection";
 import { SkillsSection } from "./SkillsSection";
 
- interface AboutSectionProps {
+interface AboutSectionProps {
   isEscaping: boolean;
   triggerEscape: () => void;
   resetEscape: () => void;
@@ -19,8 +19,8 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
         <div className="overflow-hidden">
           <FadeUp>
             <div className="interactable m-5 ease-in md:mx-10">
-              I turn ideas into performant, scalable web experiences—with
-              an eye for design and a focus on detail
+              I turn ideas into performant, scalable web experiences—with an eye for design and a
+              focus on detail
             </div>
           </FadeUp>
         </div>
@@ -28,8 +28,8 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
         <div className="overflow-hidden">
           <FadeUp>
             <div className="interactable m-5 ease-in md:mx-10">
-              With hands-on experience at Equifax, Nissan Digital, and UST Global, 
-              I&#39;ve also built products through hackathons and freelance collaborations.
+              With hands-on experience at Equifax, Nissan Digital, and UST Global, I&#39;ve also
+              built products through hackathons and freelance collaborations.
             </div>
           </FadeUp>
         </div>
@@ -45,10 +45,14 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
 
       {/* Experience & Awards */}
       <div className="sm:space-grotek font-poppins-regular md:leading-2 mx-auto flex w-[90%] flex-col tracking-wider md:w-[50%] md:pl-[20%] md:text-[0.90vw]">
-        <ExperienceSection />
-        <AwardsSection />
+        <div id="experience">
+          <ExperienceSection />
+        </div>
+        <div id="awards">
+          <AwardsSection />
+        </div>
         <SkillsSection />
-        <GhostButton 
+        <GhostButton
           isEscaping={isEscaping}
           triggerEscape={triggerEscape}
           resetEscape={resetEscape}
