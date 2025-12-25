@@ -19,8 +19,7 @@ type Rect = {
   opacity: number;
 };
 
-const randomColor = (): string =>
-  "#" + Math.floor(Math.random() * 16777215).toString(16);
+const randomColor = (): string => "#" + Math.floor(Math.random() * 16777215).toString(16);
 
 const generateRects = (seed: number): Rect[] => {
   const numRects = Math.floor(Math.random() * 11) + 5;
@@ -34,14 +33,7 @@ const generateRects = (seed: number): Rect[] => {
   }));
 };
 
-const GithubProjectBox: React.FC<GithubProjProps> = ({
-  url1,
-  name,
-  type,
-  event,
-  date,
-  view,
-}) => {
+const GithubProjectBox: React.FC<GithubProjProps> = ({ url1, name, type, event, date, view }) => {
   const [rects, setRects] = useState<Rect[]>(() => generateRects(url1));
 
   useEffect(() => {
@@ -70,11 +62,7 @@ const GithubProjectBox: React.FC<GithubProjProps> = ({
       transition={{ duration: 0.6 }}
       className="w-full min-w-[75vw] rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:w-[95%] md:p-12"
     >
-      <motion.div
-        {...fadeInUp}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mb-12"
-      >
+      <motion.div {...fadeInUp} transition={{ duration: 0.6, delay: 0.2 }} className="mb-12">
         <h2 className="space-grotesk interactable mb-2 text-4xl font-light tracking-tight md:text-7xl">
           {name}
         </h2>
@@ -91,11 +79,7 @@ const GithubProjectBox: React.FC<GithubProjProps> = ({
           className="h-auto w-full bg-neutral-900"
         >
           {rects.map((rect, index) => (
-            <rect
-              key={index}
-              {...rect}
-              className="transition-all duration-1000"
-            />
+            <rect key={index} {...rect} className="transition-all duration-1000" />
           ))}
         </svg>
       </motion.div>
@@ -113,9 +97,7 @@ const GithubProjectBox: React.FC<GithubProjProps> = ({
               { label: "YEAR", value: date },
             ].map(({ label, value }) => (
               <div key={label}>
-                <p className="text-sm uppercase tracking-wider text-neutral-500">
-                  {label}
-                </p>
+                <p className="text-sm uppercase tracking-wider text-neutral-500">{label}</p>
                 <p className="work-sans text-lg font-light">{value}</p>
               </div>
             ))}
@@ -123,15 +105,11 @@ const GithubProjectBox: React.FC<GithubProjProps> = ({
         </div>
 
         <div className="md:col-span-7">
-          <p className="mb-2 text-sm uppercase tracking-wider text-neutral-500">
-            DESCRIPTION
-          </p>
+          <p className="mb-2 text-sm uppercase tracking-wider text-neutral-500">DESCRIPTION</p>
           <p className="work-sans text-justify text-lg font-light leading-relaxed">
-            This project is dynamically fetched from GitHub, showcasing
-            real-time repository data and updates. Visit the GitHub page to
-            explore the complete codebase, documentation, and development
-            history, and stay up-to-date with the latest changes and
-            improvements
+            This project is dynamically fetched from GitHub, showcasing real-time repository data
+            and updates. Visit the GitHub page to explore the complete codebase, documentation, and
+            development history, and stay up-to-date with the latest changes and improvements
           </p>
         </div>
 

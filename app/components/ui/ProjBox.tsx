@@ -12,15 +12,7 @@ type ProjProps = {
   description?: string;
 };
 
-function ProjBox({
-  url1,
-  name,
-  type,
-  event,
-  date,
-  view,
-  description,
-}: ProjProps) {
+function ProjBox({ url1, name, type, event, date, view, description }: ProjProps) {
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -33,11 +25,7 @@ function ProjBox({
       {...fadeInUp}
       className="max-w-fit rounded-lg bg-[#07070748] p-6 text-white shadow-lg md:h-[95%] md:w-[75%] md:p-12"
     >
-      <motion.div
-        {...fadeInUp}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mb-4"
-      >
+      <motion.div {...fadeInUp} transition={{ duration: 0.6, delay: 0.2 }} className="mb-4">
         <h2 className="work-sans interactable mb-2 text-4xl font-light tracking-tight md:text-5xl">
           {name}
         </h2>
@@ -73,15 +61,11 @@ function ProjBox({
         <div className="row-span-3 md:col-span-3 md:space-y-3">
           <div className="flex w-full flex-row items-center justify-between md:flex-col md:items-start md:space-y-3">
             <div>
-              <p className="text-sm uppercase tracking-wider text-neutral-500">
-                EVENT
-              </p>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">EVENT</p>
               <p className="work-sans text-lg font-light">{event}</p>
             </div>
             <div>
-              <p className="text-sm uppercase tracking-wider text-neutral-500">
-                YEAR
-              </p>
+              <p className="text-sm uppercase tracking-wider text-neutral-500">YEAR</p>
               <p className="work-sans text-lg font-light">{date}</p>
             </div>
           </div>
@@ -89,9 +73,7 @@ function ProjBox({
 
         {description && (
           <div className="md:col-span-7">
-            <p className="mb-2 text-sm uppercase tracking-wider text-neutral-500">
-              DESCRIPTION
-            </p>
+            <p className="mb-2 text-sm uppercase tracking-wider text-neutral-500">DESCRIPTION</p>
             <p className="work-sans text-lg font-light leading-relaxed md:text-justify md:text-xl">
               {description}
             </p>
