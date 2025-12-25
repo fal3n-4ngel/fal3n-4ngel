@@ -11,7 +11,7 @@
 </div>
 
 ### 📈 numbers? meh.  
- ![Adi's Github Stats](https://github-readme-stats-fast.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=github_dark_dimmed)
+ ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=github_dark_dimmed)
 
 
 <details>
