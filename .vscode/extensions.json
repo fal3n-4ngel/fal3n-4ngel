@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "styled-components.vscode-styled-components",
+    "dsznajder.es7-react-js-snippets",
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-rename-tag",
+    "wix.vscode-import-cost",
+    "usernamehw.errorlens",
+    "github.copilot",
+    "ms-vscode.vscode-typescript-next",
+    "yoavbls.pretty-ts-errors",
+    "unifiedjs.vscode-mdx"
+  ]
+}
