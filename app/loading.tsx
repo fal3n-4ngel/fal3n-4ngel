@@ -12,7 +12,7 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-         
+
           setTimeout(() => onComplete(), 300);
           return 100;
         }
@@ -30,8 +30,6 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
       clearTimeout(textTimer);
     };
   }, [onComplete]);
-
- 
 
   const textVariants = {
     initial: {
@@ -80,8 +78,6 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
         },
       }}
     >
-  
-
       {/* Loading Text */}
       <AnimatePresence>
         {showText && (
@@ -114,7 +110,7 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
       </AnimatePresence>
 
       {/* Floating Dots */}
-       <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}

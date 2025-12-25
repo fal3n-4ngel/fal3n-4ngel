@@ -24,19 +24,14 @@ function ProjectSection() {
   useEffect(() => {
     async function fetchRepos() {
       try {
-        const response = await fetch(
-          "https://api.github.com/users/fal3n-4ngel/repos",
-        );
+        const response = await fetch("https://api.github.com/users/fal3n-4ngel/repos");
         const data = await response.json();
 
         const filteredRepos = data
           .filter((repo: GithubRepo) => !repo.fork || repo.stargazers_count > 0)
           .sort((a: GithubRepo, b: GithubRepo) => {
             if (b.stargazers_count === a.stargazers_count) {
-              return (
-                new Date(b.created_at).getTime() -
-                new Date(a.created_at).getTime()
-              );
+              return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
             }
             return b.stargazers_count - a.stargazers_count;
           });
@@ -60,9 +55,7 @@ function ProjectSection() {
   return (
     <section className="mx-auto flex min-h-screen w-[90%] flex-col justify-center p-5 text-4xl font-light md:w-[75%] md:p-0">
       <FadeUp>
-        <div className="work-sans py-10 text-5xl md:text-6xl">
-          Selected Works
-        </div>
+        <div className="work-sans py-10 text-5xl md:text-6xl">Selected Works</div>
       </FadeUp>
 
       <div className="flex h-full w-full flex-wrap items-center justify-center">
@@ -89,7 +82,7 @@ function ProjectSection() {
             {visibleCount < repos.length && (
               <button
                 onClick={showMoreProjects}
-                className="interactable font-poppins mb-5 flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
+                className="interactable mb-5 flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 font-poppins text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
               >
                 <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
                 discover more
@@ -100,7 +93,7 @@ function ProjectSection() {
             {visibleCount > 0 && (
               <button
                 onClick={showLessProjects}
-                className="interactable font-poppins flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
+                className="interactable flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 font-poppins text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
               >
                 <RiArrowUpCircleLine className="h-6 w-6" />
                 collapse

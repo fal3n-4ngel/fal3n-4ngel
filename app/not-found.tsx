@@ -36,7 +36,7 @@ export default function Custom404() {
     };
   }
   return (
-    <div className="w-full h-screen bg-[#121212] text-white flex flex-col justify-between items-center pb-10">
+    <div className="flex h-screen w-full flex-col items-center justify-between bg-[#121212] pb-10 text-white">
       <div>
         <motion.div
           style={{
@@ -54,27 +54,22 @@ export default function Custom404() {
             width: `${interacting ? "200px" : "40px"}`,
             height: `${interacting ? "200px" : "40px"}`,
           }}
-          className={`bg-white rounded-full z-top md:flex hidden pointer-events-none ${
+          className={`z-top pointer-events-none hidden rounded-full bg-white md:flex ${
             !projImage
               ? "mix-blend-difference"
-              : " opacity-0 transition-all duration-300 overflow-hidden"
+              : "overflow-hidden opacity-0 transition-all duration-300"
           } `}
         >
           <img src="/ghost.png"></img>
         </motion.div>
       </div>
-      <div
-        className="w-full h-full flex flex-col items-center justify-between pb-10"
-        ref={ref}
-      >
+      <div className="flex h-full w-full flex-col items-center justify-between pb-10" ref={ref}>
         <Navbar />
-        <h1 className="text-[25vw] md:text-[9vw] font-light font-elgoc mb-8 interactable">
-          404
-        </h1>
+        <h1 className="interactable mb-8 font-elgoc text-[25vw] font-light md:text-[9vw]">404</h1>
 
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl hover:underline interactable uppercase space-grotesk"
+          className="interactable space-grotesk flex items-center gap-2 text-xl uppercase hover:underline"
         >
           Back to Homepage
         </Link>

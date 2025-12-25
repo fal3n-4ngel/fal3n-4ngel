@@ -2,9 +2,7 @@ import FadeUp from "../ui/FadeUp";
 
 export const AwardsSection = () => (
   <FadeUp>
-    <div className="mt-5 py-4 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">
-      awards
-    </div>
+    <div className="mt-5 py-4 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">awards</div>
     <div className="flex flex-col space-y-1 font-normal">
       <div className="interactable px-1 py-1">
         <div className="font-semibold">Web3 for India Winner</div>

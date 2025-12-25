@@ -3,40 +3,52 @@
 ## 📋 Available Workflows
 
 ### 1. 🔄 CI/CD Pipeline (`ci-cd.yml`)
+
 **Triggers:** Push & PR to `portfolio` branch
+
 - ✅ Code quality checks (ESLint, TypeScript, Prettier)
 - 🏗️ Build verification
 - 🛡️ Security & performance audit
 - ✅ Deployment readiness check
 
 ### 2. 📦 Auto Update Dependencies (`auto-update-deps.yml`)
+
 **Triggers:** Weekly (Mondays 9 AM UTC) + Manual
+
 - 🔄 Updates npm packages automatically
 - 🧪 Tests build after updates
 - 📝 Creates PR with changes
 - 🏷️ Auto-labels as `dependencies`
 
 ### 3. 🎨 Code Formatter (`auto-format.yml`)
+
 **Triggers:** Push to `portfolio` branch + Manual
+
 - 💅 Runs Prettier on all files
 - 🔧 Auto-fixes ESLint issues
 - 📤 Commits formatting changes automatically
 
 ### 4. 📊 Performance Monitor (`performance.yml`)
+
 **Triggers:** Pull requests + Manual
+
 - 🔦 Lighthouse CI scores
 - 📦 Bundle size analysis
 - 📈 Performance metrics
 - 📊 Build size reports
 
 ### 5. 🏷️ Auto Label PRs (`auto-label.yml`)
+
 **Triggers:** PR opened/updated
+
 - 🎯 Labels by file paths (components, styles, etc.)
 - 📏 Labels by PR size (xs, s, m, l, xl)
 - 🤖 Automatic categorization
 
 ### 6. 👋 PR Welcome (`pr-welcome.yml`)
+
 **Triggers:** New PRs
+
 - 💬 Welcome message for contributors
 - 📝 Checklist for reviews
 - 💡 Helpful tips
@@ -44,13 +56,16 @@
 ## 🎯 Quick Start
 
 ### Manual Triggers
+
 You can manually trigger workflows from GitHub Actions tab:
+
 1. Go to **Actions** tab
 2. Select a workflow
 3. Click **Run workflow**
 4. Choose `portfolio` branch
 
 ### Workflow Badges
+
 Add these to your README.md:
 
 ```markdown
@@ -62,16 +77,19 @@ Add these to your README.md:
 ## 📊 What Gets Automated?
 
 ### On Every Push:
+
 - ✅ Linting & type checking
 - 🔨 Build verification
 - 🎨 Code formatting
 - 🛡️ Security audit
 
 ### Weekly (Mondays):
+
 - 📦 Dependency updates
 - 🔄 Automated PR creation
 
 ### On PRs:
+
 - 🏷️ Auto-labeling
 - 👋 Welcome messages
 - 📊 Performance analysis
