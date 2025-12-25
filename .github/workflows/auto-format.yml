@@ -11,28 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Format code
         run: |
           npm run format
           npm run lint:fix || true
-          
+
       - name: Check for changes
         id: verify-changed-files
         run: |
@@ -41,11 +41,11 @@ jobs:
           else
             echo "changes=false" >> $GITHUB_OUTPUT
           fi
-          
+
       - name: Commit changes
         if: steps.verify-changed-files.outputs.changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "style: auto-format code"
+          commit_message: "style : auto-format code changes"
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
