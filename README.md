@@ -11,13 +11,13 @@
 </div>
 
 ### 📈 numbers? meh.  
- ![Adi's Github Stats](https://github-readme-stats-nine-liart.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=github_dark_dimmed)
+ ![Adi's Github Stats](https://github-readme-stats.vercel.app/api?username=fal3n-4ngel&count_private=true&show_icons=true&theme=github_dark_dimmed)
 
 
 <details>
   <summary>🌱 Worklog  </summary>
 
-  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (6 months ago)
+  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (today)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (6 months ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (8 months ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (11 months ago)
