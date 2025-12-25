@@ -1,13 +1,7 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { Position } from "../types/position";
 
-interface Position {
-  x: number;
-  y: number;
-}
-
-export const useFollowPointer = (
-  ref: React.RefObject<HTMLElement | null>,
-): Position => {
+export const useFollowPointer = (ref: React.RefObject<HTMLElement | null>): Position => {
   let xh = 0,
     yh = 0;
   if (typeof window !== "undefined") {
@@ -18,8 +12,8 @@ export const useFollowPointer = (
 
   const lastUpdateRef = useCallback(() => {
     let lastUpdate = 0;
-    const FRAME_RATE = 60; // 80Hz
-    const FRAME_TIME = 1000 / FRAME_RATE; // ~12.5ms between updates
+    const FRAME_RATE = 60;
+    const FRAME_TIME = 1000 / FRAME_RATE; // ~16.67ms between updates
 
     return (e: MouseEvent) => {
       if (!ref.current) return;

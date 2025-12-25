@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { GoogleAnalytics } from "nextjs-google-analytics";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
+import { createGhostVariants } from "./constants/animations";
+import { useCustomCursor } from "./hooks/useCustomCursor";
+import { useGhostEscape } from "./hooks/useGhostEscape";
+import { useWindowDimensions } from "./hooks/useWindowDimensions";
 import LoadingPage from "./loading";
-import { Dimensions } from "./types/dimensions";
-import { Position } from "./types/position";
-import { CursorState, LogoStates } from "./types/states";
 import { useFollowPointer } from "./utils/FollowPointer";
-import { generateRandomPath } from "./utils/GenerateRandomPath";
 
 // Dynamic imports for better code splitting
 const Navbar = dynamic(() => import("./components/sections/Navbar"), {
@@ -34,133 +34,32 @@ const AboutSection = dynamic(
   { ssr: true }
 );
 
-type InteractionType = "github" | "linkedin" | "resume" | "mail" | "project" | null;
-
-const useCustomCursor = () => {
-  const [cursorState, setCursorState] = useState<CursorState>({
-    isInteracting: false,
-    interactionType: null,
-  });
-
-  const [offset, setOffset] = useState(0);
-  const [logoStates, setLogoStates] = useState<LogoStates>({
-    isGitHubLogo: false,
-    isLinkedInLogo: false,
-    isResumeLogo: false,
-    isMailLogo: false,
-    isProjImage: false,
-  });
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const targetElement = e.target as HTMLElement;
-
-    const getInteractionType = (): InteractionType => {
-      if (targetElement.closest(".projImg")) return "project";
-      return null;
-    };
-
-    const interactionType = getInteractionType();
-    const isInteracting = !!interactionType || !!targetElement.closest(".interactable");
-
-    setCursorState({ isInteracting, interactionType });
-
-    setLogoStates({
-      isGitHubLogo: !!targetElement.closest(".githubLogo"),
-      isLinkedInLogo: !!targetElement.closest(".linkedinLogo"),
-      isResumeLogo: !!targetElement.closest(".resumeLogo"),
-      isMailLogo: !!targetElement.closest(".mailLogo"),
-      isProjImage: !!targetElement.closest(".projImg"),
-    });
-
-    setOffset(isInteracting ? 70 : 0);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [handleMouseMove]);
-
-  return { cursorState, logoStates, offset };
-};
-
 export default function Home() {
   const ref = useRef(null);
-  const pathRef = useRef<Position[]>([]);
   const { x, y } = useFollowPointer(ref);
 
   const [projImage] = useState(false);
-  const [isEscaping, setIsEscaping] = useState(false);
-  const [dimensions, setDimensions] = useState<Dimensions>({
-    width: 0,
-    height: 0,
-  });
   const [isLoading, setIsLoading] = useState(true);
 
+  // Custom hooks
+  const dimensions = useWindowDimensions();
   const { cursorState, logoStates, offset } = useCustomCursor();
+  const { isEscaping, pathRef, triggerEscape, resetEscape } = useGhostEscape(x, y);
+
   const { isInteracting } = cursorState;
   const { isGitHubLogo, isLinkedInLogo, isResumeLogo, isMailLogo } = logoStates;
 
-  // Single unified effect for dimensions
-  useEffect(() => {
-    const updateDimensions = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
-
-  // Handlers
-  const triggerEscape = useCallback(() => {
-    if (!isEscaping) {
-      pathRef.current = generateRandomPath(
-        { x, y },
-        { width: window.innerWidth, height: window.innerHeight }
-      );
-      setIsEscaping(true);
-    }
-  }, [isEscaping, x, y]);
-
-  const resetEscape = useCallback(() => {
-    setIsEscaping(false);
-  }, []);
-
-  // Memoized animation variants
-  const ghostVariants: Variants = useMemo(
-    () => ({
-      initial: {
-        x: dimensions.width / 2,
-        y: dimensions.height / 2,
-        scale: 0.2,
-        opacity: 0,
-      },
-      breakFree: {
-        scale: 1,
-        opacity: 1,
-        transition: { duration: 2, ease: "easeOut" },
-      },
-      escape: {
-        x: pathRef.current.map((p) => p.x),
-        y: pathRef.current.map((p) => p.y),
-        rotate: [0, 25, -10, 5, 0, 35, -10, -5, 0, 15, -10, 0, 0, 5, -10, 0],
-        scale: [1, 1.1, 0.9, 1],
-        transition: {
-          duration: 60,
-          ease: "easeInOut",
-          repeat: Infinity,
-        },
-      },
-      exit: {
-        opacity: 0,
-        scale: 0,
-        transition: { duration: 0.5 },
-      },
-    }),
-    [dimensions.width, dimensions.height]
+  // Memoized animation variants - update when path changes
+  const ghostVariants = useMemo(
+    () =>
+      createGhostVariants(
+        dimensions.width,
+        dimensions.height,
+        pathRef.current,
+        x, // Start from current cursor position
+        y
+      ),
+    [dimensions.width, dimensions.height, isEscaping, x, y]
   );
 
   const cursorClasses = useMemo(
@@ -189,20 +88,36 @@ export default function Home() {
         {isLoading && <LoadingPage onComplete={handleLoadingComplete} />}
       </AnimatePresence>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isEscaping && dimensions.width > 0 && (
           <motion.div
-            className="interactable fixed z-10"
+            className="fixed z-[9999]"
             initial="initial"
-            animate={["breakFree", "spin", "escape"]}
+            animate={["breakFree", "escape"]}
             exit="exit"
             variants={ghostVariants}
           >
-            <img
+            <motion.img
               src="/ghostwhite.png"
               onClick={resetEscape}
               alt="Escaping Ghost"
-              className="interactable h-28 w-28 opacity-90"
+              className="interactable h-28 w-28 cursor-pointer drop-shadow-2xl"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              animate={{
+                filter: [
+                  "drop-shadow(0 0 8px rgba(255,255,255,0.3))",
+                  "drop-shadow(0 0 20px rgba(255,255,255,0.6))",
+                  "drop-shadow(0 0 8px rgba(255,255,255,0.3))",
+                ],
+              }}
+              transition={{
+                filter: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
+              }}
             />
           </motion.div>
         )}
@@ -211,25 +126,42 @@ export default function Home() {
       <motion.div
         style={{
           position: "fixed",
-          top: "0%",
-          left: "0%",
+          top: 0,
+          left: 0,
           height: "200px",
           width: "200px",
         }}
         animate={{
           x: x - offset,
           y: y - offset,
-          top: 0,
-          left: 0,
           width: `${isInteracting ? "200px" : "40px"}`,
           height: `${isInteracting ? "200px" : "40px"}`,
         }}
+        transition={{
+          type: "spring",
+          damping: 30,
+          stiffness: 200,
+          mass: 0.8,
+        }}
         className={cursorClasses}
       >
-        <img
+        <motion.img
           src="/ghost.png"
-          className={`z-[-1] opacity-[35%] ${isEscaping ? "hidden" : "flex"}`}
+          className={`z-[-1] h-full w-full object-contain ${isEscaping ? "hidden" : "flex"}`}
           alt=""
+          animate={
+            isInteracting
+              ? {
+                  opacity: [0.35, 0.5, 0.35],
+                  scale: [1, 1.05, 1],
+                }
+              : { opacity: 0.35 }
+          }
+          transition={{
+            duration: 1.5,
+            repeat: isInteracting ? Infinity : 0,
+            ease: "easeInOut",
+          }}
         />
       </motion.div>
 

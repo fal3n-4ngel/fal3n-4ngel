@@ -1,20 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import ProjBox from "../ui/ProjBox";
 import FadeUp from "../ui/FadeUp";
+import ProjBox from "../ui/ProjBox";
 
-import GithubProjectBox from "../ui/ProjectBoxGithub";
 import { RiArrowUpCircleLine } from "react-icons/ri";
-import {
-  GitProjectBoxProps,
-  Project,
-  ProjectBoxProps,
-  Repo,
-} from "../../types/projects";
 import { projects, projectSkills, skillIcons } from "../../data/projects";
-import { inView } from "framer-motion";
-
+import { GitProjectBoxProps, ProjectBoxProps, Repo } from "../../types/projects";
+import GithubProjectBox from "../ui/ProjectBoxGithub";
 
 const ProjectsWithSkills: React.FC = () => {
   const [activeProject, setActiveProject] = useState<string | null>(null);
@@ -29,20 +22,16 @@ const ProjectsWithSkills: React.FC = () => {
   });
   const [repos, setRepos] = useState<Repo[]>([]);
   const [visibleCount, setVisibleCount] = useState(0);
-  
+
   useEffect(() => {
     if (breakInView) {
       setVisibleCount(0);
     }
-  }, [ breakInView]);
+  }, [breakInView]);
 
   useEffect(() => {
-
-
     async function fetchRepos() {
-      const response = await fetch(
-        "https://api.github.com/users/fal3n-4ngel/repos",
-      );
+      const response = await fetch("https://api.github.com/users/fal3n-4ngel/repos");
       const data = await response.json();
 
       const filteredRepos = data
@@ -52,10 +41,7 @@ const ProjectsWithSkills: React.FC = () => {
             b.stargazers_count === a.stargazers_count ||
             b.stargazers_count != a.stargazers_count
           ) {
-            return (
-              new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime()
-            );
+            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
           }
           return b.stargazers_count - a.stargazers_count;
         });
@@ -74,18 +60,16 @@ const ProjectsWithSkills: React.FC = () => {
   };
 
   return (
-    <section className="h-full min-h-screen w-full"  ref={sectionRef}>
+    <section className="h-full min-h-screen w-full" ref={sectionRef}>
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col md:flex-row">
           {/* Scrollable Projects Container */}
           <div className="md:pr-8">
             <FadeUp>
-              <div className="work-sans py-10 text-5xl md:text-6xl">
-                Selected Works
-              </div>
+              <div className="work-sans py-10 text-5xl md:text-6xl">Selected Works</div>
             </FadeUp>
             <div ref={breakRef}></div>
-            <div className="space-y-8" >
+            <div className="space-y-8">
               {projects.map((project) => (
                 <ProjectBoxSelf
                   key={project.name}
@@ -93,7 +77,7 @@ const ProjectsWithSkills: React.FC = () => {
                   onVisible={() => setActiveProject(project.name)}
                 />
               ))}
-              
+
               {repos.slice(0, visibleCount).map((repo) => (
                 <GitProjectBox
                   key={repo.id}
@@ -112,18 +96,17 @@ const ProjectsWithSkills: React.FC = () => {
                 {visibleCount < repos.length && (
                   <button
                     onClick={showMoreProjects}
-                    className="interactable font-poppins mb-5 flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
+                    className="interactable mb-5 flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 font-poppins text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
                   >
                     <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
-                    discover more{" "}
-                    <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
+                    discover more <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
                   </button>
                 )}
 
                 {visibleCount >= 1 && (
                   <button
                     onClick={showLessProjects}
-                    className="interactable font-poppins flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
+                    className="interactable flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 font-poppins text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:text-2xl"
                   >
                     <RiArrowUpCircleLine className="h-6 w-6" /> collapse
                     <RiArrowUpCircleLine className="h-6 w-6" />
@@ -141,28 +124,27 @@ const ProjectsWithSkills: React.FC = () => {
           </div>
 
           {/* Fixed Skills Container */}
-          <div className="hidden md:block z-0">
+          <div className="z-0 hidden md:block">
             <div
               className={`fixed right-[2vw] top-[17vh] w-[30vw] max-w-[350px] transition-all duration-500 ${
                 sectionInView ? "size-100 opacity-100" : "scale-75 opacity-0"
               }`}
             >
               <FadeUp>
-                <div className="rounded-xl p-6 md:py-0 md:px-4">
+                <div className="rounded-xl p-6 md:px-4 md:py-0">
                   <div className="work-sans mb-6 text-2xl">Tech Stacks</div>
                   <div className="flex flex-wrap gap-3">
                     {Object.entries(skillIcons).map(([skill, Icon]) => (
                       <div
                         key={skill}
-                        className={`flex items-center rounded-xl p-2 px-3  transition-all duration-300 text-xs ${
-                          activeProject &&
-                          projectSkills[activeProject]?.includes(skill)
+                        className={`flex items-center rounded-xl p-2 px-3 text-xs transition-all duration-300 ${
+                          activeProject && projectSkills[activeProject]?.includes(skill)
                             ? "scale-105 bg-white text-black"
                             : "bg-[#2a2a2a] text-gray-400"
                         }`}
                       >
                         <Icon className="mr-2 h-3 w-3 md:h-4 md:w-4" />
-                        <span className="md:text-sm text-xs">{skill}</span>
+                        <span className="text-xs md:text-sm">{skill}</span>
                       </div>
                     ))}
                   </div>
@@ -178,11 +160,7 @@ const ProjectsWithSkills: React.FC = () => {
 
 export default ProjectsWithSkills;
 
-const ProjectBoxSelf: React.FC<ProjectBoxProps> = ({
-  name,
-  onVisible,
-  ...props
-}) => {
+const ProjectBoxSelf: React.FC<ProjectBoxProps> = ({ name, onVisible, ...props }) => {
   const { ref, inView } = useInView({
     threshold: 0.5,
     triggerOnce: false,
@@ -201,17 +179,9 @@ const ProjectBoxSelf: React.FC<ProjectBoxProps> = ({
   );
 };
 
-const GitProjectBox: React.FC<GitProjectBoxProps> = ({
-  name,
-  onVisible,
-  ...props
-}) => {
-
-
-
-
+const GitProjectBox: React.FC<GitProjectBoxProps> = ({ name, onVisible, ...props }) => {
   return (
-    <div >
+    <div>
       <GithubProjectBox name={name} {...props} />
     </div>
   );

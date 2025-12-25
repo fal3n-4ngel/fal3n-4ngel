@@ -1,23 +1,27 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { useEffect, useRef } from "react";
 
-export default function LenisProvider({
-  children,
-}: {
+interface LenisProviderProps {
   children: React.ReactNode;
-}) {
+}
+
+/**
+ * Lenis smooth scroll provider component
+ * Wraps the application with Lenis for smooth scrolling
+ */
+export default function LenisProvider({ children }: LenisProviderProps) {
   const lenisRef = useRef<Lenis | null>(null);
   const rafRef = useRef<number>();
 
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.09, 
-      duration: 1.2, 
+      lerp: 0.09,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
+      orientation: "vertical",
+      gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,

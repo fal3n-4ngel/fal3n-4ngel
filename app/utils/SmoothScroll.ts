@@ -1,5 +1,9 @@
 import { useEffect } from "react";
 
+/**
+ * Custom hook for smooth scrolling to anchor links
+ * Handles hash navigation and smooth scroll behavior
+ */
 const useSmoothScroll = () => {
   useEffect(() => {
     const handleSmoothScroll = (e: MouseEvent) => {
@@ -18,6 +22,8 @@ const useSmoothScroll = () => {
     anchors.forEach((anchor) => {
       anchor.addEventListener("click", handleSmoothScroll as EventListener);
     });
+
+    // Handle initial hash on page load
     if (window.location.hash) {
       const element = document.querySelector(window.location.hash);
       if (element) {
@@ -29,10 +35,7 @@ const useSmoothScroll = () => {
 
     return () => {
       anchors.forEach((anchor) => {
-        anchor.removeEventListener(
-          "click",
-          handleSmoothScroll as EventListener
-        );
+        anchor.removeEventListener("click", handleSmoothScroll as EventListener);
       });
     };
   }, []);
@@ -40,10 +43,11 @@ const useSmoothScroll = () => {
 
 export default useSmoothScroll;
 
-
-export const scrollToTop = () => {
+/**
+ * Scrolls to the top of the page smoothly
+ */
+export const scrollToTop = (): void => {
   if (typeof window !== "undefined") {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 };
-

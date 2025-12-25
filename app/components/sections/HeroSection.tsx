@@ -1,16 +1,16 @@
 import FadeUp from "../ui/FadeUp";
 
 export const HeroSection = () => (
-  <section className="flex min-h-screen w-full flex-col justify-center p-4 md:w-[80vw] md:mt-10">
+  <section className="flex min-h-screen w-full flex-col justify-center p-4 md:mt-10 md:w-[80vw]">
     {/* Desktop Hero */}
     <div className="space-grotesk interactable hidden w-fit flex-col px-5 text-[2.8rem] leading-none tracking-tighter md:flex md:text-[4.4vw]">
-      <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
+      <div className="h-fit overflow-hidden md:max-h-[10vh]">
         <FadeUp className="flex text-black">I&#39;m Adithya Krishnan,</FadeUp>
       </div>
-      <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
+      <div className="h-fit overflow-hidden md:max-h-[10vh]">
         <FadeUp className="text-black">a Software Engineer crafting</FadeUp>
       </div>
-      <div className="h-[9vh] overflow-hidden md:max-h-[9vh]">
+      <div className="h-fit overflow-hidden md:max-h-[10vh]">
         <FadeUp className="text-black">Digital Experiences.</FadeUp>
       </div>
     </div>

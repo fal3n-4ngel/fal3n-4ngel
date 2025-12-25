@@ -9,7 +9,7 @@ export interface Project {
 }
 
 export interface GitProject {
-  url1: number;
+  url1: number; // TODO: Should this be string for consistency?
   name: string;
   type: string;
   event: string;

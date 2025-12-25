@@ -1,3 +1,5 @@
+export type InteractionType = "github" | "linkedin" | "resume" | "mail" | "project" | null;
+
 export interface CursorState {
   isInteracting: boolean;
   interactionType: InteractionType;
