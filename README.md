@@ -17,13 +17,6 @@
 [![Code Quality](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/auto-format.yml/badge.svg?branch=portfolio)](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/auto-format.yml)
 [![Performance](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/performance.yml/badge.svg?branch=portfolio)](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/performance.yml)
 
-**Continuous Integration:**
-
-- Quality checks with ESLint, TypeScript, and Prettier
-- Automated builds and dependency updates
-- Performance monitoring via Lighthouse CI
-- Security audits and code optimization
-
 ---
 
 ### 📈 numbers? meh.
