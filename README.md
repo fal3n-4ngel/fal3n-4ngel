@@ -18,10 +18,10 @@
   <summary>🌱 Worklog  </summary>
 
   - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (today)
+  - [fal3n-4ngel/git-wrapped25](https://github.com/fal3n-4ngel/git-wrapped25) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (today)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (6 months ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (8 months ago)
   - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (11 months ago)
-  - [fal3n-4ngel/git-wrapped24](https://github.com/fal3n-4ngel/git-wrapped24) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (1 year ago)
 </details>
 
 <details>
