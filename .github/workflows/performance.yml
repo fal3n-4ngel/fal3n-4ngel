@@ -1,4 +1,4 @@
-name: 📈 Performance Monitor
+name: Performance Monitor
 
 on:
   pull_request:
@@ -7,26 +7,26 @@ on:
 
 jobs:
   lighthouse:
-    name: 🔦 Lighthouse CI
+    name: Lighthouse CI
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: 🟢 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
         
-      - name: 🔨 Build project
+      - name: Build project
         run: npm run build
         
-      - name: 🔦 Run Lighthouse
+      - name: Run Lighthouse
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
@@ -34,35 +34,35 @@ jobs:
           uploadArtifacts: true
           temporaryPublicStorage: true
           
-      - name: 📊 Bundle Analysis
+      - name: Bundle Analysis
         run: |
-          echo "### 📦 Build Output Size" >> $GITHUB_STEP_SUMMARY
+          echo "### Build Output Size" >> $GITHUB_STEP_SUMMARY
           du -sh .next/ >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📄 Page Sizes" >> $GITHUB_STEP_SUMMARY
+          echo "### Page Sizes" >> $GITHUB_STEP_SUMMARY
           du -sh .next/static/chunks/* >> $GITHUB_STEP_SUMMARY || true
 
   analyze:
-    name: 📊 Bundle Analysis
+    name: Bundle Analysis
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: 🟢 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
         
-      - name: 📊 Analyze bundle
+      - name: Analyze bundle
         run: |
           npm run build
-          echo "## 📦 Build Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "## Build Metrics" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Total Build Size:" >> $GITHUB_STEP_SUMMARY
           du -sh .next/ >> $GITHUB_STEP_SUMMARY

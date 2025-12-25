@@ -1,4 +1,4 @@
-name: 🚀 CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,58 +9,58 @@ on:
 jobs:
   # Job 1: Code Quality Checks
   quality-check:
-    name: 🔍 Code Quality
+    name: Code Quality
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: 🟢 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
         
-      - name: 🎨 Run ESLint
+      - name: Run ESLint
         run: npm run lint
         continue-on-error: true
         
-      - name: 📝 Run TypeScript check
+      - name: Run TypeScript check
         run: npm run type-check
         
-      - name: 💅 Check formatting
+      - name: Check formatting
         run: npx prettier --check "**/*.{js,jsx,ts,tsx,json,css,md}"
         continue-on-error: true
 
   # Job 2: Build & Test
   build:
-    name: 🏗️ Build Application
+    name: Build Application
     runs-on: ubuntu-latest
     needs: quality-check
     
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: 🟢 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
         
-      - name: 🔨 Build project
+      - name: Build project
         run: npm run build
         env:
           NODE_ENV: production
           
-      - name: 📊 Upload build artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-output
@@ -69,23 +69,23 @@ jobs:
 
   # Job 3: Performance & Security Audit
   audit:
-    name: 🛡️ Security & Performance
+    name: Security & Performance
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: 🟢 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           
-      - name: 🔒 Security audit
+      - name: Security audit
         run: npm audit --audit-level=moderate
         continue-on-error: true
         
-      - name: 📊 Bundle size check
+      - name: Bundle size check
         run: |
           npm ci
           npm run build
@@ -94,15 +94,15 @@ jobs:
 
   # Job 4: Deployment Ready Check
   deploy-check:
-    name: ✅ Deployment Ready
+    name: Deployment Ready
     runs-on: ubuntu-latest
     needs: [quality-check, build, audit]
     if: github.event_name == 'push' && github.ref == 'refs/heads/portfolio'
     
     steps:
-      - name: 🎉 All checks passed
+      - name: All checks passed
         run: |
-          echo "✅ Code quality checks passed"
-          echo "✅ Build successful"
-          echo "✅ Security audit completed"
-          echo "🚀 Ready for deployment!"
+          echo "Code quality checks passed"
+          echo "Build successful"
+          echo "Security audit completed"
+          echo "Ready for deployment"

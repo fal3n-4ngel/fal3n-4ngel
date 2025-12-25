@@ -1,4 +1,4 @@
-name: 🎭 PR Welcome Message
+name: PR Welcome Message
 
 on:
   pull_request:
@@ -7,11 +7,13 @@ on:
 
 jobs:
   welcome:
-    name: 👋 Welcome Contributor
+    name: Welcome Contributor
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     
     steps:
-      - name: 💬 Comment on PR
+      - name: Comment on PR
         uses: actions/github-script@v7
         with:
           script: |
@@ -19,17 +21,17 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## 👋 Thanks for contributing to the portfolio!
+              body: `## Thanks for contributing to the portfolio!
               
-              ### 🚀 What happens next?
+              ### What happens next?
               
-              - ✅ Automated checks will run
-              - 🔍 Code quality & type checking
-              - 🏗️ Build verification
-              - 🛡️ Security audit
-              - 📊 Performance analysis
+              - Automated checks will run
+              - Code quality & type checking
+              - Build verification
+              - Security audit
+              - Performance analysis
               
-              ### 📝 Review Checklist
+              ### Review Checklist
               
               - [ ] Code follows the project style
               - [ ] All checks are passing
@@ -38,7 +40,7 @@ jobs:
               
               ---
               
-              💡 **Tip**: Use \`npm run format\` to auto-format your code!
+              **Tip**: Use \`npm run format\` to auto-format your code!
               
-              🤖 *This is an automated message*`
+              *This is an automated message*`
             })

@@ -1,4 +1,4 @@
-name: 🎨 Code Formatter
+name: Code Formatter
 
 on:
   push:
@@ -7,31 +7,33 @@ on:
 
 jobs:
   format:
-    name: 💅 Auto Format Code
+    name: Auto Format Code
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: 🟢 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
         
-      - name: 💅 Format code
+      - name: Format code
         run: |
           npm run format
           npm run lint:fix || true
           
-      - name: 📝 Check for changes
+      - name: Check for changes
         id: verify-changed-files
         run: |
           if [[ `git status --porcelain` ]]; then
@@ -40,11 +42,10 @@ jobs:
             echo "changes=false" >> $GITHUB_OUTPUT
           fi
           
-      - name: 📤 Commit changes
+      - name: Commit changes
         if: steps.verify-changed-files.outputs.changes == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add .
-          git commit -m "🎨 style: auto-format code"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: auto-format code"
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
