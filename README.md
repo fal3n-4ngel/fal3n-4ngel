@@ -21,7 +21,6 @@
   - [fal3n-4ngel/git-wrapped25](https://github.com/fal3n-4ngel/git-wrapped25) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (1 week ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (6 months ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (8 months ago)
-  - [fal3n-4ngel/dotfiles](https://github.com/fal3n-4ngel/dotfiles) - Dotfiles of my Personal System (1 year ago)
 </details>
 
 <details>
