@@ -17,8 +17,8 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
-  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (1 month ago)
-  - [fal3n-4ngel/git-wrapped25](https://github.com/fal3n-4ngel/git-wrapped25) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (1 month ago)
+  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (2 months ago)
+  - [fal3n-4ngel/git-wrapped25](https://github.com/fal3n-4ngel/git-wrapped25) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (2 months ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (8 months ago)
   - [fal3n-4ngel/prescription-app](https://github.com/fal3n-4ngel/prescription-app) -  (10 months ago)
 </details>
