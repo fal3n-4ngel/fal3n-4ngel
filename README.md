@@ -11,12 +11,6 @@
 
 </div>
 
-### Build Status & Automation
-
-[![CI/CD Pipeline](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/ci-cd.yml/badge.svg?branch=portfolio)](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/ci-cd.yml)
-[![Code Quality](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/auto-format.yml/badge.svg?branch=portfolio)](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/auto-format.yml)
-[![Performance](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/performance.yml/badge.svg?branch=portfolio)](https://github.com/fal3n-4ngel/fal3n-4ngel/actions/workflows/performance.yml)
-
 ---
 
 ### 📈 numbers? meh.
