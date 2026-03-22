@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RiArrowUpCircleLine } from "react-icons/ri";
+import { projects } from "../../data/projects";
+import { Project } from "../../types/projects";
 import FadeUp from "../ui/FadeUp";
 import ProjBox from "../ui/ProjBox";
 import GithubProjectBox from "../ui/ProjectBoxGithub";
-import { Project } from "../../types/projects";
-import { projects } from "../../data/projects";
 
 type GithubRepo = {
   id: number;

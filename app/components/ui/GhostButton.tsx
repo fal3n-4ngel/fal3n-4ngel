@@ -10,7 +10,7 @@ interface GhostButtonProps {
 
 export const GhostButton = memo<GhostButtonProps>(({ isEscaping, triggerEscape, resetEscape }) => (
   <FadeUp>
-    <div className="max-w-fit animate-pulse py-4">
+    <div className="my-4 max-w-fit animate-pulse py-4">
       {!isEscaping ? (
         <motion.button
           onClick={triggerEscape}
@@ -22,17 +22,11 @@ export const GhostButton = memo<GhostButtonProps>(({ isEscaping, triggerEscape, 
           <motion.img
             src="/ghostwhite.png"
             alt="Ghost"
-            className="h-12 w-12 transition-opacity group-hover:opacity-100"
-            animate={{
-              rotate: [0, -5, 5, -5, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            className="my-2 h-12 w-12 transition-opacity group-hover:opacity-100"
+            animate={{ rotate: [0, -5, 5, -5, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
-          <div>Release the Ghost</div>
+          <div>Release </div>
         </motion.button>
       ) : (
         <motion.button
@@ -48,27 +42,16 @@ export const GhostButton = memo<GhostButtonProps>(({ isEscaping, triggerEscape, 
               "0 10px 15px -3px rgba(255, 255, 255, 0.1)",
             ],
           }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
           <motion.img
             src="/ghostwhite.png"
             alt="Ghost"
             className="h-8 w-8 opacity-75 transition-opacity group-hover:opacity-100"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.75, 1, 0.75],
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.75, 1, 0.75] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
           />
-          Catch The Ghost
+          Catch
         </motion.button>
       )}
     </div>

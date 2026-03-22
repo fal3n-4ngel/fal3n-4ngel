@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins, Space_Grotesk, Work_Sans } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "./utils/LenisProvider";
+import Script from "next/script";
 
 // Optimized font loading with display swap
 const inter = Inter({
@@ -36,7 +37,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.adithyakrishnan.com"),
   title: {
-    default: "Adithya Krishnan | Software Engineer & Full Stack Developer",
+    default: "Adithya Krishnan | Software Engineer",
     template: "%s | Adithya Krishnan",
   },
   description:
@@ -64,11 +65,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Adithya Krishnan", url: "https://www.adithyakrishnan.com" }],
   creator: "Adithya Krishnan",
   publisher: "Adithya Krishnan",
-  formatDetection: {
-    email: true,
-    address: false,
-    telephone: false,
-  },
+  formatDetection: { email: true, address: false, telephone: false },
   openGraph: {
     title: "Adithya Krishnan | Software Engineer",
     description:
@@ -114,9 +111,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.adithyakrishnan.com",
   },
-  verification: {
-    google: "your-google-verification-code", // Add your actual verification code
-  },
   category: "technology",
 };
 
@@ -141,6 +135,19 @@ export default function RootLayout({
         <LenisProvider>{children}</LenisProvider>
         <Analytics />
         <SpeedInsights />
+        <Script id="canary-token" strategy="afterInteractive">
+          {`
+            if (window.location.hostname != "www.adithyakrishnan.com"
+                && !window.location.hostname.endsWith(".www.adithyakrishnan.com"))
+            {
+                var p = !document.location.protocol.startsWith("http")?"http:":document.location.protocol;
+                var l = location.href;
+                var r = document.referrer;
+                var m = new Image();
+                m.src = p + "//canarytokens.com/about/tags/lscmifrnb2fnhwkgcre1y6ykt/contact.php?l=" + encodeURI(l) + "&r=" + encodeURI(r);
+            }
+          `}
+        </Script>
       </body>
     </html>
   );

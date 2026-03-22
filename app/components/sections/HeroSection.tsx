@@ -1,34 +1,38 @@
 import FadeUp from "../ui/FadeUp";
 
-export const HeroSection = () => (
-  <section className="flex min-h-screen w-full flex-col justify-center p-4 md:mt-10 md:w-[80vw]">
-    {/* Desktop Hero */}
-    <div className="space-grotesk interactable hidden w-fit flex-col px-5 text-[2.8rem] leading-none tracking-tighter md:flex md:text-[4.4vw]">
-      <div className="h-fit overflow-hidden md:max-h-[10vh]">
-        <FadeUp className="flex text-black">I&#39;m Adithya Krishnan,</FadeUp>
-      </div>
-      <div className="h-fit overflow-hidden md:max-h-[10vh]">
-        <FadeUp className="text-black">a Software Engineer crafting</FadeUp>
-      </div>
-      <div className="h-fit overflow-hidden md:max-h-[10vh]">
-        <FadeUp className="text-black">Digital Experiences.</FadeUp>
-      </div>
-    </div>
+const LINES = [
+  "I'm Adithya Krishnan,",
+  "a Software Engineer crafting",
+  "Digital Experiences.",
+];
 
-    {/* Mobile Hero */}
-    <div className="space-grotesk interactable flex flex-col px-5 text-left text-[8.5vw] leading-none tracking-tighter md:hidden">
-      <div className="h-[40px] overflow-hidden">
-        <FadeUp className="flex text-black">I&#39;m Adithya Krishnan,</FadeUp>
-      </div>
-      <div className="h-[40px] overflow-hidden">
-        <FadeUp className="text-black">a Software Engineer</FadeUp>
-      </div>
-      <div className="h-[40px] overflow-hidden">
-        <FadeUp className="text-black">crafting</FadeUp>
-      </div>
-      <div className="h-[40px] overflow-hidden">
-        <FadeUp className="text-black">Digital Experiences.</FadeUp>
-      </div>
-    </div>
+const MOBILE_LINES = [
+  "I'm Adithya Krishnan,",
+  "a Software Engineer",
+  "crafting",
+  "Digital Experiences.",
+];
+
+export const HeroSection = () => (
+  <section className="flex min-h-screen w-full flex-col justify-center p-4 md:w-[80vw]">
+    <h1 className="space-grotesk interactable px-5 leading-none tracking-tighter">
+      {/* Desktop */}
+      <span className="hidden md:flex md:flex-col md:text-[4.4vw]">
+        {LINES.map((line) => (
+          <span key={line} className="overflow-hidden">
+            <FadeUp className="text-black">{line}</FadeUp>
+          </span>
+        ))}
+      </span>
+
+      {/* Mobile */}
+      <span className="flex flex-col text-[8.5vw] md:hidden">
+        {MOBILE_LINES.map((line) => (
+          <span key={line} className="h-[40px] overflow-hidden">
+            <FadeUp className="text-black">{line}</FadeUp>
+          </span>
+        ))}
+      </span>
+    </h1>
   </section>
 );

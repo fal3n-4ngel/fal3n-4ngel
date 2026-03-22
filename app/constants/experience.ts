@@ -7,7 +7,7 @@ export interface ExperienceItem {
 
 export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
-    title: "Software Engineer - Entry",
+    title: "Software Engineer",
     company: "Equifax",
     companyUrl: "https://www.equifax.co.in/?ref=adithyakrishnan.com",
     period: "Feb 2025 - Present",
@@ -19,24 +19,9 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "July 2024 - Dec 2024",
   },
   {
-    title: "Developer Intern",
+    title: "Developer",
     company: "Oronium",
     companyUrl: "https://www.oronium.com?ref=adithyakrishnan.com",
     period: "April 2024 - July 2024",
-  },
-  {
-    title: "Student Intern",
-    company: "UST Global",
-    period: "April 2023 - May 2023",
-  },
-  {
-    title: "Google Cloud Facilitator",
-    company: "GDSC MBCET",
-    period: "Nov 2022 - Dec 2023",
-  },
-  {
-    title: "Technical Co Lead",
-    company: "IEEE MBCET Chapter",
-    period: "Jan 2023 - Feb 2024",
   },
 ];

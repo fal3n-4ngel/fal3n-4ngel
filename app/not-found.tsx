@@ -12,12 +12,8 @@ export default function Custom404() {
   const [projImage, setProjImage] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  const scrollToTop = () => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
 
+  /* ak-7f3x9q2m */
   if (typeof window !== "undefined") {
     window.onmousemove = (e) => {
       if (e) {
@@ -48,11 +44,10 @@ export default function Custom404() {
             width: `${interacting ? "200px" : "40px"}`,
             height: `${interacting ? "200px" : "40px"}`,
           }}
-          className={`z-top pointer-events-none hidden rounded-full bg-white md:flex ${
-            !projImage
+          className={`z-top pointer-events-none hidden rounded-full bg-white md:flex ${!projImage
               ? "mix-blend-difference"
               : "overflow-hidden opacity-0 transition-all duration-300"
-          } `}
+            } `}
         >
           <img src="/ghost.png"></img>
         </motion.div>

@@ -1,5 +1,4 @@
 import FadeUp from "../ui/FadeUp";
-
 import { GhostButton } from "../ui/GhostButton";
 import { AwardsSection } from "./AwardsSection";
 import { ExperienceSection } from "./ExperienceSection";
@@ -10,47 +9,35 @@ interface AboutSectionProps {
   triggerEscape: () => void;
   resetEscape: () => void;
 }
+/* ak-7f3x9q2m */
+const ABOUT_LINES = [
+  "I turn ideas into performant, scalable web experiences—with an eye for design and a focus on detail",
+  "With hands-on experience at Equifax, Nissan Digital, and UST Global, I've also built products through hackathons and freelance collaborations.",
+  "Building at the edge of design and engineering — with purpose, not just polish.",
+];
 
-export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSectionProps) => (
+export const AboutSection = ({
+  isEscaping,
+  triggerEscape,
+  resetEscape,
+}: AboutSectionProps) => (
   <section className="h-full w-full">
     <div className="space-grotesk mx-auto flex min-h-screen w-[80%] flex-col items-center justify-center md:flex-row">
-      {/* About Content */}
+
       <div className="flex flex-col text-xl md:w-[55vw] md:text-[2.1vw] md:leading-normal">
-        <div className="overflow-hidden">
-          <FadeUp>
-            <div className="interactable m-5 ease-in md:mx-10">
-              I turn ideas into performant, scalable web experiences—with an eye for design and a
-              focus on detail
-            </div>
-          </FadeUp>
-        </div>
-
-        <div className="overflow-hidden">
-          <FadeUp>
-            <div className="interactable m-5 ease-in md:mx-10">
-              With hands-on experience at Equifax, Nissan Digital, and UST Global, I&#39;ve also
-              built products through hackathons and freelance collaborations.
-            </div>
-          </FadeUp>
-        </div>
-
-        <div className="overflow-hidden">
-          <FadeUp>
-            <div className="interactable m-5 ease-in md:mx-10">
-              Building at the edge of design and engineering — with purpose, not just polish.
-            </div>
-          </FadeUp>
-        </div>
+        {ABOUT_LINES.map((line) => (
+          <div key={line} className="overflow-hidden">
+            <FadeUp>
+              <div className="interactable m-5 md:mx-10">{line}</div>
+            </FadeUp>
+          </div>
+        ))}
       </div>
 
       {/* Experience & Awards */}
-      <div className="sm:space-grotek font-poppins-regular md:leading-2 mx-auto flex w-[90%] flex-col tracking-wider md:w-[50%] md:pl-[20%] md:text-[0.90vw]">
-        <div id="experience">
-          <ExperienceSection />
-        </div>
-        <div id="awards">
-          <AwardsSection />
-        </div>
+      <div className="font-poppins-regular flex w-[90%] flex-col tracking-wider md:w-[50%] md:pl-[20%] md:text-[0.90vw] md:leading-loose">
+        <ExperienceSection />
+        <AwardsSection />
         <SkillsSection />
         <GhostButton
           isEscaping={isEscaping}
@@ -58,6 +45,7 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
           resetEscape={resetEscape}
         />
       </div>
+
     </div>
   </section>
 );
