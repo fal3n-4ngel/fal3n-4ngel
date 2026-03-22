@@ -2,7 +2,6 @@ import FadeUp from "../ui/FadeUp";
 import { GhostButton } from "../ui/GhostButton";
 import { AwardsSection } from "./AwardsSection";
 import { ExperienceSection } from "./ExperienceSection";
-import { SkillsSection } from "./SkillsSection";
 
 interface AboutSectionProps {
   isEscaping: boolean;
@@ -38,7 +37,6 @@ export const AboutSection = ({
       <div className="font-poppins-regular flex w-[90%] flex-col tracking-wider md:w-[50%] md:pl-[20%] md:text-[0.90vw] md:leading-loose">
         <ExperienceSection />
         <AwardsSection />
-        <SkillsSection />
         <GhostButton
           isEscaping={isEscaping}
           triggerEscape={triggerEscape}
