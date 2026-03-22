@@ -1,37 +1,32 @@
-import { Project } from "../types/projects";
-import {
-  DiJava,
-  DiPython,
-  DiJavascript,
-  DiMongodb,
-  DiFirebase,
-  DiReact,
-  DiAndroid,
-} from "react-icons/di";
-import {
-  SiDotnet,
-  SiAngular,
-  SiTypescript,
-  SiTailwindcss,
-  SiFramer,
-  SiKotlin,
-  SiCsharp,
-  SiFlutter,
-  SiC,
-  SiPostgresql,
-  SiMysql,
-  SiGraphql,
-  SiNextdotjs,
-  SiBlockchaindotcom,
-  SiSolidity,
-  SiIpfs,
-  SiTauri,
-} from "react-icons/si";
-import { TbBrandNextjs } from "react-icons/tb";
 import { IconType } from "react-icons";
 import { BsDistributeHorizontal } from "react-icons/bs";
 import { CgServerless } from "react-icons/cg";
+import {
+  DiFirebase,
+  DiJava,
+  DiMongodb,
+  DiPython,
+  DiReact
+} from "react-icons/di";
 import { FaBrain } from "react-icons/fa";
+import {
+  SiAngular,
+  SiBlockchaindotcom,
+  SiC,
+  SiDotnet,
+  SiFlutter,
+  SiGraphql,
+  SiIpfs,
+  SiKotlin,
+  SiMysql,
+  SiPostgresql,
+  SiSolidity,
+  SiTailwindcss,
+  SiTauri,
+  SiTypescript
+} from "react-icons/si";
+import { TbBrandNextjs } from "react-icons/tb";
+import { Project } from "../types/projects";
 
 // Constants
 const GITHUB_BASE = "https://github.com";
@@ -70,7 +65,7 @@ export const skillIcons: Record<string, IconType> = {
   Ethereum: SiBlockchaindotcom,
   C: SiC,
   Java: DiJava,
-  "C#": SiCsharp,
+  "C#": SiDotnet,
   MongoDB: DiMongodb,
   PostgreSQL: SiPostgresql,
   MySQL: SiMysql,

@@ -142,9 +142,9 @@ export default function Home() {
         }}
         transition={{
           type: "spring",
-          damping: 30,
-          stiffness: 200,
-          mass: 0.8,
+          damping: 20,
+          stiffness: 100,
+          mass: 0.5,
         }}
         className={cursorClasses}
       >

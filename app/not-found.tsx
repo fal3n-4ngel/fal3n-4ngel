@@ -1,10 +1,10 @@
 "use client";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { RiArrowLeftCircleLine } from "react-icons/ri";
+import { useRef, useState } from "react";
 import Navbar from "./components/sections/Navbar";
 import { useFollowPointer } from "./utils/FollowPointer";
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
 export default function Custom404() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
@@ -39,13 +39,7 @@ export default function Custom404() {
     <div className="flex h-screen w-full flex-col items-center justify-between bg-[#121212] pb-10 text-white">
       <div>
         <motion.div
-          style={{
-            position: "fixed",
-            top: `0%`,
-            left: `0%`,
-            height: "200px",
-            width: "200px",
-          }}
+          style={{ position: "fixed", top: `0%`, left: `0%`, height: "200px", width: "200px" }}
           animate={{
             x: x - offset,
             y: y - offset,
@@ -73,6 +67,9 @@ export default function Custom404() {
         >
           Back to Homepage
         </Link>
+        <div className="absolute bottom-0 left-[50%] z-0 flex w-[80vw] -translate-x-[50%] items-end justify-center opacity-20 sm:w-[50vw] md:w-[35vw]">
+          <Image src="/ghost.png" alt="Ghost" width={500} height={500} unoptimized />
+        </div>
       </div>
     </div>
   );
