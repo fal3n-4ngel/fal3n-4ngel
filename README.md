@@ -26,11 +26,11 @@
 <details>
   <summary>🔥 Picks </summary>
    
+  - [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) - Find, verify, and analyze leaked credentials (today)
   - [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) - Official awesome-list of CodeRabbit Starters &amp; Resources ⚡️ (7 months ago)
   - [pear-devs/pear-desktop](https://github.com/pear-devs/pear-desktop) - Pear 🍐 is extension for music player (8 months ago)
   - [m4xshen/dotfiles](https://github.com/m4xshen/dotfiles) - My dotfiles for Neovim, Kitty, yabai, SketchyBar (8 months ago)
   - [hotheadhacker/no-as-a-service](https://github.com/hotheadhacker/no-as-a-service) - No-as-a-Service (NaaS) is a simple API that returns a random rejection reason. Use it when you need a realistic excuse, a fun “no,” or want to simulate being turned down in style. (8 months ago)
-  - [helallao/perplexity-ai](https://github.com/helallao/perplexity-ai) - Unofficial API Wrapper for Perplexity.ai &#43; Account Generator with Web Interface (10 months ago)
 </details>
 
 
