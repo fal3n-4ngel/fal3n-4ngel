@@ -14,9 +14,9 @@ jobs:
   contributions-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: muesli/readme-scribe@master
+      - uses: muesli/readme-scribe@d2f6ab32d6b9f5b59941fe782d6c7e6499a37fe4
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
@@ -28,7 +28,7 @@ jobs:
           name: README.md
           path: README.md
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
