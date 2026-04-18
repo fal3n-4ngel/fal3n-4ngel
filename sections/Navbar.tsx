@@ -14,7 +14,7 @@ export const Navbar = () => {
         </div>
         <div className="flex items-center gap-6 font-mono text-[13px] tracking-[0.12em] text-white/60 md:gap-16 md:text-[18px] md:tracking-[0.15em]">
           <a
-            href="/Resume Adithya Krishnan.pdf"
+            href="/Resume_Adithya_Krishnan.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors duration-300 hover:text-white"
