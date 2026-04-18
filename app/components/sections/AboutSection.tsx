@@ -36,8 +36,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   if (!spotifyData.isPlaying && spotifyData.lastPlayedAt) {
     const diffMs = new Date().getTime() - new Date(spotifyData.lastPlayedAt).getTime();
     const diffMins = Math.floor(diffMs / 60000);
-    console.log("Spotify last played", diffMins, "minutes ago");
-    console.log("Spotify last played at", spotifyData.lastPlayedAt);
 
     if (diffMins < 60) {
       lastSeenSpotifyText = `Last seen ${diffMins}m ago`;
