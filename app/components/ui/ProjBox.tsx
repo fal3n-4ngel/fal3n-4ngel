@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Image from "next/image";
 
 type ProjProps = {
@@ -15,28 +14,36 @@ type ProjProps = {
 function ProjBox({ url1, name, type, event, date, view, description }: ProjProps) {
   return (
     <div className="group flex flex-col gap-6 md:gap-10">
-      <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4">
-        <h3 className="text-3xl md:text-5xl font-light tracking-tight text-white group-hover:text-neutral-300 transition-colors">
-          <a href={view} target="_blank" rel="noopener noreferrer" className="interactable">{name}</a>
+      <div className="flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between">
+        <h3 className="text-3xl font-light tracking-tight text-white transition-colors group-hover:text-neutral-300 md:text-5xl">
+          <a href={view} target="_blank" rel="noopener noreferrer" className="interactable">
+            {name}
+          </a>
         </h3>
-        <span className="font-mono text-sm md:text-[15px] uppercase tracking-[0.2em] text-neutral-500">
+        <span className="font-mono text-sm uppercase tracking-[0.2em] text-neutral-500 md:text-[15px]">
           {type} / {date}
         </span>
       </div>
 
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900 border border-white/5">
-        <a href={view} target="_blank" rel="noopener noreferrer" className="interactable block w-full h-full">
+      <div className="relative aspect-[16/10] w-full overflow-hidden border border-white/5 bg-neutral-900">
+        <a
+          href={view}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="interactable relative block h-full w-full"
+        >
           <Image
             src={url1}
             alt={name}
             fill
-            className="object-cover opacity-80 transition-all duration-700 group-hover:opacity-100 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
           />
         </a>
       </div>
 
       {description && (
-        <p className="text-neutral-400 font-light leading-relaxed max-w-3xl text-base md:text-xl">
+        <p className="max-w-3xl text-base font-light leading-relaxed text-neutral-400 md:text-xl">
           {description}
         </p>
       )}

@@ -134,7 +134,7 @@ const ProjectsWithSkills: React.FC = () => {
         </div>
 
         {/* Fixed Skills Container */}
-        <div className="no-scrollbar sticky top-[15vh] hidden max-h-[85vh] w-80 self-start overflow-y-auto pb-12 pt-8 md:block">
+        <div className="no-scrollbar sticky top-[18vh] hidden max-h-[85vh] w-80 self-start overflow-y-auto pb-12 md:block">
           <div
             className={`transition-opacity duration-700 ease-out ${
               sectionInView && !isGitHubProjectActive
