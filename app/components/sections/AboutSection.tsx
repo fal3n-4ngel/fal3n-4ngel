@@ -2,6 +2,7 @@ import { getSiteConfig } from "@/app/lib/notion";
 import { useEffect, useState } from "react";
 import FadeUp from "../ui/FadeUp";
 import { GhostButton } from "../ui/GhostButton";
+import NowPlaying from "../ui/NowPlaying";
 import { AwardsSection } from "./AwardsSection";
 import { ExperienceSection } from "./ExperienceSection";
 
@@ -13,6 +14,7 @@ interface AboutSectionProps {
 
 export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSectionProps) => {
   const [config, setConfig] = useState<any>(null);
+  const [isSpotifyPlaying, setIsSpotifyPlaying] = useState(false);
 
   useEffect(() => {
     getSiteConfig().then((data) => {
@@ -20,8 +22,18 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     });
   }, []);
 
+  const activeStatus = config?.["active status"]?.isEnabled ?? false;
+  const activeText = config?.["active status"]?.content || "Offline";
+
   const collaborationStatus = config?.["collaboration"]?.isEnabled ?? false;
   const collaborationText = config?.["collaboration"]?.content || "Inactive";
+
+  // Determine what to show in the Status box
+  // If active status is offline (last seen...) BUT spotify is playing: Override!
+  const isStatusOverride = !activeStatus && isSpotifyPlaying;
+
+  const displayStatus = isStatusOverride ? true : collaborationStatus;
+  const displayText = isStatusOverride ? "Listening to Spotify" : collaborationText;
 
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center bg-black px-12 py-24 pt-48">
@@ -46,12 +58,13 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
               <div className="flex items-center gap-2">
                 <span
                   className={`h-1.5 w-1.5 rounded-full ${
-                    collaborationStatus ? "animate-pulse bg-green-500" : "bg-red-500"
+                    displayStatus ? "animate-pulse bg-green-500" : "bg-red-500"
                   }`}
                 />
-                <span>{collaborationText}</span>
+                <span>{displayText}</span>
               </div>
             </div>
+            <NowPlaying onPlayingChange={setIsSpotifyPlaying} />
           </div>
         </div>
 
