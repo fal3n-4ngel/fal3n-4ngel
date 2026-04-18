@@ -2,12 +2,14 @@
 
 import { unstable_cache } from "next/cache";
 
-const client_id = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
-const client_secret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
-const refresh_token = process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN;
+// REMOVE NEXT_PUBLIC_ PREFIXES IN YOUR .ENV AND HERE
+const client_id = process.env.SPOTIFY_CLIENT_ID;
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
+const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played?limit=1`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
 const getAccessToken = async () => {
@@ -22,7 +24,6 @@ const getAccessToken = async () => {
       refresh_token: refresh_token!,
     }),
   });
-
   return response.json();
 };
 
@@ -30,47 +31,48 @@ export const getNowPlaying = unstable_cache(
   async () => {
     try {
       const { access_token } = await getAccessToken();
-
-      if (!access_token) {
-        console.error("Spotify: No access token returned");
-        return { isPlaying: false };
-      }
+      if (!access_token) return { isPlaying: false };
 
       const response = await fetch(NOW_PLAYING_ENDPOINT, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        next: {
-          revalidate: 120, // 2 minutes cache
-        },
+        headers: { Authorization: `Bearer ${access_token}` },
       });
 
-      if (response.status === 204 || response.status > 400) {
-        console.log("Spotify: Status", response.status);
-        return { isPlaying: false };
+      // If playing, return song data
+      if (response.status === 200) {
+        const song = await response.json();
+        if (song.item) {
+          return {
+            title: song.item.name,
+            artist: song.item.artists.map((a: any) => a.name).join(", "),
+            isPlaying: song.is_playing,
+            songUrl: song.item.external_urls.spotify,
+            albumImageUrl: song.item.album.images[0]?.url,
+            lastPlayedAt: new Date().toISOString(), // Currently active
+          };
+        }
       }
 
-      const song = await response.json();
+      // FALLBACK: Not playing or 204 No Content
+      const recentReq = await fetch(RECENTLY_PLAYED_ENDPOINT, {
+        headers: { Authorization: `Bearer ${access_token}` },
+      });
 
-      if (song.item === null) {
-        return { isPlaying: false };
+      if (recentReq.ok) {
+        const recent = await recentReq.json();
+        return {
+          isPlaying: false,
+          lastPlayedAt: recent.items[0]?.played_at || null,
+          title: recent.items[0]?.track.name,
+          artist: recent.items[0]?.track.artists.map((a: any) => a.name).join(", "),
+        };
       }
 
-      return {
-        album: song.item.album.name,
-        albumImageUrl: song.item.album.images[0]?.url,
-        artist: song.item.artists.map((_artist: { name: string }) => _artist.name).join(", "),
-        isPlaying: song.is_playing,
-        songUrl: song.item.external_urls.spotify,
-        title: song.item.name,
-      };
-    } catch (error) {
+      return { isPlaying: false };
+    } catch (e) {
+      console.error(e);
       return { isPlaying: false };
     }
   },
-  ["spotify-now-playing"],
-  {
-    revalidate: 120,
-    tags: ["spotify"],
-  }
+  ["spotify-status"],
+  { revalidate: 60, tags: ["spotify"] }
 );

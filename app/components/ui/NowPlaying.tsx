@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 export default function NowPlaying({
   onPlayingChange,
 }: {
-  onPlayingChange?: (isPlaying: boolean) => void;
+  onPlayingChange?: (status: { isPlaying: boolean; lastPlayedAt?: string }) => void;
 }) {
   const [song, setSong] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,10 @@ export default function NowPlaying({
       setLoading(false);
 
       if (onPlayingChange) {
-        onPlayingChange(!!data?.isPlaying);
+        onPlayingChange({
+          isPlaying: !!data?.isPlaying,
+          lastPlayedAt: data?.lastPlayedAt,
+        });
       }
     };
 

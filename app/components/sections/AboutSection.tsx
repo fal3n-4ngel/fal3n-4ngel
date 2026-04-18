@@ -14,7 +14,9 @@ interface AboutSectionProps {
 
 export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSectionProps) => {
   const [config, setConfig] = useState<any>(null);
-  const [isSpotifyPlaying, setIsSpotifyPlaying] = useState(false);
+  const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; lastPlayedAt?: string }>({
+    isPlaying: false,
+  });
 
   useEffect(() => {
     getSiteConfig().then((data) => {
@@ -28,12 +30,42 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   const collaborationStatus = config?.["collaboration"]?.isEnabled ?? false;
   const collaborationText = config?.["collaboration"]?.content || "Inactive";
 
-  // Determine what to show in the Status box
-  // If active status is offline (last seen...) BUT spotify is playing: Override!
-  const isStatusOverride = !activeStatus && isSpotifyPlaying;
+  // Check how long ago Spotify was played
+  let lastSeenSpotifyText = null;
+  console.log("Spotify Data", spotifyData);
+  if (!spotifyData.isPlaying && spotifyData.lastPlayedAt) {
+    const diffMs = new Date().getTime() - new Date(spotifyData.lastPlayedAt).getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    console.log("Spotify last played", diffMins, "minutes ago");
+    console.log("Spotify last played at", spotifyData.lastPlayedAt);
 
-  const displayStatus = isStatusOverride ? true : collaborationStatus;
-  const displayText = isStatusOverride ? "Listening to Spotify" : collaborationText;
+    if (diffMins < 60) {
+      lastSeenSpotifyText = `Last seen ${diffMins}m ago`;
+    } else {
+      const diffHours = Math.floor(diffMins / 60);
+      if (diffHours < 24) {
+        lastSeenSpotifyText = `Last seen ${diffHours}h ago`;
+      } else {
+        lastSeenSpotifyText = `Last seen ${Math.floor(diffHours / 24)}d ago`;
+      }
+    }
+  }
+
+  // Determine what to show in the Status box
+  // If active status is offline BUT spotify is playing: Override with Listening to Spotify
+  // If active status is offline AND spotify is NOT playing: Override with Last seen X mins ago
+  let displayStatus = collaborationStatus;
+  let displayText = collaborationText;
+
+  if (!activeStatus) {
+    if (spotifyData.isPlaying) {
+      displayStatus = true;
+      displayText = "Listening to Spotify";
+    } else if (lastSeenSpotifyText) {
+      displayStatus = false;
+      displayText = lastSeenSpotifyText;
+    }
+  }
 
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center bg-black px-12 py-24 pt-48">
@@ -64,7 +96,7 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
                 <span>{displayText}</span>
               </div>
             </div>
-            <NowPlaying onPlayingChange={setIsSpotifyPlaying} />
+            <NowPlaying onPlayingChange={setSpotifyData} />
           </div>
         </div>
 
