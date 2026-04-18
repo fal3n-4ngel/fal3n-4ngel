@@ -40,7 +40,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.adithyakrishnan.com"),
   title: {
-    default: "Adithya Krishnan | Software Engineer",
+    default: "Adithya Krishnan",
     template: "%s | Adithya Krishnan",
   },
   description:
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   publisher: "Adithya Krishnan",
   formatDetection: { email: true, address: false, telephone: false },
   openGraph: {
-    title: "Adithya Krishnan | Software Engineer",
+    title: "Adithya Krishnan ",
     description:
       "Software Engineer crafting exceptional digital experiences with modern web technologies.",
     url: "https://www.adithyakrishnan.com",
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Adithya Krishnan | Software Engineer",
+    title: "Adithya Krishnan ",
     description: "Software Engineer crafting exceptional digital experiences",
     images: ["https://www.adithyakrishnan.com/logo.png"],
     creator: "@fal3n4ngel",
