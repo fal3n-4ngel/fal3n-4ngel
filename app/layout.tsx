@@ -125,12 +125,19 @@ export default async function RootLayout({
 
   // Use config to check status, fall back to "true" meaning site is active if config isn't found
   const isMaintenanceMode =
-    config?.["maintenance"]?.isEnabled || config?.["maintenance mode"]?.isEnabled || false;
+    !config?.["system"]?.isEnabled || config?.["maintenance mode"]?.isEnabled || false;
   const isOffline =
     (config?.["status"] && !config?.["status"]?.isEnabled) ||
     (config?.["active status"] && !config?.["active status"]?.isEnabled);
 
   const showMaintenance = isMaintenanceMode || isOffline;
+
+  const maintenanceText =
+    config?.["maintenance"]?.content ||
+    config?.["system"]?.content ||
+    config?.["maintenance mode"]?.content ||
+    config?.["status"]?.content ||
+    config?.["active status"]?.content;
 
   return (
     <html
@@ -145,7 +152,11 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
       <body className={`${inter.className} custom-scrollbar dark bg-black`}>
-        {showMaintenance ? <Maintenance /> : <LenisProvider>{children}</LenisProvider>}
+        {showMaintenance ? (
+          <Maintenance content={maintenanceText} />
+        ) : (
+          <LenisProvider>{children}</LenisProvider>
+        )}
         <Analytics />
         <SpeedInsights />
         <Script id="canary-token" strategy="afterInteractive">
