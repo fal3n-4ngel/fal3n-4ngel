@@ -15,9 +15,6 @@ const Navbar = dynamic(
   () => import("./components/sections/Navbar").then((mod) => ({ default: mod.Navbar })),
   { ssr: true }
 );
-const CommandPalette = dynamic(() => import("./components/ui/CommandPalette"), {
-  ssr: false,
-});
 const ProjectsWithSkills = dynamic(() => import("./components/sections/ProjectSectionWithSkills"), {
   ssr: false,
 });
@@ -173,7 +170,6 @@ export default function Home() {
         ref={ref}
       >
         <Navbar />
-        <CommandPalette />
 
         <div id="about" className="w-full">
           <AboutSection
