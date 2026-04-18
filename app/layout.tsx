@@ -158,6 +158,37 @@ export default async function RootLayout({
         ) : (
           <LenisProvider>{children}</LenisProvider>
         )}
+        <Script
+          id="schema-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Adithya Krishnan",
+              url: "https://www.adithyakrishnan.com",
+              image: "https://www.adithyakrishnan.com/logo.png",
+              sameAs: [
+                "https://github.com/fal3n-4ngel",
+                "https://linkedin.com/in/adithyakrishnans",
+                "https://twitter.com/fal3n4ngel",
+              ],
+              jobTitle: "Software Engineer",
+              worksFor: {
+                "@type": "Organization",
+                name: "Equifax",
+              },
+              alumniOf: "APJ Abdul Kalam Technological University",
+              knowsAbout: [
+                "Full Stack Development",
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Cloud Architecture",
+              ],
+            }),
+          }}
+        />
         <GoogleAnalytics gaId={process.env.FIREBASE_MEASUREMENT_ID || ""} />
         <Analytics />
         <SpeedInsights />

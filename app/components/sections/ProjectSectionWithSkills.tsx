@@ -180,7 +180,7 @@ const ProjectBoxSelf: React.FC<ProjectBoxProps> = ({ name, onVisible, ...props }
   });
 
   useEffect(() => {
-    if (inView) {
+    if (inView && onVisible) {
       onVisible();
     }
   }, [inView, onVisible]);
@@ -203,7 +203,7 @@ const GitProjectBox: React.FC<GitProjectBoxProps> = ({ name, onVisible, ...props
   });
 
   useEffect(() => {
-    if (inView) {
+    if (inView && onVisible) {
       onVisible();
     }
   }, [inView, onVisible]);

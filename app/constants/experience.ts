@@ -19,7 +19,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "July 2024 - Dec 2024",
   },
   {
-    title: "Developer",
+    title: "Developer Intern",
     company: "Oronium",
     companyUrl: "https://www.oronium.com?ref=adithyakrishnan.com",
     period: "April 2024 - July 2024",

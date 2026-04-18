@@ -22,7 +22,7 @@ export interface ProjectBoxProps extends Project {
 }
 
 export interface GitProjectBoxProps extends GitProject {
-  onVisible: () => void;
+  onVisible?: () => void;
 }
 export type Repo = {
   id: number;
