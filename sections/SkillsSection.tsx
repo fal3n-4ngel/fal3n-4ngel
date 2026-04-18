@@ -1,5 +1,5 @@
-import { SKILLS_DATA } from "@/app/constants/skills";
 import FadeUp from "@/components/FadeUp";
+import { SKILLS_DATA } from "@/data/skills";
 
 export const SkillsSection = () => (
   <FadeUp className="md:hidden">
