@@ -2,7 +2,6 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { GoogleAnalytics } from "nextjs-google-analytics";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { createGhostVariants } from "./constants/animations";
 import { useCustomCursor } from "./hooks/useCustomCursor";
@@ -80,8 +79,6 @@ export default function Home() {
 
   return (
     <div className="h-full min-h-screen w-full bg-black text-white">
-      <GoogleAnalytics trackPageViews />
-
       <AnimatePresence>
         {isLoading && <LoadingPage onComplete={handleLoadingComplete} />}
       </AnimatePresence>
