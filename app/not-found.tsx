@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import Navbar from "./components/sections/Navbar";
+import { Navbar } from "./components/sections/Navbar";
 import { useFollowPointer } from "./utils/FollowPointer";
 export default function Custom404() {
   const ref = useRef(null);
@@ -11,7 +11,6 @@ export default function Custom404() {
   const [interacting, setInteracting] = useState(false);
   const [projImage, setProjImage] = useState(false);
   const [offset, setOffset] = useState(0);
-
 
   /* ak-7f3x9q2m */
   if (typeof window !== "undefined") {
@@ -44,10 +43,11 @@ export default function Custom404() {
             width: `${interacting ? "200px" : "40px"}`,
             height: `${interacting ? "200px" : "40px"}`,
           }}
-          className={`z-top pointer-events-none hidden rounded-full bg-white md:flex ${!projImage
+          className={`z-top pointer-events-none hidden rounded-full bg-white md:flex ${
+            !projImage
               ? "mix-blend-difference"
               : "overflow-hidden opacity-0 transition-all duration-300"
-            } `}
+          } `}
         >
           <img src="/ghost.png"></img>
         </motion.div>

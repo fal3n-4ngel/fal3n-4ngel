@@ -13,7 +13,7 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     period: "Feb 2025 - Present",
   },
   {
-    title: "SDE Intern",
+    title: "Software Engineer Intern",
     company: "Nissan Digital LLP",
     companyUrl: "https://www.nissanmotor.jobs/ami/india/ndi/index.html?ref=adithyakrishnan.com",
     period: "July 2024 - Dec 2024",

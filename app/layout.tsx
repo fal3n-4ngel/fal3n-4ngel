@@ -1,10 +1,13 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter, Poppins, Space_Grotesk, Work_Sans } from "next/font/google";
-import "./globals.css";
-import LenisProvider from "./utils/LenisProvider";
 import Script from "next/script";
+import Maintenance from "./components/ui/Maintenance";
+import "./globals.css";
+import { getSiteConfig } from "./lib/notion";
+import LenisProvider from "./utils/LenisProvider";
 
 // Optimized font loading with display swap
 const inter = Inter({
@@ -114,11 +117,29 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const config = await getSiteConfig();
+
+  // Use config to check status, fall back to "true" meaning site is active if config isn't found
+  const isMaintenanceMode =
+    !config?.["system"]?.isEnabled || config?.["maintenance mode"]?.isEnabled || false;
+  const isOffline =
+    (config?.["status"] && !config?.["status"]?.isEnabled) ||
+    (config?.["active status"] && !config?.["active status"]?.isEnabled);
+
+  const showMaintenance = isMaintenanceMode || isOffline;
+
+  const maintenanceText =
+    config?.["maintenance"]?.content ||
+    config?.["system"]?.content ||
+    config?.["maintenance mode"]?.content ||
+    config?.["status"]?.content ||
+    config?.["active status"]?.content;
+
   return (
     <html
       lang="en"
@@ -131,8 +152,13 @@ export default function RootLayout({
         <meta name="theme-color" content="#060606" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
-      <body className={`${inter.className} custom-scrollbar dark`}>
-        <LenisProvider>{children}</LenisProvider>
+      <body className={`${inter.className} custom-scrollbar dark bg-black`}>
+        {showMaintenance ? (
+          <Maintenance content={maintenanceText} />
+        ) : (
+          <LenisProvider>{children}</LenisProvider>
+        )}
+        <GoogleAnalytics gaId={process.env.FIREBASE_MEASUREMENT_ID || ""} />
         <Analytics />
         <SpeedInsights />
         <Script id="canary-token" strategy="afterInteractive">

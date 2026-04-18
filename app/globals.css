@@ -185,3 +185,18 @@ body {
 .dark .command-palette-scroll {
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body,
+html {
+  overflow-x: clip;
+}

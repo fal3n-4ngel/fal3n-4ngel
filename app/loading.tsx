@@ -1,12 +1,21 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
   const [showText, setShowText] = useState(false);
+  const [dots, setDots] = useState<{ left: number; top: number }[]>([]);
 
   useEffect(() => {
+    // Generate constant random positions for dots to avoid hydration mismatch
+    setDots(
+      [...Array(10)].map(() => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+      }))
+    );
+
     // Simulate loading progress
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -111,14 +120,14 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
 
       {/* Floating Dots */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {[...Array(10)].map((_, i) => (
+        {dots.map((dot, i) => (
           <motion.div
             key={i}
             initial={{ y: -20, opacity: 0 }}
             className="absolute h-1 w-1 rounded-full bg-gray-400"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${dot.left}%`,
+              top: `${dot.top}%`,
             }}
             animate={{
               y: [-20, 20, -20],
