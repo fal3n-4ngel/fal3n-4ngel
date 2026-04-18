@@ -1,15 +1,13 @@
+import Maintenance from "@/components/Maintenance";
+import { getSiteConfig } from "@/lib/integrations/notion";
+import LenisProvider from "@/lib/utils/LenisProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter, Poppins, Space_Grotesk, Work_Sans } from "next/font/google";
 import Script from "next/script";
-import Maintenance from "./components/ui/Maintenance";
 import "./globals.css";
-import { getSiteConfig } from "./lib/notion";
-import LenisProvider from "./utils/LenisProvider";
-
-// Optimized font loading with display swap
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -124,7 +122,6 @@ export default async function RootLayout({
 }>) {
   const config = await getSiteConfig();
 
-  // Use config to check status, fall back to "true" meaning site is active if config isn't found
   const isMaintenanceMode =
     !config?.["system"]?.isEnabled || config?.["maintenance mode"]?.isEnabled || false;
   const isOffline =
@@ -143,7 +140,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${workSans.variable} ${poppins.variable} ${spaceGrotesk.variable}`}
+      className={`${inter.variable} ${workSans.variable} ${poppins.variable} ${spaceGrotesk.variable} w-full scroll-smooth`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

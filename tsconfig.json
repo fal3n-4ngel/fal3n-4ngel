@@ -22,10 +22,13 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["./app/components/*"],
-      "@/utils/*": ["./app/utils/*"],
-      "@/types/*": ["./app/types/*"],
-      "@/data/*": ["./app/data/*"]
+      "@/components/*": ["./components/*"],
+      "@/sections/*": ["./sections/*"],
+      "@/data/*": ["./data/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/types/*": ["./types/*"],
+      "@/styles/*": ["./styles/*"]
     },
     "target": "ES2017"
   },

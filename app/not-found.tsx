@@ -1,10 +1,10 @@
 "use client";
+import { useFollowPointer } from "@/lib/utils/FollowPointer";
+import { Navbar } from "@/sections/Navbar";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { Navbar } from "./components/sections/Navbar";
-import { useFollowPointer } from "./utils/FollowPointer";
 export default function Custom404() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
@@ -12,7 +12,7 @@ export default function Custom404() {
   const [projImage, setProjImage] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  /* ak-7f3x9q2m */
+  
   if (typeof window !== "undefined") {
     window.onmousemove = (e) => {
       if (e) {

@@ -1,9 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* ak-7f3x9q2m */
 
-/* Preload critical fonts */
+
+
 @font-face {
   font-family: "Elgoc-Thin";
   src: url("/fonts/Elgoc-Thin.otf") format("opentype");
@@ -30,13 +30,13 @@ body {
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
     rgb(var(--background-start-rgb));
   scroll-behavior: smooth;
-  /* Improve font rendering */
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* Remove external font imports - use next/font instead for better performance */
+
 .work-sans {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
@@ -81,7 +81,7 @@ body {
   z-index: 1000000;
 }
 
-/* Use transform for better performance */
+
 .animate-spin-slow {
   animation: spin 6s linear infinite;
   will-change: transform;
@@ -93,7 +93,7 @@ body {
   }
 }
 
-/* Define CSS variables for scrollbar colors */
+
 :root {
   --scrollbar-bg: #121212;
   --scrollbar-thumb: #f8f8f8;
@@ -101,18 +101,18 @@ body {
 }
 
 :root {
-  --scrollbar-bg: #121212; /* Dark mode background */
-  --scrollbar-thumb: #f8f8f8; /* Dark mode thumb */
-  --scrollbar-thumb-hover: #ececec; /* Dark mode thumb hover */
+  --scrollbar-bg: #121212; 
+  --scrollbar-thumb: #f8f8f8; 
+  --scrollbar-thumb-hover: #ececec; 
 }
 
 .dark {
-  --scrollbar-bg: #121212; /* Dark mode background */
-  --scrollbar-thumb: #f8f8f8; /* Dark mode thumb */
-  --scrollbar-thumb-hover: #ececec; /* Dark mode thumb hover */
+  --scrollbar-bg: #121212; 
+  --scrollbar-thumb: #f8f8f8; 
+  --scrollbar-thumb-hover: #ececec; 
 }
 
-/* Custom Scrollbar */
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
@@ -130,7 +130,7 @@ body {
   background-color: var(--scrollbar-thumb-hover);
 }
 
-/* Command Palette Scrollbar - Minimal & Modern */
+
 .command-palette-scroll::-webkit-scrollbar {
   width: 6px;
 }
@@ -150,7 +150,7 @@ body {
   background: linear-gradient(to bottom, #aaa, #888);
 }
 
-/* AI Chat Scrollbar - Minimal White on Black */
+
 .chat-scroll::-webkit-scrollbar {
   width: 6px;
 }
@@ -176,7 +176,7 @@ body {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
 }
 
-/* Firefox scrollbar styling */
+
 .command-palette-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
@@ -186,14 +186,14 @@ body {
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-/* Hide scrollbar for IE, Edge and Firefox */
+
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
 }
 
 body,

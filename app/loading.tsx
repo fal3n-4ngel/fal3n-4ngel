@@ -8,7 +8,6 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
   const [dots, setDots] = useState<{ left: number; top: number }[]>([]);
 
   useEffect(() => {
-    // Generate constant random positions for dots to avoid hydration mismatch
     setDots(
       [...Array(10)].map(() => ({
         left: Math.random() * 100,
@@ -16,7 +15,6 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
       }))
     );
 
-    // Simulate loading progress
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -25,11 +23,10 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
           setTimeout(() => onComplete(), 100);
           return 100;
         }
-        return prev + Math.random() * 35 + 15; // Faster loading
+        return prev + Math.random() * 35 + 15;
       });
     }, 50);
 
-    // Show text after a delay
     const textTimer = setTimeout(() => {
       setShowText(true);
     }, 100);
@@ -87,7 +84,7 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
         },
       }}
     >
-      {/* Loading Text */}
+      
       <AnimatePresence>
         {showText && (
           <motion.div
@@ -118,7 +115,7 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
         )}
       </AnimatePresence>
 
-      {/* Floating Dots */}
+      
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {dots.map((dot, i) => (
           <motion.div

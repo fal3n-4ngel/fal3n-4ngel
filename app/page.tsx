@@ -1,32 +1,29 @@
 ﻿"use client";
+import { useCustomCursor } from "@/hooks/useCustomCursor";
+import { useGhostEscape } from "@/hooks/useGhostEscape";
+import { useWindowDimensions } from "@/hooks/useWindowDimensions";
+import { createGhostVariants } from "@/lib/animations/animations";
+import { useFollowPointer } from "@/lib/utils/FollowPointer";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { createGhostVariants } from "./constants/animations";
-import { useCustomCursor } from "./hooks/useCustomCursor";
-import { useGhostEscape } from "./hooks/useGhostEscape";
-import { useWindowDimensions } from "./hooks/useWindowDimensions";
 import LoadingPage from "./loading";
-import { useFollowPointer } from "./utils/FollowPointer";
 
-// Dynamic imports for better code splitting
-const Navbar = dynamic(
-  () => import("./components/sections/Navbar").then((mod) => ({ default: mod.Navbar })),
-  { ssr: true }
-);
-const ProjectsWithSkills = dynamic(() => import("./components/sections/ProjectSectionWithSkills"), {
+const Navbar = dynamic(() => import("@/sections/Navbar").then((mod) => ({ default: mod.Navbar })), {
+  ssr: true,
+});
+const ProjectsWithSkills = dynamic(() => import("@/sections/ProjectSectionWithSkills"), {
   ssr: false,
 });
-const ProjectSection = dynamic(() => import("./components/sections/ProjectSection"), {
+const ProjectSection = dynamic(() => import("@/sections/ProjectSection"), {
   ssr: false,
 });
-const Footer = dynamic(
-  () => import("./components/sections/Footer").then((mod) => ({ default: mod.Footer })),
-  { ssr: true }
-);
+const Footer = dynamic(() => import("@/sections/Footer").then((mod) => ({ default: mod.Footer })), {
+  ssr: true,
+});
 const AboutSection = dynamic(
-  () => import("./components/sections/AboutSection").then((mod) => ({ default: mod.AboutSection })),
+  () => import("@/sections/AboutSection").then((mod) => ({ default: mod.AboutSection })),
   { ssr: true }
 );
 
@@ -39,7 +36,6 @@ export default function Home() {
   const [projImage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Custom hooks
   const dimensions = useWindowDimensions();
   const { cursorState, logoStates, offset } = useCustomCursor();
   const { isEscaping, pathRef, triggerEscape, resetEscape } = useGhostEscape(x, y);
@@ -47,14 +43,13 @@ export default function Home() {
   const { isInteracting } = cursorState;
   const { isGitHubLogo, isLinkedInLogo, isResumeLogo, isMailLogo } = logoStates;
 
-  // Memoized animation variants - update when path changes
   const ghostVariants = useMemo(
     () =>
       createGhostVariants(
         dimensions.width,
         dimensions.height,
         pathRef.current,
-        x, // Start from current cursor position
+        x,
         y
       ),
     [dimensions.width, dimensions.height, isEscaping, x, y]
