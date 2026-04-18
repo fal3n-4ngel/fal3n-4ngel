@@ -22,17 +22,17 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
         if (prev >= 100) {
           clearInterval(timer);
 
-          setTimeout(() => onComplete(), 300);
+          setTimeout(() => onComplete(), 100);
           return 100;
         }
-        return prev + Math.random() * 12;
+        return prev + Math.random() * 35 + 15; // Faster loading
       });
-    }, 150);
+    }, 50);
 
     // Show text after a delay
     const textTimer = setTimeout(() => {
       setShowText(true);
-    }, 600);
+    }, 100);
 
     return () => {
       clearInterval(timer);

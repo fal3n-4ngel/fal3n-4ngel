@@ -2,6 +2,7 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { createGhostVariants } from "./constants/animations";
 import { useCustomCursor } from "./hooks/useCustomCursor";
@@ -32,6 +33,8 @@ const AboutSection = dynamic(
   () => import("./components/sections/AboutSection").then((mod) => ({ default: mod.AboutSection })),
   { ssr: true }
 );
+
+const MotionImage = motion.create(Image);
 
 export default function Home() {
   const ref = useRef(null);
@@ -92,8 +95,10 @@ export default function Home() {
             exit="exit"
             variants={ghostVariants}
           >
-            <motion.img
+            <MotionImage
               src="/ghostwhite.png"
+              width={112}
+              height={112}
               onClick={resetEscape}
               alt="Escaping Ghost"
               className="interactable h-28 w-28 cursor-pointer drop-shadow-2xl"
@@ -113,6 +118,7 @@ export default function Home() {
                   ease: "easeInOut",
                 },
               }}
+              priority
             />
           </motion.div>
         )}
@@ -140,8 +146,10 @@ export default function Home() {
         }}
         className={cursorClasses}
       >
-        <motion.img
+        <MotionImage
           src="/ghost.png"
+          width={80}
+          height={80}
           className={`z-[-1] h-full w-full object-contain ${isEscaping ? "hidden" : "flex"}`}
           alt=""
           animate={
@@ -157,6 +165,7 @@ export default function Home() {
             repeat: isInteracting ? Infinity : 0,
             ease: "easeInOut",
           }}
+          priority
         />
       </motion.div>
 
