@@ -13,7 +13,8 @@ interface AboutSectionProps {
 }
 
 export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSectionProps) => {
-  const [config, setConfig] = useState<any>(null);
+  type ConfigItem = { isEnabled?: boolean; content?: string };
+  const [config, setConfig] = useState<Record<string, ConfigItem> | null>(null);
   const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; lastPlayedAt?: string }>({
     isPlaying: false,
   });
@@ -25,7 +26,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   }, []);
 
   const activeStatus = config?.["active status"]?.isEnabled ?? false;
-  const activeText = config?.["active status"]?.content || "Offline";
 
   const collaborationStatus = config?.["collaboration"]?.isEnabled ?? false;
   const collaborationText = config?.["collaboration"]?.content || "Inactive";

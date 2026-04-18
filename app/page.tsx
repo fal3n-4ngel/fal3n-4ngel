@@ -1,5 +1,4 @@
-﻿/* eslint-disable @next/next/no-img-element */
-"use client";
+﻿"use client";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";

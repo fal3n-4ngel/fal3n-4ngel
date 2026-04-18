@@ -65,7 +65,7 @@ const ProjectsWithSkills: React.FC = () => {
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-16 md:flex-row md:items-start md:gap-24">
         {/* Scrollable Projects Container */}
         <div className="z-10 w-full flex-1">
-          <div className="mb-12">
+          <div className="mb-12" ref={breakRef}>
             <FadeUp>
               <h2 className="font-mono text-sm uppercase tracking-[0.3em] text-neutral-500 md:text-xl">
                 Selected Works
