@@ -12,7 +12,7 @@ export const Navbar = () => {
         <div className="font-space font-mono text-4xl font-light tracking-wider text-white/90">
           Adi.
         </div>
-        <div className="hidden items-center gap-10 font-mono text-base tracking-[0.15em] text-white/60 md:flex md:gap-16 md:text-[18px]">
+        <div className="flex flex-col items-end gap-2 font-mono text-xs tracking-[0.1em] text-white/60 md:flex-row md:items-center md:gap-16 md:text-[18px] md:tracking-[0.15em]">
           <a
             href="/Resume Adithya Krishnan.pdf"
             target="_blank"
