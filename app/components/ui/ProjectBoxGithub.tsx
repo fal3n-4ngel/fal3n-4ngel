@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { RiArrowRightUpLine } from "react-icons/ri";
 
 type GithubProjProps = {
   url1: number;
@@ -46,12 +47,20 @@ const GithubProjectBox: React.FC<GithubProjProps> = ({ url1, name, type, date, v
   return (
     <div className="group flex flex-col gap-6 md:gap-10">
       <div className="flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between">
-        <h3 className="text-3xl font-light tracking-tight text-white transition-colors group-hover:text-neutral-300 md:text-5xl">
-          <a href={view} target="_blank" rel="noopener noreferrer" className="interactable">
-            {name}
+        <h3 className="flex-1 text-2xl font-light tracking-tight text-white transition-colors group-hover:text-neutral-300 md:text-3xl lg:text-4xl">
+          <a
+            href={view}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="interactable flex items-start gap-4 md:items-center"
+          >
+            <span className="leading-tight">{name}</span>
+            <span className="mt-1 shrink-0 rounded-full bg-neutral-800 p-2 text-white transition-all group-hover:bg-white group-hover:text-black md:mt-0">
+              <RiArrowRightUpLine className="h-4 w-4 md:h-5 md:w-5" />
+            </span>
           </a>
         </h3>
-        <span className="font-mono text-sm uppercase tracking-[0.2em] text-neutral-500 md:text-[15px]">
+        <span className="mt-2 shrink-0 font-mono text-sm uppercase tracking-[0.2em] text-neutral-500 md:ml-6 md:mt-0 md:text-[15px]">
           {type} / {date}
         </span>
       </div>
@@ -61,7 +70,7 @@ const GithubProjectBox: React.FC<GithubProjProps> = ({ url1, name, type, date, v
           href={view}
           target="_blank"
           rel="noopener noreferrer"
-          className="interactable block h-full w-full"
+          className="interactable relative block h-full w-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,6 +81,11 @@ const GithubProjectBox: React.FC<GithubProjProps> = ({ url1, name, type, date, v
               <rect key={index} {...rect} className="transition-all duration-1000" />
             ))}
           </svg>
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+            <span className="rounded-full bg-white px-6 py-3 font-medium text-black shadow-lg">
+              View Repository
+            </span>
+          </div>
         </a>
       </div>
 
