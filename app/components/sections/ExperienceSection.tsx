@@ -3,43 +3,41 @@ import { memo } from "react";
 import FadeUp from "../ui/FadeUp";
 
 const ExperienceItemComponent = memo(({ item }: { item: ExperienceItem }) => (
-  <div className="interactable px-1 py-1">
-    <div className="font-semibold">{item.title}</div>
-    {item.companyUrl ? (
-      <a href={item.companyUrl} target="_blank" rel="noopener noreferrer">
-        {item.company}
-      </a>
-    ) : (
-      <div>{item.company}</div>
-    )}
-    <div className="font-sans text-gray-400">{item.period}</div>
+  <div className="interactable space-y-1 px-1 py-2">
+    <div className="text-[1.1rem] font-semibold text-white/90">{item.title}</div>
+    <div className="text-white/80">
+      {item.companyUrl ? (
+        <a
+          href={item.companyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-white"
+        >
+          {item.company}
+        </a>
+      ) : (
+        <span>{item.company}</span>
+      )}
+    </div>
+    <div className="font-sans text-sm text-gray-500">{item.period}</div>
   </div>
 ));
 
 ExperienceItemComponent.displayName = "ExperienceItemComponent";
 
 export const ExperienceSection = memo(() => (
-  <>
+  <div className="w-full space-y-4">
     <FadeUp>
-      <div className="mt-5 py-4 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">
-        experience
-      </div>
+      <h3 className="text-md font-bold uppercase tracking-[0.3em] text-neutral-600">experience</h3>
     </FadeUp>
-    {EXPERIENCE_DATA.reduce<ExperienceItem[][]>((acc, item, index) => {
-      const groupIndex = Math.floor(index / 2);
-      if (!acc[groupIndex]) {
-        acc[groupIndex] = [];
-      }
-      acc[groupIndex]!.push(item);
-      return acc;
-    }, []).map((group, index) => (
-      <FadeUp key={index}>
-        {group.map((item, itemIndex) => (
-          <ExperienceItemComponent key={itemIndex} item={item} />
-        ))}
-      </FadeUp>
-    ))}
-  </>
+    <div className="flex flex-col space-y-2">
+      {EXPERIENCE_DATA.map((item, index) => (
+        <FadeUp key={index}>
+          <ExperienceItemComponent item={item} />
+        </FadeUp>
+      ))}
+    </div>
+  </div>
 ));
 
 ExperienceSection.displayName = "ExperienceSection";

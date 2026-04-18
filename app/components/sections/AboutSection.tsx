@@ -8,42 +8,46 @@ interface AboutSectionProps {
   triggerEscape: () => void;
   resetEscape: () => void;
 }
-/* ak-7f3x9q2m */
-const ABOUT_LINES = [
-  "I turn ideas into performant, scalable web experiences—with an eye for design and a focus on detail",
-  "With hands-on experience at Equifax, Nissan Digital, and UST Global, I've also built products through hackathons and freelance collaborations.",
-  "Building at the edge of design and engineering — with purpose, not just polish.",
-];
 
-export const AboutSection = ({
-  isEscaping,
-  triggerEscape,
-  resetEscape,
-}: AboutSectionProps) => (
-  <section className="h-full w-full">
-    <div className="space-grotesk mx-auto flex min-h-screen w-[80%] flex-col items-center justify-center md:flex-row">
+export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSectionProps) => (
+  <section className="relative flex min-h-screen w-full items-center justify-center bg-black px-12 py-24 pt-48">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-20 md:flex-row md:items-start md:gap-32">
+      {/* Left: Hero Content */}
+      <div className="flex-1 space-y-8 md:sticky md:top-24">
+        <div className="space-grotesk max-w-2xl text-4xl font-light leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
+          <FadeUp>
+            Building performant,{" "}
+            <span className="text-white/60">scalable digital experiences.</span>
+          </FadeUp>
+        </div>
 
-      <div className="flex flex-col text-xl md:w-[55vw] md:text-[2.1vw] md:leading-normal">
-        {ABOUT_LINES.map((line) => (
-          <div key={line} className="overflow-hidden">
-            <FadeUp>
-              <div className="interactable m-5 md:mx-10">{line}</div>
-            </FadeUp>
+        {/* New block to fill space */}
+        <div className="mt-24 flex gap-12 border-t border-white/10 pt-8 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+          <div>
+            <p className="mb-2 text-zinc-700">Based in</p>
+            <p className="text-zinc-300">Kerala, India</p>
           </div>
-        ))}
+          <div className="space-y-2">
+            <p className="text-white/40">Status</p>
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-500" />
+              <span>Available for collaboration</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Experience & Awards */}
-      <div className="font-poppins-regular flex w-[90%] flex-col tracking-wider md:w-[50%] md:pl-[20%] md:text-[0.90vw] md:leading-loose">
+      {/* Right: Lists */}
+      <div className="flex w-full flex-col gap-8 md:max-w-sm lg:max-w-md">
         <ExperienceSection />
         <AwardsSection />
+
         <GhostButton
           isEscaping={isEscaping}
           triggerEscape={triggerEscape}
           resetEscape={resetEscape}
         />
       </div>
-
     </div>
   </section>
 );

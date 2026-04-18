@@ -1,29 +1,31 @@
 import FadeUp from "../ui/FadeUp";
 
 export const AwardsSection = () => (
-  <FadeUp>
-    <div className="mt-5 py-4 text-2xl font-semibold text-zinc-700 md:text-[1.5vw]">awards</div>
-    <div className="flex flex-col space-y-1 font-normal">
-      <div className="interactable px-1 py-1">
-        <div className="font-semibold">Web3 for India Winner</div>
-        <div>BlockHash | Kerala Block Chain Academy</div>
-        <a
-          href="https://github.com/Deflated-Pappadam"
-          className="animate-pulse font-sans text-gray-400"
-        >
-          2023 (Team deflated pappadam)
-        </a>
-      </div>
-      <div className="interactable px-1 py-1">
-        <div className="font-semibold">Best Design, First Runner Up</div>
-        <div>CodeCrypt Hackathon | Cusat</div>
-        <a
-          href="https://github.com/Deflated-Pappadam"
-          className="animate-pulse font-sans text-gray-400"
-        >
-          2023 (Team deflated pappadam)
-        </a>
-      </div>
+  <div className="space-y-8">
+    <h3 className="text-md font-bold uppercase tracking-[0.3em] text-neutral-600">Awards</h3>
+    <div className="space-y-8">
+      <AwardItem
+        title="Web3 for India Winner"
+        org="BlockHash | Kerala Blockchain Academy"
+        team="Team deflated pappadam"
+      />
+      <AwardItem
+        title="Best Design, 1st Runner Up"
+        org="CodeCrypt Hackathon | Cusat"
+        team="Team deflated pappadam"
+      />
+    </div>
+  </div>
+);
+
+const AwardItem = ({ title, org, team }: { title: string; org: string; team: string }) => (
+  <FadeUp className="group">
+    <div className="space-y-1">
+      <h4 className="text-lg font-semibold text-white transition-colors group-hover:text-blue-400">
+        {title}
+      </h4>
+      <p className="text-neutral-400">{org}</p>
+      <p className="font-mono text-xs text-neutral-600">2023 • {team}</p>
     </div>
   </FadeUp>
 );

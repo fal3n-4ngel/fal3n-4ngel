@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+﻿/* eslint-disable @next/next/no-img-element */
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -12,9 +12,10 @@ import LoadingPage from "./loading";
 import { useFollowPointer } from "./utils/FollowPointer";
 
 // Dynamic imports for better code splitting
-const Navbar = dynamic(() => import("./components/sections/Navbar"), {
-  ssr: true,
-});
+const Navbar = dynamic(
+  () => import("./components/sections/Navbar").then((mod) => ({ default: mod.Navbar })),
+  { ssr: true }
+);
 const CommandPalette = dynamic(() => import("./components/ui/CommandPalette"), {
   ssr: false,
 });
@@ -24,10 +25,6 @@ const ProjectsWithSkills = dynamic(() => import("./components/sections/ProjectSe
 const ProjectSection = dynamic(() => import("./components/sections/ProjectSection"), {
   ssr: false,
 });
-const HeroSection = dynamic(
-  () => import("./components/sections/HeroSection").then((mod) => ({ default: mod.HeroSection })),
-  { ssr: true }
-);
 const Footer = dynamic(
   () => import("./components/sections/Footer").then((mod) => ({ default: mod.Footer })),
   { ssr: true }
@@ -67,15 +64,13 @@ export default function Home() {
 
   const cursorClasses = useMemo(
     () =>
-      `
-    pointer-events-none z-[10000] hidden rounded-full bg-white md:flex
-    ${
-      !projImage
-        ? "mix-blend-difference"
-        : "scale-0 overflow-hidden opacity-0 transition-all duration-200"
-    }
-    ${isGitHubLogo || isLinkedInLogo || isResumeLogo || isMailLogo ? "animate-pulse" : "bg-white"}
-  `.trim(),
+      `pointer-events-none z-[10000] hidden rounded-full bg-white md:flex ${
+        !projImage
+          ? "mix-blend-difference"
+          : "scale-0 overflow-hidden opacity-0 transition-all duration-200"
+      } ${
+        isGitHubLogo || isLinkedInLogo || isResumeLogo || isMailLogo ? "animate-pulse" : "bg-white"
+      }`.trim(),
     [projImage, isGitHubLogo, isLinkedInLogo, isResumeLogo, isMailLogo]
   );
 
@@ -84,7 +79,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-full min-h-screen w-full bg-[#121212] text-white">
+    <div className="h-full min-h-screen w-full bg-black text-white">
       <GoogleAnalytics trackPageViews />
 
       <AnimatePresence>
@@ -137,8 +132,8 @@ export default function Home() {
         animate={{
           x: x - offset,
           y: y - offset,
-          width: `${isInteracting ? "200px" : "40px"}`,
-          height: `${isInteracting ? "200px" : "40px"}`,
+          width: isInteracting ? "200px" : "40px",
+          height: isInteracting ? "200px" : "40px",
         }}
         transition={{
           type: "spring",
@@ -169,38 +164,27 @@ export default function Home() {
       </motion.div>
 
       <main
-        className="flex min-h-screen w-full flex-col items-center justify-between overflow-x-hidden bg-[#ececec] text-black dark:bg-[#060606] dark:text-white"
+        className="flex min-h-screen w-full flex-col items-center justify-between bg-black text-white selection:bg-white selection:text-black"
         ref={ref}
       >
-        <div className="fixed z-[10] w-full">
-          <Navbar />
-        </div>
-
+        <Navbar />
         <CommandPalette />
 
-        <div id="hero">
-          <HeroSection />
-        </div>
-
-        <div id="about">
+        <div id="about" className="w-full">
           <AboutSection
             isEscaping={isEscaping}
             triggerEscape={triggerEscape}
             resetEscape={resetEscape}
           />
         </div>
-        <section
-          id="projects"
-          className="mx-auto my-20 hidden flex-col justify-center p-2 text-4xl font-light md:flex md:w-[75%] md:p-0"
-        >
+
+        <div id="projects" className="hidden w-full md:block">
           <ProjectsWithSkills />
-        </section>
-        <section
-          id="projects-mobile"
-          className="mb-10 mt-20 flex flex-col justify-center text-4xl font-light md:hidden md:w-[75%]"
-        >
+        </div>
+
+        <div id="projects-mobile" className="w-full md:hidden">
           <ProjectSection />
-        </section>
+        </div>
 
         <Footer />
       </main>
