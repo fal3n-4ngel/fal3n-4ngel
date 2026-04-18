@@ -178,11 +178,12 @@ export default async function RootLayout({
                 "@type": "Organization",
                 name: "Equifax",
               },
-              alumniOf: "APJ Abdul Kalam Technological University",
+              alumniOf: "APJ Abdul Kalam Technological University Kerala",
               knowsAbout: [
                 "Full Stack Development",
                 "React",
                 "Next.js",
+                "Java Spring Boot",
                 "TypeScript",
                 "Cloud Architecture",
               ],
