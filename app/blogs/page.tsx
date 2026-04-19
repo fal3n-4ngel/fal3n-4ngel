@@ -5,10 +5,12 @@ import { RiArrowLeftLine, RiArrowRightUpLine } from "react-icons/ri";
 
 export const metadata = {
   title: "Writing | Adithya Krishnan",
-  description: "Deep Thoughts, questions, and random bullshits me and my friends think of",
+  description:
+    "Deep thoughts, questions, and random explorations. Ideas conceptualized by us, structured and polished by AI.",
   openGraph: {
     title: "Writing | Adithya Krishnan",
-    description: "Deep Thoughts, questions, and random bullshits me and my friends think of",
+    description:
+      "Deep thoughts, questions, and random explorations. Ideas conceptualized by us, structured and polished by AI.",
     type: "website",
   },
 };
@@ -35,10 +37,10 @@ export default async function BlogsPage() {
         <FadeUp>
           <div>
             <h1 className="text-4xl font-bold tracking-tight md:text-6xl">Writing</h1>
-            <p className="mt-4 max-w-2xl font-sans text-lg text-white/60">
-              Deep Thoughts, questions, and random bullshits me and friends think of. All the blogs
-              are written by an llm since I am lazy to type everything , I jusst rant the main idea
-              rest of the formatting and writing is done by the llm.
+            <p className="mt-4 max-w-2xl font-sans text-lg leading-relaxed text-white/60">
+              Deep thoughts, candid questions, and random explorations from me and my friends. I
+              generally brain-dump the core ideas and rants, while an AI helps structure and polish
+              the final piece.
             </p>
           </div>
         </FadeUp>
