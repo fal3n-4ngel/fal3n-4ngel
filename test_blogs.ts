@@ -1,0 +1,1 @@
+import { config } from 'dotenv'; config({ path: '.env.local' }); import { Client } from '@notionhq/client'; const notion = new Client({ auth: process.env.NOTION_TOKEN }); notion.databases.query({ database_id: process.env.NOTION_BLOGS_DB_ID! }).then(r => console.log(r.results.map(p => p.id)));

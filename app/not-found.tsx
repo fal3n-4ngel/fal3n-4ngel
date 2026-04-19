@@ -12,7 +12,6 @@ export default function Custom404() {
   const [projImage, setProjImage] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  
   if (typeof window !== "undefined") {
     window.onmousemove = (e) => {
       if (e) {
@@ -31,41 +30,59 @@ export default function Custom404() {
     };
   }
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-between bg-[#121212] pb-10 text-white">
-      <div>
-        <motion.div
-          style={{ position: "fixed", top: `0%`, left: `0%`, height: "200px", width: "200px" }}
-          animate={{
-            x: x - offset,
-            y: y - offset,
-            top: 0,
-            left: 0,
-            width: `${interacting ? "200px" : "40px"}`,
-            height: `${interacting ? "200px" : "40px"}`,
-          }}
-          className={`z-top pointer-events-none hidden rounded-full bg-white md:flex ${
-            !projImage
-              ? "mix-blend-difference"
-              : "overflow-hidden opacity-0 transition-all duration-300"
-          } `}
-        >
-          <img src="/ghost.png"></img>
-        </motion.div>
-      </div>
-      <div className="flex h-full w-full flex-col items-center justify-between pb-10" ref={ref}>
+    <main className="relative flex h-screen w-full flex-col overflow-hidden bg-[#121212] text-white selection:bg-white/30">
+      <div className="absolute left-0 top-0 z-50 w-full">
         <Navbar />
-        <h1 className="interactable mb-8 font-elgoc text-[25vw] font-light md:text-[9vw]">404</h1>
+      </div>
+
+      {/* Custom Follow Cursor */}
+      <motion.div
+        style={{ position: "fixed", top: `0%`, left: `0%` }}
+        animate={{
+          x: x - offset,
+          y: y - offset,
+          width: interacting ? "200px" : "40px",
+          height: interacting ? "200px" : "40px",
+        }}
+        className={`pointer-events-none z-[100] hidden rounded-full bg-white md:flex ${
+          !projImage
+            ? "mix-blend-difference"
+            : "overflow-hidden opacity-0 transition-all duration-300"
+        }`}
+      >
+        {interacting && (
+          <Image src="/ghost.png" alt="Cursor Ghost" fill className="object-cover" unoptimized />
+        )}
+      </motion.div>
+
+      {/* Main 404 Content */}
+      <div
+        className="z-10 flex flex-1 flex-col items-center justify-center space-y-8 px-6 text-center"
+        ref={ref}
+      >
+        <h1 className="interactable font-elgoc text-8xl font-light leading-none tracking-tight md:text-[12vw]">
+          404
+        </h1>
 
         <Link
           href="/"
-          className="interactable space-grotesk flex items-center gap-2 text-xl uppercase hover:underline"
+          className="interactable mt-8 rounded-full border border-white/20 px-8 py-4 font-mono text-sm uppercase tracking-widest transition-colors hover:bg-white hover:text-black"
         >
-          Back to Homepage
+          Return to Homepage
         </Link>
-        <div className="absolute bottom-0 left-[50%] z-0 flex w-[80vw] -translate-x-[50%] items-end justify-center opacity-20 sm:w-[50vw] md:w-[35vw]">
-          <Image src="/ghost.png" alt="Ghost" width={500} height={500} unoptimized />
-        </div>
       </div>
-    </div>
+
+      {/* Background Ghost Decoration */}
+      <div className="pointer-events-none absolute bottom-[-10%] left-1/2 z-0 flex w-[120vw] max-w-[800px] -translate-x-1/2 items-end justify-center opacity-10 mix-blend-screen blur-xl">
+        <Image
+          src="/ghost.png"
+          alt="Ghost background"
+          width={500}
+          height={500}
+          className="object-contain"
+          unoptimized
+        />
+      </div>
+    </main>
   );
 }

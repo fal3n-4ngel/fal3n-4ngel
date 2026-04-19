@@ -1,4 +1,6 @@
-import { motion, HTMLMotionProps } from "framer-motion";
+"use client";
+
+import { HTMLMotionProps, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 interface FadeUpProps extends HTMLMotionProps<"div"> {}

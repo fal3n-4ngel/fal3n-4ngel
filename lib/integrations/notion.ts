@@ -13,6 +13,7 @@ const DATABASE_ID = process.env.NOTION_DATABASE_ID;
 const EXPERIENCES_DB_ID = process.env.NOTION_EXPERIENCE_DB_ID;
 const PROJECTS_DB_ID = process.env.NOTION_PROJECTS_DB_ID;
 const AWARDS_DB_ID = process.env.NOTION_AWARDS_DB_ID;
+const BLOGS_DB_ID = process.env.NOTION_BLOGS_DB_ID;
 
 type ConfigAccumulator = Record<string, { isEnabled: boolean; content: string }>;
 
@@ -175,4 +176,65 @@ export const getAwards = unstable_cache(
   },
   ["awards"],
   { revalidate: 60, tags: ["awards"] }
+);
+
+export interface BlogItemData {
+  id: string;
+  title: string;
+  slug: string;
+  date: string;
+  excerpt: string;
+  url: string;
+}
+
+export const getBlogs = unstable_cache(
+  async (): Promise<BlogItemData[]> => {
+    try {
+      if (!BLOGS_DB_ID) return [];
+
+      const response = await notion.databases.query({
+        database_id: BLOGS_DB_ID,
+        sorts: [
+          {
+            property: "Order",
+            direction: "ascending",
+          },
+        ],
+      });
+
+      return response.results.map((page: any) => {
+        return {
+          id: page.id,
+          title: page.properties.Title?.title?.[0]?.plain_text || "",
+          slug: page.properties.Slug?.rich_text?.[0]?.plain_text || "",
+          date: page.properties.Date?.rich_text?.[0]?.plain_text || "",
+          excerpt: page.properties.Excerpt?.rich_text?.[0]?.plain_text || "",
+          url: page.properties.URL?.url || "",
+        };
+      });
+    } catch (error) {
+      console.error("❌ Notion Fetch Error for Blogs:", error);
+      return [];
+    }
+  },
+  ["blogs-v3"],
+  { revalidate: 60, tags: ["blogs-v3"] }
+);
+
+import { NotionToMarkdown } from "notion-to-md";
+
+export const getNotionPageMarkdown = unstable_cache(
+  async (pageId: string) => {
+    try {
+      const n2m = new NotionToMarkdown({ notionClient: notion });
+      const mdblocks = await n2m.pageToMarkdown(pageId);
+      const mdString = n2m.toMarkdownString(mdblocks);
+      return mdString.parent;
+    } catch (error) {
+      console.error("❌ Error fetching Notion page markdown:", error);
+      return "";
+    }
+  },
+  ["blog-markdown"],
+  { revalidate: 60, tags: ["blogs"] }
 );
