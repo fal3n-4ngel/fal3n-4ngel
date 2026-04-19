@@ -1,6 +1,7 @@
-import { EXPERIENCE_DATA, type ExperienceItem } from "@/data/experience";
-import { memo } from "react";
 import FadeUp from "@/components/FadeUp";
+import { type ExperienceItem } from "@/data/experience";
+import { getExperiences } from "@/lib/integrations/notion";
+import { memo, useEffect, useState } from "react";
 
 const ExperienceItemComponent = memo(({ item }: { item: ExperienceItem }) => (
   <div className="interactable space-y-1 px-1 py-2">
@@ -25,19 +26,35 @@ const ExperienceItemComponent = memo(({ item }: { item: ExperienceItem }) => (
 
 ExperienceItemComponent.displayName = "ExperienceItemComponent";
 
-export const ExperienceSection = memo(() => (
-  <div className="w-full space-y-4">
-    <FadeUp>
-      <h3 className="text-md font-bold uppercase tracking-[0.3em] text-neutral-600">experience</h3>
-    </FadeUp>
-    <div className="flex flex-col space-y-2">
-      {EXPERIENCE_DATA.map((item, index) => (
-        <FadeUp key={index}>
-          <ExperienceItemComponent item={item} />
-        </FadeUp>
-      ))}
+export const ExperienceSection = memo(() => {
+  const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
+
+  useEffect(() => {
+    getExperiences().then((data) => {
+      if (data && data.length > 0) {
+        setExperiences(data);
+      }
+    });
+  }, []);
+
+  if (experiences.length === 0) return null;
+
+  return (
+    <div className="w-full space-y-4">
+      <FadeUp>
+        <h3 className="text-md font-bold uppercase tracking-[0.3em] text-neutral-600">
+          experience
+        </h3>
+      </FadeUp>
+      <div className="flex flex-col space-y-2">
+        {experiences.map((item, index) => (
+          <FadeUp key={index}>
+            <ExperienceItemComponent item={item} />
+          </FadeUp>
+        ))}
+      </div>
     </div>
-  </div>
-));
+  );
+});
 
 ExperienceSection.displayName = "ExperienceSection";

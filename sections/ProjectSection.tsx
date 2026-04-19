@@ -1,17 +1,27 @@
 "use client";
-import { useEffect, useState } from "react";
-import { RiArrowUpCircleLine } from "react-icons/ri";
-import { projects } from "@/data/projects";
-import { Project, Repo } from "@/types/projects";
 import FadeUp from "@/components/FadeUp";
 import ProjBox from "@/components/ProjBox";
 import GithubProjectBox from "@/components/ProjectBoxGithub";
+import { projects } from "@/data/projects";
+import { getProjects } from "@/lib/integrations/notion";
+import { Project, Repo } from "@/types/projects";
+import { useEffect, useState } from "react";
+import { RiArrowUpCircleLine } from "react-icons/ri";
 
 function ProjectSection() {
   const [repos, setRepos] = useState<Repo[]>([]);
+  const [projectsList, setProjectsList] = useState<Project[]>([]);
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
+    getProjects().then((data) => {
+      if (data && data.length > 0) {
+        setProjectsList(data);
+      } else {
+        // Fallback or empty state
+      }
+    });
+
     async function fetchRepos() {
       const response = await fetch("https://api.github.com/users/fal3n-4ngel/repos");
       const data = await response.json();
@@ -52,7 +62,7 @@ function ProjectSection() {
       </div>
 
       <div className="flex flex-col gap-32">
-        {projects.map((project: Project) => (
+        {(projectsList.length > 0 ? projectsList : projects).map((project: Project) => (
           <FadeUp key={project.name}>
             <ProjBox {...project} />
           </FadeUp>

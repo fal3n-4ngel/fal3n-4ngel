@@ -1,15 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
 import FadeUp from "@/components/FadeUp";
 import ProjBox from "@/components/ProjBox";
+import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
-import { RiArrowUpCircleLine } from "react-icons/ri";
-import { projects, projectSkills, skillIcons } from "@/data/projects";
-import { GitProjectBoxProps, ProjectBoxProps, Repo } from "@/types/projects";
 import GithubProjectBox from "@/components/ProjectBoxGithub";
+import { projects, projectSkills, skillIcons } from "@/data/projects";
+import { getProjects } from "@/lib/integrations/notion";
+import { GitProjectBoxProps, Project, ProjectBoxProps, Repo } from "@/types/projects";
+import { RiArrowUpCircleLine } from "react-icons/ri";
 
 const ProjectsWithSkills: React.FC = () => {
+  const [projectsList, setProjectsList] = useState<Project[]>([]);
   const [activeProject, setActiveProject] = useState<string | null>(null);
   const [isGitHubProjectActive, setIsGitHubProjectActive] = useState(false);
   const { ref: sectionRef, inView: sectionInView } = useInView({
@@ -25,6 +27,12 @@ const ProjectsWithSkills: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
+    getProjects().then((data) => {
+      if (data && data.length > 0) {
+        setProjectsList(data);
+      }
+    });
+
     if (breakInView) {
       setVisibleCount(0);
     }
@@ -63,7 +71,6 @@ const ProjectsWithSkills: React.FC = () => {
   return (
     <section className="relative min-h-screen w-full px-12 py-24" ref={sectionRef}>
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-16 md:flex-row md:items-start md:gap-24">
-        
         <div className="z-10 w-full flex-1">
           <div className="mb-12" ref={breakRef}>
             <FadeUp>
@@ -74,7 +81,7 @@ const ProjectsWithSkills: React.FC = () => {
           </div>
 
           <div className="space-y-48">
-            {projects.map((project) => (
+            {(projectsList.length > 0 ? projectsList : projects).map((project) => (
               <ProjectBoxSelf
                 key={project.name}
                 {...project}
@@ -133,7 +140,6 @@ const ProjectsWithSkills: React.FC = () => {
           </FadeUp>
         </div>
 
-        
         <div className="no-scrollbar sticky top-[18vh] hidden max-h-[85vh] w-80 self-start overflow-y-auto pb-12 md:block">
           <div
             className={`transition-opacity duration-700 ease-out ${

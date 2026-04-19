@@ -1,8 +1,8 @@
-import { getSiteConfig } from "@/lib/integrations/notion";
-import { useEffect, useState } from "react";
 import FadeUp from "@/components/FadeUp";
 import { GhostButton } from "@/components/GhostButton";
 import NowPlaying from "@/components/NowPlaying";
+import { getSiteConfig } from "@/lib/integrations/notion";
+import { useEffect, useState } from "react";
 import { AwardsSection } from "./AwardsSection";
 import { ExperienceSection } from "./ExperienceSection";
 
@@ -31,7 +31,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   const collaborationText = config?.["collaboration"]?.content || "Inactive";
 
   let lastSeenSpotifyText = null;
-  console.log("Spotify Data", spotifyData);
   if (!spotifyData.isPlaying && spotifyData.lastPlayedAt) {
     const diffMs = new Date().getTime() - new Date(spotifyData.lastPlayedAt).getTime();
     const diffMins = Math.floor(diffMs / 60000);
@@ -64,7 +63,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center bg-black px-12 py-24 pt-48">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 md:flex-row md:items-start md:gap-20">
-        
         <div className="flex-1 space-y-8">
           <div className="space-grotesk max-w-2xl text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
             <FadeUp>
@@ -73,7 +71,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
             </FadeUp>
           </div>
 
-          
           <div className="mt-12 flex flex-col border-t border-white/10 pt-8 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 md:mt-24 md:flex-row md:gap-12">
             <div>
               <p className="mb-2 text-zinc-700">Based in</p>
@@ -94,7 +91,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
           </div>
         </div>
 
-        
         <div className="flex w-full flex-col gap-8 md:w-auto md:max-w-sm lg:max-w-md">
           <ExperienceSection />
           <AwardsSection />

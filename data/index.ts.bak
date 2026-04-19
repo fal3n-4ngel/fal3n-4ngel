@@ -1,6 +1,3 @@
-// Constants index
-// Centralized exports for all constants
-
 export { EXPERIENCE_DATA } from "./experience";
 export type { ExperienceItem } from "./experience";
 
