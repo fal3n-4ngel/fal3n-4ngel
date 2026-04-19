@@ -1,9 +1,47 @@
 import FadeUp from "@/components/FadeUp";
 import { getBlogs, getNotionPageMarkdown } from "@/lib/integrations/notion";
+import { Metadata } from "next";
 import Link from "next/link";
 import { RiArrowLeftLine } from "react-icons/ri";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const blogsData = await getBlogs();
+  const blog = blogsData?.find((b) => b.id === id);
+
+  if (!blog) {
+    return {
+      title: "Post Not Found",
+      description: "This blog post could not be found.",
+    };
+  }
+
+  return {
+    title: `${blog.title} | Adithya Krishnan`,
+    description: blog.excerpt,
+    openGraph: {
+      title: blog.title,
+      description: blog.excerpt,
+      type: "article",
+      publishedTime: blog.date,
+      authors: ["Adithya Krishnan"],
+    },
+    twitter: {
+      title: blog.title,
+      description: blog.excerpt,
+      card: "summary_large_image",
+    },
+    alternates: {
+      canonical: `https://www.adithyakrishnan.com/blogs/${blog.id}`,
+    },
+  };
+}
 
 export default async function BlogIdPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

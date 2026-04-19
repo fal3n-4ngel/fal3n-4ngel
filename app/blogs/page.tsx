@@ -3,6 +3,16 @@ import { getBlogs } from "@/lib/integrations/notion";
 import Link from "next/link";
 import { RiArrowLeftLine, RiArrowRightUpLine } from "react-icons/ri";
 
+export const metadata = {
+  title: "Writing | Adithya Krishnan",
+  description: "Deep Thoughts, questions, and random bullshits me and my friends think of",
+  openGraph: {
+    title: "Writing | Adithya Krishnan",
+    description: "Deep Thoughts, questions, and random bullshits me and my friends think of",
+    type: "website",
+  },
+};
+
 export default async function BlogsPage() {
   const blogs = await getBlogs();
 
@@ -26,7 +36,9 @@ export default async function BlogsPage() {
           <div>
             <h1 className="text-4xl font-bold tracking-tight md:text-6xl">Writing</h1>
             <p className="mt-4 max-w-2xl font-sans text-lg text-white/60">
-              Deep Thoughts, questions, and random bullshits Me and Friends think of
+              Deep Thoughts, questions, and random bullshits me and friends think of. All the blogs
+              are written by an llm since I am lazy to type everything , I jusst rant the main idea
+              rest of the formatting and writing is done by the llm.
             </p>
           </div>
         </FadeUp>
