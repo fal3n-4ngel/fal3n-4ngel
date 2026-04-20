@@ -12,12 +12,12 @@ export const Navbar = () => {
         <div className="font-space font-mono text-4xl font-light tracking-wider text-white/90">
           Adi.
         </div>
-        <div className="hidden items-center gap-6 font-mono text-[13px] tracking-[0.12em] text-white/60 md:flex md:gap-16 md:text-[18px] md:tracking-[0.15em]">
+        <div className="flex items-center gap-6 font-mono text-[13px] tracking-[0.12em] text-white/60 md:gap-16 md:text-[18px] md:tracking-[0.15em]">
           <a
             href="https://github.com/fal3n-4ngel"
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors duration-300 hover:text-white"
+            className="hidden transition-colors duration-300 hover:text-white md:inline"
           >
             github
           </a>
