@@ -17,15 +17,15 @@
 <details>
   <summary>🌱 Worklog  </summary>
 
-  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (3 months ago)
-  - [fal3n-4ngel/git-wrapped25](https://github.com/fal3n-4ngel/git-wrapped25) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (3 months ago)
+  - [fal3n-4ngel/minimal-portfolio](https://github.com/fal3n-4ngel/minimal-portfolio) -  (4 months ago)
+  - [fal3n-4ngel/git-wrapped25](https://github.com/fal3n-4ngel/git-wrapped25) - Git Wrapped is a web application that provides a beautiful visualization of your GitHub contributions. (4 months ago)
   - [fal3n-4ngel/resume](https://github.com/fal3n-4ngel/resume) -  (10 months ago)
 </details>
 
 <details>
   <summary>🔥 Picks </summary>
    
-  - [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) - Find, verify, and analyze leaked credentials (2 weeks ago)
+  - [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) - Find, verify, and analyze leaked credentials (3 weeks ago)
   - [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) - Official awesome-list of CodeRabbit Starters &amp; Resources ⚡️ (8 months ago)
   - [pear-devs/pear-desktop](https://github.com/pear-devs/pear-desktop) - Pear 🍐 is extension for music player (8 months ago)
   - [m4xshen/dotfiles](https://github.com/m4xshen/dotfiles) - My dotfiles for Neovim, Kitty, yabai, SketchyBar (9 months ago)
