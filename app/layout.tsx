@@ -1,5 +1,5 @@
-import Maintenance from "@/components/Maintenance";
 import { AestheticBackground } from "@/components/AestheticBackground";
+import Maintenance from "@/components/Maintenance";
 import { getSiteConfig } from "@/lib/integrations/notion";
 import LenisProvider from "@/lib/utils/LenisProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -141,7 +141,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${workSans.variable} ${poppins.variable} ${spaceGrotesk.variable} w-full scroll-smooth`}
+      className={`${inter.variable} ${workSans.variable} ${poppins.variable} ${spaceGrotesk.variable} h-full min-h-screen w-full scroll-smooth bg-black`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
