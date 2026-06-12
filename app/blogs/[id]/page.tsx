@@ -74,11 +74,5 @@ export default async function BlogIdPage({ params }: { params: Promise<{ id: str
   const markdown = await getNotionPageMarkdown(id);
   const readingTime = calculateReadingTime(markdown || blog.excerpt || "");
 
-  return (
-    <BlogIdClient
-      blog={blog}
-      markdown={markdown || ""}
-      readingTime={readingTime}
-    />
-  );
+  return <BlogIdClient blog={blog} markdown={markdown || ""} readingTime={readingTime} />;
 }
