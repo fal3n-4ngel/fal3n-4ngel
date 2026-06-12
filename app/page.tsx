@@ -1,9 +1,9 @@
-﻿"use client";
-import { useCustomCursor } from "@/hooks/useCustomCursor";
+"use client";
 import { useGhostEscape } from "@/hooks/useGhostEscape";
 import { useWindowDimensions } from "@/hooks/useWindowDimensions";
 import { createGhostVariants } from "@/lib/animations/animations";
 import { useFollowPointer } from "@/lib/utils/FollowPointer";
+import { CustomCursor } from "@/components/CustomCursor";
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -33,15 +33,10 @@ export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
 
-  const [projImage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const dimensions = useWindowDimensions();
-  const { cursorState, logoStates, offset } = useCustomCursor();
   const { isEscaping, pathRef, triggerEscape, resetEscape } = useGhostEscape(x, y);
-
-  const { isInteracting } = cursorState;
-  const { isGitHubLogo, isLinkedInLogo, isResumeLogo, isMailLogo } = logoStates;
 
   const ghostVariants = useMemo(
     () =>
@@ -49,22 +44,10 @@ export default function Home() {
         dimensions.width,
         dimensions.height,
         pathRef.current,
-        x,
-        y
+        x.get(),
+        y.get()
       ),
-    [dimensions.width, dimensions.height, isEscaping, x, y]
-  );
-
-  const cursorClasses = useMemo(
-    () =>
-      `pointer-events-none z-[10000] hidden rounded-full bg-white md:flex ${
-        !projImage
-          ? "mix-blend-difference"
-          : "scale-0 overflow-hidden opacity-0 transition-all duration-200"
-      } ${
-        isGitHubLogo || isLinkedInLogo || isResumeLogo || isMailLogo ? "animate-pulse" : "bg-white"
-      }`.trim(),
-    [projImage, isGitHubLogo, isLinkedInLogo, isResumeLogo, isMailLogo]
+    [dimensions.width, dimensions.height, isEscaping]
   );
 
   const handleLoadingComplete = useCallback(() => {
@@ -115,50 +98,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <motion.div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          height: "200px",
-          width: "200px",
-        }}
-        animate={{
-          x: x - offset,
-          y: y - offset,
-          width: isInteracting ? "200px" : "40px",
-          height: isInteracting ? "200px" : "40px",
-        }}
-        transition={{
-          type: "spring",
-          damping: 20,
-          stiffness: 100,
-          mass: 0.5,
-        }}
-        className={cursorClasses}
-      >
-        <MotionImage
-          src="/ghost.png"
-          width={80}
-          height={80}
-          className={`z-[-1] h-full w-full object-contain ${isEscaping ? "hidden" : "flex"}`}
-          alt=""
-          animate={
-            isInteracting
-              ? {
-                  opacity: [0.35, 0.5, 0.35],
-                  scale: [1, 1.05, 1],
-                }
-              : { opacity: 0.35 }
-          }
-          transition={{
-            duration: 1.5,
-            repeat: isInteracting ? Infinity : 0,
-            ease: "easeInOut",
-          }}
-          priority
-        />
-      </motion.div>
+      <CustomCursor x={x} y={y} isEscaping={isEscaping} />
 
       <main
         className="flex min-h-screen w-full flex-col items-center justify-between bg-black text-white selection:bg-white selection:text-black"

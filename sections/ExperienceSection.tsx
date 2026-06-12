@@ -20,7 +20,7 @@ const ExperienceItemComponent = memo(({ item }: { item: ExperienceItem }) => (
         <span>{item.company}</span>
       )}
     </div>
-    <div className="font-sans text-sm text-gray-500">{item.period}</div>
+    <div className="font-mono text-xs text-neutral-500">{item.period}</div>
   </div>
 ));
 

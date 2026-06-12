@@ -1,15 +1,16 @@
 import { useCallback, useRef, useState } from "react";
 import { Position } from "@/types/position";
 import { generateRandomPath } from "@/lib/utils/GenerateRandomPath";
+import { MotionValue } from "framer-motion";
 
-export const useGhostEscape = (x: number, y: number) => {
+export const useGhostEscape = (x: MotionValue<number>, y: MotionValue<number>) => {
   const [isEscaping, setIsEscaping] = useState(false);
   const pathRef = useRef<Position[]>([]);
 
   const triggerEscape = useCallback(() => {
     if (!isEscaping) {
       pathRef.current = generateRandomPath(
-        { x, y },
+        { x: x.get(), y: y.get() },
         { width: window.innerWidth, height: window.innerHeight }
       );
       setIsEscaping(true);

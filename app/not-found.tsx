@@ -1,34 +1,16 @@
 "use client";
+
 import { useFollowPointer } from "@/lib/utils/FollowPointer";
 import { Navbar } from "@/sections/Navbar";
-import { motion } from "framer-motion";
+import { CustomCursor } from "@/components/CustomCursor";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+
 export default function Custom404() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
-  const [interacting, setInteracting] = useState(false);
-  const [projImage, setProjImage] = useState(false);
-  const [offset, setOffset] = useState(0);
 
-  if (typeof window !== "undefined") {
-    window.onmousemove = (e) => {
-      if (e) {
-        const targetElement = e.target as HTMLElement;
-        const interactableElement = targetElement.closest(".interactable");
-        setInteracting(interactableElement ? true : false);
-        const targetImage = e.target as HTMLElement;
-        const interactableImage = targetImage.closest(".projImg");
-        setProjImage(interactableImage ? true : false);
-        if (interacting) {
-          setOffset(50);
-        } else {
-          setOffset(0);
-        }
-      }
-    };
-  }
   return (
     <main className="relative flex h-screen w-full flex-col overflow-hidden bg-[#121212] text-white selection:bg-white/30">
       <div className="absolute left-0 top-0 z-50 w-full">
@@ -36,24 +18,7 @@ export default function Custom404() {
       </div>
 
       {/* Custom Follow Cursor */}
-      <motion.div
-        style={{ position: "fixed", top: `0%`, left: `0%` }}
-        animate={{
-          x: x - offset,
-          y: y - offset,
-          width: interacting ? "200px" : "40px",
-          height: interacting ? "200px" : "40px",
-        }}
-        className={`pointer-events-none z-[100] hidden rounded-full bg-white md:flex ${
-          !projImage
-            ? "mix-blend-difference"
-            : "overflow-hidden opacity-0 transition-all duration-300"
-        }`}
-      >
-        {interacting && (
-          <Image src="/ghost.png" alt="Cursor Ghost" fill className="object-cover" unoptimized />
-        )}
-      </motion.div>
+      <CustomCursor x={x} y={y} />
 
       {/* Main 404 Content */}
       <div

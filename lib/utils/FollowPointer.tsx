@@ -1,43 +1,37 @@
-import { useCallback, useEffect, useState } from "react";
-import { Position } from "@/types/position";
+import { useMotionValue, MotionValue } from "framer-motion";
+import { useEffect } from "react";
 
-export const useFollowPointer = (ref: React.RefObject<HTMLElement | null>): Position => {
-  let xh = 0,
-    yh = 0;
-  if (typeof window !== "undefined") {
-    xh = window.innerWidth / 2 - 50;
-    yh = window.innerHeight / 2 - 50;
-  }
-  const [position, setPosition] = useState<Position>({ x: xh, y: yh });
+export interface FollowPointerResult {
+  x: MotionValue<number>;
+  y: MotionValue<number>;
+}
 
-  const lastUpdateRef = useCallback(() => {
-    let lastUpdate = 0;
-    const FRAME_RATE = 60;
-    const FRAME_TIME = 1000 / FRAME_RATE;
-
-    return (e: MouseEvent) => {
-      if (!ref.current) return;
-
-      const now = performance.now();
-      if (now - lastUpdate < FRAME_TIME) return;
-
-      setPosition({
-        x: e.clientX - 20,
-        y: e.clientY - 20,
-      });
-
-      lastUpdate = now;
-    };
-  }, [ref]);
+export const useFollowPointer = (
+  ref?: React.RefObject<HTMLElement | null>
+): FollowPointerResult => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
   useEffect(() => {
-    const handleMouseMove = lastUpdateRef();
-    window.addEventListener("mousemove", handleMouseMove);
+    if (typeof window === "undefined") return;
+
+    // Set initial position to center of screen
+    x.set(window.innerWidth / 2);
+    y.set(window.innerHeight / 2);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (ref && !ref.current) return;
+
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [lastUpdateRef]);
+  }, [ref, x, y]);
 
-  return position;
+  return { x, y };
 };

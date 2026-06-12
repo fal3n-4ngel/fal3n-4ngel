@@ -19,17 +19,27 @@ type Rect = {
   opacity: number;
 };
 
-const randomColor = (): string => "#" + Math.floor(Math.random() * 16777215).toString(16);
+const randomColor = (): string => {
+  const colors = [
+    "rgba(255, 255, 255, 0.03)",
+    "rgba(255, 255, 255, 0.06)",
+    "rgba(255, 255, 255, 0.01)",
+    "rgba(255, 255, 255, 0.09)",
+    "rgba(255, 255, 255, 0.12)",
+    "rgba(150, 160, 175, 0.04)"
+  ];
+  return colors[Math.floor(Math.random() * colors.length)] || "rgba(255, 255, 255, 0.03)";
+};
 
 const generateRects = (seed: number): Rect[] => {
-  const numRects = Math.floor(Math.random() * 11) + 5;
+  const numRects = Math.floor(Math.random() * 11) + 6;
   return Array.from({ length: numRects }, () => ({
     x: Math.random() * 1280,
     y: Math.random() * 640,
-    width: Math.random() * 200 + 50,
-    height: Math.random() * 200 + 50,
+    width: Math.random() * 250 + 50,
+    height: Math.random() * 250 + 50,
     fill: randomColor(),
-    opacity: Math.random() * 0.5 + 0.1,
+    opacity: 1.0, // Opacity is controlled by the rgba fill color directly
   }));
 };
 

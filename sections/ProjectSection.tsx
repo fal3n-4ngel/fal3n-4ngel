@@ -82,36 +82,34 @@ function ProjectSection() {
         ))}
       </div>
 
-      <FadeUp className="m-5 mt-16 p-10">
-        <div className="mt-6 flex flex-col items-center">
+      <div className="mt-16 flex flex-col items-center gap-8">
+        <div className="flex flex-wrap justify-center gap-4">
           {visibleCount < repos.length && (
             <button
               onClick={showMoreProjects}
-              className="interactable mb-5 flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 font-poppins text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:pt-2 md:text-2xl"
+              className="interactable flex items-center gap-3 border border-white/10 bg-white/[0.02] px-6 py-3 font-mono text-xs uppercase tracking-widest text-neutral-400 transition-all hover:border-white/30 hover:bg-white/[0.05] hover:text-white"
             >
-              <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
-              discover more <RiArrowUpCircleLine className="h-6 w-6 rotate-180" />
+              <RiArrowUpCircleLine className="h-4 w-4 rotate-180" />
+              discover more
             </button>
           )}
 
           {visibleCount >= 1 && (
             <button
               onClick={showLessProjects}
-              className="interactable flex h-fit w-fit cursor-pointer items-center gap-2 rounded-full bg-[#afafaf] p-2 px-5 font-poppins text-lg text-black transition-all dark:bg-[#3d3d3d] dark:text-white md:pt-2 md:text-2xl"
+              className="interactable flex items-center gap-3 border border-white/10 bg-white/[0.02] px-6 py-3 font-mono text-xs uppercase tracking-widest text-neutral-400 transition-all hover:border-white/30 hover:bg-white/[0.05] hover:text-white"
             >
-              <RiArrowUpCircleLine className="h-6 w-6" /> collapse
-              <RiArrowUpCircleLine className="h-6 w-6" />
+              <RiArrowUpCircleLine className="h-4 w-4" />
+              collapse
             </button>
           )}
-          <div className="mt-8 flex w-full flex-col items-center rounded-full p-2 text-center shadow-md">
-            <div className="flex w-full items-center justify-center">
-              <p className="work-sans text-xs font-light text-[#2e3440] dark:text-[#e5e9f0] md:text-base">
-                Projects are dynamically fetched through GitHub API
-              </p>
-            </div>
-          </div>
         </div>
-      </FadeUp>
+        <div className="flex items-center justify-center">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">
+            Projects are dynamically fetched through GitHub API
+          </p>
+        </div>
+      </div>
     </section>
   );
 }
