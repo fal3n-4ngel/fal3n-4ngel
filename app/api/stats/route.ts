@@ -1,12 +1,19 @@
+import { verifyOAuth } from "@/lib/auth";
 import { fetchGithubData } from "@/lib/integrations/github";
 import { getBlogs, getExperiences, getProjects } from "@/lib/integrations/notion";
 import { getNowPlaying } from "@/lib/integrations/spotify";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    if (!(await verifyOAuth(req))) {
+      return NextResponse.json(
+        { error: "Unauthorized", message: "Valid OAuth Bearer token required" },
+        { status: 401 }
+      );
+    }
     // Fetch stats concurrently using Promise.allSettled for maximum fault tolerance
     const [spotifyResult, githubResult, blogsResult, projectsResult, experiencesResult] =
       await Promise.allSettled([
@@ -45,7 +52,7 @@ export async function GET() {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
       }
     );
@@ -68,7 +75,7 @@ export async function OPTIONS() {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   });
 }

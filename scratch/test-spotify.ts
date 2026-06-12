@@ -1,6 +1,5 @@
-"use server";
-
-import { unstable_cache } from "next/cache";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -26,29 +25,23 @@ const getAccessToken = async () => {
   return response.json();
 };
 
-let cachedData: any = null;
-let cacheTimestamp = 0;
-const CACHE_TTL = 10000; // 10 seconds
-
-export const getNowPlaying = async () => {
-  const now = Date.now();
-  if (cachedData && now - cacheTimestamp < CACHE_TTL) {
-    return cachedData;
-  }
-
+async function testSpotify() {
   try {
     const { access_token } = await getAccessToken();
+    console.log("Access Token retrieved:", access_token ? "YES" : "NO");
     if (!access_token) return { isPlaying: false };
 
+    console.log("Fetching Now Playing...");
     const response = await fetch(NOW_PLAYING_ENDPOINT, {
       headers: { Authorization: `Bearer ${access_token}` },
-      cache: "no-store",
     });
+    console.log("Now Playing Status:", response.status);
 
     if (response.status === 200) {
       const song = await response.json();
+      console.log("Now Playing Response Body:", JSON.stringify(song, null, 2));
       if (song.item) {
-        cachedData = {
+        return {
           title: song.item.name,
           artist: song.item.artists.map((a: any) => a.name).join(", "),
           isPlaying: song.is_playing,
@@ -56,42 +49,31 @@ export const getNowPlaying = async () => {
           albumImageUrl: song.item.album.images[0]?.url,
           lastPlayedAt: new Date().toISOString(),
         };
-        cacheTimestamp = now;
-        return cachedData;
       }
     }
 
+    console.log("Fetching Recently Played...");
     const recentReq = await fetch(RECENTLY_PLAYED_ENDPOINT, {
       headers: { Authorization: `Bearer ${access_token}` },
-      cache: "no-store",
     });
+    console.log("Recently Played Status:", recentReq.status);
 
     if (recentReq.ok) {
       const recent = await recentReq.json();
-      cachedData = {
+      console.log("Recently Played Response Body:", JSON.stringify(recent, null, 2));
+      return {
         isPlaying: false,
         lastPlayedAt: recent.items?.[0]?.played_at || null,
         title: recent.items?.[0]?.track.name,
         artist: recent.items?.[0]?.track.artists.map((a: any) => a.name).join(", "),
       };
-      cacheTimestamp = now;
-      return cachedData;
-    }
-
-    // Handle rate-limiting (429) or failures gracefully:
-    // If we have cached data, return it with isPlaying: false to preserve lastPlayedAt
-    if (cachedData) {
-      cachedData.isPlaying = false;
-      return cachedData;
     }
 
     return { isPlaying: false };
   } catch (e) {
-    console.error("Error in getNowPlaying:", e);
-    if (cachedData) {
-      cachedData.isPlaying = false;
-      return cachedData;
-    }
+    console.error("Exception in testSpotify:", e);
     return { isPlaying: false };
   }
-};
+}
+
+testSpotify().then(res => console.log("Final Output:", res));

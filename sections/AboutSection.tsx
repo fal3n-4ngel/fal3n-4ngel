@@ -57,6 +57,9 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     } else if (lastSeenSpotifyText) {
       displayStatus = false;
       displayText = lastSeenSpotifyText;
+    } else {
+      displayStatus = false;
+      displayText = "Offline";
     }
   }
 

@@ -1,16 +1,23 @@
+import { verifyOAuth } from "@/lib/auth";
 import { getBlogs } from "@/lib/integrations/notion";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    if (!(await verifyOAuth(req))) {
+      return NextResponse.json(
+        { error: "Unauthorized", message: "Valid OAuth Bearer token required" },
+        { status: 401 }
+      );
+    }
     const data = await getBlogs();
     return NextResponse.json(data, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
   } catch (error: any) {
@@ -32,7 +39,7 @@ export async function OPTIONS() {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   });
 }

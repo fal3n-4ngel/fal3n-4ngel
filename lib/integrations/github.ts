@@ -5,7 +5,7 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 export const fetchGithubData = unstable_cache(
   async () => {
-    const headers: HeadersInit = {
+    let headers: HeadersInit = {
       Accept: "application/vnd.github.v3+json",
       "User-Agent": "Portfolio-API-Adithya",
     };
@@ -15,10 +15,24 @@ export const fetchGithubData = unstable_cache(
     }
 
     // 1. Fetch User Profile
-    const profileRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+    let profileRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
       headers,
       next: { revalidate: 300 },
     });
+
+    // Self-healing: If the provided GITHUB_TOKEN is unauthorized or invalid (401/403),
+    // retry the request publicly without the token.
+    if ((profileRes.status === 401 || profileRes.status === 403) && GITHUB_TOKEN) {
+      console.warn("⚠️ GitHub Token is invalid/unauthorized. Retrying request publicly.");
+      headers = {
+        Accept: "application/vnd.github.v3+json",
+        "User-Agent": "Portfolio-API-Adithya",
+      };
+      profileRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+        headers,
+        next: { revalidate: 300 },
+      });
+    }
 
     if (!profileRes.ok) {
       throw new Error(`GitHub profile fetch failed: ${profileRes.statusText}`);
