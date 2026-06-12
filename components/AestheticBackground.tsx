@@ -124,45 +124,60 @@ export const AestheticBackground: React.FC = () => {
     ghostGeom.setIndex(indices);
     ghostGeom.computeVertexNormals();
 
+    // 1. Invisible Depth Pre-pass Mesh (blocks rear lines from drawing through the front)
+    const depthMaterial = new THREE.MeshBasicMaterial({
+      colorWrite: false, // Don't write color/visible pixels
+      depthWrite: true,  // Write only depth values
+      side: THREE.FrontSide,
+    });
+    const depthMesh = new THREE.Mesh(ghostGeom, depthMaterial);
+    ghostGroup.add(depthMesh);
+
+    // 2. Translucent front shell body
     const ghostMaterial = new THREE.MeshPhongMaterial({
       color: 0xffffff,
       shininess: 30,
       specular: 0x333333,
       transparent: true,
       opacity: 0.12,
-      side: THREE.DoubleSide,
+      side: THREE.FrontSide,
+      depthWrite: false, // Depth is already written by prepass
+      depthTest: true,
     });
 
     const ghostMesh = new THREE.Mesh(ghostGeom, ghostMaterial);
     ghostGroup.add(ghostMesh);
 
+    // 3. Crisp wireframe overlay
     const ghostWireframe = new THREE.LineSegments(
       new THREE.EdgesGeometry(ghostGeom, 15),
       new THREE.LineBasicMaterial({
         color: 0xffffff,
         transparent: true,
         opacity: 0.25,
-        depthWrite: false,
+        depthWrite: false, // Depth is already written by prepass
+        depthTest: true,
       })
     );
     ghostGroup.add(ghostWireframe);
 
-    // Eyes
-    const eyeGeom = new THREE.SphereGeometry(0.48, 16, 16);
-    eyeGeom.scale(1.0, 1.0, 0.2); 
+    // Eyes (Flat 2D Circle discs aligned flat with the screen view plane so they are projected as perfect circles)
+    const eyeGeom = new THREE.CircleGeometry(0.42, 32);
     
     const eyeMat = new THREE.MeshBasicMaterial({ 
       color: 0x000000, 
-      depthWrite: true
+      depthWrite: true,
+      side: THREE.DoubleSide
     });
     
     const leftEye = new THREE.Mesh(eyeGeom, eyeMat);
-    leftEye.position.set(-0.75, 1.8, 3.25);
-    leftEye.rotation.set(0.1, 0.2, 0);
+    // Align flush on the front of head (z offset 3.32)
+    leftEye.position.set(-0.75, 1.8, 3.32);
+    leftEye.rotation.set(0, 0, 0); // No angle tilt so it stays a perfect circle to the camera
 
     const rightEye = new THREE.Mesh(eyeGeom, eyeMat);
-    rightEye.position.set(0.75, 1.8, 3.25);
-    rightEye.rotation.set(0.1, -0.2, 0);
+    rightEye.position.set(0.75, 1.8, 3.32);
+    rightEye.rotation.set(0, 0, 0);
 
     ghostGroup.add(leftEye);
     ghostGroup.add(rightEye);
@@ -313,10 +328,10 @@ export const AestheticBackground: React.FC = () => {
         ghostGroup.rotation.x = currentRot.x + Math.cos(t * 0.6) * 0.12;
         ghostGroup.rotation.z = Math.sin(t * 1.1) * 0.1;
 
-        // Scale eyes (pulsate size on 404 page)
+        // Scale eyes (pulsate size uniformly on 404 page to keep them round)
         const eyePulse = 1.0 + Math.sin(t * 4.0) * 0.15;
-        leftEye.scale.set(eyePulse, eyePulse, 0.2);
-        rightEye.scale.set(eyePulse, eyePulse, 0.2);
+        leftEye.scale.set(eyePulse, eyePulse, 1.0);
+        rightEye.scale.set(eyePulse, eyePulse, 1.0);
 
         // Scale mascot up slightly
         ghostGroup.scale.setScalar(1.15);
@@ -347,8 +362,8 @@ export const AestheticBackground: React.FC = () => {
         ghostGroup.rotation.z = Math.sin(t * 0.8) * 0.05;
 
         // Make eyes normal size
-        leftEye.scale.set(1, 1, 0.2);
-        rightEye.scale.set(1, 1, 0.2);
+        leftEye.scale.set(1, 1, 1.0);
+        rightEye.scale.set(1, 1, 1.0);
 
         ghostMaterial.opacity = 0.12 + interactionProgress * 0.12;
       }
