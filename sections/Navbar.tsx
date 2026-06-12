@@ -1,5 +1,6 @@
 "use client";
 
+import MagneticElement from "@/components/MagneticElement";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -21,26 +22,32 @@ export const Navbar = () => {
           Adi.
         </Link>
         <div className="flex items-center gap-5 font-mono text-[11px] tracking-[0.1em] text-white/50 md:gap-10 md:text-[14px]">
-          <Link
-            href="/blogs"
-            className="interactable transition-colors duration-300 hover:text-white"
-          >
-            writing
-          </Link>
-          <a
-            href="/Resume_Adithya_Krishnan.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="interactable transition-colors duration-300 hover:text-white"
-          >
-            resume
-          </a>
-          <a
-            href="mailto:hello@adithyakrishnan.com"
-            className="interactable transition-colors duration-300 hover:text-white"
-          >
-            contact
-          </a>
+          <MagneticElement>
+            <Link
+              href="/blogs"
+              className="interactable transition-colors duration-300 hover:text-white"
+            >
+              writing
+            </Link>
+          </MagneticElement>
+          <MagneticElement>
+            <a
+              href="/Resume_Adithya_Krishnan.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="interactable transition-colors duration-300 hover:text-white"
+            >
+              resume
+            </a>
+          </MagneticElement>
+          <MagneticElement>
+            <a
+              href="mailto:hello@adithyakrishnan.com"
+              className="interactable transition-colors duration-300 hover:text-white"
+            >
+              contact
+            </a>
+          </MagneticElement>
         </div>
       </div>
     </motion.nav>
