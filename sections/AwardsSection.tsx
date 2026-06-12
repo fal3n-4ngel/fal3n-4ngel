@@ -65,7 +65,7 @@ const AwardItem = ({
   date?: string;
 }) => (
   <FadeUp className="group">
-    <div className="space-y-1">
+    <div className="interactable space-y-1">
       <h4 className="text-lg font-semibold text-white transition-colors group-hover:text-neutral-200">
         {title}
       </h4>

@@ -113,34 +113,6 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
         mass: 0.5,
       }}
       className={cursorClasses}
-    >
-      <motion.div
-        className="relative h-full w-full"
-        animate={
-          isInteracting
-            ? {
-                opacity: [0.35, 0.5, 0.35],
-                scale: [1, 1.05, 1],
-              }
-            : { opacity: 0.35 }
-        }
-        transition={{
-          duration: 1.5,
-          repeat: isInteracting ? Infinity : 0,
-          ease: "easeInOut",
-        }}
-      >
-        <Image
-          src="/ghost.png"
-          fill
-          sizes="(max-width: 768px) 0px, 200px"
-          className={`z-[-1] object-contain p-[15%] transition-opacity duration-300 ${
-            isEscaping ? "opacity-0" : "opacity-100"
-          }`}
-          alt=""
-          priority
-        />
-      </motion.div>
-    </motion.div>
+    />
   );
 };

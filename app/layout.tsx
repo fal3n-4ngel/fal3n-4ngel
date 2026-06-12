@@ -1,4 +1,5 @@
 import Maintenance from "@/components/Maintenance";
+import { AestheticBackground } from "@/components/AestheticBackground";
 import { getSiteConfig } from "@/lib/integrations/notion";
 import LenisProvider from "@/lib/utils/LenisProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -149,11 +150,14 @@ export default async function RootLayout({
         <meta name="theme-color" content="#060606" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
-      <body className={`${inter.className} custom-scrollbar dark bg-black`}>
+      <body className={`${inter.className} custom-scrollbar dark`}>
         {showMaintenance ? (
           <Maintenance content={maintenanceText} />
         ) : (
-          <LenisProvider>{children}</LenisProvider>
+          <LenisProvider>
+            <AestheticBackground />
+            <div className="relative z-[1]">{children}</div>
+          </LenisProvider>
         )}
         <Script
           id="schema-jsonld"

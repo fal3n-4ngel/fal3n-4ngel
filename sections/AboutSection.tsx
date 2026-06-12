@@ -61,10 +61,10 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   }
 
   return (
-    <section className="relative flex min-h-screen w-full items-center justify-center bg-black px-12 py-24 pt-48">
+    <section className="relative flex min-h-screen w-full items-center justify-center px-12 py-24 pt-48">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 md:flex-row md:items-start md:gap-20">
         <div className="flex-1 space-y-8">
-          <div className="space-grotesk max-w-2xl text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
+          <div className="space-grotesk interactable max-w-2xl text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
             <FadeUp>
               Building performant,{" "}
               <span className="text-white/60">scalable digital experiences.</span>

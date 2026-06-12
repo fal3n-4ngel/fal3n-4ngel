@@ -12,7 +12,7 @@ export default function Custom404() {
   const { x, y } = useFollowPointer(ref);
 
   return (
-    <main className="relative flex h-screen w-full flex-col overflow-hidden bg-[#121212] text-white selection:bg-white/30">
+    <main className="relative flex h-screen w-full flex-col overflow-hidden text-white selection:bg-white/30">
       <div className="absolute left-0 top-0 z-50 w-full">
         <Navbar />
       </div>
@@ -29,24 +29,16 @@ export default function Custom404() {
           404
         </h1>
 
+        <p className="font-mono text-sm max-w-md tracking-wider opacity-60 uppercase">
+          This domain is haunted or the page does not exist.
+        </p>
+
         <Link
           href="/"
           className="interactable mt-8 rounded-full border border-white/20 px-8 py-4 font-mono text-sm uppercase tracking-widest transition-colors hover:bg-white hover:text-black"
         >
           Return to Homepage
         </Link>
-      </div>
-
-      {/* Background Ghost Decoration */}
-      <div className="pointer-events-none absolute bottom-[-10%] left-1/2 z-0 flex w-[120vw] max-w-[800px] -translate-x-1/2 items-end justify-center opacity-10 mix-blend-screen blur-xl">
-        <Image
-          src="/ghost.png"
-          alt="Ghost background"
-          width={500}
-          height={500}
-          className="object-contain"
-          unoptimized
-        />
       </div>
     </main>
   );

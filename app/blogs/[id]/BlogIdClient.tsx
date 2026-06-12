@@ -25,7 +25,7 @@ export default function BlogIdClient({
   const { x, y } = useFollowPointer(ref);
 
   return (
-    <div className="h-full min-h-screen w-full bg-black text-white" ref={ref}>
+    <div className="h-full min-h-screen w-full text-white" ref={ref}>
       {/* Floating Navbar */}
       <Navbar />
 

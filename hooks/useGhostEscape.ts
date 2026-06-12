@@ -14,11 +14,13 @@ export const useGhostEscape = (x: MotionValue<number>, y: MotionValue<number>) =
         { width: window.innerWidth, height: window.innerHeight }
       );
       setIsEscaping(true);
+      window.dispatchEvent(new CustomEvent("ghost-escape", { detail: { escaping: true } }));
     }
   }, [isEscaping, x, y]);
 
   const resetEscape = useCallback(() => {
     setIsEscaping(false);
+    window.dispatchEvent(new CustomEvent("ghost-escape", { detail: { escaping: false } }));
   }, []);
 
   return { isEscaping, pathRef, triggerEscape, resetEscape };
