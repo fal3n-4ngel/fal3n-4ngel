@@ -24,6 +24,10 @@
   }
 }
 
+html {
+  background-color: #000000;
+}
+
 html,
 body {
   color: rgb(var(--foreground-rgb));

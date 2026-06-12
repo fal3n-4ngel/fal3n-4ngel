@@ -21,11 +21,12 @@ export const AestheticBackground: React.FC = () => {
 
     // ── Renderer ──────────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({ 
-      antialias: !isMobile,
+      antialias: true, // Always enable antialiasing for crisp lines
       alpha: false,
       powerPreference: "high-performance"
     });
-    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+    // Set pixel ratio up to 2.5 to look extremely sharp on high-DPI retina/mobile screens
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 1);
     mount.appendChild(renderer.domElement);
@@ -55,8 +56,9 @@ export const AestheticBackground: React.FC = () => {
     // ── 3D Ghost Mascot Creation ──────────────────────────────────────────────
     const ghostGroup = new THREE.Group();
 
-    const segmentsX = isMobile ? 24 : 40;
-    const segmentsY = isMobile ? 24 : 40;
+    // Use full high-quality segment counts for crisp, smooth silhouette curves
+    const segmentsX = 40;
+    const segmentsY = 40;
     const radius = 3.5;
     const height = 8;
     
@@ -178,7 +180,7 @@ export const AestheticBackground: React.FC = () => {
     
     ringRadii.forEach((rad, rIndex) => {
       const pts: THREE.Vector3[] = [];
-      const segments = isMobile ? 24 : 36 + rIndex * 12;
+      const segments = 36 + rIndex * 12;
       for (let s = 0; s <= segments; s++) {
         const theta = (s / segments) * Math.PI * 2;
         if (s % 6 !== 0) {
