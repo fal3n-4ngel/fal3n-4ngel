@@ -133,8 +133,6 @@ export const AestheticBackground: React.FC = () => {
     ghostMesh.renderOrder = 1;
     ghostGroup.add(ghostMesh);
 
-
-
     // Eyes
     const eyeGeom = new THREE.SphereGeometry(0.48, 24, 24);
     eyeGeom.scale(1.0, 1.6, 0.2);
@@ -167,10 +165,10 @@ export const AestheticBackground: React.FC = () => {
       shininess: 30,
     });
 
-    const wireMat = new THREE.LineBasicMaterial({ 
-      color: 0xffffff, 
-      transparent: true, 
-      opacity: isMobile ? 0.85 : 0.35 
+    const wireMat = new THREE.LineBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: isMobile ? 0.55 : 0.35,
     });
 
     // Left cup
@@ -250,35 +248,43 @@ export const AestheticBackground: React.FC = () => {
         const steps = 8;
         for (let j = 0; j <= steps; j++) {
           const theta = (j / steps) * (Math.PI / 2);
-          pts.push(new THREE.Vector3(
-            width/2 - radius + Math.cos(theta) * radius,
-            height/2 - radius + Math.sin(theta) * radius,
-            0
-          ));
+          pts.push(
+            new THREE.Vector3(
+              width / 2 - radius + Math.cos(theta) * radius,
+              height / 2 - radius + Math.sin(theta) * radius,
+              0
+            )
+          );
         }
         for (let j = 0; j <= steps; j++) {
-          const theta = Math.PI/2 + (j / steps) * (Math.PI / 2);
-          pts.push(new THREE.Vector3(
-            -(width/2 - radius) + Math.cos(theta) * radius,
-            height/2 - radius + Math.sin(theta) * radius,
-            0
-          ));
+          const theta = Math.PI / 2 + (j / steps) * (Math.PI / 2);
+          pts.push(
+            new THREE.Vector3(
+              -(width / 2 - radius) + Math.cos(theta) * radius,
+              height / 2 - radius + Math.sin(theta) * radius,
+              0
+            )
+          );
         }
         for (let j = 0; j <= steps; j++) {
           const theta = Math.PI + (j / steps) * (Math.PI / 2);
-          pts.push(new THREE.Vector3(
-            -(width/2 - radius) + Math.cos(theta) * radius,
-            -(height/2 - radius) + Math.sin(theta) * radius,
-            0
-          ));
+          pts.push(
+            new THREE.Vector3(
+              -(width / 2 - radius) + Math.cos(theta) * radius,
+              -(height / 2 - radius) + Math.sin(theta) * radius,
+              0
+            )
+          );
         }
         for (let j = 0; j <= steps; j++) {
-          const theta = (Math.PI * 1.5) + (j / steps) * (Math.PI / 2);
-          pts.push(new THREE.Vector3(
-            width/2 - radius + Math.cos(theta) * radius,
-            -(height/2 - radius) + Math.sin(theta) * radius,
-            0
-          ));
+          const theta = Math.PI * 1.5 + (j / steps) * (Math.PI / 2);
+          pts.push(
+            new THREE.Vector3(
+              width / 2 - radius + Math.cos(theta) * radius,
+              -(height / 2 - radius) + Math.sin(theta) * radius,
+              0
+            )
+          );
         }
         pts.push(pts[0]!);
         return new THREE.BufferGeometry().setFromPoints(pts);
@@ -329,8 +335,6 @@ export const AestheticBackground: React.FC = () => {
     const glassesGroup = createGlasses();
     glassesGroup.visible = false;
     ghostGroup.add(glassesGroup);
-
-
 
     // ── Floating Music Notes Animation ───────────────────────────────────────
     const makeNoteMesh = (isDoubleNote: boolean) => {
@@ -484,7 +488,7 @@ export const AestheticBackground: React.FC = () => {
         points.push(new THREE.Vector3(size, size, 0));
         points.push(new THREE.Vector3(0, size, 0));
         points.push(new THREE.Vector3(0, 0, 0));
-        points.push(new THREE.Vector3(-size/2, 0, 0));
+        points.push(new THREE.Vector3(-size / 2, 0, 0));
         points.push(new THREE.Vector3(0, 0, 0));
         points.push(new THREE.Vector3(0, -size, 0));
         points.push(new THREE.Vector3(size, -size, 0));
@@ -492,7 +496,7 @@ export const AestheticBackground: React.FC = () => {
         points.push(new THREE.Vector3(-size, size, 0));
         points.push(new THREE.Vector3(0, size, 0));
         points.push(new THREE.Vector3(0, 0, 0));
-        points.push(new THREE.Vector3(size/2, 0, 0));
+        points.push(new THREE.Vector3(size / 2, 0, 0));
         points.push(new THREE.Vector3(0, 0, 0));
         points.push(new THREE.Vector3(0, -size, 0));
         points.push(new THREE.Vector3(-size, -size, 0));
@@ -505,10 +509,10 @@ export const AestheticBackground: React.FC = () => {
         points.push(new THREE.Vector3(size, 0, 0));
         points.push(new THREE.Vector3(-size, -size, 0));
       } else {
-        points.push(new THREE.Vector3(0, size/2, 0));
-        points.push(new THREE.Vector3(0, size/2 + 0.05, 0));
-        points.push(new THREE.Vector3(0, -size/2, 0));
-        points.push(new THREE.Vector3(-size/4, -size, 0));
+        points.push(new THREE.Vector3(0, size / 2, 0));
+        points.push(new THREE.Vector3(0, size / 2 + 0.05, 0));
+        points.push(new THREE.Vector3(0, -size / 2, 0));
+        points.push(new THREE.Vector3(-size / 4, -size, 0));
       }
 
       const geom = new THREE.BufferGeometry().setFromPoints(points);
@@ -779,7 +783,8 @@ export const AestheticBackground: React.FC = () => {
       interactionProgress += (targetProgress - interactionProgress) * 0.08;
 
       // Animate Headset Visibility & Scale (Show only when music is playing or playing Minecraft, and not sleeping)
-      const targetHeadsetScale = (flags.isPlayingMusic || flags.isMinecraft) && !isSleeping ? 1.0 : 0.0;
+      const targetHeadsetScale =
+        (flags.isPlayingMusic || flags.isMinecraft) && !isSleeping ? 1.0 : 0.0;
       headsetScale += (targetHeadsetScale - headsetScale) * 0.06;
       if (headsetScale > 0.005) {
         headsetGroup.visible = true;
@@ -797,8 +802,6 @@ export const AestheticBackground: React.FC = () => {
       } else {
         glassesGroup.visible = false;
       }
-
-
 
       // Animate Floating Music Notes
       for (const n of notes) {
@@ -997,8 +1000,9 @@ export const AestheticBackground: React.FC = () => {
 
         const codingSwayX = flags.isCoding ? Math.cos(t * 0.8) * 0.25 : 0;
         const minecraftSwayX = flags.isMinecraft ? Math.sin(t * 1.2) * 0.35 : 0;
-        ghostGroup.position.x += ((codingSwayX + minecraftSwayX) - ghostGroup.position.x) * 0.1;
-        const targetZ = interactionProgress * 3.5 + (flags.isCoding ? 1.5 : 0) + (flags.isMinecraft ? 1.0 : 0);
+        ghostGroup.position.x += (codingSwayX + minecraftSwayX - ghostGroup.position.x) * 0.1;
+        const targetZ =
+          interactionProgress * 3.5 + (flags.isCoding ? 1.5 : 0) + (flags.isMinecraft ? 1.0 : 0);
         ghostGroup.position.z += (targetZ - ghostGroup.position.z) * 0.1;
 
         const interactionWiggleY = Math.sin(t * 2.0) * 0.08 * interactionProgress;
@@ -1006,7 +1010,8 @@ export const AestheticBackground: React.FC = () => {
 
         const interactionWiggleX = Math.cos(t * 1.8) * 0.05 * interactionProgress;
         const interactionTiltX = -0.18 * interactionProgress;
-        ghostGroup.rotation.x = currentRot.x + Math.cos(t * 0.4) * 0.08 + interactionWiggleX + interactionTiltX;
+        ghostGroup.rotation.x =
+          currentRot.x + Math.cos(t * 0.4) * 0.08 + interactionWiggleX + interactionTiltX;
 
         ghostGroup.rotation.z = Math.sin(t * 0.8) * 0.05;
 
@@ -1029,8 +1034,6 @@ export const AestheticBackground: React.FC = () => {
 
         ghostMaterial.opacity = 0.12 + interactionProgress * 0.12;
       }
-
-
 
       for (const r of hudRings) {
         if (flags.isEscaping) {
