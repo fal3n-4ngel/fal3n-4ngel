@@ -22,14 +22,14 @@ export const Navbar = () => {
           Adi.
         </Link>
         <div className="flex items-center gap-5 font-mono text-[11px] tracking-[0.1em] text-white/50 md:gap-10 md:text-[14px]">
-          <MagneticElement>
+          {/* <MagneticElement>
             <Link
               href="/blogs"
               className="interactable transition-colors duration-300 hover:text-white"
             >
               writing
             </Link>
-          </MagneticElement>
+          </MagneticElement> */}
           <MagneticElement>
             <a
               href="/Resume_Adithya_Krishnan.pdf"
