@@ -1,7 +1,7 @@
 import FadeUp from "@/components/ui/FadeUp";
 import MagneticElement from "@/components/ui/MagneticElement";
 import { COPYRIGHT_TEXT, SOCIAL_LINKS } from "@/data/social-links";
-import { scrollToTop } from "@/lib/utils/smoothScroll";
+import { scrollToTop } from "../../lib/utils/smoothScroll";
 import { memo } from "react";
 
 export const Footer = memo(() => (
