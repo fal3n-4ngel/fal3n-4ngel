@@ -16,12 +16,12 @@ export const AestheticBackground: React.FC = () => {
 
     // ── Renderer ──────────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile,
+      antialias: true,
       alpha: false,
       powerPreference: "high-performance",
-      precision: "mediump",
+      precision: "highp",
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.0 : 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 1);
     mount.appendChild(renderer.domElement);
@@ -163,11 +163,15 @@ export const AestheticBackground: React.FC = () => {
     const cupMat = new THREE.MeshPhongMaterial({
       color: 0xffffff,
       transparent: true,
-      opacity: 0.16,
+      opacity: isMobile ? 0.35 : 0.16,
       shininess: 30,
     });
 
-    const wireMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 });
+    const wireMat = new THREE.LineBasicMaterial({ 
+      color: 0xffffff, 
+      transparent: true, 
+      opacity: isMobile ? 0.85 : 0.35 
+    });
 
     // Left cup
     const leftCup = new THREE.Mesh(cupGeom, cupMat);
@@ -724,10 +728,21 @@ export const AestheticBackground: React.FC = () => {
     const spotifyInterval = setInterval(checkSpotifyStatus, 10000);
 
     // ── Resize ────────────────────────────────────────────────────────────────
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
+
     const onResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const heightDiff = Math.abs(height - lastHeight);
+
+      if (width !== lastWidth || heightDiff > 120) {
+        lastWidth = width;
+        lastHeight = height;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      }
     };
     window.addEventListener("resize", onResize);
 
