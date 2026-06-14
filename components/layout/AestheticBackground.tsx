@@ -167,16 +167,15 @@ export const AestheticBackground: React.FC = () => {
       shininess: 30,
     });
 
+    const wireMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 });
+
     // Left cup
     const leftCup = new THREE.Mesh(cupGeom, cupMat);
     leftCup.position.set(-3.7, 1.6, 0);
     leftCup.rotation.z = Math.PI / 2;
     headsetGroup.add(leftCup);
 
-    const leftCupWire = new THREE.LineSegments(
-      new THREE.EdgesGeometry(cupGeom),
-      new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 })
-    );
+    const leftCupWire = new THREE.LineSegments(new THREE.EdgesGeometry(cupGeom), wireMat);
     leftCupWire.position.set(-3.7, 1.6, 0);
     leftCupWire.rotation.z = Math.PI / 2;
     headsetGroup.add(leftCupWire);
@@ -187,13 +186,48 @@ export const AestheticBackground: React.FC = () => {
     rightCup.rotation.z = Math.PI / 2;
     headsetGroup.add(rightCup);
 
-    const rightCupWire = new THREE.LineSegments(
-      new THREE.EdgesGeometry(cupGeom),
-      new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 })
-    );
+    const rightCupWire = new THREE.LineSegments(new THREE.EdgesGeometry(cupGeom), wireMat);
     rightCupWire.position.set(3.7, 1.6, 0);
     rightCupWire.rotation.z = Math.PI / 2;
     headsetGroup.add(rightCupWire);
+
+    // Headband (Torus arc over head)
+    const bandGeom = new THREE.TorusGeometry(3.7, 0.18, 8, 32, Math.PI);
+    const band = new THREE.Mesh(bandGeom, cupMat);
+    band.position.set(0, 1.6, 0);
+    headsetGroup.add(band);
+
+    const bandWire = new THREE.LineSegments(new THREE.EdgesGeometry(bandGeom), wireMat);
+    bandWire.position.set(0, 1.6, 0);
+    headsetGroup.add(bandWire);
+
+    // Microphone Boom Arm (Curves from left ear cup towards front mouth)
+    const micPoints = [
+      new THREE.Vector3(-3.5, 0.9, 0.2),
+      new THREE.Vector3(-3.0, 0.3, 1.5),
+      new THREE.Vector3(-1.5, 0.0, 2.8),
+      new THREE.Vector3(-0.4, 0.2, 3.2),
+    ];
+    const micCurve = new THREE.CatmullRomCurve3(micPoints);
+    const micGeom = new THREE.TubeGeometry(micCurve, 20, 0.08, 8, false);
+    const mic = new THREE.Mesh(micGeom, cupMat);
+    headsetGroup.add(mic);
+
+    const micWire = new THREE.LineSegments(new THREE.EdgesGeometry(micGeom), wireMat);
+    headsetGroup.add(micWire);
+
+    // Microphone Tip / Capsule
+    const tipGeom = new THREE.CylinderGeometry(0.16, 0.16, 0.35, 12);
+    const tip = new THREE.Mesh(tipGeom, cupMat);
+    const lastMicPoint = micPoints[micPoints.length - 1] || new THREE.Vector3(-0.4, 0.6, 3.2);
+    tip.position.copy(lastMicPoint);
+    tip.rotation.x = Math.PI / 2;
+    headsetGroup.add(tip);
+
+    const tipWire = new THREE.LineSegments(new THREE.EdgesGeometry(tipGeom), wireMat);
+    tipWire.position.copy(lastMicPoint);
+    tipWire.rotation.x = Math.PI / 2;
+    headsetGroup.add(tipWire);
 
     headsetGroup.visible = false;
     ghostGroup.add(headsetGroup);
@@ -207,50 +241,79 @@ export const AestheticBackground: React.FC = () => {
         opacity: 0.3,
       });
 
-      const makeLensGeom = (radius: number) => {
+      const makeLensGeom = (width: number, height: number, radius: number) => {
         const pts: THREE.Vector3[] = [];
-        const segments = 32;
-        for (let i = 0; i <= segments; i++) {
-          const theta = (i / segments) * Math.PI * 2;
-          pts.push(new THREE.Vector3(Math.cos(theta) * radius, Math.sin(theta) * radius, 0));
+        const steps = 8;
+        for (let j = 0; j <= steps; j++) {
+          const theta = (j / steps) * (Math.PI / 2);
+          pts.push(new THREE.Vector3(
+            width/2 - radius + Math.cos(theta) * radius,
+            height/2 - radius + Math.sin(theta) * radius,
+            0
+          ));
         }
+        for (let j = 0; j <= steps; j++) {
+          const theta = Math.PI/2 + (j / steps) * (Math.PI / 2);
+          pts.push(new THREE.Vector3(
+            -(width/2 - radius) + Math.cos(theta) * radius,
+            height/2 - radius + Math.sin(theta) * radius,
+            0
+          ));
+        }
+        for (let j = 0; j <= steps; j++) {
+          const theta = Math.PI + (j / steps) * (Math.PI / 2);
+          pts.push(new THREE.Vector3(
+            -(width/2 - radius) + Math.cos(theta) * radius,
+            -(height/2 - radius) + Math.sin(theta) * radius,
+            0
+          ));
+        }
+        for (let j = 0; j <= steps; j++) {
+          const theta = (Math.PI * 1.5) + (j / steps) * (Math.PI / 2);
+          pts.push(new THREE.Vector3(
+            width/2 - radius + Math.cos(theta) * radius,
+            -(height/2 - radius) + Math.sin(theta) * radius,
+            0
+          ));
+        }
+        pts.push(pts[0]!);
         return new THREE.BufferGeometry().setFromPoints(pts);
       };
 
-      const lensGeom = makeLensGeom(0.65);
+      const lensGeom = makeLensGeom(1.15, 0.78, 0.15);
 
       const leftLens = new THREE.Line(lensGeom, lineMat);
-      leftLens.position.set(-0.75, 1.8, 3.32);
+      leftLens.position.set(-0.85, 1.8, 3.32);
       leftLens.rotation.y = 0.15;
       group.add(leftLens);
 
       const rightLens = new THREE.Line(lensGeom, lineMat);
-      rightLens.position.set(0.75, 1.8, 3.32);
+      rightLens.position.set(0.85, 1.8, 3.32);
       rightLens.rotation.y = -0.15;
       group.add(rightLens);
 
       const bridgePts = [
-        new THREE.Vector3(-0.15, 1.8, 3.35),
+        new THREE.Vector3(-0.275, 1.8, 3.35),
         new THREE.Vector3(0.0, 1.83, 3.37),
-        new THREE.Vector3(0.15, 1.8, 3.35),
+        new THREE.Vector3(0.275, 1.8, 3.35),
       ];
       const bridgeGeom = new THREE.BufferGeometry().setFromPoints(bridgePts);
       const bridge = new THREE.Line(bridgeGeom, lineMat);
       group.add(bridge);
 
       const leftTemplePts = [
-        new THREE.Vector3(-1.2, 1.8, 3.25),
-        new THREE.Vector3(-1.9, 1.8, 2.5),
-        new THREE.Vector3(-2.6, 1.6, 0.8),
+        new THREE.Vector3(-1.425, 1.8, 3.25),
+        new THREE.Vector3(-2.1, 1.8, 2.5),
+        new THREE.Vector3(-2.7, 1.6, 0.8),
       ];
       const leftTempleGeom = new THREE.BufferGeometry().setFromPoints(leftTemplePts);
       const leftTemple = new THREE.Line(leftTempleGeom, lineMat);
       group.add(leftTemple);
 
       const rightTemplePts = [
-        new THREE.Vector3(1.2, 1.8, 3.25),
-        new THREE.Vector3(1.9, 1.8, 2.5),
-        new THREE.Vector3(2.6, 1.6, 0.8),
+        new THREE.Vector3(1.425, 1.8, 3.25),
+        new THREE.Vector3(2.1, 1.8, 2.5),
+        new THREE.Vector3(2.7, 1.6, 0.8),
       ];
       const rightTempleGeom = new THREE.BufferGeometry().setFromPoints(rightTemplePts);
       const rightTemple = new THREE.Line(rightTempleGeom, lineMat);
@@ -262,6 +325,8 @@ export const AestheticBackground: React.FC = () => {
     const glassesGroup = createGlasses();
     glassesGroup.visible = false;
     ghostGroup.add(glassesGroup);
+
+
 
     // ── Floating Music Notes Animation ───────────────────────────────────────
     const makeNoteMesh = (isDoubleNote: boolean) => {
@@ -475,6 +540,60 @@ export const AestheticBackground: React.FC = () => {
       });
     }
 
+    // Minecraft block particles helper for Minecraft gaming state
+    const makeBlockMesh = () => {
+      const group = new THREE.Group();
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x888888,
+        transparent: true,
+        opacity: 0.7,
+      });
+
+      const geomOuter = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+      const edgesOuter = new THREE.EdgesGeometry(geomOuter);
+      const lineOuter = new THREE.LineSegments(edgesOuter, lineMaterial);
+      group.add(lineOuter);
+
+      const geomInner = new THREE.BoxGeometry(0.25, 0.25, 0.25);
+      const edgesInner = new THREE.EdgesGeometry(geomInner);
+      const innerMat = new THREE.LineBasicMaterial({
+        color: 0x888888,
+        transparent: true,
+        opacity: 0.35,
+      });
+      const lineInner = new THREE.LineSegments(edgesInner, innerMat);
+      group.add(lineInner);
+
+      return group;
+    };
+
+    interface FloatingBlock {
+      mesh: THREE.Group;
+      speedY: number;
+      swayAmp: number;
+      swayFreq: number;
+      phase: number;
+      age: number;
+    }
+
+    const blocks: FloatingBlock[] = [];
+    const blocksCount = 4;
+
+    for (let i = 0; i < blocksCount; i++) {
+      const mesh = makeBlockMesh();
+      mesh.visible = false;
+      scene.add(mesh);
+
+      blocks.push({
+        mesh,
+        speedY: 0.005 + Math.random() * 0.004,
+        swayAmp: 0.4 + Math.random() * 0.3,
+        swayFreq: 0.8 + Math.random() * 0.6,
+        phase: Math.random() * Math.PI * 2,
+        age: Math.random(),
+      });
+    }
+
     ghostGroup.position.set(0, -1, 0);
     scene.add(ghostGroup);
 
@@ -524,6 +643,7 @@ export const AestheticBackground: React.FC = () => {
       escapeStartTime: 0,
       isPlayingMusic: false,
       isCoding: false,
+      isMinecraft: false,
     };
 
     let lastInteractionCheck = 0;
@@ -579,6 +699,12 @@ export const AestheticBackground: React.FC = () => {
       flags.isCoding = !!customEvent.detail?.coding;
     };
     window.addEventListener("ghost-coding", onCodingChange);
+
+    const onMinecraftChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ minecraft: boolean }>;
+      flags.isMinecraft = !!customEvent.detail?.minecraft;
+    };
+    window.addEventListener("ghost-minecraft", onMinecraftChange);
 
     // ── Spotify Polling for Headset Toggle ────────────────────────────────────
     const checkSpotifyStatus = async () => {
@@ -637,8 +763,8 @@ export const AestheticBackground: React.FC = () => {
       const targetProgress = flags.isInteracting ? 1 : 0;
       interactionProgress += (targetProgress - interactionProgress) * 0.08;
 
-      // Animate Headset Visibility & Scale (Show only when music is playing and not sleeping)
-      const targetHeadsetScale = flags.isPlayingMusic && !isSleeping ? 1.0 : 0.0;
+      // Animate Headset Visibility & Scale (Show only when music is playing or playing Minecraft, and not sleeping)
+      const targetHeadsetScale = (flags.isPlayingMusic || flags.isMinecraft) && !isSleeping ? 1.0 : 0.0;
       headsetScale += (targetHeadsetScale - headsetScale) * 0.06;
       if (headsetScale > 0.005) {
         headsetGroup.visible = true;
@@ -656,6 +782,8 @@ export const AestheticBackground: React.FC = () => {
       } else {
         glassesGroup.visible = false;
       }
+
+
 
       // Animate Floating Music Notes
       for (const n of notes) {
@@ -753,6 +881,40 @@ export const AestheticBackground: React.FC = () => {
         }
       }
 
+      // Animate Floating Minecraft Blocks (Only when playing Minecraft)
+      for (const b of blocks) {
+        if (!isSleeping && flags.isMinecraft) {
+          b.mesh.visible = true;
+          b.age += b.speedY;
+          if (b.age > 1.0) {
+            b.age = 0.0;
+          }
+
+          const ghostX = ghostGroup.position.x;
+          const ghostY = ghostGroup.position.y;
+          const ghostZ = ghostGroup.position.z;
+
+          const startX = ghostX + (b.phase % 2 === 0 ? -2.4 : 2.4);
+          const startY = ghostY + 0.5;
+
+          b.mesh.position.y = startY + b.age * 5.5;
+          b.mesh.position.x = startX + Math.sin(t * b.swayFreq + b.phase) * b.swayAmp;
+          b.mesh.position.z = ghostZ + Math.cos(t * 0.5 + b.phase) * 0.4;
+
+          b.mesh.rotation.x = t * 0.8 + b.phase;
+          b.mesh.rotation.y = t * 0.5 + b.phase;
+
+          const opacity = Math.sin(b.age * Math.PI) * 0.65;
+          b.mesh.traverse((child) => {
+            if (child instanceof THREE.LineSegments) {
+              (child.material as THREE.LineBasicMaterial).opacity = opacity;
+            }
+          });
+        } else {
+          b.mesh.visible = false;
+        }
+      }
+
       if (flags.isEscaping) {
         const duration = (performance.now() - flags.escapeStartTime) / 1000;
 
@@ -815,11 +977,13 @@ export const AestheticBackground: React.FC = () => {
         const baseFloatY = -1 + Math.sin(t * 1.5) * 0.8;
         const interactionShiftY = Math.sin(t * 2.5) * 0.25 * interactionProgress;
         const codingSwayY = flags.isCoding ? Math.sin(t * 1.0) * 0.15 : 0;
-        ghostGroup.position.y = baseFloatY + interactionShiftY + codingSwayY;
+        const minecraftSwayY = flags.isMinecraft ? Math.sin(t * 2.0) * 0.12 : 0;
+        ghostGroup.position.y = baseFloatY + interactionShiftY + codingSwayY + minecraftSwayY;
 
         const codingSwayX = flags.isCoding ? Math.cos(t * 0.8) * 0.25 : 0;
-        ghostGroup.position.x += (codingSwayX - ghostGroup.position.x) * 0.1;
-        const targetZ = interactionProgress * 3.5 + (flags.isCoding ? 1.5 : 0);
+        const minecraftSwayX = flags.isMinecraft ? Math.sin(t * 1.2) * 0.35 : 0;
+        ghostGroup.position.x += ((codingSwayX + minecraftSwayX) - ghostGroup.position.x) * 0.1;
+        const targetZ = interactionProgress * 3.5 + (flags.isCoding ? 1.5 : 0) + (flags.isMinecraft ? 1.0 : 0);
         ghostGroup.position.z += (targetZ - ghostGroup.position.z) * 0.1;
 
         const interactionWiggleY = Math.sin(t * 2.0) * 0.08 * interactionProgress;
@@ -880,6 +1044,7 @@ export const AestheticBackground: React.FC = () => {
       window.removeEventListener("mousemove", onMouse);
       window.removeEventListener("ghost-escape", onEscapeChange);
       window.removeEventListener("ghost-coding", onCodingChange);
+      window.removeEventListener("ghost-minecraft", onMinecraftChange);
       window.removeEventListener("resize", onResize);
       if (fallbackTimeout) clearTimeout(fallbackTimeout);
       renderer.dispose();
@@ -895,6 +1060,10 @@ export const AestheticBackground: React.FC = () => {
       // Clean up codes from scene
       for (const c of codes) {
         scene.remove(c.mesh);
+      }
+      // Clean up blocks from scene
+      for (const b of blocks) {
+        scene.remove(b.mesh);
       }
       ghostGroup.remove(glassesGroup);
     };

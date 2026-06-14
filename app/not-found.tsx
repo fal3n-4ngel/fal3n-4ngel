@@ -1,9 +1,8 @@
 "use client";
 
-import { useFollowPointer } from "@/hooks";
-import { Navbar } from "@/components/layout/Navbar";
 import { CustomCursor } from "@/components/layout/CustomCursor";
-import Image from "next/image";
+import { Navbar } from "@/components/layout/Navbar";
+import { useFollowPointer } from "@/hooks";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -29,8 +28,8 @@ export default function Custom404() {
           404
         </h1>
 
-        <p className="font-mono text-sm max-w-md tracking-wider opacity-60 uppercase">
-          This domain is haunted or the page does not exist.
+        <p className="max-w-md font-mono text-sm uppercase tracking-wider opacity-60">
+          the page does not exist.
         </p>
 
         <Link

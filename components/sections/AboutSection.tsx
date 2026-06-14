@@ -34,6 +34,9 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   useEffect(() => {
     const isCoding = lanyardData?.activities.some((act) => act.type === 0 && act.name === "Visual Studio Code") ?? false;
     window.dispatchEvent(new CustomEvent("ghost-coding", { detail: { coding: isCoding } }));
+
+    const isMinecraft = lanyardData?.activities.some((act) => act.type === 0 && act.name.toLowerCase().includes("minecraft")) ?? false;
+    window.dispatchEvent(new CustomEvent("ghost-minecraft", { detail: { minecraft: isMinecraft } }));
   }, [lanyardData]);
 
   const activeStatus = config?.["active status"]?.isEnabled ?? false;
@@ -78,10 +81,13 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       if (activeGameOrCoding) {
         if (activeGameOrCoding.name === "Visual Studio Code") {
           displayText = `Coding: ${activeGameOrCoding.details || "VS Code"}`;
+          statusColor = "bg-emerald-400 animate-pulse";
         } else if (activeGameOrCoding.name === "Minecraft") {
-          displayText = "Playing Minecraft";
+          displayText = `Minecraft: ${activeGameOrCoding.details || activeGameOrCoding.state || "Multiplayer"}`;
+          statusColor = "bg-cyan-400 animate-pulse";
         } else {
           displayText = `Playing ${activeGameOrCoding.name}`;
+          statusColor = "bg-indigo-400 animate-pulse";
         }
       } else if (lanyardData.listening_to_spotify) {
         displayText = "Listening to Spotify";
