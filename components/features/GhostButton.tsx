@@ -1,5 +1,5 @@
 import { memo } from "react";
-import FadeUp from "./FadeUp";
+import FadeUp from "@/components/ui/FadeUp";
 
 interface GhostButtonProps {
   isEscaping: boolean;
@@ -25,21 +25,13 @@ export const GhostButton = memo<GhostButtonProps>(({ isEscaping, triggerEscape, 
                 : "opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0"
             }`}
           />
-          
-          {isEscaping && (
-            <span className="absolute h-full w-full animate-ping rounded-full bg-white/20" />
-          )}
+          {isEscaping && <span className="absolute h-full w-full animate-ping rounded-full bg-white/20" />}
         </div>
-
         <div className="flex flex-col items-start leading-none">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
             {isEscaping ? "Status: Released" : "Status: Captured"}
           </span>
-          <span
-            className={`font-mono text-xs uppercase tracking-[0.1em] transition-colors ${
-              isEscaping ? "text-red-400" : "text-white/70 group-hover:text-white"
-            }`}
-          >
+          <span className={`font-mono text-xs uppercase tracking-[0.1em] transition-colors ${isEscaping ? "text-red-400" : "text-white/70 group-hover:text-white"}`}>
             {isEscaping ? "Catch Ghost" : "Release Ghost"}
           </span>
         </div>

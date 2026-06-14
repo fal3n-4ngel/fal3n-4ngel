@@ -1,7 +1,7 @@
-import FadeUp from "@/components/FadeUp";
-import MagneticElement from "@/components/MagneticElement";
+import FadeUp from "@/components/ui/FadeUp";
+import MagneticElement from "@/components/ui/MagneticElement";
 import { COPYRIGHT_TEXT, SOCIAL_LINKS } from "@/data/social-links";
-import { scrollToTop } from "@/lib/utils/SmoothScroll";
+import { scrollToTop } from "@/lib/utils/smoothScroll";
 import { memo } from "react";
 
 export const Footer = memo(() => (
@@ -43,12 +43,10 @@ export const Footer = memo(() => (
           ))}
         </div>
 
-        {/* Copyright */}
         <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#555]">
           {COPYRIGHT_TEXT}
         </span>
 
-        {/* Back to top */}
         <MagneticElement>
           <button
             onClick={scrollToTop}

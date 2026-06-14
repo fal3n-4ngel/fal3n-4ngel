@@ -1,4 +1,5 @@
 "use client";
+
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import React, { useRef } from "react";
 
@@ -22,16 +23,11 @@ const MagneticElement: React.FC<MagneticElementProps> = ({
   const handleMouse = (e: React.MouseEvent) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * strength);
-    y.set((e.clientY - centerY) * strength);
+    x.set((e.clientX - (rect.left + rect.width / 2)) * strength);
+    y.set((e.clientY - (rect.top + rect.height / 2)) * strength);
   };
 
-  const reset = () => {
-    x.set(0);
-    y.set(0);
-  };
+  const reset = () => { x.set(0); y.set(0); };
 
   return (
     <motion.div

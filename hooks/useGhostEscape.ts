@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import { Position } from "@/types/position";
-import { generateRandomPath } from "@/lib/utils/GenerateRandomPath";
+import { Position } from "@/types";
+import { generateRandomPath } from "@/lib/utils/generatePath";
 import { MotionValue } from "framer-motion";
 
 export const useGhostEscape = (x: MotionValue<number>, y: MotionValue<number>) => {

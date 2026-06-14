@@ -1,9 +1,10 @@
 import { Variants } from "framer-motion";
+import { Position } from "@/types";
 
 export const createGhostVariants = (
   width: number,
   height: number,
-  path: { x: number; y: number }[],
+  path: Position[],
   startX: number,
   startY: number
 ): Variants => ({
@@ -30,24 +31,10 @@ export const createGhostVariants = (
     rotate: [0, 25, -10, 5, 0, 35, -10, -5, 0, 15, -10, 0, 0, 5, -10, 0],
     scale: [1, 1.15, 0.95, 1.1, 0.9, 1],
     transition: {
-      x: {
-        duration: 60,
-        ease: "linear",
-      },
-      y: {
-        duration: 60,
-        ease: "linear",
-      },
-      rotate: {
-        duration: 8,
-        ease: "easeInOut",
-        repeat: Infinity,
-      },
-      scale: {
-        duration: 3,
-        ease: "easeInOut",
-        repeat: Infinity,
-      },
+      x: { duration: 60, ease: "linear" },
+      y: { duration: 60, ease: "linear" },
+      rotate: { duration: 8, ease: "easeInOut", repeat: Infinity },
+      scale: { duration: 3, ease: "easeInOut", repeat: Infinity },
     },
   },
   exit: {

@@ -1,6 +1,4 @@
-import { Dimensions } from "@/types/dimensions";
-import { Position } from "@/types/position";
-
+import { Dimensions, Position } from "@/types";
 
 export const generateRandomPath = (
   startPos: Position,
@@ -11,10 +9,7 @@ export const generateRandomPath = (
   const { width, height } = dimensions;
   const points: Position[] = [startPos];
 
-  points.push({
-    x: padding + 200,
-    y: padding + 200,
-  });
+  points.push({ x: padding + 200, y: padding + 200 });
 
   for (let i = 0; i < numPoints; i++) {
     points.push({

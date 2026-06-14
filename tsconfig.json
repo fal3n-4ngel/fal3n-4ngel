@@ -23,12 +23,10 @@
     "paths": {
       "@/*": ["./*"],
       "@/components/*": ["./components/*"],
-      "@/sections/*": ["./sections/*"],
       "@/data/*": ["./data/*"],
       "@/hooks/*": ["./hooks/*"],
       "@/lib/*": ["./lib/*"],
-      "@/types/*": ["./types/*"],
-      "@/styles/*": ["./styles/*"]
+      "@/types/*": ["./types/*"]
     },
     "target": "ES2017"
   },

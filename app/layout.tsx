@@ -1,6 +1,7 @@
-import { AestheticBackground } from "@/components/AestheticBackground";
-import Maintenance from "@/components/Maintenance";
+import { AestheticBackground } from "@/components/layout/AestheticBackground";
+import Maintenance from "@/components/layout/Maintenance";
 import { getSiteConfig } from "@/lib/integrations/notion";
+
 import LenisProvider from "@/lib/utils/LenisProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";

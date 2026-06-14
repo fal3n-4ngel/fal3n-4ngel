@@ -1,14 +1,15 @@
 "use client";
 
 import { BlogItemData } from "@/lib/integrations/notion";
-import { Navbar } from "@/sections/Navbar";
-import { Footer } from "@/sections/Footer";
-import { CustomCursor } from "@/components/CustomCursor";
-import { useFollowPointer } from "@/lib/utils/FollowPointer";
-import FadeUp from "@/components/FadeUp";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { CustomCursor } from "@/components/layout/CustomCursor";
+import { useFollowPointer } from "@/hooks";
+import FadeUp from "@/components/ui/FadeUp";
 import Link from "next/link";
 import { useRef } from "react";
 import { RiArrowLeftLine, RiCalendarLine } from "react-icons/ri";
+
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 

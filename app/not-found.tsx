@@ -1,8 +1,8 @@
 "use client";
 
-import { useFollowPointer } from "@/lib/utils/FollowPointer";
-import { Navbar } from "@/sections/Navbar";
-import { CustomCursor } from "@/components/CustomCursor";
+import { useFollowPointer } from "@/hooks";
+import { Navbar } from "@/components/layout/Navbar";
+import { CustomCursor } from "@/components/layout/CustomCursor";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";

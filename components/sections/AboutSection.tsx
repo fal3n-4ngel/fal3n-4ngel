@@ -1,0 +1,104 @@
+"use client";
+
+import { ParallaxElement } from "@/components/ui/ParallaxSection";
+import { SectionTransition, StaggerChild } from "@/components/ui/SectionTransition";
+import { GhostButton } from "@/components/features/GhostButton";
+import { AwardsList } from "@/components/features/AwardsList";
+import { ExperienceList } from "@/components/features/ExperienceList";
+import NowPlaying from "@/components/features/NowPlaying";
+import { getSiteConfig } from "@/lib/integrations/notion";
+import { useEffect, useState } from "react";
+
+interface AboutSectionProps {
+  isEscaping: boolean;
+  triggerEscape: () => void;
+  resetEscape: () => void;
+}
+
+export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSectionProps) => {
+  type ConfigItem = { isEnabled?: boolean; content?: string };
+  const [config, setConfig] = useState<Record<string, ConfigItem> | null>(null);
+  const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; lastPlayedAt?: string }>({
+    isPlaying: false,
+  });
+
+  useEffect(() => {
+    getSiteConfig().then((data) => { if (data) setConfig(data); });
+  }, []);
+
+  const activeStatus = config?.["active status"]?.isEnabled ?? false;
+  const collaborationStatus = config?.["collaboration"]?.isEnabled ?? false;
+  const collaborationText = config?.["collaboration"]?.content || "Inactive";
+
+  let lastSeenSpotifyText: string | null = null;
+  if (!spotifyData.isPlaying && spotifyData.lastPlayedAt) {
+    const diffMs = Date.now() - new Date(spotifyData.lastPlayedAt).getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    if (diffMins < 60) lastSeenSpotifyText = `Last seen ${diffMins}m ago`;
+    else {
+      const diffHours = Math.floor(diffMins / 60);
+      lastSeenSpotifyText = diffHours < 24
+        ? `Last seen ${diffHours}h ago`
+        : `Last seen ${Math.floor(diffHours / 24)}d ago`;
+    }
+  }
+
+  let displayStatus = collaborationStatus;
+  let displayText = collaborationText;
+  if (!activeStatus) {
+    if (spotifyData.isPlaying) { displayStatus = true; displayText = "Listening to Spotify"; }
+    else if (lastSeenSpotifyText) { displayStatus = false; displayText = lastSeenSpotifyText; }
+    else { displayStatus = false; displayText = "Offline"; }
+  }
+
+  return (
+    <section className="relative flex min-h-screen w-full items-center justify-center overflow-visible px-12 py-24 pt-48">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 md:flex-row md:items-start md:gap-20">
+
+        {/* Left column */}
+        <SectionTransition direction="left" delay={0.05} className="flex-1 space-y-8">
+          <ParallaxElement speed={0.1}>
+            <div className="space-grotesk interactable max-w-2xl text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
+              <StaggerChild direction="up">
+                Building performant,{" "}
+                <span className="text-white/60">scalable digital experiences.</span>
+              </StaggerChild>
+            </div>
+
+            <div className="mt-12 flex flex-col border-t border-white/10 pt-8 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 md:mt-24 md:flex-row md:gap-12">
+              <StaggerChild direction="up" distance={15}>
+                <div>
+                  <p className="mb-2 text-zinc-700">Based in</p>
+                  <p className="text-zinc-300">Kerala, India</p>
+                </div>
+              </StaggerChild>
+              <StaggerChild direction="up" distance={15}>
+                <div className="mt-6 space-y-2 md:mt-0">
+                  <p className="text-white/40">Status</p>
+                  <div className="flex items-center gap-2">
+                    <span className={`h-1.5 w-1.5 rounded-full ${displayStatus ? "animate-pulse bg-green-500" : "bg-red-500"}`} />
+                    <span>{displayText}</span>
+                  </div>
+                </div>
+              </StaggerChild>
+              <StaggerChild direction="up" distance={15}>
+                <NowPlaying onPlayingChange={setSpotifyData} />
+              </StaggerChild>
+            </div>
+          </ParallaxElement>
+        </SectionTransition>
+
+        {/* Right column */}
+        <SectionTransition direction="right" delay={0.2} className="flex w-full flex-col gap-8 md:w-auto md:max-w-sm lg:max-w-md">
+          <ParallaxElement speed={0.18}>
+            <div className="flex flex-col gap-8">
+              <ExperienceList />
+              <AwardsList />
+              <GhostButton isEscaping={isEscaping} triggerEscape={triggerEscape} resetEscape={resetEscape} />
+            </div>
+          </ParallaxElement>
+        </SectionTransition>
+      </div>
+    </section>
+  );
+};

@@ -15,22 +15,17 @@ export const useFollowPointer = (
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Set initial position to center of screen
     x.set(window.innerWidth / 2);
     y.set(window.innerHeight / 2);
 
     const handleMouseMove = (e: MouseEvent) => {
       if (ref && !ref.current) return;
-
       x.set(e.clientX);
       y.set(e.clientY);
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [ref, x, y]);
 
   return { x, y };

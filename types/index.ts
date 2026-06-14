@@ -1,6 +1,8 @@
+// Cursor
+export type { CursorState, InteractionType, LogoStates } from "./cursor";
 
-export type { Dimensions } from "./dimensions";
-export type { ApiResponse, ID } from "./global";
-export type { Position } from "./position";
-export type { GitProject, GitProjectBoxProps, Project, ProjectBoxProps, Repo } from "./projects";
-export type { CursorState, InteractionType, LogoStates } from "./states";
+// Project
+export type { GitProject, GitProjectBoxProps, Project, ProjectBoxProps, Repo } from "./project";
+
+// API / Utility
+export type { ApiResponse, Dimensions, ID, Position } from "./api";

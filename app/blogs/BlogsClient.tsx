@@ -1,13 +1,14 @@
 "use client";
 
-import { CustomCursor } from "@/components/CustomCursor";
-import FadeUp from "@/components/FadeUp";
+import { CustomCursor } from "@/components/layout/CustomCursor";
+import FadeUp from "@/components/ui/FadeUp";
 import { BlogItemData } from "@/lib/integrations/notion";
-import { useFollowPointer } from "@/lib/utils/FollowPointer";
-import { Navbar } from "@/sections/Navbar";
+import { useFollowPointer } from "@/hooks";
+import { Navbar } from "@/components/layout/Navbar";
 import Link from "next/link";
 import { useRef } from "react";
 import { RiArrowRightUpLine } from "react-icons/ri";
+
 
 export default function BlogsClient({ blogs }: { blogs: BlogItemData[] }) {
   const ref = useRef<HTMLDivElement>(null);
