@@ -133,19 +133,7 @@ export const AestheticBackground: React.FC = () => {
     ghostMesh.renderOrder = 1;
     ghostGroup.add(ghostMesh);
 
-    // 2. Crisp wireframe overlay
-    const ghostWireframe = new THREE.LineSegments(
-      new THREE.EdgesGeometry(ghostGeom, 15),
-      new THREE.LineBasicMaterial({
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.25,
-        depthWrite: false,
-        depthTest: true,
-      })
-    );
-    ghostWireframe.renderOrder = 2;
-    ghostGroup.add(ghostWireframe);
+
 
     // Eyes
     const eyeGeom = new THREE.SphereGeometry(0.48, 24, 24);
@@ -638,13 +626,15 @@ export const AestheticBackground: React.FC = () => {
         ghostGroup.position.y = baseFloatY + interactionShiftY;
 
         ghostGroup.position.x += (0 - ghostGroup.position.x) * 0.1;
-        ghostGroup.position.z += (0 - ghostGroup.position.z) * 0.1;
+        const targetZ = interactionProgress * 3.5;
+        ghostGroup.position.z += (targetZ - ghostGroup.position.z) * 0.1;
 
         const interactionWiggleY = Math.sin(t * 2.0) * 0.08 * interactionProgress;
         ghostGroup.rotation.y = currentRot.y + Math.sin(t * 0.5) * 0.15 + interactionWiggleY;
 
         const interactionWiggleX = Math.cos(t * 1.8) * 0.05 * interactionProgress;
-        ghostGroup.rotation.x = currentRot.x + Math.cos(t * 0.4) * 0.08 + interactionWiggleX;
+        const interactionTiltX = -0.18 * interactionProgress;
+        ghostGroup.rotation.x = currentRot.x + Math.cos(t * 0.4) * 0.08 + interactionWiggleX + interactionTiltX;
 
         ghostGroup.rotation.z = Math.sin(t * 0.8) * 0.05;
 
@@ -654,13 +644,15 @@ export const AestheticBackground: React.FC = () => {
           blinkScaleY = Math.abs(Math.sin((blinkCycle - 1.85) * Math.PI * 6.67));
         }
 
-        leftEye.scale.set(1.0, blinkScaleY, 1.0);
-        rightEye.scale.set(1.0, blinkScaleY, 1.0);
+        const eyeScaleX = 1.0 + interactionProgress * 0.22;
+        const eyeScaleY = blinkScaleY * (1.0 + interactionProgress * 0.15);
+        leftEye.scale.set(eyeScaleX, eyeScaleY, 1.0);
+        rightEye.scale.set(eyeScaleX, eyeScaleY, 1.0);
 
         ghostMaterial.opacity = 0.12 + interactionProgress * 0.12;
       }
 
-      (ghostWireframe.material as THREE.LineBasicMaterial).opacity = ghostMaterial.opacity * 2.2;
+
 
       for (const r of hudRings) {
         if (flags.isEscaping) {
@@ -673,7 +665,7 @@ export const AestheticBackground: React.FC = () => {
           r.mesh.scale.setScalar(1.3);
         } else {
           r.mesh.rotation.z += r.rotSpeed * (1.0 + interactionProgress * 2.0);
-          r.mesh.scale.setScalar(1.0);
+          r.mesh.scale.setScalar(1.0 + interactionProgress * 0.25);
         }
       }
 
