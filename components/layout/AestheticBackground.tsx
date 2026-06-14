@@ -198,6 +198,71 @@ export const AestheticBackground: React.FC = () => {
     headsetGroup.visible = false;
     ghostGroup.add(headsetGroup);
 
+    // ── Procedural Holographic Coding Glasses Mesh ────────────────────────────
+    const createGlasses = () => {
+      const group = new THREE.Group();
+      const lineMat = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.3,
+      });
+
+      const makeLensGeom = (radius: number) => {
+        const pts: THREE.Vector3[] = [];
+        const segments = 32;
+        for (let i = 0; i <= segments; i++) {
+          const theta = (i / segments) * Math.PI * 2;
+          pts.push(new THREE.Vector3(Math.cos(theta) * radius, Math.sin(theta) * radius, 0));
+        }
+        return new THREE.BufferGeometry().setFromPoints(pts);
+      };
+
+      const lensGeom = makeLensGeom(0.65);
+
+      const leftLens = new THREE.Line(lensGeom, lineMat);
+      leftLens.position.set(-0.75, 1.8, 3.32);
+      leftLens.rotation.y = 0.15;
+      group.add(leftLens);
+
+      const rightLens = new THREE.Line(lensGeom, lineMat);
+      rightLens.position.set(0.75, 1.8, 3.32);
+      rightLens.rotation.y = -0.15;
+      group.add(rightLens);
+
+      const bridgePts = [
+        new THREE.Vector3(-0.15, 1.8, 3.35),
+        new THREE.Vector3(0.0, 1.83, 3.37),
+        new THREE.Vector3(0.15, 1.8, 3.35),
+      ];
+      const bridgeGeom = new THREE.BufferGeometry().setFromPoints(bridgePts);
+      const bridge = new THREE.Line(bridgeGeom, lineMat);
+      group.add(bridge);
+
+      const leftTemplePts = [
+        new THREE.Vector3(-1.2, 1.8, 3.25),
+        new THREE.Vector3(-1.9, 1.8, 2.5),
+        new THREE.Vector3(-2.6, 1.6, 0.8),
+      ];
+      const leftTempleGeom = new THREE.BufferGeometry().setFromPoints(leftTemplePts);
+      const leftTemple = new THREE.Line(leftTempleGeom, lineMat);
+      group.add(leftTemple);
+
+      const rightTemplePts = [
+        new THREE.Vector3(1.2, 1.8, 3.25),
+        new THREE.Vector3(1.9, 1.8, 2.5),
+        new THREE.Vector3(2.6, 1.6, 0.8),
+      ];
+      const rightTempleGeom = new THREE.BufferGeometry().setFromPoints(rightTemplePts);
+      const rightTemple = new THREE.Line(rightTempleGeom, lineMat);
+      group.add(rightTemple);
+
+      return group;
+    };
+
+    const glassesGroup = createGlasses();
+    glassesGroup.visible = false;
+    ghostGroup.add(glassesGroup);
+
     // ── Floating Music Notes Animation ───────────────────────────────────────
     const makeNoteMesh = (isDoubleNote: boolean) => {
       const group = new THREE.Group();
@@ -335,6 +400,81 @@ export const AestheticBackground: React.FC = () => {
       });
     }
 
+    const makeCodeMesh = (type: number) => {
+      const group = new THREE.Group();
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x888888,
+        transparent: true,
+        opacity: 0.65,
+      });
+
+      const points: THREE.Vector3[] = [];
+      const size = 0.25;
+
+      if (type === 0) {
+        points.push(new THREE.Vector3(size, size, 0));
+        points.push(new THREE.Vector3(0, size, 0));
+        points.push(new THREE.Vector3(0, 0, 0));
+        points.push(new THREE.Vector3(-size/2, 0, 0));
+        points.push(new THREE.Vector3(0, 0, 0));
+        points.push(new THREE.Vector3(0, -size, 0));
+        points.push(new THREE.Vector3(size, -size, 0));
+      } else if (type === 1) {
+        points.push(new THREE.Vector3(-size, size, 0));
+        points.push(new THREE.Vector3(0, size, 0));
+        points.push(new THREE.Vector3(0, 0, 0));
+        points.push(new THREE.Vector3(size/2, 0, 0));
+        points.push(new THREE.Vector3(0, 0, 0));
+        points.push(new THREE.Vector3(0, -size, 0));
+        points.push(new THREE.Vector3(-size, -size, 0));
+      } else if (type === 2) {
+        points.push(new THREE.Vector3(size, size, 0));
+        points.push(new THREE.Vector3(-size, 0, 0));
+        points.push(new THREE.Vector3(size, -size, 0));
+      } else if (type === 3) {
+        points.push(new THREE.Vector3(-size, size, 0));
+        points.push(new THREE.Vector3(size, 0, 0));
+        points.push(new THREE.Vector3(-size, -size, 0));
+      } else {
+        points.push(new THREE.Vector3(0, size/2, 0));
+        points.push(new THREE.Vector3(0, size/2 + 0.05, 0));
+        points.push(new THREE.Vector3(0, -size/2, 0));
+        points.push(new THREE.Vector3(-size/4, -size, 0));
+      }
+
+      const geom = new THREE.BufferGeometry().setFromPoints(points);
+      const line = new THREE.Line(geom, lineMaterial);
+      group.add(line);
+      return group;
+    };
+
+    interface FloatingCode {
+      mesh: THREE.Group;
+      speedY: number;
+      swayAmp: number;
+      swayFreq: number;
+      phase: number;
+      age: number;
+    }
+
+    const codes: FloatingCode[] = [];
+    const codesCount = 4;
+
+    for (let i = 0; i < codesCount; i++) {
+      const mesh = makeCodeMesh(i % 5);
+      mesh.visible = false;
+      scene.add(mesh);
+
+      codes.push({
+        mesh,
+        speedY: 0.006 + Math.random() * 0.005,
+        swayAmp: 0.35 + Math.random() * 0.3,
+        swayFreq: 1.0 + Math.random() * 0.7,
+        phase: Math.random() * Math.PI * 2,
+        age: Math.random(),
+      });
+    }
+
     ghostGroup.position.set(0, -1, 0);
     scene.add(ghostGroup);
 
@@ -383,6 +523,7 @@ export const AestheticBackground: React.FC = () => {
       isEscaping: false,
       escapeStartTime: 0,
       isPlayingMusic: false,
+      isCoding: false,
     };
 
     let lastInteractionCheck = 0;
@@ -433,6 +574,12 @@ export const AestheticBackground: React.FC = () => {
     };
     window.addEventListener("ghost-escape", onEscapeChange);
 
+    const onCodingChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ coding: boolean }>;
+      flags.isCoding = !!customEvent.detail?.coding;
+    };
+    window.addEventListener("ghost-coding", onCodingChange);
+
     // ── Spotify Polling for Headset Toggle ────────────────────────────────────
     const checkSpotifyStatus = async () => {
       try {
@@ -463,6 +610,7 @@ export const AestheticBackground: React.FC = () => {
     let raf: number;
     let interactionProgress = 0;
     let headsetScale = 0;
+    let glassesScale = 0;
 
     const tick = () => {
       raf = requestAnimationFrame(tick);
@@ -497,6 +645,16 @@ export const AestheticBackground: React.FC = () => {
         headsetGroup.scale.setScalar(headsetScale);
       } else {
         headsetGroup.visible = false;
+      }
+
+      // Animate Glasses Visibility & Scale
+      const targetGlassesScale = flags.isCoding && !isSleeping ? 1.0 : 0.0;
+      glassesScale += (targetGlassesScale - glassesScale) * 0.08;
+      if (glassesScale > 0.005) {
+        glassesGroup.visible = true;
+        glassesGroup.scale.setScalar(glassesScale);
+      } else {
+        glassesGroup.visible = false;
       }
 
       // Animate Floating Music Notes
@@ -562,6 +720,39 @@ export const AestheticBackground: React.FC = () => {
         }
       }
 
+      // Animate Floating Code Particles (Only when coding)
+      for (const c of codes) {
+        if (!isSleeping && flags.isCoding) {
+          c.mesh.visible = true;
+          c.age += c.speedY;
+          if (c.age > 1.0) {
+            c.age = 0.0;
+          }
+
+          const ghostX = ghostGroup.position.x;
+          const ghostY = ghostGroup.position.y;
+          const ghostZ = ghostGroup.position.z;
+
+          const startX = ghostX + (c.phase % 2 === 0 ? -2.2 : 2.2);
+          const startY = ghostY + 0.8;
+
+          c.mesh.position.y = startY + c.age * 6.0;
+          c.mesh.position.x = startX + Math.sin(t * c.swayFreq + c.phase) * c.swayAmp;
+          c.mesh.position.z = ghostZ + Math.cos(t * 0.5 + c.phase) * 0.4;
+
+          c.mesh.rotation.z = t * 1.5 + c.phase;
+
+          const opacity = Math.sin(c.age * Math.PI) * 0.7;
+          c.mesh.traverse((child) => {
+            if (child instanceof THREE.Line) {
+              (child.material as THREE.LineBasicMaterial).opacity = opacity;
+            }
+          });
+        } else {
+          c.mesh.visible = false;
+        }
+      }
+
       if (flags.isEscaping) {
         const duration = (performance.now() - flags.escapeStartTime) / 1000;
 
@@ -623,10 +814,12 @@ export const AestheticBackground: React.FC = () => {
 
         const baseFloatY = -1 + Math.sin(t * 1.5) * 0.8;
         const interactionShiftY = Math.sin(t * 2.5) * 0.25 * interactionProgress;
-        ghostGroup.position.y = baseFloatY + interactionShiftY;
+        const codingSwayY = flags.isCoding ? Math.sin(t * 1.0) * 0.15 : 0;
+        ghostGroup.position.y = baseFloatY + interactionShiftY + codingSwayY;
 
-        ghostGroup.position.x += (0 - ghostGroup.position.x) * 0.1;
-        const targetZ = interactionProgress * 3.5;
+        const codingSwayX = flags.isCoding ? Math.cos(t * 0.8) * 0.25 : 0;
+        ghostGroup.position.x += (codingSwayX - ghostGroup.position.x) * 0.1;
+        const targetZ = interactionProgress * 3.5 + (flags.isCoding ? 1.5 : 0);
         ghostGroup.position.z += (targetZ - ghostGroup.position.z) * 0.1;
 
         const interactionWiggleY = Math.sin(t * 2.0) * 0.08 * interactionProgress;
@@ -644,8 +837,14 @@ export const AestheticBackground: React.FC = () => {
           blinkScaleY = Math.abs(Math.sin((blinkCycle - 1.85) * Math.PI * 6.67));
         }
 
-        const eyeScaleX = 1.0 + interactionProgress * 0.22;
-        const eyeScaleY = blinkScaleY * (1.0 + interactionProgress * 0.15);
+        let eyeScaleX = 1.0 + interactionProgress * 0.22;
+        let eyeScaleY = blinkScaleY * (1.0 + interactionProgress * 0.15);
+
+        if (flags.isCoding) {
+          eyeScaleY *= 0.75;
+          eyeScaleX *= 0.95;
+        }
+
         leftEye.scale.set(eyeScaleX, eyeScaleY, 1.0);
         rightEye.scale.set(eyeScaleX, eyeScaleY, 1.0);
 
@@ -680,6 +879,7 @@ export const AestheticBackground: React.FC = () => {
       clearInterval(spotifyInterval);
       window.removeEventListener("mousemove", onMouse);
       window.removeEventListener("ghost-escape", onEscapeChange);
+      window.removeEventListener("ghost-coding", onCodingChange);
       window.removeEventListener("resize", onResize);
       if (fallbackTimeout) clearTimeout(fallbackTimeout);
       renderer.dispose();
@@ -692,6 +892,11 @@ export const AestheticBackground: React.FC = () => {
       for (const z of zs) {
         scene.remove(z.mesh);
       }
+      // Clean up codes from scene
+      for (const c of codes) {
+        scene.remove(c.mesh);
+      }
+      ghostGroup.remove(glassesGroup);
     };
   }, []); // Static mount execution
 

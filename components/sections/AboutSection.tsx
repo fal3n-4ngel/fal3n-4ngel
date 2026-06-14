@@ -6,6 +6,7 @@ import { GhostButton } from "@/components/features/GhostButton";
 import NowPlaying from "@/components/features/NowPlaying";
 import { ParallaxElement } from "@/components/ui/ParallaxSection";
 import { SectionTransition, StaggerChild } from "@/components/ui/SectionTransition";
+import { useLanyard } from "@/hooks";
 import { getSiteConfig } from "@/lib/integrations/notion";
 import { useEffect, useState } from "react";
 
@@ -22,11 +23,18 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     isPlaying: false,
   });
 
+  const { data: lanyardData } = useLanyard("849515993546096660");
+
   useEffect(() => {
     getSiteConfig().then((data) => {
       if (data) setConfig(data);
     });
   }, []);
+
+  useEffect(() => {
+    const isCoding = lanyardData?.activities.some((act) => act.type === 0 && act.name === "Visual Studio Code") ?? false;
+    window.dispatchEvent(new CustomEvent("ghost-coding", { detail: { coding: isCoding } }));
+  }, [lanyardData]);
 
   const activeStatus = config?.["active status"]?.isEnabled ?? false;
   const collaborationStatus = config?.["collaboration"]?.isEnabled ?? false;
@@ -48,16 +56,63 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
 
   let displayStatus = collaborationStatus;
   let displayText = collaborationText;
+  let statusColor = displayStatus ? "bg-green-500 animate-pulse" : "bg-red-500";
+
   if (!activeStatus) {
-    if (spotifyData.isPlaying) {
-      displayStatus = true;
-      displayText = "Listening to Spotify";
-    } else if (lastSeenSpotifyText) {
-      displayStatus = false;
-      displayText = lastSeenSpotifyText;
+    if (lanyardData) {
+      const activeGameOrCoding = lanyardData.activities.find((act) => act.type === 0);
+      const customStatus = lanyardData.activities.find((act) => act.type === 4);
+
+      if (lanyardData.discord_status === "online") {
+        statusColor = "bg-green-500 animate-pulse";
+      } else if (lanyardData.discord_status === "idle") {
+        statusColor = "bg-yellow-500 animate-pulse";
+      } else if (lanyardData.discord_status === "dnd") {
+        statusColor = "bg-red-500 animate-pulse";
+      } else {
+        statusColor = "bg-zinc-600";
+      }
+
+      displayStatus = lanyardData.discord_status !== "offline";
+
+      if (activeGameOrCoding) {
+        if (activeGameOrCoding.name === "Visual Studio Code") {
+          displayText = `Coding: ${activeGameOrCoding.details || "VS Code"}`;
+        } else if (activeGameOrCoding.name === "Minecraft") {
+          displayText = "Playing Minecraft";
+        } else {
+          displayText = `Playing ${activeGameOrCoding.name}`;
+        }
+      } else if (lanyardData.listening_to_spotify) {
+        displayText = "Listening to Spotify";
+        statusColor = "bg-green-500 animate-pulse";
+      } else if (customStatus?.state) {
+        displayText = customStatus.state;
+      } else {
+        if (lanyardData.discord_status === "online") {
+          displayText = "Online";
+        } else if (lanyardData.discord_status === "idle") {
+          displayText = "Away";
+        } else if (lanyardData.discord_status === "dnd") {
+          displayText = "Busy";
+        } else {
+          displayText = "Offline";
+        }
+      }
     } else {
-      displayStatus = false;
-      displayText = "Offline";
+      if (spotifyData.isPlaying) {
+        displayStatus = true;
+        statusColor = "bg-green-500 animate-pulse";
+        displayText = "Listening to Spotify";
+      } else if (lastSeenSpotifyText) {
+        displayStatus = false;
+        statusColor = "bg-zinc-600";
+        displayText = lastSeenSpotifyText;
+      } else {
+        displayStatus = false;
+        statusColor = "bg-red-500";
+        displayText = "Offline";
+      }
     }
   }
 
@@ -74,19 +129,19 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
               </StaggerChild>
             </div>
 
-            <div className="mt-12 flex flex-col border-t border-white/10 pt-8 font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 md:mt-24 md:flex-row md:gap-12">
+            <div className="mt-12 flex flex-col border-t border-white/10 pt-8 font-mono md:mt-24 md:flex-row md:gap-12">
               <StaggerChild direction="up" distance={15}>
-                <div>
-                  <p className="mb-2 text-white/40">Based in</p>
-                  <p className="text-zinc-300">Kerala, India</p>
+                <div className="space-y-1.5">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Based in</p>
+                  <p className="text-xs md:text-sm text-zinc-300 font-light tracking-wide">Kerala, India</p>
                 </div>
               </StaggerChild>
               <StaggerChild direction="up" distance={15}>
-                <div className="mt-6 space-y-2 md:mt-0">
-                  <p className="text-white/40">Status</p>
-                  <div className="flex items-center gap-2">
+                <div className="mt-6 space-y-1.5 md:mt-0">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Status</p>
+                  <div className="flex items-center gap-2 text-xs md:text-sm text-zinc-300 font-light tracking-wide">
                     <span
-                      className={`h-1.5 w-1.5 rounded-full ${displayStatus ? "animate-pulse bg-green-500" : "bg-red-500"}`}
+                      className={`h-1.5 w-1.5 rounded-full shrink-0 ${statusColor}`}
                     />
                     <span>{displayText}</span>
                   </div>
