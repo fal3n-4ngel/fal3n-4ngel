@@ -85,12 +85,14 @@ export async function createExpense(entry: ExpenseEntry) {
  * Returns an array of results with id, url, title, and success/error per entry.
  */
 export async function createExpenseBatch(entries: ExpenseEntry[]) {
-  const results = await Promise.allSettled(entries.map((e) => createExpense(e)));
+  const tagged = entries.map((entry) => ({ entry, promise: createExpense(entry) }));
+  const results = await Promise.allSettled(tagged.map((t) => t.promise));
   return results.map((r, i) => {
+    const entry = tagged[i]!.entry;
     if (r.status === "fulfilled") {
-      return { success: true, title: entries[i].title, ...r.value };
+      return { success: true, title: entry.title, ...r.value };
     } else {
-      return { success: false, title: entries[i].title, error: r.reason?.message || "Unknown error" };
+      return { success: false, title: entry.title, error: (r.reason as Error)?.message || "Unknown error" };
     }
   });
 }
