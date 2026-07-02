@@ -10,11 +10,11 @@ export const dynamic = "force-dynamic";
  * Auth: Authorization: Bearer <api_key>
  *
  * Body (JSON) — all fields optional, only provided fields are updated:
- *   title    string
- *   amount   number
- *   category string  — Food | Transport | Shopping | Entertainment | Health | Utilities | Other
- *   date     string  — YYYY-MM-DD
- *   notes    string
+ *   title       string
+ *   amount      number
+ *   category_id string  — Notion page ID of the category (pass "" to clear)
+ *   date        string  — YYYY-MM-DD
+ *   notes       string
  */
 export async function PATCH(
   req: NextRequest,
@@ -41,7 +41,7 @@ export async function PATCH(
     );
   }
 
-  const { title, amount, category, date, notes } = body;
+  const { title, amount, category, category_id, date, notes } = body;
 
   if (Object.keys(body).length === 0) {
     return NextResponse.json(
@@ -62,6 +62,7 @@ export async function PATCH(
     if (title !== undefined) updates.title = title;
     if (amount !== undefined) updates.amount = amount;
     if (category !== undefined) updates.category = category;
+    else if (category_id !== undefined) updates.category = category_id;
     if (date !== undefined) updates.date = date;
     if (notes !== undefined) updates.notes = notes;
 

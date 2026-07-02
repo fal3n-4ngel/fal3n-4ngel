@@ -12,14 +12,13 @@ export const dynamic = "force-dynamic";
  * Body (JSON):
  * {
  *   "expenses": [
- *     { "title": "Lunch", "amount": 250, "category": "Food", "date": "2026-07-02" },
- *     { "title": "Uber", "amount": 130, "category": "Transport" },
+ *     { "title": "Lunch", "amount": 250, "date": "2026-07-02" },
+ *     { "title": "Uber", "amount": 130 },
  *     ...
  *   ]
  * }
  *
- * Each item follows the same schema as POST /api/expenses.
- * title and amount are required per item.
+ * Each item: title and amount required, date and notes optional.
  * Returns results for each item individually — partial success is possible.
  */
 export async function POST(req: NextRequest) {
@@ -72,7 +71,7 @@ export async function POST(req: NextRequest) {
     entries.push({
       title: e.title,
       amount: e.amount,
-      category: e.category,
+      category: e.category || e.category_id,
       date: e.date || today,
       notes: e.notes,
     });

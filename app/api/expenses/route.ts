@@ -10,9 +10,9 @@ export const dynamic = "force-dynamic";
  * Auth: Authorization: Bearer <api_key>
  *
  * Optional query params:
- *   ?category=Food
  *   ?from=YYYY-MM-DD
  *   ?to=YYYY-MM-DD
+ *   ?current_cycle=true   — only expenses in the current billing cycle (25th–24th)
  */
 export async function GET(req: NextRequest) {
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
@@ -22,6 +22,7 @@ export async function GET(req: NextRequest) {
     category: p.get("category") || undefined,
     from: p.get("from") || undefined,
     to: p.get("to") || undefined,
+    currentCycle: p.get("current_cycle") === "true" ? true : undefined,
   };
 
   try {
@@ -45,11 +46,12 @@ export async function GET(req: NextRequest) {
  * Auth: Authorization: Bearer <api_key>
  *
  * Body (JSON):
- *   title    string  (required)
- *   amount   number  (required)
- *   category string  (optional) — Food | Transport | Shopping | Entertainment | Health | Utilities | Other
- *   date     string  (optional) — YYYY-MM-DD, defaults to today
- *   notes    string  (optional)
+ *   title       string  (required)
+ *   amount      number  (required)
+ *   category    string  (optional) — Category Name or Notion page ID
+ *   category_id string  (optional) — Notion page ID of the category (deprecated, use category)
+ *   date        string  (optional) — YYYY-MM-DD, defaults to today
+ *   notes       string  (optional)
  */
 export async function POST(req: NextRequest) {
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
@@ -64,7 +66,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { title, amount, category, date, notes } = body;
+  const { title, amount, category, category_id, date, notes } = body;
 
   if (!title || amount === undefined) {
     return NextResponse.json(
@@ -84,7 +86,7 @@ export async function POST(req: NextRequest) {
     const result = await createExpense({
       title,
       amount,
-      category,
+      category: category || category_id,
       date: date || new Date().toISOString().slice(0, 10),
       notes,
     });

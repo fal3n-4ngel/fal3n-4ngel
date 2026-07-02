@@ -3,6 +3,7 @@ import { Client } from "@notionhq/client";
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
 const PARENT_PAGE_ID = process.env.NOTION_PARENT_PAGE_ID!;
+const CATEGORIES_DB_ID = process.env.NOTION_CATEGORIES_DB_ID || "f21a1feb-b4f5-4504-94b8-7a1b1dfe10ba";
 
 let _expensesDbId: string | null = process.env.NOTION_EXPENSES_DB_ID || null;
 
@@ -12,26 +13,12 @@ let _expensesDbId: string | null = process.env.NOTION_EXPENSES_DB_ID || null;
 export async function getOrCreateExpensesDb(): Promise<string> {
   if (_expensesDbId) return _expensesDbId;
 
-  // Create the database under the portfolio parent page
   const db = await notion.databases.create({
     parent: { type: "page_id", page_id: PARENT_PAGE_ID },
     title: [{ type: "text", text: { content: "Expenses Tracker" } }],
     properties: {
       Title: { title: {} },
       Amount: { number: { format: "rupee" } },
-      Category: {
-        select: {
-          options: [
-            { name: "Food", color: "orange" },
-            { name: "Transport", color: "blue" },
-            { name: "Shopping", color: "pink" },
-            { name: "Entertainment", color: "purple" },
-            { name: "Health", color: "green" },
-            { name: "Utilities", color: "gray" },
-            { name: "Other", color: "default" },
-          ],
-        },
-      },
       Date: { date: {} },
       Notes: { rich_text: {} },
     },
@@ -41,11 +28,65 @@ export async function getOrCreateExpensesDb(): Promise<string> {
   return db.id;
 }
 
+let cachedCategories: { id: string; name: string }[] | null = null;
+let lastFetchTime = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
+
+export async function getCategories() {
+  const now = Date.now();
+  if (cachedCategories && (now - lastFetchTime < CACHE_TTL)) {
+    return cachedCategories;
+  }
+
+  try {
+    const response = await notion.databases.query({
+      database_id: CATEGORIES_DB_ID,
+    });
+
+    const categories = response.results.map((page: any) => {
+      const name = page.properties.Name?.title?.[0]?.plain_text || "";
+      return {
+        id: page.id,
+        name: name.trim(),
+      };
+    });
+
+    cachedCategories = categories;
+    lastFetchTime = now;
+    return categories;
+  } catch (error) {
+    console.error("❌ Notion Fetch Categories Error:", error);
+    return cachedCategories || [];
+  }
+}
+
+export async function resolveCategoryId(categoryNameOrId: string): Promise<string | null> {
+  if (!categoryNameOrId) return null;
+  
+  const uuidRegex = /^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i;
+  if (uuidRegex.test(categoryNameOrId)) {
+    return categoryNameOrId;
+  }
+
+  const categories = await getCategories();
+  const nameLower = categoryNameOrId.toLowerCase().trim();
+  
+  // Exact match
+  let match = categories.find(c => c.name.toLowerCase() === nameLower);
+  if (match) return match.id;
+
+  // Fuzzy match
+  match = categories.find(c => c.name.toLowerCase().includes(nameLower) || nameLower.includes(c.name.toLowerCase()));
+  if (match) return match.id;
+
+  return null;
+}
+
 export interface ExpenseEntry {
   title: string;
   amount: number;
-  category?: string;
-  date?: string; // ISO date: YYYY-MM-DD
+  category?: string;     // Category Name or ID (relation)
+  date?: string;         // ISO date: YYYY-MM-DD
   notes?: string;
 }
 
@@ -61,7 +102,10 @@ export async function createExpense(entry: ExpenseEntry) {
   };
 
   if (entry.category) {
-    properties.Category = { select: { name: entry.category } };
+    const resolvedId = await resolveCategoryId(entry.category);
+    if (resolvedId) {
+      properties.Category = { relation: [{ id: resolvedId }] };
+    }
   }
 
   if (entry.date) {
@@ -116,7 +160,14 @@ export async function updateExpense(
   }
 
   if (entry.category !== undefined) {
-    properties.Category = { select: { name: entry.category } };
+    if (entry.category) {
+      const resolvedId = await resolveCategoryId(entry.category);
+      properties.Category = resolvedId
+        ? { relation: [{ id: resolvedId }] }
+        : { relation: [] };
+    } else {
+      properties.Category = { relation: [] }; // clear relation
+    }
   }
 
   if (entry.date !== undefined) {
@@ -136,14 +187,15 @@ export async function updateExpense(
 }
 
 export interface ListExpensesFilters {
-  category?: string;
-  from?: string; // YYYY-MM-DD
-  to?: string;   // YYYY-MM-DD
+  category?: string;    // Name or ID
+  from?: string;        // YYYY-MM-DD
+  to?: string;          // YYYY-MM-DD
+  currentCycle?: boolean; // filter to current billing cycle
 }
 
 /**
  * Lists expenses from the Notion Expenses database.
- * Optionally filter by category and/or date range.
+ * Optionally filter by category, date range, or current cycle.
  */
 export async function listExpenses(filters?: ListExpensesFilters) {
   const dbId = await getOrCreateExpensesDb();
@@ -151,10 +203,13 @@ export async function listExpenses(filters?: ListExpensesFilters) {
   const notionFilters: any[] = [];
 
   if (filters?.category) {
-    notionFilters.push({
-      property: "Category",
-      select: { equals: filters.category },
-    });
+    const resolvedId = await resolveCategoryId(filters.category);
+    if (resolvedId) {
+      notionFilters.push({
+        property: "Category",
+        relation: { contains: resolvedId },
+      });
+    }
   }
 
   if (filters?.from) {
@@ -171,6 +226,13 @@ export async function listExpenses(filters?: ListExpensesFilters) {
     });
   }
 
+  if (filters?.currentCycle) {
+    notionFilters.push({
+      property: "Current Cycle",
+      formula: { checkbox: { equals: true } },
+    });
+  }
+
   const response = await notion.databases.query({
     database_id: dbId,
     sorts: [{ property: "Date", direction: "descending" }],
@@ -182,13 +244,23 @@ export async function listExpenses(filters?: ListExpensesFilters) {
     }),
   });
 
-  return response.results.map((page: any) => ({
-    id: page.id,
-    url: page.url,
-    title: page.properties.Title?.title?.[0]?.plain_text || "",
-    amount: page.properties.Amount?.number ?? null,
-    category: page.properties.Category?.select?.name || null,
-    date: page.properties.Date?.date?.start || null,
-    notes: page.properties.Notes?.rich_text?.[0]?.plain_text || null,
-  }));
+  const categories = await getCategories();
+  const catMap = new Map(categories.map(c => [c.id, c.name]));
+
+  return response.results.map((page: any) => {
+    const categoryId = page.properties.Category?.relation?.[0]?.id || null;
+    const categoryName = categoryId ? (catMap.get(categoryId) || null) : null;
+    
+    return {
+      id: page.id,
+      url: page.url,
+      title: page.properties.Title?.title?.[0]?.plain_text || "",
+      amount: page.properties.Amount?.number ?? null,
+      category_id: categoryId,
+      category: categoryName,
+      date: page.properties.Date?.date?.start || null,
+      notes: page.properties.Notes?.rich_text?.[0]?.plain_text || null,
+      currentCycle: page.properties["Current Cycle"]?.formula?.boolean ?? null,
+    };
+  });
 }
