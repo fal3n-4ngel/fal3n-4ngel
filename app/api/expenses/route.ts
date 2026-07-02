@@ -6,16 +6,29 @@ export const dynamic = "force-dynamic";
 
 /**
  * GET /api/expenses
- * Lists all expenses sorted by date (newest first).
+ * Lists expenses sorted by date (newest first).
  * Auth: Authorization: Bearer <api_key>
+ *
+ * Optional query params:
+ *   ?category=Food
+ *   ?from=YYYY-MM-DD
+ *   ?to=YYYY-MM-DD
  */
 export async function GET(req: NextRequest) {
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
 
+  const p = req.nextUrl.searchParams;
+  const filters = {
+    category: p.get("category") || undefined,
+    from: p.get("from") || undefined,
+    to: p.get("to") || undefined,
+  };
+
   try {
-    const expenses = await listExpenses();
+    const expenses = await listExpenses(filters);
+    const total = expenses.reduce((sum, e) => sum + (e.amount ?? 0), 0);
     return NextResponse.json(
-      { success: true, count: expenses.length, expenses },
+      { success: true, count: expenses.length, total, expenses },
       { headers: corsHeaders() }
     );
   } catch (err: any) {

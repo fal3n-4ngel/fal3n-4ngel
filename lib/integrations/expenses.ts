@@ -81,6 +81,21 @@ export async function createExpense(entry: ExpenseEntry) {
 }
 
 /**
+ * Creates multiple expenses in parallel.
+ * Returns an array of results with id, url, title, and success/error per entry.
+ */
+export async function createExpenseBatch(entries: ExpenseEntry[]) {
+  const results = await Promise.allSettled(entries.map((e) => createExpense(e)));
+  return results.map((r, i) => {
+    if (r.status === "fulfilled") {
+      return { success: true, title: entries[i].title, ...r.value };
+    } else {
+      return { success: false, title: entries[i].title, error: r.reason?.message || "Unknown error" };
+    }
+  });
+}
+
+/**
  * Updates an existing expense row by Notion page ID.
  * Only the fields provided will be updated.
  */
@@ -118,15 +133,51 @@ export async function updateExpense(
   return { id: page.id, url: (page as any).url };
 }
 
+export interface ListExpensesFilters {
+  category?: string;
+  from?: string; // YYYY-MM-DD
+  to?: string;   // YYYY-MM-DD
+}
+
 /**
- * Lists all expenses from the Notion Expenses database.
+ * Lists expenses from the Notion Expenses database.
+ * Optionally filter by category and/or date range.
  */
-export async function listExpenses() {
+export async function listExpenses(filters?: ListExpensesFilters) {
   const dbId = await getOrCreateExpensesDb();
+
+  const notionFilters: any[] = [];
+
+  if (filters?.category) {
+    notionFilters.push({
+      property: "Category",
+      select: { equals: filters.category },
+    });
+  }
+
+  if (filters?.from) {
+    notionFilters.push({
+      property: "Date",
+      date: { on_or_after: filters.from },
+    });
+  }
+
+  if (filters?.to) {
+    notionFilters.push({
+      property: "Date",
+      date: { on_or_before: filters.to },
+    });
+  }
 
   const response = await notion.databases.query({
     database_id: dbId,
     sorts: [{ property: "Date", direction: "descending" }],
+    ...(notionFilters.length > 0 && {
+      filter:
+        notionFilters.length === 1
+          ? notionFilters[0]
+          : { and: notionFilters },
+    }),
   });
 
   return response.results.map((page: any) => ({
