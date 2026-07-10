@@ -105,7 +105,7 @@ paths:
       tags: [Portfolio Data]
       security:
         - {}
-        - jwtAuth: []
+        - bearerAuth: []
       responses:
         "200":
           description: Now-playing data.
@@ -756,6 +756,11 @@ components:
       description: >
         Static API key used for all protected endpoints.
         Send as `Authorization: Bearer <API_KEY>`.
+    cronSecret:
+      type: http
+      scheme: bearer
+      description: Static shared secret for cron/monitor endpoints. Send as `Authorization: Bearer <CRON_SECRET>`.
+
 
   schemas:
     Error:
