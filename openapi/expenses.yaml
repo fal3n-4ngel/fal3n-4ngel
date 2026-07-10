@@ -315,7 +315,7 @@ paths:
                         top_category:
                           type: string
                           nullable: true
-                          example: "Food & Drinks"
+                          example: "Food"
                         by_category:
                           type: array
                           items:
@@ -552,7 +552,7 @@ components:
         category:
           type: string
           nullable: true
-          example: "Food & Drinks"
+          example: "Food"
         date:
           type: string
           format: date
@@ -579,7 +579,7 @@ components:
         category:
           type: string
           description: Category name (fuzzy-matched) or Notion category page ID.
-          example: "Food & Drinks"
+          example: "Food"
         category_id:
           type: string
           deprecated: true
@@ -668,7 +668,7 @@ components:
           example: "391e545c-4a67-81e7-8657-ca14ce61f6e0"
         name:
           type: string
-          example: "Food & Drinks"
+          example: "Food"
 
     CategoryBreakdownRow:
       type: object
@@ -678,7 +678,7 @@ components:
           nullable: true
         category:
           type: string
-          example: "Food & Drinks"
+          example: "Food"
         total:
           type: number
           example: 4736.25

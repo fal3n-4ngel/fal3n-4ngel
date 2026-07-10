@@ -5,7 +5,8 @@ const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const CATEGORIES_DB_ID = "f21a1feb-b4f5-4504-94b8-7a1b1dfe10ba";
 
 const BUDGETS = {
-  "Food & Drinks": 8000,
+  "Food": 6000,
+  "Drinks": 2000,
   "Transport": 3000,
   "Groceries": 5000,
   "Shopping": 6000,

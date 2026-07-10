@@ -6,9 +6,13 @@ const CATEGORIES_DB_ID = "f21a1feb-b4f5-4504-94b8-7a1b1dfe10ba";
 
 // Mapping of Category names to matching colors and emojis
 const CATEGORY_STYLES = {
-  "Food & Drinks": {
+  "Food": {
     color: "#ff9f43", // Warm Orange
     emoji: "🍔"
+  },
+  "Drinks": {
+    color: "#74b9ff", // Soft Blue
+    emoji: "🍹"
   },
   "Transport": {
     color: "#111111", // Sleek Black
