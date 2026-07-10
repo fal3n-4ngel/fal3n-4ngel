@@ -1,0 +1,27 @@
+# Frequent health-check trigger (Vercel Hobby crons are limited, so GitHub
+# Actions does the every-30-minutes polling). Requires two repo secrets:
+#   MONITOR_URL  — e.g. https://www.adithyakrishnan.com/api/cron/monitor
+#   CRON_SECRET  — same value as the CRON_SECRET env var on Vercel
+name: Health monitor
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger monitor endpoint
+        run: |
+          status=$(curl -s -o response.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.MONITOR_URL }}")
+          echo "HTTP $status"
+          cat response.json
+          # 503 means a dependency is down — the endpoint has already alerted,
+          # so only treat transport-level failures (000/4xx) as workflow errors.
+          if [ "$status" != "200" ] && [ "$status" != "503" ]; then
+            exit 1
+          fi

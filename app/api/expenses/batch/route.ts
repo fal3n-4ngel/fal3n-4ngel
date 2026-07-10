@@ -1,12 +1,24 @@
-import { createExpenseBatch, ExpenseEntry } from "@/lib/integrations/expenses";
-import { corsHeaders, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+import {
+  createExpenseBatch,
+  ExpenseEntry,
+  isValidISODate,
+  todayISODate,
+} from "@/lib/integrations/expenses";
+import {
+  badRequest,
+  corsHeaders,
+  parseJsonBody,
+  serverError,
+  unauthorizedResponse,
+  validateExpensesApiKey,
+} from "@/lib/expenses-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 /**
  * POST /api/expenses/batch
- * Creates multiple expense entries at once in parallel.
+ * Creates multiple expense entries at once (bounded concurrency).
  * Auth: Authorization: Bearer <api_key>
  *
  * Body (JSON):
@@ -18,55 +30,39 @@ export const dynamic = "force-dynamic";
  *   ]
  * }
  *
- * Each item: title and amount required, date and notes optional.
+ * Each item: title and amount required; category, date, and notes optional.
  * Returns results for each item individually — partial success is possible.
  */
 export async function POST(req: NextRequest) {
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
 
-  let body: any;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json(
-      { error: "Bad Request", message: "Request body must be valid JSON." },
-      { status: 400, headers: corsHeaders() }
-    );
-  }
+  const body = await parseJsonBody(req);
+  if (!body) return badRequest("Request body must be valid JSON.");
 
   const { expenses } = body;
 
   if (!Array.isArray(expenses) || expenses.length === 0) {
-    return NextResponse.json(
-      { error: "Bad Request", message: "`expenses` must be a non-empty array." },
-      { status: 400, headers: corsHeaders() }
-    );
+    return badRequest("`expenses` must be a non-empty array.");
   }
 
   if (expenses.length > 50) {
-    return NextResponse.json(
-      { error: "Bad Request", message: "Maximum 50 expenses per batch." },
-      { status: 400, headers: corsHeaders() }
-    );
+    return badRequest("Maximum 50 expenses per batch.");
   }
 
   // Validate each entry
-  const today = new Date().toISOString().slice(0, 10);
+  const today = todayISODate();
   const entries: ExpenseEntry[] = [];
 
   for (let i = 0; i < expenses.length; i++) {
     const e = expenses[i];
     if (!e.title || e.amount === undefined) {
-      return NextResponse.json(
-        { error: "Bad Request", message: `Item at index ${i} is missing required fields: title, amount.` },
-        { status: 400, headers: corsHeaders() }
-      );
+      return badRequest(`Item at index ${i} is missing required fields: title, amount.`);
     }
-    if (typeof e.amount !== "number" || isNaN(e.amount)) {
-      return NextResponse.json(
-        { error: "Bad Request", message: `Item at index ${i}: amount must be a number.` },
-        { status: 400, headers: corsHeaders() }
-      );
+    if (typeof e.amount !== "number" || !Number.isFinite(e.amount)) {
+      return badRequest(`Item at index ${i}: amount must be a finite number.`);
+    }
+    if (e.date !== undefined && !isValidISODate(e.date)) {
+      return badRequest(`Item at index ${i}: date must be a valid YYYY-MM-DD date.`);
     }
     entries.push({
       title: e.title,
@@ -90,11 +86,8 @@ export async function POST(req: NextRequest) {
       },
       { status: failed === results.length ? 500 : 201, headers: corsHeaders() }
     );
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: "Failed to create expenses.", message: err.message },
-      { status: 500, headers: corsHeaders() }
-    );
+  } catch (err) {
+    return serverError("Failed to create expenses.", err);
   }
 }
 

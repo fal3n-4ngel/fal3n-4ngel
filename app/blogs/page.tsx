@@ -17,8 +17,8 @@ export default async function BlogsPage() {
   const blogs = await getBlogs();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center space-y-6 bg-black px-6 text-white">
-      <BlogsClient blogs={blogs} />;
+    <main className="min-h-screen bg-black text-white">
+      <BlogsClient blogs={blogs} />
     </main>
   );
 }

@@ -1,5 +1,12 @@
-import { createExpense, listExpenses } from "@/lib/integrations/expenses";
-import { corsHeaders, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+import { createExpense, isValidISODate, listExpenses, todayISODate } from "@/lib/integrations/expenses";
+import {
+  badRequest,
+  corsHeaders,
+  parseJsonBody,
+  serverError,
+  unauthorizedResponse,
+  validateExpensesApiKey,
+} from "@/lib/expenses-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -10,6 +17,7 @@ export const dynamic = "force-dynamic";
  * Auth: Authorization: Bearer <api_key>
  *
  * Optional query params:
+ *   ?category=Name-or-ID
  *   ?from=YYYY-MM-DD
  *   ?to=YYYY-MM-DD
  *   ?current_cycle=true   — only expenses in the current billing cycle (25th–24th)
@@ -18,10 +26,16 @@ export async function GET(req: NextRequest) {
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
 
   const p = req.nextUrl.searchParams;
+  const from = p.get("from") || undefined;
+  const to = p.get("to") || undefined;
+
+  if (from && !isValidISODate(from)) return badRequest("`from` must be a valid YYYY-MM-DD date.");
+  if (to && !isValidISODate(to)) return badRequest("`to` must be a valid YYYY-MM-DD date.");
+
   const filters = {
     category: p.get("category") || undefined,
-    from: p.get("from") || undefined,
-    to: p.get("to") || undefined,
+    from,
+    to,
     currentCycle: p.get("current_cycle") === "true" ? true : undefined,
   };
 
@@ -32,11 +46,8 @@ export async function GET(req: NextRequest) {
       { success: true, count: expenses.length, total, expenses },
       { headers: corsHeaders() }
     );
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: "Failed to fetch expenses.", message: err.message },
-      { status: 500, headers: corsHeaders() }
-    );
+  } catch (err) {
+    return serverError("Failed to fetch expenses.", err);
   }
 }
 
@@ -56,49 +67,45 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
 
-  let body: any;
-  try {
-    body = await req.json();
-  } catch {
-    return NextResponse.json(
-      { error: "Bad Request", message: "Request body must be valid JSON." },
-      { status: 400, headers: corsHeaders() }
-    );
-  }
+  const body = await parseJsonBody(req);
+  if (!body) return badRequest("Request body must be valid JSON.");
 
   const { title, amount, category, category_id, date, notes } = body;
 
   if (!title || amount === undefined) {
-    return NextResponse.json(
-      { error: "Bad Request", message: "`title` and `amount` are required." },
-      { status: 400, headers: corsHeaders() }
-    );
+    return badRequest("`title` and `amount` are required.");
   }
 
-  if (typeof amount !== "number" || isNaN(amount)) {
-    return NextResponse.json(
-      { error: "Bad Request", message: "`amount` must be a number." },
-      { status: 400, headers: corsHeaders() }
-    );
+  if (typeof amount !== "number" || !Number.isFinite(amount)) {
+    return badRequest("`amount` must be a finite number.");
   }
+
+  if (date !== undefined && !isValidISODate(date)) {
+    return badRequest("`date` must be a valid YYYY-MM-DD date.");
+  }
+
+  const requestedCategory = category || category_id;
 
   try {
     const result = await createExpense({
       title,
       amount,
-      category: category || category_id,
-      date: date || new Date().toISOString().slice(0, 10),
+      category: requestedCategory,
+      date: date || todayISODate(),
       notes,
     });
+
+    const warning =
+      requestedCategory && result.category_id === null
+        ? `Category "${requestedCategory}" was not found — expense saved without a category. Use GET /api/expenses/categories to list valid names.`
+        : undefined;
+
     return NextResponse.json(
-      { success: true, message: "Expense created.", ...result },
+      { success: true, message: "Expense created.", ...result, ...(warning && { warning }) },
       { status: 201, headers: corsHeaders() }
     );
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: "Failed to create expense.", message: err.message },
-      { status: 500, headers: corsHeaders() }
-    );
+  } catch (err) {
+    return serverError("Failed to create expense.", err);
   }
 }
 
