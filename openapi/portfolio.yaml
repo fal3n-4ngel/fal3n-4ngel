@@ -2,18 +2,19 @@ openapi: 3.1.0
 info:
   title: Adithya Krishnan Portfolio API
   description: >
-    Full API surface for the portfolio site: authentication, portfolio data
+    Full API surface for the portfolio site: portfolio data
     (GitHub stats, Notion-backed blogs/projects, Spotify now-playing,
     aggregated stats), the expense tracker (Notion-backed), and service
-    health/monitoring. Portfolio-data routes use a signed bearer JWT obtained
-    via `/api/auth/login`. Expense routes use a separate static API key.
-  version: 5.0.0
+    health/monitoring. All protected routes use a single static Bearer API key
+    via the `Authorization: Bearer <API_KEY>` header.
+  version: 6.0.0
 servers:
   - url: https://www.adithyakrishnan.com
 
+security:
+  - bearerAuth: []
+
 tags:
-  - name: Auth
-    description: Obtain the JWT used by the portfolio-data endpoints, and one-time Spotify OAuth setup.
   - name: Portfolio Data
     description: GitHub stats, Notion blogs/projects, Spotify now-playing, aggregated stats.
   - name: Expenses
@@ -24,106 +25,21 @@ tags:
     description: Valid expense categories.
   - name: Monitoring
     description: Health checks and alerting for upstream services.
+  - name: Auth
+    description: One-time Spotify OAuth setup (not for regular API use).
 
 paths:
   # ---------------------------------------------------------------------
-  # Auth
-  # ---------------------------------------------------------------------
-  /api/auth/login:
-    post:
-      operationId: login
-      summary: Log in and obtain a bearer token
-      description: >
-        Exchanges a username/password for a signed token (24h validity) used
-        as `Authorization Bearer <token>` on all Portfolio Data endpoints.
-      tags: [Auth]
-      security: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [username, password]
-              properties:
-                username:
-                  type: string
-                password:
-                  type: string
-      responses:
-        "200":
-          description: Login successful.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          description: Invalid username or password.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "500":
-          $ref: "#/components/responses/ServerError"
+  # Spotify OAuth (setup only, not protected)
+  # -----------------------------------------------------------------------
 
-  /api/auth/spotify:
-    get:
-      operationId: spotifyOAuthStart
-      summary: Start Spotify OAuth (one-time setup, not for regular API use)
-      description: >
-        Redirects to Spotify's consent screen. Used once by the site owner to
-        obtain `SPOTIFY_REFRESH_TOKEN`; not intended to be called as a data API.
-      tags: [Auth]
-      security: []
-      responses:
-        "302":
-          description: Redirect to Spotify's OAuth authorization page.
-
-  /api/auth/spotify/callback:
-    get:
-      operationId: spotifyOAuthCallback
-      summary: Spotify OAuth callback (one-time setup, not for regular API use)
-      description: >
-        Exchanges the OAuth `code` for tokens and renders an HTML page with the
-        refresh token to copy into environment variables. Not a JSON API.
-      tags: [Auth]
-      security: []
-      parameters:
-        - name: code
-          in: query
-          schema:
-            type: string
-        - name: error
-          in: query
-          schema:
-            type: string
-      responses:
-        "200":
-          description: HTML page showing the obtained tokens.
-          content:
-            text/html:
-              schema:
-                type: string
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "500":
-          $ref: "#/components/responses/ServerError"
-
-  # ---------------------------------------------------------------------
-  # Portfolio data
-  # ---------------------------------------------------------------------
   /api/github:
     get:
       operationId: getGithubStats
       summary: GitHub profile and repo stats
       description: Profile info, star/language totals, and the 6 most recently updated non-fork repos. Cached 300s.
       tags: [Portfolio Data]
-      security: [{ jwtAuth: [] }]
+      security: [{ bearerAuth: [] }]
       responses:
         "200":
           description: GitHub stats.
@@ -142,7 +58,7 @@ paths:
       summary: List blog posts
       description: Raw blog list from the Notion Blogs database.
       tags: [Portfolio Data]
-      security: [{ jwtAuth: [] }]
+      security: [{ bearerAuth: [] }]
       responses:
         "200":
           description: Blog list.
@@ -163,7 +79,7 @@ paths:
       summary: List projects
       description: Raw project list from the Notion Projects database.
       tags: [Portfolio Data]
-      security: [{ jwtAuth: [] }]
+      security: [{ bearerAuth: [] }]
       responses:
         "200":
           description: Project list.
@@ -215,7 +131,7 @@ paths:
         fetched concurrently via `Promise.allSettled` — one failing source
         degrades gracefully instead of failing the whole response.
       tags: [Portfolio Data]
-      security: [{ jwtAuth: [] }]
+      security: [{ bearerAuth: [] }]
       responses:
         "200":
           description: Aggregated stats.
@@ -261,7 +177,7 @@ paths:
       summary: List expenses
       description: Lists expenses sorted by date (newest first), with an optional running total.
       tags: [Expenses]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       parameters:
         - name: category
           in: query
@@ -319,7 +235,7 @@ paths:
       summary: Create an expense
       description: Creates a new expense entry.
       tags: [Expenses]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       requestBody:
         required: true
         content:
@@ -365,7 +281,7 @@ paths:
       summary: Update an expense
       description: Updates one or more fields of an existing expense. Only provided fields are changed.
       tags: [Expenses]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       requestBody:
         required: true
         content:
@@ -393,7 +309,7 @@ paths:
         Archives the expense — it moves to Notion's trash and is fully
         recoverable from there. Nothing is permanently destroyed.
       tags: [Expenses]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       responses:
         "200":
           description: Expense archived.
@@ -425,7 +341,7 @@ paths:
         Creates up to 50 expenses in one call (bounded concurrency server-side).
         Partial success is possible — check each item's `success` field.
       tags: [Expenses]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       requestBody:
         required: true
         content:
@@ -464,7 +380,7 @@ paths:
       summary: List valid categories
       description: Retrieves all valid categories from the Categories Notion database (server-cached 5 minutes).
       tags: [Categories]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       responses:
         "200":
           description: Category list.
@@ -496,7 +412,7 @@ paths:
         Per-month total, count, average spend per elapsed day, top category,
         and category breakdown. Computed in a single query over the requested range.
       tags: [Expense Analytics]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       parameters:
         - name: month
           in: query
@@ -574,7 +490,7 @@ paths:
         Totals, counts, and percentage share per category for a date range or
         the current billing cycle. Defaults to the current calendar month.
       tags: [Expense Analytics]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       parameters:
         - name: from
           in: query
@@ -635,7 +551,7 @@ paths:
         Searches expenses by free text (Title/Notes) and/or structured filters.
         All provided filters combine with AND. At least one filter is required.
       tags: [Expense Analytics]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       parameters:
         - name: q
           in: query
@@ -707,7 +623,7 @@ paths:
       summary: Export expenses
       description: Exports filtered expenses as CSV (default, downloadable) or JSON.
       tags: [Expense Analytics]
-      security: [{ expensesApiKey: [] }]
+      security: [{ bearerAuth: [] }]
       parameters:
         - name: format
           in: query
@@ -828,20 +744,12 @@ paths:
 
 components:
   securitySchemes:
-    jwtAuth:
+    bearerAuth:
       type: http
       scheme: bearer
       description: >
-        Signed token obtained from `POST /api/auth/login`, valid 24 hours.
-        Send as `Authorization Bearer <token>`.
-    expensesApiKey:
-      type: http
-      scheme: bearer
-      description: Static API key. Send as `Authorization Bearer <EXPENSES_API_KEY>`.
-    cronSecret:
-      type: http
-      scheme: bearer
-      description: Static shared secret. Send as `Authorization Bearer <CRON_SECRET>`.
+        Static API key used for all protected endpoints.
+        Send as `Authorization: Bearer <API_KEY>`.
 
   schemas:
     Error:

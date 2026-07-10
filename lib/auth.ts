@@ -2,9 +2,11 @@ import crypto from "crypto";
 import { NextRequest } from "next/server";
 
 const JWT_SECRET = process.env.JWT_SECRET || "fallback_default_portfolio_secret_key_123456";
+const API_KEY = process.env.API_KEY || process.env.EXPENSES_API_KEY;
 
 /**
  * Generates a signed token for a username, valid for 24 hours.
+ * @deprecated Auth is now unified via a static API key. Kept for reference.
  */
 export function generateToken(username: string): string {
   const payload = {
@@ -24,6 +26,7 @@ export function generateToken(username: string): string {
 
 /**
  * Verifies a token's signature and expiration.
+ * @deprecated Auth is now unified via a static API key.
  */
 export function verifyToken(token: string): boolean {
   try {
@@ -53,15 +56,23 @@ export function verifyToken(token: string): boolean {
 }
 
 /**
- * Verifies the incoming request's OAuth/JWT access token from the Authorization header.
+ * Validates the incoming request's Authorization: Bearer <token> header
+ * against the static API_KEY environment variable.
+ * All portfolio endpoints (GitHub, Blogs, Projects, Spotify, Stats) use this.
  */
 export async function verifyOAuth(req: Request | NextRequest): Promise<boolean> {
-  const authHeader = req.headers.get("Authorization");
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (!API_KEY) {
+    console.warn("⚠️  API_KEY env var is not set — rejecting all requests.");
     return false;
   }
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) return false;
   const token = authHeader.substring(7);
   if (!token) return false;
 
-  return verifyToken(token);
+  // Constant-time comparison to prevent timing attacks
+  const keyBuf = Buffer.from(API_KEY);
+  const tokenBuf = Buffer.from(token);
+  if (keyBuf.length !== tokenBuf.length) return false;
+  return crypto.timingSafeEqual(keyBuf, tokenBuf);
 }

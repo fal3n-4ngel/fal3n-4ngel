@@ -526,7 +526,8 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Static API key. Send as `Authorization Bearer <EXPENSES_API_KEY>`.
+      description: Static API key. Send as `Authorization: Bearer <API_KEY>`.
+
 
   schemas:
     Expense:

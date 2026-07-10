@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextRequest } from "next/server";
 
-const EXPENSES_API_KEY = process.env.EXPENSES_API_KEY;
+const API_KEY = process.env.API_KEY || process.env.EXPENSES_API_KEY;
 
 /** Constant-time string comparison to avoid leaking key prefixes via timing. */
 function safeEqual(a: string, b: string): boolean {
@@ -12,19 +12,22 @@ function safeEqual(a: string, b: string): boolean {
 }
 
 /**
- * Validates the Authorization: Bearer <token> header against EXPENSES_API_KEY.
+ * Validates the Authorization: Bearer <token> header against API_KEY.
  * Returns true if valid, false otherwise.
  */
-export function validateExpensesApiKey(req: NextRequest): boolean {
-  if (!EXPENSES_API_KEY) {
-    console.warn("⚠️  EXPENSES_API_KEY env var is not set — rejecting all requests.");
+export function validateApiKey(req: NextRequest): boolean {
+  if (!API_KEY) {
+    console.warn("⚠️  API_KEY env var is not set — rejecting all requests.");
     return false;
   }
   const authHeader = req.headers.get("Authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) return false;
   const token = authHeader.slice(7);
-  return safeEqual(token, EXPENSES_API_KEY);
+  return safeEqual(token, API_KEY);
 }
+
+/** @deprecated Use validateApiKey instead */
+export const validateExpensesApiKey = validateApiKey;
 
 /** Standard unauthorized response */
 export function unauthorizedResponse() {
