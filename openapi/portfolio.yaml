@@ -1,0 +1,1189 @@
+openapi: 3.1.0
+info:
+  title: Adithya Krishnan Portfolio API
+  description: >
+    Full API surface for the portfolio site: authentication, portfolio data
+    (GitHub stats, Notion-backed blogs/projects, Spotify now-playing,
+    aggregated stats), the expense tracker (Notion-backed), and service
+    health/monitoring. Portfolio-data routes use a signed bearer JWT obtained
+    via `/api/auth/login`. Expense routes use a separate static API key.
+  version: 5.0.0
+servers:
+  - url: https://www.adithyakrishnan.com
+
+tags:
+  - name: Auth
+    description: Obtain the JWT used by the portfolio-data endpoints, and one-time Spotify OAuth setup.
+  - name: Portfolio Data
+    description: GitHub stats, Notion blogs/projects, Spotify now-playing, aggregated stats.
+  - name: Expenses
+    description: Create, read, update, and delete individual expense entries (Notion-backed).
+  - name: Expense Analytics
+    description: Aggregated views over expenses — summaries, breakdowns, search, export.
+  - name: Categories
+    description: Valid expense categories.
+  - name: Monitoring
+    description: Health checks and alerting for upstream services.
+
+paths:
+  # ---------------------------------------------------------------------
+  # Auth
+  # ---------------------------------------------------------------------
+  /api/auth/login:
+    post:
+      operationId: login
+      summary: Log in and obtain a bearer token
+      description: >
+        Exchanges a username/password for a signed token (24h validity) used
+        as `Authorization Bearer <token>` on all Portfolio Data endpoints.
+      tags: [Auth]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          description: Invalid username or password.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/auth/spotify:
+    get:
+      operationId: spotifyOAuthStart
+      summary: Start Spotify OAuth (one-time setup, not for regular API use)
+      description: >
+        Redirects to Spotify's consent screen. Used once by the site owner to
+        obtain `SPOTIFY_REFRESH_TOKEN`; not intended to be called as a data API.
+      tags: [Auth]
+      security: []
+      responses:
+        "302":
+          description: Redirect to Spotify's OAuth authorization page.
+
+  /api/auth/spotify/callback:
+    get:
+      operationId: spotifyOAuthCallback
+      summary: Spotify OAuth callback (one-time setup, not for regular API use)
+      description: >
+        Exchanges the OAuth `code` for tokens and renders an HTML page with the
+        refresh token to copy into environment variables. Not a JSON API.
+      tags: [Auth]
+      security: []
+      parameters:
+        - name: code
+          in: query
+          schema:
+            type: string
+        - name: error
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: HTML page showing the obtained tokens.
+          content:
+            text/html:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  # ---------------------------------------------------------------------
+  # Portfolio data
+  # ---------------------------------------------------------------------
+  /api/github:
+    get:
+      operationId: getGithubStats
+      summary: GitHub profile and repo stats
+      description: Profile info, star/language totals, and the 6 most recently updated non-fork repos. Cached 300s.
+      tags: [Portfolio Data]
+      security: [{ jwtAuth: [] }]
+      responses:
+        "200":
+          description: GitHub stats.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GithubStats"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/blogs:
+    get:
+      operationId: getBlogsRaw
+      summary: List blog posts
+      description: Raw blog list from the Notion Blogs database.
+      tags: [Portfolio Data]
+      security: [{ jwtAuth: [] }]
+      responses:
+        "200":
+          description: Blog list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Blog"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/projects:
+    get:
+      operationId: getProjectsRaw
+      summary: List projects
+      description: Raw project list from the Notion Projects database.
+      tags: [Portfolio Data]
+      security: [{ jwtAuth: [] }]
+      responses:
+        "200":
+          description: Project list.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/spotify:
+    get:
+      operationId: getNowPlaying
+      summary: Currently/recently playing track
+      description: >
+        Returns the currently playing track, or the most recently played
+        track with `isPlaying: false` if nothing is playing. Auth is
+        optional here — an `Authorization` header is only validated if present.
+      tags: [Portfolio Data]
+      security:
+        - {}
+        - jwtAuth: []
+      responses:
+        "200":
+          description: Now-playing data.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NowPlaying"
+        "401":
+          description: An Authorization header was sent but was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/stats:
+    get:
+      operationId: getAggregatedStats
+      summary: Aggregated dashboard stats
+      description: >
+        Spotify now-playing, GitHub summary, and Notion content counts,
+        fetched concurrently via `Promise.allSettled` — one failing source
+        degrades gracefully instead of failing the whole response.
+      tags: [Portfolio Data]
+      security: [{ jwtAuth: [] }]
+      responses:
+        "200":
+          description: Aggregated stats.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  spotify:
+                    $ref: "#/components/schemas/NowPlaying"
+                  github:
+                    type: object
+                    nullable: true
+                    properties:
+                      username:
+                        type: string
+                      publicRepos:
+                        type: integer
+                      followers:
+                        type: integer
+                      totalStars:
+                        type: integer
+                  notion:
+                    type: object
+                    properties:
+                      blogsCount:
+                        type: integer
+                      projectsCount:
+                        type: integer
+                      experiencesCount:
+                        type: integer
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  # ---------------------------------------------------------------------
+  # Expenses — reads
+  # ---------------------------------------------------------------------
+  /api/expenses:
+    get:
+      operationId: listExpenses
+      summary: List expenses
+      description: Lists expenses sorted by date (newest first), with an optional running total.
+      tags: [Expenses]
+      security: [{ expensesApiKey: [] }]
+      parameters:
+        - name: category
+          in: query
+          description: Category name (fuzzy-matched) or Notion category page ID.
+          schema:
+            type: string
+        - name: from
+          in: query
+          description: Start date, inclusive (YYYY-MM-DD).
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          description: End date, inclusive (YYYY-MM-DD).
+          schema:
+            type: string
+            format: date
+        - name: current_cycle
+          in: query
+          description: If true, only return expenses in the current billing cycle (25th–24th).
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of expenses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                    example: 43
+                  total:
+                    type: number
+                    description: Sum of `amount` across all returned expenses.
+                    example: 22033
+                  expenses:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Expense"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      operationId: createExpense
+      summary: Create an expense
+      description: Creates a new expense entry.
+      tags: [Expenses]
+      security: [{ expensesApiKey: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpenseCreateInput"
+      responses:
+        "201":
+          description: Expense created.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ExpenseWriteResult"
+                  - type: object
+                    properties:
+                      warning:
+                        type: string
+                        description: >
+                          Present when a requested category could not be resolved —
+                          the expense was still saved, without a category.
+                        example: >-
+                          Category "Grocries" was not found — expense saved without
+                          a category. Use GET /api/expenses/categories to list valid names.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/expenses/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Notion page ID of the expense.
+        schema:
+          type: string
+
+    patch:
+      operationId: updateExpense
+      summary: Update an expense
+      description: Updates one or more fields of an existing expense. Only provided fields are changed.
+      tags: [Expenses]
+      security: [{ expensesApiKey: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExpenseUpdateInput"
+      responses:
+        "200":
+          description: Expense updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpenseWriteResult"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      operationId: deleteExpense
+      summary: Delete (archive) an expense
+      description: >
+        Archives the expense — it moves to Notion's trash and is fully
+        recoverable from there. Nothing is permanently destroyed.
+      tags: [Expenses]
+      security: [{ expensesApiKey: [] }]
+      responses:
+        "200":
+          description: Expense archived.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Expense archived (recoverable from Notion trash).
+                  id:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/expenses/batch:
+    post:
+      operationId: createExpenseBatch
+      summary: Create multiple expenses
+      description: >
+        Creates up to 50 expenses in one call (bounded concurrency server-side).
+        Partial success is possible — check each item's `success` field.
+      tags: [Expenses]
+      security: [{ expensesApiKey: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [expenses]
+              properties:
+                expenses:
+                  type: array
+                  minItems: 1
+                  maxItems: 50
+                  items:
+                    $ref: "#/components/schemas/ExpenseCreateInput"
+      responses:
+        "201":
+          description: All or some expenses created — see `results` for per-item status.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpenseBatchResult"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          description: All items in the batch failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExpenseBatchResult"
+
+  /api/expenses/categories:
+    get:
+      operationId: listCategories
+      summary: List valid categories
+      description: Retrieves all valid categories from the Categories Notion database (server-cached 5 minutes).
+      tags: [Categories]
+      security: [{ expensesApiKey: [] }]
+      responses:
+        "200":
+          description: Category list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                    example: 8
+                  categories:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Category"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/expenses/summary:
+    get:
+      operationId: getExpenseSummary
+      summary: Monthly spending summary
+      description: >
+        Per-month total, count, average spend per elapsed day, top category,
+        and category breakdown. Computed in a single query over the requested range.
+      tags: [Expense Analytics]
+      security: [{ expensesApiKey: [] }]
+      parameters:
+        - name: month
+          in: query
+          description: Month to summarize (YYYY-MM). Defaults to the current month.
+          schema:
+            type: string
+            pattern: '^\d{4}-(0[1-9]|1[0-2])$'
+            example: "2026-07"
+        - name: months
+          in: query
+          description: Number of months to include, ending at `month` (inclusive).
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 12
+            default: 1
+      responses:
+        "200":
+          description: Monthly summary.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  from:
+                    type: string
+                    format: date
+                  to:
+                    type: string
+                    format: date
+                  grand_total:
+                    type: number
+                    description: Sum of all months' totals in the requested range.
+                  months:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        month:
+                          type: string
+                          example: "2026-07"
+                        total:
+                          type: number
+                          example: 9774.25
+                        count:
+                          type: integer
+                          example: 24
+                        average_per_day:
+                          type: number
+                          description: Total divided by elapsed days (current month) or full month length.
+                          example: 977.43
+                        top_category:
+                          type: string
+                          nullable: true
+                          example: "Food & Drinks"
+                        by_category:
+                          type: array
+                          items:
+                            $ref: "#/components/schemas/CategoryBreakdownRow"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/expenses/breakdown:
+    get:
+      operationId: getExpenseBreakdown
+      summary: Category-wise spend breakdown
+      description: >
+        Totals, counts, and percentage share per category for a date range or
+        the current billing cycle. Defaults to the current calendar month.
+      tags: [Expense Analytics]
+      security: [{ expensesApiKey: [] }]
+      parameters:
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: current_cycle
+          in: query
+          description: Use the 25th–24th billing cycle instead of calendar dates.
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Category breakdown.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  from:
+                    type: string
+                    format: date
+                  to:
+                    type: string
+                    format: date
+                  current_cycle:
+                    type: boolean
+                  total:
+                    type: number
+                    example: 22033
+                  count:
+                    type: integer
+                    example: 43
+                  breakdown:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CategoryBreakdownRow"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/expenses/search:
+    get:
+      operationId: searchExpenses
+      summary: Search / filter expenses
+      description: >
+        Searches expenses by free text (Title/Notes) and/or structured filters.
+        All provided filters combine with AND. At least one filter is required.
+      tags: [Expense Analytics]
+      security: [{ expensesApiKey: [] }]
+      parameters:
+        - name: q
+          in: query
+          description: Case-insensitive substring match against Title or Notes.
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: min_amount
+          in: query
+          schema:
+            type: number
+        - name: max_amount
+          in: query
+          schema:
+            type: number
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          description: Cap the number of returned results (default returns all matches).
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Matching expenses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                    description: Total number of matches (before `limit` is applied).
+                  returned:
+                    type: integer
+                    description: Number of expenses actually included in `expenses`.
+                  total:
+                    type: number
+                    description: Sum of `amount` across all matches (not just returned).
+                  expenses:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Expense"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/expenses/export:
+    get:
+      operationId: exportExpenses
+      summary: Export expenses
+      description: Exports filtered expenses as CSV (default, downloadable) or JSON.
+      tags: [Expense Analytics]
+      security: [{ expensesApiKey: [] }]
+      parameters:
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [csv, json]
+            default: csv
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: current_cycle
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Exported data.
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: >
+                  CSV with header `date,title,amount,category,notes,id,url`.
+                  Sent with a `Content-Disposition: attachment` header.
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  count:
+                    type: integer
+                  expenses:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Expense"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  # ---------------------------------------------------------------------
+  # Monitoring
+  # ---------------------------------------------------------------------
+  /api/health:
+    get:
+      operationId: getHealth
+      summary: Public health check
+      description: >
+        Pings GitHub, Notion, Spotify, the deployed site, and the expenses API
+        surface. Returns HTTP 200 when everything is up, 503 otherwise. Suitable
+        for external uptime monitors.
+      tags: [Monitoring]
+      security: []
+      responses:
+        "200":
+          description: All services healthy.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthReport"
+        "503":
+          description: One or more services are down.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthReport"
+
+  /api/cron/monitor:
+    get:
+      operationId: runMonitorCheck
+      summary: Run health checks and alert on failure
+      description: >
+        Same checks as `/api/health`, plus emails (Resend) and/or a webhook
+        event when a service is down (1-hour alert cooldown). Intended to be
+        triggered by Vercel Cron or a scheduled GitHub Actions workflow.
+      tags: [Monitoring]
+      security: [{ cronSecret: [] }]
+      responses:
+        "200":
+          description: All services healthy.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/HealthReport"
+                  - type: object
+                    properties:
+                      alerted:
+                        type: boolean
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "503":
+          description: One or more services are down (an alert may have been sent — see `alerted`).
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/HealthReport"
+                  - type: object
+                    properties:
+                      alerted:
+                        type: boolean
+
+components:
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      description: >
+        Signed token obtained from `POST /api/auth/login`, valid 24 hours.
+        Send as `Authorization Bearer <token>`.
+    expensesApiKey:
+      type: http
+      scheme: bearer
+      description: Static API key. Send as `Authorization Bearer <EXPENSES_API_KEY>`.
+    cronSecret:
+      type: http
+      scheme: bearer
+      description: Static shared secret. Send as `Authorization Bearer <CRON_SECRET>`.
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "`title` and `amount` are required."
+
+    # --- Portfolio data ---
+    GithubStats:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        avatarUrl:
+          type: string
+          format: uri
+        bio:
+          type: string
+          nullable: true
+        publicRepos:
+          type: integer
+        followers:
+          type: integer
+        following:
+          type: integer
+        totalStars:
+          type: integer
+        languages:
+          type: object
+          description: Map of language name to repo count, sorted descending.
+          additionalProperties:
+            type: integer
+        recentRepos:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+                nullable: true
+              stars:
+                type: integer
+              forks:
+                type: integer
+              language:
+                type: string
+                nullable: true
+              url:
+                type: string
+                format: uri
+              updatedAt:
+                type: string
+                format: date-time
+
+    Blog:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        slug:
+          type: string
+        date:
+          type: string
+        excerpt:
+          type: string
+        url:
+          type: string
+          format: uri
+
+    Project:
+      type: object
+      properties:
+        url1:
+          type: string
+          description: Cover image URL.
+        name:
+          type: string
+        type:
+          type: string
+        event:
+          type: string
+        date:
+          type: string
+        view:
+          type: string
+          description: External project URL.
+        description:
+          type: string
+
+    NowPlaying:
+      type: object
+      properties:
+        isPlaying:
+          type: boolean
+        title:
+          type: string
+        artist:
+          type: string
+        songUrl:
+          type: string
+          format: uri
+        albumImageUrl:
+          type: string
+          format: uri
+        lastPlayedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    # --- Expenses ---
+    Expense:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Notion page ID.
+          example: "397e545c-4a67-81a9-a246-e6b888924539"
+        url:
+          type: string
+          format: uri
+        title:
+          type: string
+          example: "Night Swiggy dinner"
+        amount:
+          type: number
+          nullable: true
+          example: 193
+        category_id:
+          type: string
+          nullable: true
+        category:
+          type: string
+          nullable: true
+          example: "Food & Drinks"
+        date:
+          type: string
+          format: date
+          nullable: true
+          example: "2026-07-08"
+        notes:
+          type: string
+          nullable: true
+        currentCycle:
+          type: boolean
+          nullable: true
+          description: Whether this expense falls in the current 25th–24th billing cycle.
+
+    ExpenseCreateInput:
+      type: object
+      required: [title, amount]
+      properties:
+        title:
+          type: string
+          example: "Lunch"
+        amount:
+          type: number
+          example: 250
+        category:
+          type: string
+          description: Category name (fuzzy-matched) or Notion category page ID.
+          example: "Food & Drinks"
+        category_id:
+          type: string
+          deprecated: true
+          description: Deprecated — use `category` instead.
+        date:
+          type: string
+          format: date
+          description: Defaults to today (Asia/Kolkata) if omitted.
+        notes:
+          type: string
+
+    ExpenseUpdateInput:
+      type: object
+      description: All fields optional — only provided fields are updated. Pass an empty string to `category`/`category_id` to clear the category.
+      minProperties: 1
+      properties:
+        title:
+          type: string
+        amount:
+          type: number
+        category:
+          type: string
+        category_id:
+          type: string
+          deprecated: true
+        date:
+          type: string
+          format: date
+        notes:
+          type: string
+
+    ExpenseWriteResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Expense created."
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        category_id:
+          type: string
+          nullable: true
+          description: Present on create when a category was requested.
+
+    ExpenseBatchResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: True only if every item succeeded.
+        message:
+          type: string
+          example: "48 created, 2 failed."
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              success:
+                type: boolean
+              title:
+                type: string
+              id:
+                type: string
+              url:
+                type: string
+                format: uri
+              category_id:
+                type: string
+                nullable: true
+              error:
+                type: string
+                description: Present only when `success` is false.
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "391e545c-4a67-81e7-8657-ca14ce61f6e0"
+        name:
+          type: string
+          example: "Food & Drinks"
+
+    CategoryBreakdownRow:
+      type: object
+      properties:
+        category_id:
+          type: string
+          nullable: true
+        category:
+          type: string
+          example: "Food & Drinks"
+        total:
+          type: number
+          example: 4736.25
+        count:
+          type: integer
+          example: 14
+        percent:
+          type: number
+          description: Share of total spend in the requested range, 0–100.
+          example: 48.46
+
+    # --- Monitoring ---
+    ServiceStatus:
+      type: object
+      properties:
+        service:
+          type: string
+          example: "github-api"
+        ok:
+          type: boolean
+        status:
+          type: integer
+          nullable: true
+          description: Upstream HTTP status code, if a response was received.
+        latency_ms:
+          type: integer
+        error:
+          type: string
+          nullable: true
+
+    HealthReport:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
+        services:
+          type: array
+          items:
+            $ref: "#/components/schemas/ServiceStatus"
+
+  responses:
+    BadRequest:
+      description: Invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: Unauthorized
+            message: "Valid Authorization: Bearer <api_key> header is required."
+    OAuthUnauthorized:
+      description: Missing or invalid OAuth bearer token.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: Unauthorized
+            message: "Valid OAuth Bearer token required"
+    ServerError:
+      description: Unexpected server error.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
