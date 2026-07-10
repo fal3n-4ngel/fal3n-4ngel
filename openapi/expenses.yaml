@@ -118,19 +118,18 @@ paths:
           $ref: "#/components/responses/ServerError"
 
   /api/expenses/{id}:
-    parameters:
-      - name: id
-        in: path
-        required: true
-        description: Notion page ID of the expense.
-        schema:
-          type: string
-
     patch:
       operationId: updateExpense
       summary: Update an expense
       description: Updates one or more fields of an existing expense. Only provided fields are changed.
       tags: [Expenses]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Notion page ID of the expense.
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -158,6 +157,13 @@ paths:
         Archives the expense — it moves to Notion's trash and is fully
         recoverable from there. Nothing is permanently destroyed.
       tags: [Expenses]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Notion page ID of the expense.
+          schema:
+            type: string
       responses:
         "200":
           description: Expense archived.
