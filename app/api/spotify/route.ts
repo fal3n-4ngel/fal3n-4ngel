@@ -19,8 +19,10 @@ export async function GET(req: NextRequest) {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Cache-Control": "public, max-age=10, s-maxage=10, stale-while-revalidate=5",
       },
     });
+
   } catch (error: any) {
     return NextResponse.json(
       { error: "Failed to fetch Spotify data", message: error.message },

@@ -179,4 +179,78 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       assert.strictEqual(res.status, 400);
     });
   });
+
+  // 5. Caching & Rate Limiting Verification
+  describe("Caching & Rate Limiting Headers", () => {
+    test("Rate limiting headers are present on /api/health", async () => {
+      const res = await fetch(`${targetUrl}/api/health`);
+      assert.ok(res.headers.has("X-RateLimit-Limit"), "Should contain X-RateLimit-Limit");
+      assert.ok(res.headers.has("X-RateLimit-Remaining"), "Should contain X-RateLimit-Remaining");
+      assert.ok(res.headers.has("X-RateLimit-Reset"), "Should contain X-RateLimit-Reset");
+    });
+
+    test("GET /api/blogs returns s-maxage Cache-Control headers", async () => {
+      const res = await fetch(`${targetUrl}/api/blogs`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+      const cacheControl = res.headers.get("Cache-Control");
+      assert.ok(cacheControl, "Should return Cache-Control header");
+      assert.ok(cacheControl.includes("s-maxage=60"), `Expected s-maxage=60, got ${cacheControl}`);
+    });
+
+    test("GET /api/spotify returns s-maxage=10 Cache-Control headers", async () => {
+      const res = await fetch(`${targetUrl}/api/spotify`);
+      const cacheControl = res.headers.get("Cache-Control");
+      assert.ok(cacheControl, "Should return Cache-Control header");
+      assert.ok(cacheControl.includes("s-maxage=10"), `Expected s-maxage=10, got ${cacheControl}`);
+    });
+  });
+
+  // 6. Blogs Mutations Verification
+  describe("Blogs Mutations (Auth & Validation)", () => {
+    test("POST /api/blogs without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/blogs`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: "Test" }),
+      });
+      assert.strictEqual(res.status, 401);
+    });
+
+    test("POST /api/blogs with missing fields returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/blogs`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: "No other fields" }),
+      });
+      assert.strictEqual(res.status, 400);
+      const body = await res.json();
+      assert.strictEqual(body.error, "Bad Request");
+    });
+
+    test("PATCH /api/blogs/nonexistent-id without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/blogs/nonexistent-id`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: "Test" }),
+      });
+      assert.strictEqual(res.status, 401);
+    });
+
+    test("PATCH /api/blogs/nonexistent-id with invalid field type returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/blogs/nonexistent-id`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: 12345 }), // title must be string
+      });
+      assert.strictEqual(res.status, 400);
+    });
+  });
 });
+

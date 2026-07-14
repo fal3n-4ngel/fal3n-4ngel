@@ -238,3 +238,113 @@ export const getNotionPageMarkdown = unstable_cache(
   ["blog-markdown"],
   { revalidate: 60, tags: ["blogs"] }
 );
+
+export async function createBlog(data: {
+  title: string;
+  slug: string;
+  date: string;
+  excerpt: string;
+  url?: string;
+}): Promise<BlogItemData | null> {
+  try {
+    if (!BLOGS_DB_ID) throw new Error("BLOGS_DB_ID env var is missing");
+
+    const response = await notion.pages.create({
+      parent: { database_id: BLOGS_DB_ID },
+      properties: {
+        Title: {
+          title: [{ text: { content: data.title } }],
+        },
+        Slug: {
+          rich_text: [{ text: { content: data.slug } }],
+        },
+        Date: {
+          rich_text: [{ text: { content: data.date } }],
+        },
+        Excerpt: {
+          rich_text: [{ text: { content: data.excerpt } }],
+        },
+        ...(data.url
+          ? {
+              URL: {
+                url: data.url,
+              },
+            }
+          : {}),
+      },
+    });
+
+    const page = response as any;
+    return {
+      id: page.id,
+      title: page.properties.Title?.title?.[0]?.plain_text || data.title,
+      slug: page.properties.Slug?.rich_text?.[0]?.plain_text || data.slug,
+      date: page.properties.Date?.rich_text?.[0]?.plain_text || data.date,
+      excerpt: page.properties.Excerpt?.rich_text?.[0]?.plain_text || data.excerpt,
+      url: page.properties.URL?.url || data.url || "",
+    };
+  } catch (error) {
+    console.error("❌ Notion create page error:", error);
+    throw error;
+  }
+}
+
+export async function updateBlog(
+  pageId: string,
+  data: {
+    title?: string;
+    slug?: string;
+    date?: string;
+    excerpt?: string;
+    url?: string;
+  }
+): Promise<BlogItemData | null> {
+  try {
+    const properties: any = {};
+
+    if (data.title !== undefined) {
+      properties.Title = {
+        title: [{ text: { content: data.title } }],
+      };
+    }
+    if (data.slug !== undefined) {
+      properties.Slug = {
+        rich_text: [{ text: { content: data.slug } }],
+      };
+    }
+    if (data.date !== undefined) {
+      properties.Date = {
+        rich_text: [{ text: { content: data.date } }],
+      };
+    }
+    if (data.excerpt !== undefined) {
+      properties.Excerpt = {
+        rich_text: [{ text: { content: data.excerpt } }],
+      };
+    }
+    if (data.url !== undefined) {
+      properties.URL = {
+        url: data.url || null,
+      };
+    }
+
+    const response = await notion.pages.update({
+      page_id: pageId,
+      properties,
+    });
+
+    const page = response as any;
+    return {
+      id: page.id,
+      title: page.properties.Title?.title?.[0]?.plain_text || "",
+      slug: page.properties.Slug?.rich_text?.[0]?.plain_text || "",
+      date: page.properties.Date?.rich_text?.[0]?.plain_text || "",
+      excerpt: page.properties.Excerpt?.rich_text?.[0]?.plain_text || "",
+      url: page.properties.URL?.url || "",
+    };
+  } catch (error) {
+    console.error("❌ Notion update page error:", error);
+    throw error;
+  }
+}
+

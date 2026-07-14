@@ -73,6 +73,92 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
+    post:
+      operationId: createBlogPost
+      summary: Create a blog post
+      description: Creates a new blog post entry in the Notion Blogs database.
+      tags: [Portfolio Data]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, slug, date, excerpt]
+              properties:
+                title:
+                  type: string
+                slug:
+                  type: string
+                date:
+                  type: string
+                excerpt:
+                  type: string
+                url:
+                  type: string
+                  format: uri
+      responses:
+        "201":
+          description: Blog post created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blog"
+        "400":
+          $ref: "#/components/responses/OAuthBadRequest"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/blogs/{id}:
+    patch:
+      operationId: updateBlogPost
+      summary: Update a blog post
+      description: Updates an existing blog post entry in the Notion Blogs database.
+      tags: [Portfolio Data]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The Notion page ID of the blog post.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                slug:
+                  type: string
+                date:
+                  type: string
+                excerpt:
+                  type: string
+                url:
+                  type: string
+                  format: uri
+      responses:
+        "200":
+          description: Blog post updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blog"
+        "400":
+          $ref: "#/components/responses/OAuthBadRequest"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+
   /api/projects:
     get:
       operationId: getProjectsRaw
