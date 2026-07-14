@@ -605,42 +605,9 @@ export const AestheticBackground: React.FC = () => {
     ghostGroup.position.set(0, -1, 0);
     scene.add(ghostGroup);
 
-    // ── Concentric HUD Rings ──────────────────────────────────────────────────
-    interface HUDRing {
-      mesh: THREE.LineLoop;
-      rotSpeed: number;
-    }
-    const hudRings: HUDRing[] = [];
-    const ringRadii = [6.5, 8.5];
-
-    ringRadii.forEach((rad, rIndex) => {
-      const pts: THREE.Vector3[] = [];
-      const segments = 36 + rIndex * 12;
-      for (let s = 0; s <= segments; s++) {
-        const theta = (s / segments) * Math.PI * 2;
-        if (s % 6 !== 0) {
-          pts.push(new THREE.Vector3(Math.cos(theta) * rad, Math.sin(theta) * rad, 0));
-        }
-      }
-      const geom = new THREE.BufferGeometry().setFromPoints(pts);
-      const loop = new THREE.LineLoop(
-        geom,
-        new THREE.LineBasicMaterial({
-          color: 0xffffff,
-          transparent: true,
-          opacity: 0.08 - rIndex * 0.03,
-        })
-      );
-      loop.rotation.x = Math.PI / 2;
-      loop.position.y = -6;
-      scene.add(loop);
-      hudRings.push({
-        mesh: loop,
-        rotSpeed: (rIndex % 2 === 0 ? 1 : -1) * 0.006,
-      });
-    });
 
     // ── Mouse & Interaction & Escape States ───────────────────────────────────
+
     const mouse = { nx: 0, ny: 0 };
     const targetRot = { x: 0, y: 0 };
     const currentRot = { x: 0, y: 0 };
@@ -1035,22 +1002,8 @@ export const AestheticBackground: React.FC = () => {
         ghostMaterial.opacity = 0.12 + interactionProgress * 0.12;
       }
 
-      for (const r of hudRings) {
-        if (flags.isEscaping) {
-          r.mesh.rotation.z += r.rotSpeed * 10;
-          r.mesh.scale.setScalar(
-            Math.max(1 - (performance.now() - flags.escapeStartTime) / 500, 0)
-          );
-        } else if (is404Page) {
-          r.mesh.rotation.z += r.rotSpeed * 4.0;
-          r.mesh.scale.setScalar(1.3);
-        } else {
-          r.mesh.rotation.z += r.rotSpeed * (1.0 + interactionProgress * 2.0);
-          r.mesh.scale.setScalar(1.0 + interactionProgress * 0.25);
-        }
-      }
-
       renderer.render(scene, camera);
+
     };
 
     tick();
