@@ -1,5 +1,10 @@
-import { AestheticBackground } from "@/components/layout/AestheticBackground";
+import ClientBackground from "@/components/layout/ClientBackground";
 import Maintenance from "@/components/layout/Maintenance";
+
+
+
+
+
 import { getSiteConfig } from "@/lib/integrations/notion";
 
 import LenisProvider from "@/lib/utils/LenisProvider";
@@ -156,9 +161,12 @@ export default async function RootLayout({
           <Maintenance content={maintenanceText} />
         ) : (
           <LenisProvider>
-            <AestheticBackground />
+            <ClientBackground />
             <div className="relative z-[1]">{children}</div>
           </LenisProvider>
+
+
+
         )}
         <Script
           id="schema-jsonld"

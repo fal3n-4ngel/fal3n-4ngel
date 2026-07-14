@@ -17,6 +17,8 @@ interface AboutSectionProps {
 }
 
 export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSectionProps) => {
+
+
   type ConfigItem = { isEnabled?: boolean; content?: string };
   const [config, setConfig] = useState<Record<string, ConfigItem> | null>(null);
   const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; lastPlayedAt?: string }>({
@@ -175,6 +177,7 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
                 triggerEscape={triggerEscape}
                 resetEscape={resetEscape}
               />
+
             </div>
           </ParallaxElement>
         </SectionTransition>

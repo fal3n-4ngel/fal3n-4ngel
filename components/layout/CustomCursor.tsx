@@ -2,7 +2,6 @@
 
 import { CursorState, LogoStates } from "@/types";
 import { motion, MotionValue, useSpring } from "framer-motion";
-import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 
 type CustomCursorProps = {
@@ -16,6 +15,8 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
   y,
   isEscaping = false,
 }) => {
+
+
   const [cursorState, setCursorState] = useState<CursorState>({
     isInteracting: false,
     interactionType: null,
