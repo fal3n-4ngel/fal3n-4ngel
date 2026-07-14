@@ -191,30 +191,85 @@ export function buildAlertEmailHtml(report: HealthReport): string {
   const rows = report.services
     .map(
       (s) => `
-      <tr>
-        <td style="padding:6px 12px;border:1px solid #ddd;">${s.service}</td>
-        <td style="padding:6px 12px;border:1px solid #ddd;color:${s.ok ? "#0a7d32" : "#c0262d"};font-weight:bold;">
-          ${s.ok ? "UP" : "DOWN"}
+      <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+        <td style="padding: 14px 16px; color: rgba(255, 255, 255, 0.85); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px;">
+          ${s.service}
         </td>
-        <td style="padding:6px 12px;border:1px solid #ddd;">${s.status ?? "—"}</td>
-        <td style="padding:6px 12px;border:1px solid #ddd;">${s.latency_ms} ms</td>
-        <td style="padding:6px 12px;border:1px solid #ddd;">${s.error ?? ""}</td>
+        <td style="padding: 14px 16px;">
+          <span style="display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: ${s.ok ? "rgba(16, 185, 129, 0.1)" : "rgba(239, 68, 68, 0.1)"}; color: ${s.ok ? "#34d399" : "#f87171"};">
+            ${s.ok ? "Healthy" : "Down"}
+          </span>
+        </td>
+        <td style="padding: 14px 16px; color: rgba(255, 255, 255, 0.5); font-size: 13px;">
+          ${s.status ?? "—"}
+        </td>
+        <td style="padding: 14px 16px; color: rgba(255, 255, 255, 0.5); font-size: 13px;">
+          ${s.latency_ms} ms
+        </td>
+        <td style="padding: 14px 16px; color: #f87171; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; max-width: 250px; word-break: break-all;">
+          ${s.error ? `<code>${s.error}</code>` : "—"}
+        </td>
       </tr>`
     )
     .join("");
 
   return `
-    <h2>🚨 Portfolio service alert</h2>
-    <p>One or more services failed a health check at <strong>${report.timestamp}</strong>.</p>
-    <table style="border-collapse:collapse;font-family:monospace;font-size:13px;">
-      <tr>
-        <th style="padding:6px 12px;border:1px solid #ddd;text-align:left;">Service</th>
-        <th style="padding:6px 12px;border:1px solid #ddd;text-align:left;">Status</th>
-        <th style="padding:6px 12px;border:1px solid #ddd;text-align:left;">HTTP</th>
-        <th style="padding:6px 12px;border:1px solid #ddd;text-align:left;">Latency</th>
-        <th style="padding:6px 12px;border:1px solid #ddd;text-align:left;">Error</th>
-      </tr>
-      ${rows}
-    </table>
-    <p style="color:#888;font-size:12px;">Sent by the /api/cron/monitor health check.</p>`;
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="margin: 0; padding: 40px 20px; background-color: #09090b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+        <div style="max-width: 720px; margin: 0 auto; background-color: #121214; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+          
+          <!-- Header Banner -->
+          <div style="padding: 32px 32px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 24px;">${report.ok ? "🟢" : "🚨"}</span>
+              <h2 style="margin: 0; font-size: 20px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em;">
+                ${report.ok ? "Services Active" : "Service Outage"}
+              </h2>
+
+            </div>
+            <p style="margin: 12px 0 0; color: rgba(255, 255, 255, 0.6); font-size: 14px; line-height: 1.5;">
+              ${report.ok 
+                ? "All monitored services are fully operational and responding normally." 
+                : "One or more services failed a health check."
+              } Checked on <strong>${new Date(report.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST</strong>.
+            </p>
+          </div>
+
+
+          <!-- Services Table -->
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 600px;">
+              <thead>
+                <tr style="background-color: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Service</th>
+                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Status</th>
+                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">HTTP</th>
+                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Latency</th>
+                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Error / Trace</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer Info -->
+          <div style="padding: 24px 32px; background-color: rgba(255, 255, 255, 0.01); border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <span style="color: rgba(255, 255, 255, 0.35); font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">
+              Auto-triggered by /api/cron/monitor
+            </span>
+            <a href="https://www.adithyakrishnan.com" style="color: #60a5fa; font-size: 12px; text-decoration: none; font-weight: 500;">
+              Go to Website →
+            </a>
+          </div>
+        </div>
+      </body>
+    </html>`;
 }
+
