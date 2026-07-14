@@ -1,6 +1,7 @@
 import { isValidISODate, listExpenses } from "@/lib/integrations/expenses";
 import { currentMonth, groupByCategory, monthRange, round2 } from "@/lib/expenses-analytics";
-import { badRequest, corsHeaders, serverError, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+import { badRequest, corsHeaders, logRequest, serverError, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -18,7 +19,9 @@ export const dynamic = "force-dynamic";
  * Defaults to the current calendar month when no range is given.
  */
 export async function GET(req: NextRequest) {
+  logRequest(req);
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
+
 
   const p = req.nextUrl.searchParams;
   const currentCycle = p.get("current_cycle") === "true";

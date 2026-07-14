@@ -2,11 +2,13 @@ import { archiveExpense, isValidISODate, updateExpense } from "@/lib/integration
 import {
   badRequest,
   corsHeaders,
+  logRequest,
   parseJsonBody,
   serverError,
   unauthorizedResponse,
   validateExpensesApiKey,
 } from "@/lib/expenses-auth";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -28,9 +30,11 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  logRequest(req, { expense_id: (await params).id });
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
 
   const { id: pageId } = await params;
+
 
   if (!pageId) {
     return badRequest("Page ID is required in the URL.");
@@ -82,9 +86,11 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  logRequest(req, { expense_id: (await params).id });
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
 
   const { id: pageId } = await params;
+
 
   if (!pageId) {
     return badRequest("Page ID is required in the URL.");

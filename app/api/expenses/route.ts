@@ -2,11 +2,13 @@ import { createExpense, isValidISODate, listExpenses, todayISODate } from "@/lib
 import {
   badRequest,
   corsHeaders,
+  logRequest,
   parseJsonBody,
   serverError,
   unauthorizedResponse,
   validateExpensesApiKey,
 } from "@/lib/expenses-auth";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -23,7 +25,9 @@ export const dynamic = "force-dynamic";
  *   ?current_cycle=true   — only expenses in the current billing cycle (25th–24th)
  */
 export async function GET(req: NextRequest) {
+  logRequest(req);
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
+
 
   const p = req.nextUrl.searchParams;
   const from = p.get("from") || undefined;
@@ -65,7 +69,9 @@ export async function GET(req: NextRequest) {
  *   notes       string  (optional)
  */
 export async function POST(req: NextRequest) {
+  logRequest(req);
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
+
 
   const body = await parseJsonBody(req);
   if (!body) return badRequest("Request body must be valid JSON.");

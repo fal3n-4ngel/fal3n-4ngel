@@ -7,11 +7,13 @@ import {
 import {
   badRequest,
   corsHeaders,
+  logRequest,
   parseJsonBody,
   serverError,
   unauthorizedResponse,
   validateExpensesApiKey,
 } from "@/lib/expenses-auth";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -34,7 +36,9 @@ export const dynamic = "force-dynamic";
  * Returns results for each item individually — partial success is possible.
  */
 export async function POST(req: NextRequest) {
+  logRequest(req);
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
+
 
   const body = await parseJsonBody(req);
   if (!body) return badRequest("Request body must be valid JSON.");

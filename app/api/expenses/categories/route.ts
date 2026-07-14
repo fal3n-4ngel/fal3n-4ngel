@@ -1,5 +1,6 @@
 import { getCategories } from "@/lib/integrations/expenses";
-import { corsHeaders, serverError, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+import { corsHeaders, logRequest, serverError, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +11,9 @@ export const dynamic = "force-dynamic";
  * Auth: Authorization: Bearer <api_key>
  */
 export async function GET(req: NextRequest) {
+  logRequest(req);
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
+
 
   try {
     const categories = await getCategories();

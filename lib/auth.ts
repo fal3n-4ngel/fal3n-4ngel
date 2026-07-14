@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { NextRequest } from "next/server";
+import { logger, maskKey } from "@/lib/logger";
 
 const JWT_SECRET = process.env.JWT_SECRET || "fallback_default_portfolio_secret_key_123456";
 const API_KEY = process.env.API_KEY || process.env.EXPENSES_API_KEY;
@@ -61,18 +62,45 @@ export function verifyToken(token: string): boolean {
  * All portfolio endpoints (GitHub, Blogs, Projects, Spotify, Stats) use this.
  */
 export async function verifyOAuth(req: Request | NextRequest): Promise<boolean> {
+  const pathname = new URL(req.url).pathname;
+
   if (!API_KEY) {
-    console.warn("⚠️  API_KEY env var is not set — rejecting all requests.");
+    logger.warn("auth_fail", { reason: "api_key_env_not_set", path: pathname });
     return false;
   }
   const authHeader = req.headers.get("Authorization");
-  if (!authHeader || !authHeader.startsWith("Bearer ")) return false;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    logger.warn("auth_fail", {
+      reason: "missing_or_malformed_header",
+      got: authHeader ? "non-bearer" : "(none)",
+      path: pathname,
+    });
+    return false;
+  }
   const token = authHeader.substring(7);
-  if (!token) return false;
+  if (!token) {
+    logger.warn("auth_fail", { reason: "empty_token", path: pathname });
+    return false;
+  }
 
   // Constant-time comparison to prevent timing attacks
   const keyBuf = Buffer.from(API_KEY);
   const tokenBuf = Buffer.from(token);
-  if (keyBuf.length !== tokenBuf.length) return false;
-  return crypto.timingSafeEqual(keyBuf, tokenBuf);
+  if (keyBuf.length !== tokenBuf.length) {
+    logger.warn("auth_fail", {
+      reason: "invalid_key",
+      key_prefix: maskKey(token),
+      path: pathname,
+    });
+    return false;
+  }
+  const valid = crypto.timingSafeEqual(keyBuf, tokenBuf);
+  if (!valid) {
+    logger.warn("auth_fail", {
+      reason: "invalid_key",
+      key_prefix: maskKey(token),
+      path: pathname,
+    });
+  }
+  return valid;
 }

@@ -7,7 +7,8 @@ import {
   monthRange,
   round2,
 } from "@/lib/expenses-analytics";
-import { badRequest, corsHeaders, serverError, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+import { badRequest, corsHeaders, logRequest, serverError, unauthorizedResponse, validateExpensesApiKey } from "@/lib/expenses-auth";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +26,9 @@ export const dynamic = "force-dynamic";
  * category breakdown. One Notion query covers the whole range.
  */
 export async function GET(req: NextRequest) {
+  logRequest(req);
   if (!validateExpensesApiKey(req)) return unauthorizedResponse();
+
 
   const p = req.nextUrl.searchParams;
   const month = p.get("month") || currentMonth();

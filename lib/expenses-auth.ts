@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { NextRequest } from "next/server";
+import { logger, maskKey } from "@/lib/logger";
 
 const API_KEY = process.env.API_KEY || process.env.EXPENSES_API_KEY;
 
@@ -17,13 +18,28 @@ function safeEqual(a: string, b: string): boolean {
  */
 export function validateApiKey(req: NextRequest): boolean {
   if (!API_KEY) {
-    console.warn("⚠️  API_KEY env var is not set — rejecting all requests.");
+    logger.warn("auth_fail", { reason: "api_key_env_not_set" });
     return false;
   }
   const authHeader = req.headers.get("Authorization");
-  if (!authHeader || !authHeader.startsWith("Bearer ")) return false;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    logger.warn("auth_fail", {
+      reason: "missing_or_malformed_header",
+      got: authHeader ? "non-bearer" : "(none)",
+      path: req.nextUrl.pathname,
+    });
+    return false;
+  }
   const token = authHeader.slice(7);
-  return safeEqual(token, API_KEY);
+  const valid = safeEqual(token, API_KEY);
+  if (!valid) {
+    logger.warn("auth_fail", {
+      reason: "invalid_key",
+      key_prefix: maskKey(token),
+      path: req.nextUrl.pathname,
+    });
+  }
+  return valid;
 }
 
 /** @deprecated Use validateApiKey instead */
@@ -41,19 +57,36 @@ export function unauthorizedResponse() {
 }
 
 /** Standard 400 response */
-export function badRequest(message: string) {
+export function badRequest(message: string, context?: Record<string, unknown>) {
+  logger.warn("bad_request", { message, ...context });
   return Response.json(
     { error: "Bad Request", message },
     { status: 400, headers: corsHeaders() }
   );
 }
 
-/** Standard 500 response */
-export function serverError(error: string, err: unknown) {
+/** Standard 500 response — always logs the full error */
+export function serverError(error: string, err: unknown, context?: Record<string, unknown>) {
+  logger.error("server_error", {
+    message: error,
+    error: err instanceof Error ? err.message : String(err),
+    stack: err instanceof Error ? err.stack : undefined,
+    ...context,
+  });
   return Response.json(
     { error, message: err instanceof Error ? err.message : String(err) },
     { status: 500, headers: corsHeaders() }
   );
+}
+
+/** Log an incoming request — call at the top of each route handler */
+export function logRequest(req: NextRequest, extra?: Record<string, unknown>) {
+  logger.info("request", {
+    method: req.method,
+    path: req.nextUrl.pathname,
+    query: Object.fromEntries(req.nextUrl.searchParams.entries()),
+    ...extra,
+  });
 }
 
 /** Parses the JSON body, returning null when it is missing/invalid. */
