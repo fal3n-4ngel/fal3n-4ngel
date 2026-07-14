@@ -17,7 +17,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: portfolio
+          ref: release/portfolio
+
           
       - name: Generate GitHub Stats
         uses: anuraghazra/github-readme-stats@master

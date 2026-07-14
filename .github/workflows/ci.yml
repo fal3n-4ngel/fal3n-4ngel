@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - release/portfolio
-      - master
   pull_request:
     branches:
       - release/portfolio
-      - master
+
 
 jobs:
   test:
