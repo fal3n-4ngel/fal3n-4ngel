@@ -1,0 +1,46 @@
+name: Update GitHub Stats
+
+on:
+  schedule:
+    # Runs every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-stats:
+    name: Update Portfolio Stats
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: release/portfolio
+
+          
+      - name: Generate GitHub Stats
+        uses: anuraghazra/github-readme-stats@master
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Fetch latest projects
+        run: |
+          curl -s "https://api.github.com/users/fal3n-4ngel/repos?sort=updated&per_page=10" \
+          > .github/latest-projects.json
+          
+      - name: Update timestamp
+        run: |
+          echo "Last updated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > .github/last-update.txt
+          
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update GitHub stats"
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          file_pattern: '.github/*.json .github/*.txt'
