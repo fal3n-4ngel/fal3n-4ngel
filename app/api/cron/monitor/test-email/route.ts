@@ -1,11 +1,11 @@
-import { buildAlertEmailHtml, sendAlertEmail } from "@/lib/monitoring";
+import { buildAlertEmailHtml, runHealthChecks, sendAlertEmail } from "@/lib/monitoring";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 /**
  * GET /api/cron/monitor/test-email
- * Instantly triggers a mock alert email to test Resend configuration.
+ * Instantly triggers an alert email showing the actual current health status of all services.
  *
  * Auth: Authorization: Bearer <CRON_SECRET> or <API_KEY>
  */
@@ -25,22 +25,14 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const mockReport = {
-    ok: false,
-    timestamp: new Date().toISOString(),
-    services: [
-      { service: "notion-api", ok: true, latency_ms: 120, status: 200, error: undefined },
-      { service: "github-api", ok: true, latency_ms: 95, status: 200, error: undefined },
-      { service: "spotify-api", ok: false, latency_ms: 0, status: 504, error: "Mock failure: API timed out (test check)" },
-      { service: "portfolio-site", ok: true, latency_ms: 80, status: 200, error: undefined },
-    ],
-  };
-
+  // Run the actual health checks to get real-time status
+  const realReport = await runHealthChecks();
 
   const emailSent = await sendAlertEmail(
-    "🧪 Portfolio Test Alert: Resend Email Integration Verified",
-    buildAlertEmailHtml(mockReport)
+    `🧪 Portfolio Test Alert: Real-time Health Check Status (Overall: ${realReport.ok ? "OK" : "OUTAGE"})`,
+    buildAlertEmailHtml(realReport)
   );
+
 
   if (emailSent) {
     return NextResponse.json({
