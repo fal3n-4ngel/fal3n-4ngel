@@ -6,11 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "eslint . --max-warnings 10",
+    "lint:fix": "eslint . --fix",
+
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "type-check": "tsc --noEmit",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "test:integration": "node --import jiti/register scripts/test-runner.ts"
+
   },
   "dependencies": {
     "@next/bundle-analyzer": "^16.2.10",

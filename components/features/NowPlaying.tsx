@@ -32,15 +32,8 @@ export default function NowPlaying({ onPlayingChange }: NowPlayingProps) {
     return () => clearInterval(interval);
   }, [onPlayingChange]);
 
-  if (loading) return (
-    <div className="flex w-fit items-center gap-3 rounded-lg border border-white/[0.05] bg-white/[0.01] p-3 text-zinc-500">
-      <SpotifyLogo className="h-6 w-6 animate-pulse text-zinc-600" />
-      <div className="flex flex-col font-mono text-xs">
-        <span className="text-zinc-400">Loading...</span>
-        <span className="text-[9px] uppercase tracking-widest text-zinc-600">Spotify</span>
-      </div>
-    </div>
-  );
+  if (loading) return null;
+
 
   if (!song || !song.isPlaying) return <div className="hidden" />;
 
