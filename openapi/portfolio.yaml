@@ -1,5 +1,6 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
+
 
   title: Adithya Krishnan Portfolio API
   description: >
@@ -230,8 +231,8 @@ paths:
                   spotify:
                     $ref: "#/components/schemas/NowPlaying"
                   github:
-                    type: object
-                    nullable: true
+                    type: [object, "null"]
+
                     properties:
                       username:
                         type: string
@@ -561,8 +562,8 @@ paths:
                           description: Total divided by elapsed days (current month) or full month length.
                           example: 977.43
                         top_category:
-                          type: string
-                          nullable: true
+                          type: [string, "null"]
+
                           example: "Food"
                         by_category:
                           type: array
@@ -799,49 +800,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/HealthReport"
 
-  /api/cron/monitor:
-    get:
-      operationId: runMonitorCheck
-      summary: Run health checks and alert on failure
-      description: >
-        Same checks as `/api/health`, plus emails (Resend) and/or a webhook
-        event when a service is down (1-hour alert cooldown). Intended to be
-        triggered by Vercel Cron or a scheduled GitHub Actions workflow.
-      tags: [Monitoring]
-      security: []
-      parameters:
-        - name: Authorization
-          in: header
-          required: true
-          description: Bearer token containing the CRON_SECRET.
-          schema:
-            type: string
-      responses:
 
-        "200":
-          description: All services healthy.
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: "#/components/schemas/HealthReport"
-                  - type: object
-                    properties:
-                      alerted:
-                        type: boolean
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "503":
-          description: One or more services are down (an alert may have been sent — see `alerted`).
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: "#/components/schemas/HealthReport"
-                  - type: object
-                    properties:
-                      alerted:
-                        type: boolean
+
 
 components:
   securitySchemes:
@@ -879,8 +839,7 @@ components:
           type: string
           format: uri
         bio:
-          type: string
-          nullable: true
+          type: [string, "null"]
         publicRepos:
           type: integer
         followers:
@@ -902,16 +861,15 @@ components:
               name:
                 type: string
               description:
-                type: string
-                nullable: true
+                type: [string, "null"]
               stars:
                 type: integer
               forks:
                 type: integer
               language:
-                type: string
-                nullable: true
+                type: [string, "null"]
               url:
+
                 type: string
                 format: uri
               updatedAt:
@@ -971,9 +929,8 @@ components:
           type: string
           format: uri
         lastPlayedAt:
-          type: string
+          type: [string, "null"]
           format: date-time
-          nullable: true
 
     # --- Expenses ---
     Expense:
@@ -990,28 +947,23 @@ components:
           type: string
           example: "Night Swiggy dinner"
         amount:
-          type: number
-          nullable: true
+          type: [number, "null"]
           example: 193
         category_id:
-          type: string
-          nullable: true
+          type: [string, "null"]
         category:
-          type: string
-          nullable: true
+          type: [string, "null"]
           example: "Food"
         date:
-          type: string
+          type: [string, "null"]
           format: date
-          nullable: true
           example: "2026-07-08"
         notes:
-          type: string
-          nullable: true
+          type: [string, "null"]
         currentCycle:
-          type: boolean
-          nullable: true
+          type: [boolean, "null"]
           description: Whether this expense falls in the current 25th–24th billing cycle.
+
 
     ExpenseCreateInput:
       type: object
@@ -1073,8 +1025,7 @@ components:
           type: string
           format: uri
         category_id:
-          type: string
-          nullable: true
+          type: [string, "null"]
           description: Present on create when a category was requested.
 
     ExpenseBatchResult:
@@ -1101,8 +1052,7 @@ components:
                 type: string
                 format: uri
               category_id:
-                type: string
-                nullable: true
+                type: [string, "null"]
               error:
                 type: string
                 description: Present only when `success` is false.
@@ -1121,8 +1071,7 @@ components:
       type: object
       properties:
         category_id:
-          type: string
-          nullable: true
+          type: [string, "null"]
         category:
           type: string
           example: "Food"
@@ -1147,14 +1096,13 @@ components:
         ok:
           type: boolean
         status:
-          type: integer
-          nullable: true
+          type: [integer, "null"]
           description: Upstream HTTP status code, if a response was received.
         latency_ms:
           type: integer
         error:
-          type: string
-          nullable: true
+          type: [string, "null"]
+
 
     HealthReport:
       type: object
