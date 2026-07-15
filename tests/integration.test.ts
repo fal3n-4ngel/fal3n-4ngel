@@ -274,5 +274,39 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       assert.strictEqual(res.status, 400);
     });
   });
+
+  // 7. Google Calendar Write Verification
+  describe("Google Calendar Mutations (Auth & Validation)", () => {
+    test("POST /api/calendar without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ summary: "Test Meeting" }),
+      });
+      assert.strictEqual(res.status, 401);
+    });
+
+    test("POST /api/calendar with missing fields returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ summary: "No dates" }), // missing start, end
+      });
+      assert.strictEqual(res.status, 400);
+      const body = await res.json();
+      assert.strictEqual(body.error, "Bad Request");
+    });
+
+    test("DELETE /api/calendar/nonexistent-id without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar/nonexistent-id`, {
+        method: "DELETE",
+      });
+      assert.strictEqual(res.status, 401);
+    });
+  });
 });
+
 

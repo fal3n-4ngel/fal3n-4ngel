@@ -284,6 +284,79 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
+    post:
+      operationId: createCalendarEvent
+      summary: Create a calendar event
+      description: Creates a new event in your Google Calendar (requires Service Account credentials with write access).
+      tags: [Portfolio Data]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [summary, start, end]
+              properties:
+                summary:
+                  type: string
+                  example: "Project Check-in"
+                start:
+                  type: string
+                  format: date-time
+                  example: "2026-07-15T14:00:00Z"
+                end:
+                  type: string
+                  format: date-time
+                  example: "2026-07-15T15:00:00Z"
+                description:
+                  type: string
+                  example: "Discuss design and milestones."
+      responses:
+        "201":
+          description: Calendar event created successfully.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/CalendarEvent"
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "some_event_id_123"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/calendar/{id}:
+    delete:
+      operationId: deleteCalendarEvent
+      summary: Delete a calendar event
+      description: Removes an event from your Google Calendar by its event ID.
+      tags: [Portfolio Data]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The Google Calendar event ID to delete.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Event deleted successfully.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+
 
   # ---------------------------------------------------------------------
   # Expenses — reads

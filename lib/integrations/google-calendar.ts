@@ -147,4 +147,72 @@ export async function getCalendarAvailabilityStatus(): Promise<AvailabilityStatu
   return await getAvailabilityStatus(events);
 }
 
+export async function createCalendarEvent(data: {
+  summary: string;
+  start: string;
+  end: string;
+  description?: string;
+}): Promise<CalendarEvent & { id: string }> {
+  if (!CALENDAR_ID) {
+    throw new Error("GOOGLE_CALENDAR_ID is missing.");
+  }
+  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+    throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
+  }
+
+  const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+  const auth = new google.auth.JWT({
+    email: SERVICE_ACCOUNT_EMAIL,
+    key: formattedKey,
+    scopes: ["https://www.googleapis.com/auth/calendar"],
+  });
+
+  const calendar = google.calendar({ version: "v3", auth });
+  const response = await calendar.events.insert({
+    calendarId: CALENDAR_ID,
+    requestBody: {
+      summary: data.summary,
+      description: data.description,
+      start: {
+        dateTime: data.start,
+      },
+      end: {
+        dateTime: data.end,
+      },
+    },
+  });
+
+  const item = response.data;
+  return {
+    id: item.id || "",
+    summary: item.summary || data.summary,
+    start: item.start?.dateTime || item.start?.date || data.start,
+    end: item.end?.dateTime || item.end?.date || data.end,
+    isBusy: item.transparency !== "transparent",
+  };
+}
+
+export async function deleteCalendarEvent(eventId: string): Promise<void> {
+  if (!CALENDAR_ID) {
+    throw new Error("GOOGLE_CALENDAR_ID is missing.");
+  }
+  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+    throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
+  }
+
+  const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+  const auth = new google.auth.JWT({
+    email: SERVICE_ACCOUNT_EMAIL,
+    key: formattedKey,
+    scopes: ["https://www.googleapis.com/auth/calendar"],
+  });
+
+  const calendar = google.calendar({ version: "v3", auth });
+  await calendar.events.delete({
+    calendarId: CALENDAR_ID,
+    eventId: eventId,
+  });
+}
+
+
 
