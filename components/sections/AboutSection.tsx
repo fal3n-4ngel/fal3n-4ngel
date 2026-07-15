@@ -114,7 +114,7 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
         } else if (lanyardData.discord_status === "dnd") {
           displayText = "Busy";
         } else {
-          displayText = "Offline";
+          displayText = "AFK";
         }
       }
     } else {
@@ -129,9 +129,10 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       } else {
         displayStatus = false;
         statusColor = "bg-red-500";
-        displayText = "Offline";
+        displayText = "AFK";
       }
     }
+
   }
 
 
