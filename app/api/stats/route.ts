@@ -1,5 +1,6 @@
 import { verifyOAuth } from "@/lib/auth";
 import { fetchGithubData } from "@/lib/integrations/github";
+import { getCalendarEvents, getAvailabilityStatus } from "@/lib/integrations/google-calendar";
 import { getBlogs, getExperiences, getProjects } from "@/lib/integrations/notion";
 import { getNowPlaying } from "@/lib/integrations/spotify";
 import { NextResponse, NextRequest } from "next/server";
@@ -15,13 +16,14 @@ export async function GET(req: NextRequest) {
       );
     }
     // Fetch stats concurrently using Promise.allSettled for maximum fault tolerance
-    const [spotifyResult, githubResult, blogsResult, projectsResult, experiencesResult] =
+    const [spotifyResult, githubResult, blogsResult, projectsResult, experiencesResult, calendarResult] =
       await Promise.allSettled([
         getNowPlaying(),
         fetchGithubData(),
         getBlogs(),
         getProjects(),
         getExperiences(),
+        getCalendarEvents(),
       ]);
 
     const spotify = spotifyResult.status === "fulfilled" ? spotifyResult.value : { isPlaying: false };
@@ -42,11 +44,16 @@ export async function GET(req: NextRequest) {
       experiencesCount: experiencesResult.status === "fulfilled" ? experiencesResult.value.length : 0,
     };
 
+    const calendarEvents = calendarResult.status === "fulfilled" ? calendarResult.value : [];
+    const availability = await getAvailabilityStatus(calendarEvents);
+
+
     return NextResponse.json(
       {
         spotify,
         github,
         notion,
+        availability,
       },
       {
         headers: {
@@ -56,6 +63,7 @@ export async function GET(req: NextRequest) {
           "Cache-Control": "public, max-age=60, s-maxage=60, stale-while-revalidate=30",
         },
       }
+
 
     );
   } catch (error: any) {

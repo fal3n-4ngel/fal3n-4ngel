@@ -7,6 +7,7 @@ import NowPlaying from "@/components/features/NowPlaying";
 import { ParallaxElement } from "@/components/ui/ParallaxSection";
 import { SectionTransition, StaggerChild } from "@/components/ui/SectionTransition";
 import { useLanyard } from "@/hooks";
+import { getCalendarAvailabilityStatus, AvailabilityStatus } from "@/lib/integrations/google-calendar";
 import { getSiteConfig } from "@/lib/integrations/notion";
 import { useEffect, useState } from "react";
 
@@ -24,6 +25,7 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; lastPlayedAt?: string }>({
     isPlaying: false,
   });
+  const [calendarStatus, setCalendarStatus] = useState<AvailabilityStatus | null>(null);
 
   const { data: lanyardData } = useLanyard("849515993546096660");
 
@@ -31,7 +33,11 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     getSiteConfig().then((data) => {
       if (data) setConfig(data);
     });
+    getCalendarAvailabilityStatus().then((status) => {
+      if (status) setCalendarStatus(status);
+    });
   }, []);
+
 
   useEffect(() => {
     const isCoding = lanyardData?.activities.some((act) => act.type === 0 && act.name === "Visual Studio Code") ?? false;
@@ -64,7 +70,11 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   let statusColor = displayStatus ? "bg-green-500 animate-pulse" : "bg-red-500";
 
   if (!activeStatus) {
-    if (lanyardData) {
+    if (calendarStatus?.status === "Busy") {
+      displayStatus = true;
+      statusColor = "bg-red-500 animate-pulse";
+      displayText = calendarStatus.currentEvent ? `Busy: ${calendarStatus.currentEvent}` : "Busy (In a meeting)";
+    } else if (lanyardData) {
       const activeGameOrCoding = lanyardData.activities.find((act) => act.type === 0);
       const customStatus = lanyardData.activities.find((act) => act.type === 4);
 
@@ -123,6 +133,7 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       }
     }
   }
+
 
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center overflow-visible px-12 py-24 pt-48">

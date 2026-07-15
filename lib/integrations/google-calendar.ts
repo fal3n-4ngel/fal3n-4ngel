@@ -1,0 +1,150 @@
+"use server";
+
+import { google } from "googleapis";
+import { unstable_cache } from "next/cache";
+
+
+const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
+const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
+const API_KEY = process.env.GOOGLE_API_KEY;
+
+export interface CalendarEvent {
+  summary: string;
+  start: string;
+  end: string;
+  isBusy: boolean;
+}
+
+export interface AvailabilityStatus {
+  status: "Available" | "Busy";
+  currentEvent?: string;
+}
+
+/**
+ * Core fetch function (uncached) to retrieve events from Google Calendar.
+ * Supports both private (Service Account JWT) and public (API Key) calendars.
+ */
+async function fetchCalendarEventsRaw(): Promise<CalendarEvent[]> {
+  try {
+    const timeMin = new Date().toISOString();
+    const timeMax = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days ahead
+
+    if (!CALENDAR_ID) {
+      console.warn("⚠️ GOOGLE_CALENDAR_ID env var is missing. Google Calendar integration is disabled.");
+      return [];
+    }
+
+    // Option A: Private Calendar via Google Service Account (OAuth JWT)
+    if (SERVICE_ACCOUNT_EMAIL && PRIVATE_KEY) {
+      const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+      const auth = new google.auth.JWT({
+        email: SERVICE_ACCOUNT_EMAIL,
+        key: formattedKey,
+        scopes: ["https://www.googleapis.com/auth/calendar.readonly"],
+      });
+
+
+      const calendar = google.calendar({ version: "v3", auth });
+      const response = await calendar.events.list({
+        calendarId: CALENDAR_ID,
+        timeMin,
+        timeMax,
+        singleEvents: true,
+        orderBy: "startTime",
+        maxResults: 15,
+      });
+
+      const items = response.data.items || [];
+      return items.map((item) => {
+        const start = item.start?.dateTime || item.start?.date || "";
+        const end = item.end?.dateTime || item.end?.date || "";
+        const isBusy = item.transparency !== "transparent"; // "transparent" means free time, absent means busy
+        return {
+          summary: item.summary || "Busy",
+          start,
+          end,
+          isBusy,
+        };
+      });
+    }
+
+    // Option B: Public Calendar via Google API Key
+    if (API_KEY) {
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
+        CALENDAR_ID
+      )}/events?key=${API_KEY}&timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(
+        timeMax
+      )}&singleEvents=true&orderBy=startTime&maxResults=15`;
+
+      const response = await fetch(url, { next: { revalidate: 120 } });
+      if (!response.ok) {
+        throw new Error(`Google Calendar Public Fetch failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const items = data.items || [];
+      return items.map((item: any) => {
+        const start = item.start?.dateTime || item.start?.date || "";
+        const end = item.end?.dateTime || item.end?.date || "";
+        const isBusy = item.transparency !== "transparent";
+        return {
+          summary: item.summary || "Busy",
+          start,
+          end,
+          isBusy,
+        };
+      });
+    }
+
+    console.warn("⚠️ Missing Google Calendar credentials. Configure either Service Account (GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_PRIVATE_KEY) or API Key (GOOGLE_API_KEY).");
+    return [];
+  } catch (error) {
+    console.error("❌ Failed to fetch calendar events from Google:", error);
+    return [];
+  }
+}
+
+/**
+ * Cached function to fetch calendar events. Revalidates every 120 seconds.
+ */
+export const getCalendarEvents = unstable_cache(
+  async (): Promise<CalendarEvent[]> => {
+    return fetchCalendarEventsRaw();
+  },
+  ["google-calendar-events-v1"],
+  { revalidate: 120, tags: ["calendar"] }
+);
+
+/**
+ * Computes current availability (Available vs Busy) based on active calendar events.
+ */
+export async function getAvailabilityStatus(events: CalendarEvent[]): Promise<AvailabilityStatus> {
+  const now = Date.now();
+
+  // Find any active event occurring right now that marks the user as busy
+  const activeEvent = events.find((event) => {
+    if (!event.isBusy) return false;
+    const start = new Date(event.start).getTime();
+    const end = new Date(event.end).getTime();
+    return now >= start && now <= end;
+  });
+
+  if (activeEvent) {
+    return {
+      status: "Busy",
+      currentEvent: activeEvent.summary,
+    };
+  }
+
+  return {
+    status: "Available",
+  };
+}
+
+export async function getCalendarAvailabilityStatus(): Promise<AvailabilityStatus> {
+  const events = await getCalendarEvents();
+  return await getAvailabilityStatus(events);
+}
+
+

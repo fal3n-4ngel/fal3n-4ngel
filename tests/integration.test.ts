@@ -20,6 +20,7 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       "/api/expenses/summary",
       "/api/expenses/breakdown",
       "/api/expenses/search",
+      "/api/calendar",
     ];
 
     for (const route of protectedRoutes) {
@@ -100,6 +101,17 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       const res = await fetch(`${targetUrl}/api/stats`, { headers });
       assert.ok(res.status === 200 || res.status === 500, `Expected 200 or 500, got ${res.status}`);
     });
+
+    test("GET /api/calendar returns 200 or 500", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar`, { headers });
+      assert.ok(res.status === 200 || res.status === 500, `Expected 200 or 500, got ${res.status}`);
+      if (res.status === 200) {
+        const body = await res.json();
+        assert.ok("availability" in body);
+        assert.ok(Array.isArray(body.events));
+      }
+    });
+
 
     test("GET /api/expenses returns 200 or 500", async () => {
       const res = await fetch(`${targetUrl}/api/expenses`, { headers });
@@ -197,6 +209,16 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       assert.ok(cacheControl, "Should return Cache-Control header");
       assert.ok(cacheControl.includes("s-maxage=60"), `Expected s-maxage=60, got ${cacheControl}`);
     });
+
+    test("GET /api/calendar returns s-maxage Cache-Control headers", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+      const cacheControl = res.headers.get("Cache-Control");
+      assert.ok(cacheControl, "Should return Cache-Control header");
+      assert.ok(cacheControl.includes("s-maxage=60"), `Expected s-maxage=60, got ${cacheControl}`);
+    });
+
 
     test("GET /api/spotify returns s-maxage=10 Cache-Control headers", async () => {
       const res = await fetch(`${targetUrl}/api/spotify`);

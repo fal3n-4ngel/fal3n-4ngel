@@ -251,10 +251,39 @@ paths:
                         type: integer
                       experiencesCount:
                         type: integer
+                  availability:
+                    $ref: "#/components/schemas/AvailabilityStatus"
         "401":
           $ref: "#/components/responses/OAuthUnauthorized"
         "500":
           $ref: "#/components/responses/ServerError"
+
+  /api/calendar:
+    get:
+      operationId: getCalendarEvents
+      summary: Google Calendar upcoming events
+      description: Returns a list of Google Calendar events for the next 7 days, along with current availability status.
+      tags: [Portfolio Data]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Calendar events and status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  availability:
+                    $ref: "#/components/schemas/AvailabilityStatus"
+                  events:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CalendarEvent"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
 
   # ---------------------------------------------------------------------
   # Expenses — reads
@@ -827,7 +856,37 @@ components:
           type: string
           example: "`title` and `amount` are required."
 
+    AvailabilityStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [Available, Busy]
+          example: "Available"
+        currentEvent:
+          type: [string, "null"]
+          example: "Meeting with Client"
+
+    CalendarEvent:
+      type: object
+      properties:
+        summary:
+          type: string
+          example: "Sync Meeting"
+        start:
+          type: string
+          format: date-time
+          example: "2026-07-15T10:00:00Z"
+        end:
+          type: string
+          format: date-time
+          example: "2026-07-15T11:00:00Z"
+        isBusy:
+          type: boolean
+          example: true
+
     # --- Portfolio data ---
+
     GithubStats:
       type: object
       properties:
