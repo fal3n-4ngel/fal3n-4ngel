@@ -25,14 +25,11 @@ export interface AvailabilityStatus {
   currentEvent?: string;
 }
 
-/**
- * Core fetch function (uncached) to retrieve events from Google Calendar.
- * Supports both private (Service Account JWT) and public (API Key) calendars.
- */
-async function fetchCalendarEventsRaw(): Promise<CalendarEvent[]> {
+async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<CalendarEvent[]> {
   try {
-    const timeMin = new Date().toISOString();
-    const timeMax = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days ahead
+    const timeMin = start || new Date().toISOString();
+    const timeMax = end || new Date(new Date(timeMin).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days ahead
+
 
     if (!CALENDAR_ID) {
       console.warn("⚠️ GOOGLE_CALENDAR_ID env var is missing. Google Calendar integration is disabled.");
@@ -139,12 +136,13 @@ async function fetchCalendarEventsRaw(): Promise<CalendarEvent[]> {
  * Cached function to fetch calendar events. Revalidates every 120 seconds.
  */
 export const getCalendarEvents = unstable_cache(
-  async (): Promise<CalendarEvent[]> => {
-    return fetchCalendarEventsRaw();
+  async (start?: string, end?: string): Promise<CalendarEvent[]> => {
+    return fetchCalendarEventsRaw(start, end);
   },
-  ["google-calendar-events-v1"],
+  ["google-calendar-events-v2"],
   { revalidate: 120, tags: ["calendar"] }
 );
+
 
 /**
  * Computes current availability (Available vs Busy) based on active calendar events.

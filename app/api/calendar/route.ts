@@ -13,8 +13,26 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const events = await getCalendarEvents();
+    const start = req.nextUrl.searchParams.get("start") || undefined;
+    const end = req.nextUrl.searchParams.get("end") || undefined;
+
+    // Validate parameters
+    if (start && isNaN(Date.parse(start))) {
+      return NextResponse.json(
+        { error: "Bad Request", message: "Invalid ISO date string 'start'" },
+        { status: 400 }
+      );
+    }
+    if (end && isNaN(Date.parse(end))) {
+      return NextResponse.json(
+        { error: "Bad Request", message: "Invalid ISO date string 'end'" },
+        { status: 400 }
+      );
+    }
+
+    const events = await getCalendarEvents(start, end);
     const availability = await getAvailabilityStatus(events);
+
 
     return NextResponse.json(
       {

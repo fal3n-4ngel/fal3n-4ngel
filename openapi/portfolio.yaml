@@ -262,9 +262,25 @@ paths:
     get:
       operationId: getCalendarEvents
       summary: Google Calendar upcoming events
-      description: Returns a list of Google Calendar events for the next 7 days, along with current availability status.
+      description: Returns a list of Google Calendar events for a specific date range, along with current availability status.
       tags: [Portfolio Data]
       security: [{ bearerAuth: [] }]
+      parameters:
+        - name: start
+          in: query
+          required: false
+          description: ISO 8601 datetime representing the start of the window (defaults to now).
+          schema:
+            type: string
+            format: date-time
+        - name: end
+          in: query
+          required: false
+          description: ISO 8601 datetime representing the end of the window (defaults to 7 days from start).
+          schema:
+            type: string
+            format: date-time
+
       responses:
         "200":
           description: Calendar events and status.

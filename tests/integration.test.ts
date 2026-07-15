@@ -306,6 +306,22 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       });
       assert.strictEqual(res.status, 401);
     });
+
+    test("GET /api/calendar with invalid start parameter returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar?start=invalid-date`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+      assert.strictEqual(res.status, 400);
+      const body = await res.json();
+      assert.strictEqual(body.error, "Bad Request");
+    });
+
+    test("GET /api/calendar with valid start parameter returns 200 or 500", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar?start=2026-07-20T00:00:00Z`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+      assert.ok(res.status === 200 || res.status === 500);
+    });
   });
 });
 
