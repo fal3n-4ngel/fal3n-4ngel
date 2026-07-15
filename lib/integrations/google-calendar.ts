@@ -10,6 +10,8 @@ const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 const API_KEY = process.env.GOOGLE_API_KEY;
+const READONLY_CALENDAR_IDS = process.env.GOOGLE_READONLY_CALENDAR_IDS;
+
 
 export interface CalendarEvent {
   summary: string;
@@ -46,30 +48,56 @@ async function fetchCalendarEventsRaw(): Promise<CalendarEvent[]> {
         scopes: ["https://www.googleapis.com/auth/calendar.readonly"],
       });
 
-
       const calendar = google.calendar({ version: "v3", auth });
-      const response = await calendar.events.list({
-        calendarId: CALENDAR_ID,
-        timeMin,
-        timeMax,
-        singleEvents: true,
-        orderBy: "startTime",
-        maxResults: 15,
+
+      // Determine the list of calendar IDs to query for availability
+      let calendarIds = [CALENDAR_ID];
+      if (READONLY_CALENDAR_IDS) {
+        const extraIds = READONLY_CALENDAR_IDS.split(",")
+          .map((id) => id.replace(/\r?\n|\r/g, "").trim())
+          .filter((id) => id.length > 0);
+        calendarIds = Array.from(new Set([...calendarIds, ...extraIds]));
+      }
+
+
+
+      // Fetch upcoming events from all discovered calendars concurrently
+      const eventFetches = calendarIds.map(async (id) => {
+        try {
+          const response = await calendar.events.list({
+            calendarId: id,
+            timeMin,
+            timeMax,
+            singleEvents: true,
+            orderBy: "startTime",
+            maxResults: 15,
+          });
+          const items = response.data.items || [];
+          return items.map((item) => {
+            const start = item.start?.dateTime || item.start?.date || "";
+            const end = item.end?.dateTime || item.end?.date || "";
+            const isBusy = item.transparency !== "transparent";
+            return {
+              summary: item.summary || "Busy",
+              start,
+              end,
+              isBusy,
+            };
+          });
+        } catch (err) {
+          console.error(`❌ Failed to fetch events for calendar ID: ${id}`, err);
+          return [];
+        }
       });
 
-      const items = response.data.items || [];
-      return items.map((item) => {
-        const start = item.start?.dateTime || item.start?.date || "";
-        const end = item.end?.dateTime || item.end?.date || "";
-        const isBusy = item.transparency !== "transparent"; // "transparent" means free time, absent means busy
-        return {
-          summary: item.summary || "Busy",
-          start,
-          end,
-          isBusy,
-        };
-      });
+      const results = await Promise.all(eventFetches);
+      const allEvents = results.flat();
+
+      // Sort merged events chronologically
+      allEvents.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
+      return allEvents;
     }
+
 
     // Option B: Public Calendar via Google API Key
     if (API_KEY) {
