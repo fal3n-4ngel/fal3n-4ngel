@@ -1,7 +1,8 @@
 "use server";
 
 import { google } from "googleapis";
-import { unstable_cache } from "next/cache";
+import { unstable_cache, revalidateTag } from "next/cache";
+
 
 
 const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
@@ -183,6 +184,10 @@ export async function createCalendarEvent(data: {
   });
 
   const item = response.data;
+  
+  // Invalidate the cache tag so that the new event is fetched immediately
+  revalidateTag("calendar");
+
   return {
     id: item.id || "",
     summary: item.summary || data.summary,
@@ -212,7 +217,11 @@ export async function deleteCalendarEvent(eventId: string): Promise<void> {
     calendarId: CALENDAR_ID,
     eventId: eventId,
   });
+
+  // Invalidate the cache tag so that the deleted event is removed from cache immediately
+  revalidateTag("calendar");
 }
+
 
 
 
