@@ -1,7 +1,15 @@
 "use server";
 
 import { google } from "googleapis";
-import { unstable_cache, updateTag } from "next/cache";
+import { unstable_cache, revalidateTag } from "next/cache";
+
+function safeRevalidateTag(tag: string) {
+  try {
+    revalidateTag(tag, "default");
+  } catch (error) {
+    console.warn(`Failed to revalidate tag "${tag}":`, error);
+  }
+}
 
 
 
@@ -11,6 +19,18 @@ const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 const API_KEY = process.env.GOOGLE_API_KEY;
 const READONLY_CALENDAR_IDS = process.env.GOOGLE_READONLY_CALENDAR_IDS;
+
+const getFormattedPrivateKey = () => {
+  if (!PRIVATE_KEY) return undefined;
+  let cleanKey = PRIVATE_KEY.trim();
+  if (cleanKey.startsWith('"') && cleanKey.endsWith('"')) {
+    cleanKey = cleanKey.slice(1, -1);
+  }
+  if (cleanKey.startsWith("'") && cleanKey.endsWith("'")) {
+    cleanKey = cleanKey.slice(1, -1);
+  }
+  return cleanKey.replace(/\\n/g, "\n");
+};
 
 
 export interface CalendarEvent {
@@ -42,7 +62,7 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
 
     // Option A: Private Calendar via Google Service Account (OAuth JWT)
     if (SERVICE_ACCOUNT_EMAIL && PRIVATE_KEY) {
-      const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+      const formattedKey = getFormattedPrivateKey();
       const auth = new google.auth.JWT({
         email: SERVICE_ACCOUNT_EMAIL,
         key: formattedKey,
@@ -202,7 +222,7 @@ export async function createCalendarEvent(data: {
     throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
   }
 
-  const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+  const formattedKey = getFormattedPrivateKey();
   const auth = new google.auth.JWT({
     email: SERVICE_ACCOUNT_EMAIL,
     key: formattedKey,
@@ -230,7 +250,7 @@ export async function createCalendarEvent(data: {
   const item = response.data;
   
   // Invalidate the cache tag so that the new event is fetched immediately
-  updateTag("calendar");
+  safeRevalidateTag("calendar");
 
 
   return {
@@ -262,7 +282,7 @@ export async function updateCalendarEvent(
     throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
   }
 
-  const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+  const formattedKey = getFormattedPrivateKey();
   const auth = new google.auth.JWT({
     email: SERVICE_ACCOUNT_EMAIL,
     key: formattedKey,
@@ -285,7 +305,7 @@ export async function updateCalendarEvent(
   const item = response.data;
 
   // Invalidate the cache tag so that the updated event is fetched immediately
-  updateTag("calendar");
+  safeRevalidateTag("calendar");
 
   return {
     id: item.id || eventId,
@@ -307,7 +327,7 @@ export async function deleteCalendarEvent(eventId: string): Promise<void> {
     throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
   }
 
-  const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+  const formattedKey = getFormattedPrivateKey();
   const auth = new google.auth.JWT({
     email: SERVICE_ACCOUNT_EMAIL,
     key: formattedKey,
@@ -321,7 +341,7 @@ export async function deleteCalendarEvent(eventId: string): Promise<void> {
   });
 
   // Invalidate the cache tag so that the deleted event is removed from cache immediately
-  updateTag("calendar");
+  safeRevalidateTag("calendar");
 
 }
 

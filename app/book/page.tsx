@@ -45,7 +45,7 @@ export default function BookMeetingPage() {
     return dates;
   };
 
-  const weekdays = getNextWeekdays();
+  const weekdays = React.useMemo(() => getNextWeekdays(), []);
 
   useEffect(() => {
     if (weekdays.length > 0 && !selectedDate) {
@@ -56,11 +56,12 @@ export default function BookMeetingPage() {
   // Fetch busy slots for the next 7 days
   useEffect(() => {
     const fetchBusy = async () => {
+      if (weekdays.length === 0) return;
       setLoading(true);
       try {
         const start = new Date();
-        const end = new Date();
-        end.setDate(end.getDate() + 10);
+        const end = new Date(weekdays[weekdays.length - 1] || new Date());
+        end.setHours(23, 59, 59, 999);
         const res = await fetch(
           `/api/calendar/book?start=${start.toISOString()}&end=${end.toISOString()}`
         );
@@ -75,7 +76,7 @@ export default function BookMeetingPage() {
       }
     };
     fetchBusy();
-  }, []);
+  }, [weekdays]);
 
   // Generate slots for the selected date from 9:00 AM to 5:00 PM IST
   const generateSlots = (date: Date) => {
