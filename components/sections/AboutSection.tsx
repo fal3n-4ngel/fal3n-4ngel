@@ -22,7 +22,12 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
 
   type ConfigItem = { isEnabled?: boolean; content?: string };
   const [config, setConfig] = useState<Record<string, ConfigItem> | null>(null);
-  const [spotifyData, setSpotifyData] = useState<{ isPlaying: boolean; lastPlayedAt?: string }>({
+  const [spotifyData, setSpotifyData] = useState<{
+    isPlaying: boolean;
+    lastPlayedAt?: string;
+    title?: string;
+    artist?: string;
+  }>({
     isPlaying: false,
   });
   const [calendarStatus, setCalendarStatus] = useState<AvailabilityStatus | null>(null);
@@ -74,7 +79,11 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       displayStatus = true;
       statusColor = "bg-red-500 animate-pulse";
       displayText = calendarStatus.currentEvent ? `Busy: ${calendarStatus.currentEvent}` : "Busy (In a meeting)";
-    } else if (lanyardData) {
+    } else if (spotifyData.isPlaying) {
+      displayStatus = true;
+      statusColor = "bg-green-500 animate-pulse";
+      displayText = spotifyData.title ? `Listening: ${spotifyData.title} - ${spotifyData.artist}` : "Listening to Spotify";
+    } else if (lanyardData && lanyardData.discord_status !== "offline") {
       const activeGameOrCoding = lanyardData.activities.find((act) => act.type === 0);
       const customStatus = lanyardData.activities.find((act) => act.type === 4);
 
@@ -84,11 +93,9 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
         statusColor = "bg-yellow-500 animate-pulse";
       } else if (lanyardData.discord_status === "dnd") {
         statusColor = "bg-red-500 animate-pulse";
-      } else {
-        statusColor = "bg-zinc-600";
       }
 
-      displayStatus = lanyardData.discord_status !== "offline";
+      displayStatus = true;
 
       if (activeGameOrCoding) {
         if (activeGameOrCoding.name === "Visual Studio Code") {
@@ -101,9 +108,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
           displayText = `Playing ${activeGameOrCoding.name}`;
           statusColor = "bg-indigo-400 animate-pulse";
         }
-      } else if (lanyardData.listening_to_spotify) {
-        displayText = "Listening to Spotify";
-        statusColor = "bg-green-500 animate-pulse";
       } else if (customStatus?.state) {
         displayText = customStatus.state;
       } else {
@@ -113,26 +117,18 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
           displayText = "Away";
         } else if (lanyardData.discord_status === "dnd") {
           displayText = "Busy";
-        } else {
-          displayText = "AFK";
         }
       }
     } else {
-      if (spotifyData.isPlaying) {
-        displayStatus = true;
-        statusColor = "bg-green-500 animate-pulse";
-        displayText = "Listening to Spotify";
-      } else if (lastSeenSpotifyText) {
-        displayStatus = false;
+      displayStatus = false;
+      if (lastSeenSpotifyText) {
         statusColor = "bg-zinc-600";
         displayText = lastSeenSpotifyText;
       } else {
-        displayStatus = false;
         statusColor = "bg-red-500";
         displayText = "AFK";
       }
     }
-
   }
 
 

@@ -24,6 +24,7 @@ const AboutSection = dynamic(
   { ssr: true }
 );
 
+
 export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
@@ -55,6 +56,8 @@ export default function Home() {
             resetEscape={resetEscape}
           />
         </div>
+
+
 
         <SectionTransition id="projects" direction="up" className="w-full" distance={50}>
           <ProjectsSection />

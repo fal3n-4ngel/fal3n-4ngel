@@ -5,7 +5,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface NowPlayingProps {
-  onPlayingChange?: (status: { isPlaying: boolean; lastPlayedAt?: string }) => void;
+  onPlayingChange?: (status: {
+    isPlaying: boolean;
+    lastPlayedAt?: string;
+    title?: string;
+    artist?: string;
+  }) => void;
 }
 
 function SpotifyLogo(props: React.SVGProps<SVGSVGElement>) {
@@ -17,46 +22,25 @@ function SpotifyLogo(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export default function NowPlaying({ onPlayingChange }: NowPlayingProps) {
-  const [song, setSong] = useState<Record<string, unknown> | null>(null);
+  const [song, setSong] = useState<Record<string, any> | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSong = async () => {
       const data = await getNowPlaying();
-      setSong(data as Record<string, unknown> | null);
+      setSong(data as Record<string, any> | null);
       setLoading(false);
-      onPlayingChange?.({ isPlaying: !!(data as Record<string, unknown>)?.isPlaying, lastPlayedAt: (data as Record<string, unknown>)?.lastPlayedAt as string | undefined });
+      onPlayingChange?.({
+        isPlaying: !!(data as any)?.isPlaying,
+        lastPlayedAt: (data as any)?.lastPlayedAt,
+        title: (data as any)?.title,
+        artist: (data as any)?.artist,
+      });
     };
     fetchSong();
     const interval = setInterval(fetchSong, 30000);
     return () => clearInterval(interval);
   }, [onPlayingChange]);
 
-  if (loading) return null;
-
-
-  if (!song || !song.isPlaying) return <div className="hidden" />;
-
-  const { title, artist, albumImageUrl, songUrl } = song as {
-    title: string; artist: string; albumImageUrl: string; songUrl: string;
-  };
-
-  return (
-    <a href={songUrl} target="_blank" rel="noopener noreferrer" className="interactable group flex w-fit items-center gap-3 py-4">
-      {albumImageUrl ? (
-        <div className="relative h-10 w-10 overflow-hidden rounded-md">
-          <Image src={albumImageUrl} alt="Album cover" fill sizes="40px" className="object-cover" />
-        </div>
-      ) : (
-        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-white/5 bg-zinc-900">
-          <SpotifyLogo className="h-5 w-5 text-zinc-600" />
-        </div>
-      )}
-      <div className="flex max-w-[150px] flex-col sm:max-w-xs">
-        <p className="truncate text-sm font-medium text-white/90 transition-colors group-hover:text-white">{title}</p>
-        <p className="truncate text-xs text-zinc-500">{artist}</p>
-      </div>
-      <SpotifyLogo className="ml-2 hidden h-6 w-6 text-[#1DB954] opacity-70 transition-opacity group-hover:opacity-100 sm:block" />
-    </a>
-  );
+  return null;
 }
