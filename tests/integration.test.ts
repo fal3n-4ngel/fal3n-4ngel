@@ -322,6 +322,62 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       });
       assert.ok(res.status === 200 || res.status === 500);
     });
+
+    test("POST /api/calendar with invalid recurrence format returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          summary: "Invalid Recurrence Test",
+          start: "2026-07-20T10:00:00Z",
+          end: "2026-07-20T11:00:00Z",
+          recurrence: "not-an-array",
+        }),
+      });
+      assert.strictEqual(res.status, 400);
+      const body = await res.json();
+      assert.strictEqual(body.error, "Bad Request");
+    });
+
+    test("PATCH /api/calendar/nonexistent-id without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar/nonexistent-id`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ summary: "Updated Title" }),
+      });
+      assert.strictEqual(res.status, 401);
+    });
+
+    test("PATCH /api/calendar/nonexistent-id with invalid field formats returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar/nonexistent-id`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          recurrence: "not-an-array",
+        }),
+      });
+      assert.strictEqual(res.status, 400);
+    });
+
+    test("PATCH /api/calendar/some-id with valid format returns 500 or 404", async () => {
+      const res = await fetch(`${targetUrl}/api/calendar/some-id`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          summary: "Updated Title",
+        }),
+      });
+      assert.ok(res.status === 500 || res.status === 404);
+    });
   });
 });
 

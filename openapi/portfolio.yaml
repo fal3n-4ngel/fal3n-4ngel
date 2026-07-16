@@ -328,6 +328,14 @@ paths:
                 description:
                   type: string
                   example: "Discuss design and milestones."
+                recurrence:
+                  type: array
+                  items:
+                    type: string
+                  example: ["RRULE:FREQ=DAILY;COUNT=5"]
+                timeZone:
+                  type: string
+                  example: "Asia/Kolkata"
       responses:
         "201":
           description: Calendar event created successfully.
@@ -348,7 +356,70 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
-  /api/calendar/{id}:
+   /api/calendar/{id}:
+    patch:
+      operationId: updateCalendarEvent
+      summary: Update a calendar event
+      description: Updates one or more fields of an existing event in your Google Calendar.
+      tags: [Portfolio Data]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The Google Calendar event ID to update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              minProperties: 1
+              properties:
+                summary:
+                  type: string
+                  example: "Updated Project Check-in"
+                start:
+                  type: string
+                  format: date-time
+                  example: "2026-07-15T14:30:00Z"
+                end:
+                  type: string
+                  format: date-time
+                  example: "2026-07-15T15:30:00Z"
+                description:
+                  type: string
+                  example: "Updated details."
+                recurrence:
+                  type: array
+                  items:
+                    type: string
+                  example: ["RRULE:FREQ=DAILY;COUNT=5"]
+                timeZone:
+                  type: string
+                  example: "Asia/Kolkata"
+      responses:
+        "200":
+          description: Event updated successfully.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/CalendarEvent"
+                  - type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "some_event_id_123"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
     delete:
       operationId: deleteCalendarEvent
       summary: Delete a calendar event
@@ -959,6 +1030,9 @@ components:
     CalendarEvent:
       type: object
       properties:
+        id:
+          type: string
+          example: "some_event_id_123"
         summary:
           type: string
           example: "Sync Meeting"
@@ -973,6 +1047,17 @@ components:
         isBusy:
           type: boolean
           example: true
+        description:
+          type: string
+          example: "Discuss design and milestones."
+        recurrence:
+          type: array
+          items:
+            type: string
+          example: ["RRULE:FREQ=DAILY;COUNT=5"]
+        recurringEventId:
+          type: string
+          example: "some_recurring_event_parent_id"
 
     # --- Portfolio data ---
 

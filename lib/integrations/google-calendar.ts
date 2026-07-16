@@ -14,10 +14,14 @@ const READONLY_CALENDAR_IDS = process.env.GOOGLE_READONLY_CALENDAR_IDS;
 
 
 export interface CalendarEvent {
+  id?: string;
   summary: string;
   start: string;
   end: string;
   isBusy: boolean;
+  description?: string;
+  recurrence?: string[];
+  recurringEventId?: string;
 }
 
 export interface AvailabilityStatus {
@@ -75,10 +79,14 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
             const end = item.end?.dateTime || item.end?.date || "";
             const isBusy = item.transparency !== "transparent";
             return {
+              id: item.id || undefined,
               summary: item.summary || "Busy",
               start,
               end,
               isBusy,
+              description: item.description || undefined,
+              recurrence: item.recurrence || undefined,
+              recurringEventId: item.recurringEventId || undefined,
             };
           });
         } catch (err) {
@@ -116,10 +124,14 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
         const end = item.end?.dateTime || item.end?.date || "";
         const isBusy = item.transparency !== "transparent";
         return {
+          id: item.id || undefined,
           summary: item.summary || "Busy",
           start,
           end,
           isBusy,
+          description: item.description || undefined,
+          recurrence: item.recurrence || undefined,
+          recurringEventId: item.recurringEventId || undefined,
         };
       });
     }
@@ -180,6 +192,8 @@ export async function createCalendarEvent(data: {
   start: string;
   end: string;
   description?: string;
+  recurrence?: string[];
+  timeZone?: string;
 }): Promise<CalendarEvent & { id: string }> {
   if (!CALENDAR_ID) {
     throw new Error("GOOGLE_CALENDAR_ID is missing.");
@@ -203,10 +217,13 @@ export async function createCalendarEvent(data: {
       description: data.description,
       start: {
         dateTime: data.start,
+        timeZone: data.timeZone,
       },
       end: {
         dateTime: data.end,
+        timeZone: data.timeZone,
       },
+      recurrence: data.recurrence,
     },
   });
 
@@ -222,6 +239,63 @@ export async function createCalendarEvent(data: {
     start: item.start?.dateTime || item.start?.date || data.start,
     end: item.end?.dateTime || item.end?.date || data.end,
     isBusy: item.transparency !== "transparent",
+    description: item.description || undefined,
+    recurrence: item.recurrence || undefined,
+  };
+}
+
+export async function updateCalendarEvent(
+  eventId: string,
+  data: {
+    summary?: string;
+    start?: string;
+    end?: string;
+    description?: string;
+    recurrence?: string[];
+    timeZone?: string;
+  }
+): Promise<CalendarEvent & { id: string }> {
+  if (!CALENDAR_ID) {
+    throw new Error("GOOGLE_CALENDAR_ID is missing.");
+  }
+  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+    throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
+  }
+
+  const formattedKey = PRIVATE_KEY.replace(/\\n/g, "\n");
+  const auth = new google.auth.JWT({
+    email: SERVICE_ACCOUNT_EMAIL,
+    key: formattedKey,
+    scopes: ["https://www.googleapis.com/auth/calendar"],
+  });
+
+  const calendar = google.calendar({ version: "v3", auth });
+  const response = await calendar.events.patch({
+    calendarId: CALENDAR_ID,
+    eventId: eventId,
+    requestBody: {
+      summary: data.summary,
+      description: data.description,
+      ...(data.start ? { start: { dateTime: data.start, timeZone: data.timeZone } } : {}),
+      ...(data.end ? { end: { dateTime: data.end, timeZone: data.timeZone } } : {}),
+      recurrence: data.recurrence,
+    },
+  });
+
+  const item = response.data;
+
+  // Invalidate the cache tag so that the updated event is fetched immediately
+  updateTag("calendar");
+
+  return {
+    id: item.id || eventId,
+    summary: item.summary || "",
+    start: item.start?.dateTime || item.start?.date || "",
+    end: item.end?.dateTime || item.end?.date || "",
+    isBusy: item.transparency !== "transparent",
+    description: item.description || undefined,
+    recurrence: item.recurrence || undefined,
+    recurringEventId: item.recurringEventId || undefined,
   };
 }
 

@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { summary, start, end, description } = body;
+    const { summary, start, end, description, recurrence, timeZone } = body;
 
     // Validate fields
     if (!summary || typeof summary !== "string") {
@@ -107,8 +107,22 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    if (recurrence !== undefined) {
+      if (!Array.isArray(recurrence) || recurrence.some((r) => typeof r !== "string")) {
+        return NextResponse.json(
+          { error: "Bad Request", message: "Field 'recurrence' must be an array of strings" },
+          { status: 400 }
+        );
+      }
+    }
+    if (timeZone !== undefined && typeof timeZone !== "string") {
+      return NextResponse.json(
+        { error: "Bad Request", message: "Field 'timeZone' must be a string" },
+        { status: 400 }
+      );
+    }
 
-    const created = await createCalendarEvent({ summary, start, end, description });
+    const created = await createCalendarEvent({ summary, start, end, description, recurrence, timeZone });
 
     return NextResponse.json(created, {
       status: 201,
