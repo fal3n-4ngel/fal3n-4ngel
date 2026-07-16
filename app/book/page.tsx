@@ -1,11 +1,11 @@
 "use client";
 
-import { Navbar } from "@/components/layout/Navbar";
 import { CustomCursor } from "@/components/layout/CustomCursor";
-import { useFollowPointer } from "@/hooks";
+import { Navbar } from "@/components/layout/Navbar";
 import FadeUp from "@/components/ui/FadeUp";
-import React, { useState, useEffect, useRef } from "react";
-import { RiCalendarCheckLine, RiTimeLine, RiLoader4Line } from "react-icons/ri";
+import { useFollowPointer } from "@/hooks";
+import React, { useEffect, useRef, useState } from "react";
+import { RiCalendarCheckLine, RiLoader4Line, RiTimeLine } from "react-icons/ri";
 
 interface BusySlot {
   start: string;
@@ -31,7 +31,7 @@ export default function BookMeetingPage() {
   // Get next 7 weekdays (skipping Saturday and Sunday)
   const getNextWeekdays = () => {
     const dates: Date[] = [];
-    let current = new Date();
+    const current = new Date();
     // Start from tomorrow
     current.setDate(current.getDate() + 1);
 
@@ -61,7 +61,9 @@ export default function BookMeetingPage() {
         const start = new Date();
         const end = new Date();
         end.setDate(end.getDate() + 10);
-        const res = await fetch(`/api/calendar/book?start=${start.toISOString()}&end=${end.toISOString()}`);
+        const res = await fetch(
+          `/api/calendar/book?start=${start.toISOString()}&end=${end.toISOString()}`
+        );
         if (res.ok) {
           const data = await res.json();
           setBusySlots(data);
@@ -82,7 +84,7 @@ export default function BookMeetingPage() {
 
     // 9:00 to 24:00 IST (UTC +5:30)
     for (let hour = 9; hour < 24; hour++) {
-      for (let min of [0, 30]) {
+      for (const min of [0, 30]) {
         // Construct the IST time string
         // Pad hour and minute
         const hrStr = String(hour).padStart(2, "0");
@@ -132,7 +134,7 @@ export default function BookMeetingPage() {
         setErrorMsg(data.message || "Failed to book meeting");
       }
     } catch (err) {
-      setErrorMsg("An unexpected error occurred. Please try again.");
+      setErrorMsg("An unexpected error occurred. Please try again." + err);
     } finally {
       setSubmitting(false);
     }
@@ -141,7 +143,10 @@ export default function BookMeetingPage() {
   const activeSlots = selectedDate ? generateSlots(selectedDate) : [];
 
   return (
-    <div className="flex h-full min-h-screen w-full flex-col justify-between bg-black text-white" ref={ref}>
+    <div
+      className="flex h-full min-h-screen w-full flex-col justify-between bg-black text-white"
+      ref={ref}
+    >
       <Navbar />
       <CustomCursor x={x} y={y} />
 
@@ -149,7 +154,7 @@ export default function BookMeetingPage() {
         <div className="mb-12 space-y-4">
           <FadeUp>
             <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
               <h1 className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-500">
                 Scheduling
               </h1>
@@ -162,7 +167,8 @@ export default function BookMeetingPage() {
           </FadeUp>
           <FadeUp>
             <p className="max-w-2xl text-sm font-light text-neutral-400 md:text-base">
-              Select a date and time slot to sync with me. Slots are defined in Asia/Kolkata (IST) but displayed below in your local browser timezone.
+              Select a date and time slot to sync with me. Slots are defined in Asia/Kolkata (IST)
+              but displayed below in your local browser timezone.
             </p>
           </FadeUp>
         </div>
@@ -174,8 +180,9 @@ export default function BookMeetingPage() {
                 <RiCalendarCheckLine className="h-12 w-12" />
               </div>
               <h3 className="text-2xl font-light text-white">Meeting Scheduled!</h3>
-              <p className="max-w-md text-sm text-neutral-400 font-light leading-relaxed">
-                Thank you! An invite has been successfully added to my Google Calendar. You will receive a calendar invitation shortly.
+              <p className="max-w-md text-sm font-light leading-relaxed text-neutral-400">
+                Thank you! An invite has been successfully added to my Google Calendar. You will
+                receive a calendar invitation shortly.
               </p>
               <button
                 onClick={() => {
@@ -211,7 +218,7 @@ export default function BookMeetingPage() {
                         }}
                         className={`interactable flex-1 border py-3 font-mono text-xs uppercase tracking-wider transition ${
                           duration === d
-                            ? "border-white bg-white text-black font-semibold"
+                            ? "border-white bg-white font-semibold text-black"
                             : "border-white/10 bg-white/[0.01] text-neutral-400 hover:border-white/20 hover:text-white"
                         }`}
                       >
@@ -228,7 +235,7 @@ export default function BookMeetingPage() {
                   <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
                     Step 2: Choose Date
                   </label>
-                  <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                  <div className="no-scrollbar flex gap-2 overflow-x-auto pb-2">
                     {weekdays.map((date) => {
                       const isSelected =
                         selectedDate && selectedDate.toDateString() === date.toDateString();
@@ -239,18 +246,16 @@ export default function BookMeetingPage() {
                             setSelectedDate(date);
                             setSelectedSlot(null);
                           }}
-                          className={`interactable shrink-0 border px-4 py-3.5 flex flex-col items-center gap-1.5 transition ${
+                          className={`interactable flex shrink-0 flex-col items-center gap-1.5 border px-4 py-3.5 transition ${
                             isSelected
-                              ? "border-white bg-white text-black font-semibold"
+                              ? "border-white bg-white font-semibold text-black"
                               : "border-white/10 bg-white/[0.01] text-neutral-400 hover:border-white/20 hover:text-white"
                           }`}
                         >
                           <span className="font-mono text-[9px] uppercase tracking-wider">
                             {date.toLocaleDateString([], { weekday: "short" })}
                           </span>
-                          <span className="text-lg leading-none font-light">
-                            {date.getDate()}
-                          </span>
+                          <span className="text-lg font-light leading-none">{date.getDate()}</span>
                           <span className="font-mono text-[9px] uppercase tracking-wider">
                             {date.toLocaleDateString([], { month: "short" })}
                           </span>
@@ -264,41 +269,48 @@ export default function BookMeetingPage() {
               {/* Time Slots */}
               <FadeUp>
                 <div className="space-y-3">
-                  <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 flex items-center gap-2">
+                  <label className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-neutral-500">
                     Step 3: Choose Time Slot
-                    {loading && <RiLoader4Line className="animate-spin text-neutral-400 h-3.5 w-3.5" />}
+                    {loading && (
+                      <RiLoader4Line className="h-3.5 w-3.5 animate-spin text-neutral-400" />
+                    )}
                   </label>
 
                   {loading ? (
-                    <div className="py-12 border border-white/10 bg-white/[0.01] rounded-sm text-center flex flex-col items-center justify-center gap-2">
+                    <div className="flex flex-col items-center justify-center gap-2 rounded-sm border border-white/10 bg-white/[0.01] py-12 text-center">
                       <RiLoader4Line className="h-6 w-6 animate-spin text-neutral-500" />
                       <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
                         Checking availability...
                       </p>
                     </div>
                   ) : activeSlots.length === 0 ? (
-                    <div className="py-12 border border-white/10 bg-white/[0.01] rounded-sm text-center font-mono text-[10px] uppercase tracking-widest text-neutral-500">
+                    <div className="rounded-sm border border-white/10 bg-white/[0.01] py-12 text-center font-mono text-[10px] uppercase tracking-widest text-neutral-500">
                       No slots available
                     </div>
                   ) : (
                     <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
                       {activeSlots.map((slot) => {
                         const isBusy = checkSlotBusy(slot);
-                        const isSelected = selectedSlot && selectedSlot.getTime() === slot.getTime();
+                        const isSelected =
+                          selectedSlot && selectedSlot.getTime() === slot.getTime();
                         return (
                           <button
                             key={slot.toISOString()}
                             disabled={isBusy}
                             onClick={() => setSelectedSlot(slot)}
-                            className={`interactable py-3 text-center text-xs font-mono tracking-wider border rounded-sm transition ${
+                            className={`interactable rounded-sm border py-3 text-center font-mono text-xs tracking-wider transition ${
                               isBusy
-                                ? "border-white/5 bg-transparent text-neutral-700 cursor-not-allowed line-through"
+                                ? "cursor-not-allowed border-white/5 bg-transparent text-neutral-700 line-through"
                                 : isSelected
-                                ? "border-white bg-white text-black font-semibold"
-                                : "border-white/10 bg-white/[0.02] text-neutral-300 hover:border-white/20 hover:text-white"
+                                  ? "border-white bg-white font-semibold text-black"
+                                  : "border-white/10 bg-white/[0.02] text-neutral-300 hover:border-white/20 hover:text-white"
                             }`}
                           >
-                            {slot.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}
+                            {slot.toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: false,
+                            })}
                           </button>
                         );
                       })}
@@ -311,19 +323,26 @@ export default function BookMeetingPage() {
             {/* Right side: Input Form */}
             <div className="lg:col-span-5">
               <FadeUp>
-                <div className="border border-white/10 bg-white/[0.01] rounded-lg p-6 space-y-6">
+                <div className="space-y-6 rounded-lg border border-white/10 bg-white/[0.01] p-6">
                   <div className="flex items-center gap-3 border-b border-white/10 pb-4">
                     <RiTimeLine className="h-5 w-5 text-neutral-400" />
                     <div>
-                      <h3 className="text-sm font-mono uppercase tracking-wider text-neutral-300">
+                      <h3 className="font-mono text-sm uppercase tracking-wider text-neutral-300">
                         Booking Details
                       </h3>
-                      <p className="text-[10px] font-mono text-neutral-500 uppercase mt-0.5">
+                      <p className="mt-0.5 font-mono text-[10px] uppercase text-neutral-500">
                         {selectedSlot ? (
                           <>
-                            {selectedSlot.toLocaleDateString([], { weekday: "long", month: "short", day: "numeric" })}
+                            {selectedSlot.toLocaleDateString([], {
+                              weekday: "long",
+                              month: "short",
+                              day: "numeric",
+                            })}
                             {" @ "}
-                            {selectedSlot.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                            {selectedSlot.toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
                             {` (${duration} mins)`}
                           </>
                         ) : (
@@ -345,7 +364,7 @@ export default function BookMeetingPage() {
                         disabled={!selectedSlot || submitting}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="John Doe"
-                        className="w-full bg-white/[0.02] border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-white/30 text-white rounded-sm disabled:cursor-not-allowed disabled:opacity-50 font-light"
+                        className="w-full rounded-sm border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-light text-white focus:border-white/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                       />
                     </div>
 
@@ -360,7 +379,7 @@ export default function BookMeetingPage() {
                         disabled={!selectedSlot || submitting}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="john@example.com"
-                        className="w-full bg-white/[0.02] border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-white/30 text-white rounded-sm disabled:cursor-not-allowed disabled:opacity-50 font-light"
+                        className="w-full rounded-sm border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-light text-white focus:border-white/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                       />
                     </div>
 
@@ -374,18 +393,18 @@ export default function BookMeetingPage() {
                         disabled={!selectedSlot || submitting}
                         onChange={(e) => setNotes(e.target.value)}
                         placeholder="Tell me what you would like to discuss..."
-                        className="w-full bg-white/[0.02] border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-white/30 text-white rounded-sm disabled:cursor-not-allowed disabled:opacity-50 font-light resize-none"
+                        className="w-full resize-none rounded-sm border border-white/10 bg-white/[0.02] px-4 py-3 text-sm font-light text-white focus:border-white/30 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                       />
                     </div>
 
                     {errorMsg && (
-                      <p className="text-xs text-red-500 font-mono text-center">{errorMsg}</p>
+                      <p className="text-center font-mono text-xs text-red-500">{errorMsg}</p>
                     )}
 
                     <button
                       type="submit"
                       disabled={!selectedSlot || submitting}
-                      className="interactable w-full py-4 text-center text-xs font-mono uppercase tracking-widest text-black bg-white hover:bg-neutral-200 transition font-bold disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed"
+                      className="interactable w-full bg-white py-4 text-center font-mono text-xs font-bold uppercase tracking-widest text-black transition hover:bg-neutral-200 disabled:cursor-not-allowed disabled:bg-neutral-800 disabled:text-neutral-500"
                     >
                       {submitting ? "Booking..." : "Confirm Booking"}
                     </button>
