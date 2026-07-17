@@ -379,6 +379,50 @@ describe("Portfolio & Expenses API Integration Tests", () => {
       assert.ok(res.status === 500 || res.status === 404);
     });
   });
+
+  // 8. Trakt Integration Verification
+  describe("Trakt Integration Endpoints (Auth & Validation)", () => {
+    test("GET /api/trakt/watching is public and returns 200", async () => {
+      const res = await fetch(`${targetUrl}/api/trakt/watching`);
+      assert.strictEqual(res.status, 200);
+      const body = await res.json();
+      assert.ok("isWatching" in body);
+    });
+
+    test("GET /api/trakt/search without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/trakt/search?q=Inception&type=movie`);
+      assert.strictEqual(res.status, 401);
+    });
+
+    test("GET /api/trakt/search with auth but missing parameters returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/trakt/search?q=Inception`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+      assert.strictEqual(res.status, 400);
+    });
+
+    test("POST /api/trakt/batch without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/trakt/batch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: [] }),
+      });
+      assert.strictEqual(res.status, 401);
+    });
+
+    test("POST /api/trakt/batch with auth but missing items array returns 400", async () => {
+      const res = await fetch(`${targetUrl}/api/trakt/batch`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}), // missing items
+      });
+      assert.strictEqual(res.status, 400);
+    });
+  });
 });
+
 
 

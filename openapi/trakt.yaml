@@ -1,0 +1,221 @@
+openapi: 3.1.0
+info:
+  title: Adithya Krishnan Portfolio Trakt API
+  description: API endpoints supporting the Trakt.tv integration on the portfolio site. Used for tracking watch history and displaying status.
+  version: 1.0.0
+servers:
+  - url: https://www.adithyakrishnan.com
+
+security:
+  - bearerAuth: []
+
+paths:
+  /api/auth/trakt:
+    get:
+      operationId: getTraktAuthRedirect
+      summary: Redirect to Trakt login
+      description: Initiates the Trakt OAuth flow by redirecting the client to the Trakt authorization landing page.
+      tags: [Auth]
+      security: []
+      responses:
+        "307":
+          description: Redirects to Trakt login.
+
+  /api/auth/trakt/callback:
+    get:
+      operationId: traktAuthCallback
+      summary: Trakt OAuth callback handler
+      description: Exchanges an authorization code for Trakt access and refresh tokens.
+      tags: [Auth]
+      security: []
+      parameters:
+        - name: code
+          in: query
+          required: true
+          description: The one-time authorization code returned by Trakt.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Tokens exchanged successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TraktTokens"
+        "400":
+          description: Missing code or token exchange validation error.
+        "500":
+          description: Server error.
+
+  /api/trakt/watching:
+    get:
+      operationId: getTraktWatchingStatus
+      summary: Fetch currently watching status
+      description: Returns the user's currently watching movie/episode from Trakt, falling back to the most recently watched item when idle. Publicly accessible.
+      tags: [Watching]
+      security: []
+      responses:
+        "200":
+          description: Trakt watching status details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TraktWatchingStatus"
+        "500":
+          description: Server error.
+
+  /api/trakt/search:
+    get:
+      operationId: searchTraktItems
+      summary: Search movies & shows
+      description: Search Trakt for movie or TV show entities. Protected route.
+      tags: [Admin]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: The search query string.
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: true
+          description: The entity type.
+          schema:
+            type: string
+            enum: [movie, show]
+      responses:
+        "200":
+          description: Matching Trakt search results.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TraktSearchResult"
+        "400":
+          description: Missing required parameters.
+        "401":
+          description: Unauthorized.
+        "500":
+          description: Server error.
+
+  /api/trakt/batch:
+    post:
+      operationId: syncTraktBatch
+      summary: Bulk sync watches to history
+      description: Syncs a batch list of watched movies/episodes to your Trakt account history. Protected route.
+      tags: [Admin]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [items]
+              properties:
+                items:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/TraktBatchItem"
+      responses:
+        "200":
+          description: Batch sync successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  added:
+                    type: object
+                    properties:
+                      movies:
+                        type: integer
+                      episodes:
+                        type: integer
+        "400":
+          description: Invalid request payload.
+        "401":
+          description: Unauthorized.
+        "500":
+          description: Server error.
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+  schemas:
+    TraktTokens:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        expires_in:
+          type: integer
+          description: Expires in seconds (usually 3 months).
+
+    TraktWatchingStatus:
+      type: object
+      required: [isWatching]
+      properties:
+        isWatching:
+          type: boolean
+        title:
+          type: string
+        type:
+          type: string
+          enum: [movie, episode]
+        year:
+          type: integer
+        showTitle:
+          type: string
+        season:
+          type: integer
+        episode:
+          type: integer
+        lastWatchedAt:
+          type: string
+          format: date-time
+
+    TraktSearchResult:
+      type: object
+      required: [id, title, type]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        year:
+          type: integer
+        slug:
+          type: string
+        type:
+          type: string
+          enum: [movie, show]
+
+    TraktBatchItem:
+      type: object
+      required: [type, id, title]
+      properties:
+        type:
+          type: string
+          enum: [movie, show]
+        id:
+          type: integer
+        title:
+          type: string
+        watched_at:
+          type: string
+          format: date-time
+        season:
+          type: integer
+        episode:
+          type: integer

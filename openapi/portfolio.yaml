@@ -210,6 +210,140 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
+  /api/auth/trakt:
+    get:
+      operationId: getTraktAuthRedirect
+      summary: Redirect to Trakt login
+      description: Initiates the Trakt OAuth flow by redirecting the client to the Trakt authorization landing page.
+      tags: [Portfolio Data]
+      security: []
+      responses:
+        "307":
+          description: Redirects to Trakt login.
+
+  /api/auth/trakt/callback:
+    get:
+      operationId: traktAuthCallback
+      summary: Trakt OAuth callback handler
+      description: Exchanges an authorization code for Trakt access and refresh tokens.
+      tags: [Portfolio Data]
+      security: []
+      parameters:
+        - name: code
+          in: query
+          required: true
+          description: The one-time authorization code returned by Trakt.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Tokens exchanged successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TraktTokens"
+        "400":
+          description: Missing code or token exchange validation error.
+        "500":
+          description: Server error.
+
+  /api/trakt/watching:
+    get:
+      operationId: getTraktWatchingStatus
+      summary: Fetch currently watching status
+      description: Returns the user's currently watching movie/episode from Trakt, falling back to the most recently watched item when idle. Publicly accessible.
+      tags: [Portfolio Data]
+      security: []
+      responses:
+        "200":
+          description: Trakt watching status details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TraktWatchingStatus"
+        "500":
+          description: Server error.
+
+  /api/trakt/search:
+    get:
+      operationId: searchTraktItems
+      summary: Search movies & shows
+      description: Search Trakt for movie or TV show entities. Protected route.
+      tags: [Portfolio Data]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: The search query string.
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: true
+          description: The entity type.
+          schema:
+            type: string
+            enum: [movie, show]
+      responses:
+        "200":
+          description: Matching Trakt search results.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TraktSearchResult"
+        "400":
+          description: Missing required parameters.
+        "401":
+          description: Unauthorized.
+        "500":
+          description: Server error.
+
+  /api/trakt/batch:
+    post:
+      operationId: syncTraktBatch
+      summary: Bulk sync watches to history
+      description: Syncs a batch list of watched movies/episodes to your Trakt account history. Protected route.
+      tags: [Portfolio Data]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [items]
+              properties:
+                items:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/TraktBatchItem"
+      responses:
+        "200":
+          description: Batch sync successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  added:
+                    type: object
+                    properties:
+                      movies:
+                        type: integer
+                      episodes:
+                        type: integer
+        "400":
+          description: Invalid request payload.
+        "401":
+          description: Unauthorized.
+        "500":
+          description: Server error.
+
   /api/stats:
     get:
       operationId: getAggregatedStats
@@ -440,6 +574,83 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/OAuthUnauthorized"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/calendar/book:
+    get:
+      operationId: getBusySlots
+      summary: Retrieve busy time slots
+      description: Returns a list of busy time slots (only start and end times) for public calendar scheduling. Publicly accessible.
+      tags: [Portfolio Data]
+      security: []
+      parameters:
+        - name: start
+          in: query
+          description: ISO datetime string specifying the start range. Defaults to now.
+          required: false
+          schema:
+            type: string
+        - name: end
+          in: query
+          description: ISO datetime string specifying the end range. Defaults to 7 days ahead.
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of busy slots.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    start:
+                      type: string
+                    end:
+                      type: string
+        "400":
+          description: Invalid date range.
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      operationId: bookMeeting
+      summary: Submit a public meeting booking
+      description: Creates a new booking event on the calendar. Publicly accessible.
+      tags: [Portfolio Data]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, dateTime]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                dateTime:
+                  type: string
+                  description: ISO datetime string representing the requested slot.
+                description:
+                  type: string
+                duration:
+                  type: number
+                  default: 30
+      responses:
+        "200":
+          description: Booking successful.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CalendarEvent"
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/ServerError"
 
@@ -1349,6 +1560,76 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ServiceStatus"
+
+    # --- Trakt ---
+    TraktTokens:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        expires_in:
+          type: integer
+          description: Expires in seconds (usually 3 months).
+
+    TraktWatchingStatus:
+      type: object
+      required: [isWatching]
+      properties:
+        isWatching:
+          type: boolean
+        title:
+          type: string
+        type:
+          type: string
+          enum: [movie, episode]
+        year:
+          type: integer
+        showTitle:
+          type: string
+        season:
+          type: integer
+        episode:
+          type: integer
+        lastWatchedAt:
+          type: string
+          format: date-time
+
+    TraktSearchResult:
+      type: object
+      required: [id, title, type]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        year:
+          type: integer
+        slug:
+          type: string
+        type:
+          type: string
+          enum: [movie, show]
+
+    TraktBatchItem:
+      type: object
+      required: [type, id, title]
+      properties:
+        type:
+          type: string
+          enum: [movie, show]
+        id:
+          type: integer
+        title:
+          type: string
+        watched_at:
+          type: string
+          format: date-time
+        season:
+          type: integer
+        episode:
+          type: integer
 
   responses:
     BadRequest:

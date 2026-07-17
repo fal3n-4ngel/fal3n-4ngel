@@ -31,6 +31,16 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     isPlaying: false,
   });
   const [calendarStatus, setCalendarStatus] = useState<AvailabilityStatus | null>(null);
+  const [traktData, setTraktData] = useState<{
+    isWatching: boolean;
+    title?: string;
+    type?: "movie" | "episode";
+    year?: number;
+    showTitle?: string;
+    season?: number;
+    episode?: number;
+    lastWatchedAt?: string;
+  } | null>(null);
 
   const { data: lanyardData } = useLanyard("849515993546096660");
 
@@ -41,6 +51,12 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     getCalendarAvailabilityStatus().then((status) => {
       if (status) setCalendarStatus(status);
     });
+    fetch("/api/trakt/watching")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) setTraktData(data);
+      })
+      .catch((err) => console.error("Failed to fetch Trakt status:", err));
   }, []);
 
 
@@ -56,18 +72,30 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   const collaborationStatus = config?.["collaboration"]?.isEnabled ?? false;
   const collaborationText = config?.["collaboration"]?.content || "Inactive";
 
-  let lastSeenSpotifyText: string | null = null;
-  if (!spotifyData.isPlaying && spotifyData.lastPlayedAt) {
-    const diffMs = Date.now() - new Date(spotifyData.lastPlayedAt).getTime();
+  const formatTimeAgo = (isoString: string) => {
+    const diffMs = Date.now() - new Date(isoString).getTime();
     const diffMins = Math.floor(diffMs / 60000);
-    if (diffMins < 60) lastSeenSpotifyText = `Last seen ${diffMins}m ago`;
-    else {
-      const diffHours = Math.floor(diffMins / 60);
-      lastSeenSpotifyText =
-        diffHours < 24
-          ? `Last seen ${diffHours}h ago`
-          : `Last seen ${Math.floor(diffHours / 24)}d ago`;
-    }
+    if (diffMins < 60) return `${diffMins}m ago`;
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours}h ago`;
+    return `${Math.floor(diffHours / 24)}d ago`;
+  };
+
+  let lastSeenSpotifyText: string | null = null;
+  let spotifyTime = 0;
+  if (!spotifyData.isPlaying && spotifyData.lastPlayedAt) {
+    spotifyTime = new Date(spotifyData.lastPlayedAt).getTime();
+    lastSeenSpotifyText = `Last seen ${formatTimeAgo(spotifyData.lastPlayedAt)}`;
+  }
+
+  let lastWatchedTraktText: string | null = null;
+  let traktTime = 0;
+  if (traktData && !traktData.isWatching && traktData.lastWatchedAt) {
+    traktTime = new Date(traktData.lastWatchedAt).getTime();
+    const prefix = traktData.type === "movie" 
+      ? `Last watched: ${traktData.title}`
+      : `Last watched: ${traktData.showTitle} S${String(traktData.season).padStart(2, "0")}E${String(traktData.episode).padStart(2, "0")}`;
+    lastWatchedTraktText = `${prefix} (${formatTimeAgo(traktData.lastWatchedAt)})`;
   }
 
   let displayStatus = collaborationStatus;
@@ -83,6 +111,12 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       displayStatus = true;
       statusColor = "bg-green-500 animate-pulse";
       displayText = spotifyData.title ? `Listening: ${spotifyData.title} - ${spotifyData.artist}` : "Listening to Spotify";
+    } else if (traktData?.isWatching) {
+      displayStatus = true;
+      statusColor = "bg-orange-500 animate-pulse";
+      displayText = traktData.type === "movie"
+        ? `Watching: ${traktData.title} (${traktData.year})`
+        : `Watching: ${traktData.showTitle} S${String(traktData.season).padStart(2, "0")}E${String(traktData.episode).padStart(2, "0")}`;
     } else if (lanyardData && lanyardData.discord_status !== "offline") {
       const activeGameOrCoding = lanyardData.activities.find((act) => act.type === 0);
       const customStatus = lanyardData.activities.find((act) => act.type === 4);
@@ -121,9 +155,12 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       }
     } else {
       displayStatus = false;
-      if (lastSeenSpotifyText) {
+      if (spotifyTime > traktTime && lastSeenSpotifyText) {
         statusColor = "bg-zinc-600";
         displayText = lastSeenSpotifyText;
+      } else if (traktTime > spotifyTime && lastWatchedTraktText) {
+        statusColor = "bg-zinc-600";
+        displayText = lastWatchedTraktText;
       } else {
         statusColor = "bg-red-500";
         displayText = "AFK";
