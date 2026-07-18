@@ -24,7 +24,7 @@
 <details>
   <summary>🔥 Picks </summary>
    
-  - [aks-hayy/WatchTower](https://github.com/aks-hayy/WatchTower) -  (1 day ago)
+  - [aks-hayy/WatchTower](https://github.com/aks-hayy/WatchTower) -  (3 days ago)
   - [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) - Find, verify, and analyze leaked credentials (3 months ago)
   - [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) - Official awesome-list of CodeRabbit Starters &amp; Resources ⚡️ (10 months ago)
   - [pear-devs/pear-desktop](https://github.com/pear-devs/pear-desktop) - Pear 🍐 is extension for music player (11 months ago)
