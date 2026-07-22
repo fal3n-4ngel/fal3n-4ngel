@@ -1,13 +1,7 @@
 import { IconType } from "react-icons";
 import { BsDistributeHorizontal } from "react-icons/bs";
 import { CgServerless } from "react-icons/cg";
-import {
-  DiFirebase,
-  DiJava,
-  DiMongodb,
-  DiPython,
-  DiReact
-} from "react-icons/di";
+import { DiFirebase, DiJava, DiMongodb, DiPython, DiReact } from "react-icons/di";
 import { FaBrain } from "react-icons/fa";
 import {
   SiAngular,
@@ -23,7 +17,7 @@ import {
   SiSolidity,
   SiTailwindcss,
   SiTauri,
-  SiTypescript
+  SiTypescript,
 } from "react-icons/si";
 import { TbBrandNextjs } from "react-icons/tb";
 import { Project } from "../types/projects";
@@ -76,7 +70,7 @@ const BLOCKCHAIN_STACK = ["Blockchain", "Solidity", "Firebase", "Ethereum"];
 const AI_STACK = ["Python", "AI/ML"];
 
 export const projectSkills: Record<string, string[]> = {
-  PHUB: [...WEB_STACK, "Firebase", "TypeScript", "Tailwind CSS"],
+  "PHub DashBoard": [...WEB_STACK, "Firebase", "TypeScript", "Tailwind CSS"],
   DASH: [...WEB_STACK, "Tauri", "Python", "Serverless", "Peer to Peer"],
   "FLASH DRIVE": [...WEB_STACK, "Firebase", ...AI_STACK, "Stable Diffusion"],
   Tuples: [...WEB_STACK, "Firebase", ...AI_STACK],
