@@ -84,7 +84,7 @@ export const projectSkills: Record<string, string[]> = {
 
 export const projects: Project[] = [
   {
-    url1: "/PHub.png",
+    url1: "/PHubDashboard.png",
     name: "PHUB",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
