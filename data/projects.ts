@@ -70,7 +70,7 @@ const BLOCKCHAIN_STACK = ["Blockchain", "Solidity", "Firebase", "Ethereum"];
 const AI_STACK = ["Python", "AI/ML"];
 
 export const projectSkills: Record<string, string[]> = {
-  "PHub DashBoard": [...WEB_STACK, "Firebase", "TypeScript", "Tailwind CSS"],
+  "PHub Dashboard": [...WEB_STACK, "Firebase", "TypeScript", "Tailwind CSS"],
   DASH: [...WEB_STACK, "Tauri", "Python", "Serverless", "Peer to Peer"],
   "FLASH DRIVE": [...WEB_STACK, "Firebase", ...AI_STACK, "Stable Diffusion"],
   Tuples: [...WEB_STACK, "Firebase", ...AI_STACK],
