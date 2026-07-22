@@ -76,6 +76,7 @@ const BLOCKCHAIN_STACK = ["Blockchain", "Solidity", "Firebase", "Ethereum"];
 const AI_STACK = ["Python", "AI/ML"];
 
 export const projectSkills: Record<string, string[]> = {
+  PHUB: [...WEB_STACK, "Firebase", "TypeScript", "Tailwind CSS"],
   DASH: [...WEB_STACK, "Tauri", "Python", "Serverless", "Peer to Peer"],
   "FLASH DRIVE": [...WEB_STACK, "Firebase", ...AI_STACK, "Stable Diffusion"],
   Tuples: [...WEB_STACK, "Firebase", ...AI_STACK],
@@ -88,6 +89,16 @@ export const projectSkills: Record<string, string[]> = {
 };
 
 export const projects: Project[] = [
+  {
+    url1: "/PHub.png",
+    name: "PHUB",
+    type: PROJECT_TYPES.WEBSITE,
+    event: EVENT_TYPES.SIDE,
+    date: "2024",
+    view: "https://phub-dashboard.vercel.app/",
+    description:
+      "A dynamic personal dashboard hub for managing expenses, media watchlist (anime/movies/shows), and custom integrations with Firebase Authentication and OpenAPI support.",
+  },
   {
     url1: "/dash.png",
     name: "DASH",

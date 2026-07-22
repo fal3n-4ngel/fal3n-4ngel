@@ -38,3 +38,4 @@ next-env.d.ts
 __tests__/*
 
 .scratch/*
+migrate-to-firebase.cjs

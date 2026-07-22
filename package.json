@@ -6,7 +6,6 @@
     "node": "24.x"
   },
   "scripts": {
-
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -50,6 +49,7 @@
     "eslint": "^9.21.0",
     "eslint-config-next": "^16.2.10",
     "eslint-plugin-react": "^7.37.5",
+    "firebase": "^12.16.0",
     "globals": "^17.7.0",
     "jiti": "^2.7.0",
     "postcss": "^8.5.19",
