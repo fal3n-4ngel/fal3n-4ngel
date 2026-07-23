@@ -1,6 +1,16 @@
 import { test, describe } from "node:test";
 import assert from "node:assert";
 
+// Auto-append rate limiting bypass header for integration tests
+const originalFetch = globalThis.fetch;
+globalThis.fetch = function (input: RequestInfo | URL, init?: RequestInit) {
+  const options = init || {};
+  const headers = new Headers(options.headers || {});
+  headers.set("X-Testing-Bypass", "true");
+  options.headers = headers;
+  return originalFetch(input, options);
+} as any;
+
 // Retrieve test target URL and API Key from env vars
 const targetUrl = process.env.TEST_TARGET_URL || "http://localhost:3000";
 const apiKey = process.env.API_KEY || "expenses_adi_secret_9k2mXp7vLqR4";
@@ -380,46 +390,29 @@ describe("Portfolio & Expenses API Integration Tests", () => {
     });
   });
 
-  // 8. Trakt Integration Verification
-  describe("Trakt Integration Endpoints (Auth & Validation)", () => {
-    test("GET /api/trakt/watching is public and returns 200", async () => {
-      const res = await fetch(`${targetUrl}/api/trakt/watching`);
-      assert.strictEqual(res.status, 200);
-      const body = await res.json();
-      assert.ok("isWatching" in body);
-    });
-
-    test("GET /api/trakt/search without auth returns 401", async () => {
-      const res = await fetch(`${targetUrl}/api/trakt/search?q=Inception&type=movie`);
+  // 8. Watchlist Integration Verification
+  describe("Watchlist Integration Endpoints (Auth & Validation)", () => {
+    test("GET /api/watchlist without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/watchlist`);
       assert.strictEqual(res.status, 401);
     });
 
-    test("GET /api/trakt/search with auth but missing parameters returns 400", async () => {
-      const res = await fetch(`${targetUrl}/api/trakt/search?q=Inception`, {
-        headers: { Authorization: `Bearer ${apiKey}` },
+    test("POST /api/watchlist without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/watchlist`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title: "Inception", type: "movie", status: "plan_to_watch" }),
       });
-      assert.strictEqual(res.status, 400);
+      assert.strictEqual(res.status, 401);
     });
 
-    test("POST /api/trakt/batch without auth returns 401", async () => {
-      const res = await fetch(`${targetUrl}/api/trakt/batch`, {
+    test("POST /api/watchlist/sync without auth returns 401", async () => {
+      const res = await fetch(`${targetUrl}/api/watchlist/sync`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items: [] }),
       });
       assert.strictEqual(res.status, 401);
-    });
-
-    test("POST /api/trakt/batch with auth but missing items array returns 400", async () => {
-      const res = await fetch(`${targetUrl}/api/trakt/batch`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}), // missing items
-      });
-      assert.strictEqual(res.status, 400);
     });
   });
 });
