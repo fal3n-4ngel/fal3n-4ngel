@@ -1,4 +1,5 @@
-import { archiveExpense, isValidISODate, updateExpense } from "@/lib/integrations/expenses";
+import { archiveExpense, getExpenseFromNotion, isValidISODate, updateExpense } from "@/lib/integrations/expenses";
+import { phubDeleteExpense, phubUpdateExpense } from "@/lib/integrations/phub";
 import {
   badRequest,
   corsHeaders,
@@ -58,6 +59,8 @@ export async function PATCH(
   }
 
   try {
+    const oldExpense = await getExpenseFromNotion(pageId);
+
     const updates: any = {};
     if (title !== undefined) updates.title = title;
     if (amount !== undefined) updates.amount = amount;
@@ -67,6 +70,13 @@ export async function PATCH(
     if (notes !== undefined) updates.notes = notes;
 
     const result = await updateExpense(pageId, updates);
+
+    if (oldExpense) {
+      phubUpdateExpense(oldExpense, updates).catch((e) =>
+        console.error("❌ Failed to sync updateExpense to Vercel:", e)
+      );
+    }
+
     return NextResponse.json(
       { success: true, message: "Expense updated.", ...result },
       { headers: corsHeaders() }
@@ -97,7 +107,16 @@ export async function DELETE(
   }
 
   try {
+    const oldExpense = await getExpenseFromNotion(pageId);
+
     const result = await archiveExpense(pageId);
+
+    if (oldExpense) {
+      phubDeleteExpense(oldExpense).catch((e) =>
+        console.error("❌ Failed to sync deleteExpense to Vercel:", e)
+      );
+    }
+
     return NextResponse.json(
       { success: true, message: "Expense archived (recoverable from Notion trash).", ...result },
       { headers: corsHeaders() }

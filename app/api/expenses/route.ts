@@ -1,4 +1,5 @@
 import { createExpense, isValidISODate, listExpenses, todayISODate } from "@/lib/integrations/expenses";
+import { phubCreateExpense } from "@/lib/integrations/phub";
 import {
   badRequest,
   corsHeaders,
@@ -93,13 +94,23 @@ export async function POST(req: NextRequest) {
   const requestedCategory = category || category_id;
 
   try {
+    const finalDate = date || todayISODate();
     const result = await createExpense({
       title,
       amount,
       category: requestedCategory,
-      date: date || todayISODate(),
+      date: finalDate,
       notes,
     });
+
+    // Sync to phub dashboard in background
+    phubCreateExpense({
+      title,
+      amount,
+      category: requestedCategory,
+      date: finalDate,
+      notes,
+    }).catch((e) => console.error("❌ Failed to sync createExpense to Vercel:", e));
 
     const warning =
       requestedCategory && result.category_id === null

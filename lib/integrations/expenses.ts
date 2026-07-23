@@ -27,6 +27,33 @@ export function isValidISODate(s: string): boolean {
   return !isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
 }
 
+export async function getExpenseFromNotion(pageId: string): Promise<ExpenseRecord | null> {
+  try {
+    const page = await notion.pages.retrieve({ page_id: pageId }) as any;
+    const categoryId = page.properties.Category?.relation?.[0]?.id || null;
+    let categoryName = null;
+    if (categoryId) {
+      const categories = await getCategories();
+      const match = categories.find((c) => c.id === categoryId);
+      categoryName = match ? match.name : null;
+    }
+    return {
+      id: page.id,
+      url: page.url,
+      title: page.properties.Title?.title?.[0]?.plain_text || "",
+      amount: page.properties.Amount?.number ?? null,
+      category_id: categoryId,
+      category: categoryName,
+      date: page.properties.Date?.date?.start || null,
+      notes: page.properties.Notes?.rich_text?.[0]?.plain_text || null,
+      currentCycle: page.properties["Current Cycle"]?.formula?.boolean ?? null,
+    };
+  } catch (error) {
+    console.error("❌ Notion Retrieve Page Error:", error);
+    return null;
+  }
+}
+
 /**
  * Returns the production expenses database ID.
  *
