@@ -23,6 +23,7 @@ type NotionPropertyObject = {
   url?: string | null;
   checkbox?: boolean;
   select?: { name: string };
+  multi_select?: Array<{ name: string }>;
   formula?: { string: string };
 };
 
@@ -127,6 +128,7 @@ export const getProjects = unstable_cache(
           date: p.properties.Date?.rich_text?.[0]?.plain_text || "",
           view: p.properties.URL?.url || "",
           description: p.properties.Description?.rich_text?.[0]?.plain_text || "",
+          skills: p.properties.Skills?.multi_select?.map((s) => s.name) || [],
         };
       });
     } catch (error) {

@@ -10,6 +10,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "i.scdn.co",
       },
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
 

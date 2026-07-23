@@ -74,6 +74,13 @@ const ProjectsSection: React.FC = () => {
 
   const displayedProjects = projectsList.length > 0 ? projectsList : projects;
 
+  const dynamicProjectSkills: Record<string, string[]> = { ...projectSkills };
+  displayedProjects.forEach((p) => {
+    if (p.skills && p.skills.length > 0) {
+      dynamicProjectSkills[p.name] = p.skills;
+    }
+  });
+
   return (
     <section className="relative min-h-screen w-full px-12 py-24" ref={sectionRef}>
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-16 md:flex-row md:items-start md:gap-24">
@@ -139,7 +146,7 @@ const ProjectsSection: React.FC = () => {
             activeProject={activeProject}
             isVisible={sectionInView && !isGitHubProjectActive}
             skillIcons={skillIcons}
-            projectSkills={projectSkills}
+            projectSkills={dynamicProjectSkills}
           />
         </div>
       </div>

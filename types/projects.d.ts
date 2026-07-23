@@ -6,6 +6,7 @@ export interface Project {
   date: string;
   view: string;
   description: string;
+  skills?: string[];
 }
 
 export interface GitProject {

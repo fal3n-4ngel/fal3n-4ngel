@@ -39,3 +39,4 @@ __tests__/*
 
 .scratch/*
 migrate-to-firebase.cjs
+.env*
