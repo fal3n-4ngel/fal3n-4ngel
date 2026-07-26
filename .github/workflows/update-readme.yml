@@ -1,8 +1,8 @@
-name: Update Contributions
+name: Update README
 
 permissions:
   contents: write
-  
+
 on:
   workflow_dispatch:
   push:
@@ -11,29 +11,25 @@ on:
     - cron: "0 */12 * * 0,2,4,6"
 
 jobs:
-  contributions-update:
+  update-readme:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: muesli/readme-scribe@d2f6ab32d6b9f5b59941fe782d6c7e6499a37fe4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate README + stats card
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        with:
-          template: "assets/templates/README.md.tpl"
-          writeTo: "README.md"
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: README.md
-          path: README.md
+        run: node scripts/readme/generate.mjs
 
       - uses: stefanzweifel/git-auto-commit-action@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         with:
-          commit_message: 'docs(README) : Update Generated Readme ' 
+          commit_message: "docs(README): regenerate stats card"
           branch: master
           commit_user_name: fal3n-4ngel
           commit_user_email: adiadithyakrishnan@gmail.com
           commit_author: Adithya Krishnan
+          file_pattern: "README.md assets/stats-card.svg"
