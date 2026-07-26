@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Generate README + stats card
         env:
@@ -31,5 +31,5 @@ jobs:
           branch: master
           commit_user_name: fal3n-4ngel
           commit_user_email: adiadithyakrishnan@gmail.com
-          commit_author: Adithya Krishnan
+          commit_author: "Adithya Krishnan <adiadithyakrishnan@gmail.com>"
           file_pattern: "README.md assets/stats-card.svg"
