@@ -9,6 +9,13 @@ import LoadingPage from "./loading";
 import { SectionTransition } from "@/components/ui/SectionTransition";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { useGhostEscape, useFollowPointer } from "@/hooks";
+import { getProjects } from "@/lib/integrations/notion";
+import { preloadImages } from "@/lib/preload-images";
+import { projects as fallbackProjects } from "@/data/projects";
+
+// Hard cap so a slow network or a stalled Notion fetch can't hold the
+// loading screen forever — after this we reveal the page regardless.
+const PRELOAD_TIMEOUT_MS = 4000;
 
 const Navbar = dynamic(() => import("@/components/layout/Navbar").then((mod) => ({ default: mod.Navbar })), {
   ssr: true,
@@ -29,6 +36,7 @@ export default function Home() {
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
   const [isLoading, setIsLoading] = useState(true);
+  const [preloadProgress, setPreloadProgress] = useState(0);
   const { isEscaping, triggerEscape, resetEscape } = useGhostEscape(x, y);
 
   const [traktToken, setTraktToken] = useState<string | null>(null);
@@ -37,6 +45,43 @@ export default function Home() {
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
+  }, []);
+
+  // Warm the browser's cache for every project cover image (static fallback +
+  // live Notion/Blob URLs) while the loading screen is up, so the Projects
+  // section never shows a bare pop-in when the user scrolls to it later.
+  useEffect(() => {
+    let cancelled = false;
+    let timedOut = false;
+
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      if (!cancelled) setPreloadProgress(100);
+    }, PRELOAD_TIMEOUT_MS);
+
+    (async () => {
+      const urls = new Set(fallbackProjects.map((p) => p.url1));
+
+      try {
+        const liveProjects = await getProjects();
+        liveProjects?.forEach((p) => urls.add(p.url1));
+      } catch {
+        // Fall back to just the static images below.
+      }
+
+      if (cancelled || timedOut) return;
+
+      await preloadImages(Array.from(urls), ({ loaded, total }) => {
+        if (!cancelled && !timedOut) {
+          setPreloadProgress(total === 0 ? 100 : Math.round((loaded / total) * 100));
+        }
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -68,7 +113,9 @@ export default function Home() {
   return (
     <div className="h-full min-h-screen w-full text-white">
       <AnimatePresence>
-        {isLoading && <LoadingPage onComplete={handleLoadingComplete} />}
+        {isLoading && (
+          <LoadingPage onComplete={handleLoadingComplete} progress={preloadProgress} />
+        )}
       </AnimatePresence>
 
       <CustomCursor x={x} y={y} isEscaping={isEscaping} />

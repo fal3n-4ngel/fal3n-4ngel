@@ -2,10 +2,19 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
-  const [progress, setProgress] = useState(0);
+const LoadingPage = ({
+  onComplete,
+  progress: externalProgress,
+}: {
+  onComplete: () => void;
+  /** When provided, the bar reflects real preload progress (0-100) instead of a simulated fill. */
+  progress?: number;
+}) => {
+  const [simulatedProgress, setSimulatedProgress] = useState(0);
   const [showText, setShowText] = useState(false);
   const [dots, setDots] = useState<{ left: number; top: number }[]>([]);
+  const isExternal = externalProgress !== undefined;
+  const progress = isExternal ? externalProgress : simulatedProgress;
 
   useEffect(() => {
     setDots(
@@ -15,11 +24,16 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
       }))
     );
 
+    const textTimer = setTimeout(() => {
+      setShowText(true);
+    }, 100);
+
+    if (isExternal) return () => clearTimeout(textTimer);
+
     const timer = setInterval(() => {
-      setProgress((prev) => {
+      setSimulatedProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-
           setTimeout(() => onComplete(), 100);
           return 100;
         }
@@ -27,15 +41,18 @@ const LoadingPage = ({ onComplete }: { onComplete: () => void }) => {
       });
     }, 50);
 
-    const textTimer = setTimeout(() => {
-      setShowText(true);
-    }, 100);
-
     return () => {
       clearInterval(timer);
       clearTimeout(textTimer);
     };
-  }, [onComplete]);
+  }, [onComplete, isExternal]);
+
+  // Externally-driven progress: fire onComplete once the real preload work finishes.
+  useEffect(() => {
+    if (!isExternal || progress < 100) return;
+    const t = setTimeout(() => onComplete(), 150);
+    return () => clearTimeout(t);
+  }, [isExternal, progress, onComplete]);
 
   const textVariants = {
     initial: {
