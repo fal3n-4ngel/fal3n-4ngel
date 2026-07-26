@@ -53,7 +53,7 @@
       
         <circle cx="286.8" cy="96" r="2.4" fill="#5C7C97" />
         <text x="286.8" y="118" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="9.5" letter-spacing="1.5" fill="#8A8274">COMMITS '26</text>
-        <text x="286.8" y="148" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="25" font-weight="600" fill="#3B332C">117</text>
+        <text x="286.8" y="148" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="25" font-weight="600" fill="#3B332C">118</text>
       
         <circle cx="397.6" cy="96" r="2.4" fill="#8B9A81" />
         <text x="397.6" y="118" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="9.5" letter-spacing="1.5" fill="#8A8274">PULL REQS</text>
