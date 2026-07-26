@@ -1,12 +1,14 @@
 <div>
 
-# Adithya Krishnan
+# Adithya Krishnan 
 *Developer | Cinephile | Weeb*
-
-&nbsp;&nbsp;&nbsp;&nbsp;💻 Current Focus: Desktop Apps - Tauri, .NET and Rust.
-&nbsp;&nbsp;&nbsp;&nbsp;🌐 Portfolio: www.adithyakrishnan.com
+  
+    💻 Current Focus: Desktop Apps - Tauri, .NET and Rust.
+    🌐 Portfolio: www.adithyakrishnan.com
 
 ---
+
+</div>
 
 </div>
 
