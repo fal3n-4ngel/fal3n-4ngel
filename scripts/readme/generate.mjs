@@ -8,6 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { fetchReadmeData, humanize } from "./fetch-data.mjs";
 import { renderStatsCard } from "./render-svg.mjs";
+import { calculateRank } from "./calculate-rank.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -62,7 +63,16 @@ async function main() {
   const token = process.env.GITHUB_TOKEN;
   const data = await fetchReadmeData(token);
 
-  const svg = renderStatsCard(data);
+  const rank = calculateRank({
+    commits: data.stats.allTimeCommits,
+    prs: data.stats.pullRequests,
+    issues: data.stats.issues,
+    reviews: data.stats.reviews,
+    stars: data.stats.stars,
+    followers: data.stats.followers,
+  });
+
+  const svg = renderStatsCard({ ...data, rank });
   const assetsDir = path.join(ROOT, "assets");
   await mkdir(assetsDir, { recursive: true });
   await writeFile(path.join(assetsDir, "stats-card.svg"), svg, "utf8");
@@ -72,6 +82,7 @@ async function main() {
 
   console.log(`✓ Wrote assets/stats-card.svg and README.md for ${data.name}`);
   console.log(`  stars=${data.stats.stars} commits=${data.stats.commitsThisYear} prs=${data.stats.pullRequests} issues=${data.stats.issues} repos=${data.stats.publicRepos}`);
+  console.log(`  rank=${rank.level} (percentile ${rank.percentile.toFixed(1)}) — all-time commits=${data.stats.allTimeCommits} reviews=${data.stats.reviews} followers=${data.stats.followers}`);
 }
 
 main().catch((err) => {

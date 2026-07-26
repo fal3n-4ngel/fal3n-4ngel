@@ -16,6 +16,50 @@ async function get(url, token, accept) {
   return res.json();
 }
 
+async function graphql(token, query, variables) {
+  const res = await fetch(`${API}/graphql`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ query, variables }),
+  });
+  const body = await res.json();
+  if (!res.ok || body.errors) throw new Error(`GraphQL error: ${JSON.stringify(body.errors ?? body)}`);
+  return body.data;
+}
+
+const CONTRIB_QUERY = `
+  query($login: String!, $from: DateTime!, $to: DateTime!) {
+    user(login: $login) {
+      contributionsCollection(from: $from, to: $to) {
+        totalCommitContributions
+        totalPullRequestReviewContributions
+        restrictedContributionsCount
+      }
+    }
+  }
+`;
+
+// GraphQL contributionsCollection only covers a 1-year window per call, so we
+// walk year-by-year from account creation to now and sum. `restrictedContributionsCount`
+// covers activity the token can't see the detail of (e.g. private repos without
+// full `repo` scope) — included so the total isn't silently undercounted.
+async function fetchAllTimeContributions(token, createdAt) {
+  const startYear = new Date(createdAt).getUTCFullYear();
+  const endYear = new Date().getUTCFullYear();
+
+  let commits = 0;
+  let reviews = 0;
+  for (let year = startYear; year <= endYear; year++) {
+    const from = `${year}-01-01T00:00:00Z`;
+    const to = `${year}-12-31T23:59:59Z`;
+    const data = await graphql(token, CONTRIB_QUERY, { login: USERNAME, from, to });
+    const c = data.user.contributionsCollection;
+    commits += c.totalCommitContributions + c.restrictedContributionsCount;
+    reviews += c.totalPullRequestReviewContributions;
+  }
+  return { commits, reviews };
+}
+
 export async function fetchReadmeData(token) {
   const yearStart = `${new Date().getUTCFullYear()}-01-01`;
 
@@ -28,6 +72,20 @@ export async function fetchReadmeData(token) {
     get(`${API}/users/${USERNAME}/starred?per_page=6&sort=created&direction=desc`, token),
     get(`${API}/users/${USERNAME}/events/public?per_page=50`, token),
   ]);
+
+  // Needs a real token (not just unauthenticated) — falls back to this-year's
+  // search-based commit count so local runs without a token still work.
+  let allTimeCommits = commitSearch.total_count ?? 0;
+  let reviews = 0;
+  if (token) {
+    try {
+      const allTime = await fetchAllTimeContributions(token, profile.created_at);
+      allTimeCommits = allTime.commits;
+      reviews = allTime.reviews;
+    } catch (err) {
+      console.warn("⚠ all-time contributions unavailable, falling back to this year's count:", err.message);
+    }
+  }
 
   const stars = repos.filter((r) => !r.fork).reduce((sum, r) => sum + r.stargazers_count, 0);
 
@@ -56,8 +114,11 @@ export async function fetchReadmeData(token) {
     stats: {
       stars,
       commitsThisYear: commitSearch.total_count ?? 0,
+      allTimeCommits,
       pullRequests: prSearch.total_count ?? 0,
       issues: issueSearch.total_count ?? 0,
+      reviews,
+      followers: profile.followers ?? 0,
       publicRepos: profile.public_repos ?? repos.length,
     },
     year: new Date().getUTCFullYear(),
