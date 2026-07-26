@@ -5,6 +5,11 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Notion's "Image URL" values are signed S3 links that can be slow and
+    // expire after a while. Cache the optimized output for a year so repeat
+    // visits (and the source URL expiring) don't matter — a re-uploaded
+    // image in Notion gets a new URL anyway, so this doesn't go stale.
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: "https",
