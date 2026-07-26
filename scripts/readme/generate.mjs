@@ -24,11 +24,11 @@ function renderList(items) {
 function renderReadme(data) {
   return `<div>
 
-# ${data.name}
+# Adithya Krishnan 
 *Developer | Cinephile | Weeb*
-
-&nbsp;&nbsp;&nbsp;&nbsp;💻 Current Focus: Desktop Apps - Tauri, .NET and Rust.
-&nbsp;&nbsp;&nbsp;&nbsp;🌐 Portfolio: www.adithyakrishnan.com
+  
+    💻 Current Focus: Personal developer tools, APIs, and frontend systems.
+    🌐 Portfolio: www.adithyakrishnan.com
 
 ---
 
