@@ -1,7 +1,6 @@
 import { getBlogs, getNotionPageMarkdown } from "@/lib/integrations/notion";
 import { Metadata } from "next";
-import Link from "next/link";
-import { RiArrowLeftLine } from "react-icons/ri";
+import { notFound } from "next/navigation";
 import BlogIdClient from "./BlogIdClient";
 
 export async function generateMetadata({
@@ -17,6 +16,7 @@ export async function generateMetadata({
     return {
       title: "Post Not Found",
       description: "This blog post could not be found.",
+      robots: { index: false, follow: false },
     };
   }
 
@@ -41,12 +41,6 @@ export async function generateMetadata({
   };
 }
 
-function calculateReadingTime(text: string): number {
-  const wordsPerMinute = 200;
-  const wordCount = text.split(/\s+/).length;
-  return Math.ceil(wordCount / wordsPerMinute);
-}
-
 export default async function BlogIdPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
@@ -54,25 +48,10 @@ export default async function BlogIdPage({ params }: { params: Promise<{ id: str
   const blog = blogsData?.find((b) => b.id === id);
 
   if (!blog) {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-center space-y-6 bg-black px-6 text-white">
-        <div className="space-y-2 text-center">
-          <h1 className="text-5xl font-light md:text-6xl">404</h1>
-          <p className="text-white/50">Post not found.</p>
-        </div>
-        <Link
-          href="/blogs"
-          className="group mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-white/50 transition-all hover:gap-3 hover:text-white"
-        >
-          <RiArrowLeftLine className="transition-transform group-hover:-translate-x-1" />
-          Return to Blogs
-        </Link>
-      </main>
-    );
+    notFound();
   }
 
   const markdown = await getNotionPageMarkdown(id);
-  const readingTime = calculateReadingTime(markdown || blog.excerpt || "");
 
-  return <BlogIdClient blog={blog} markdown={markdown || ""} readingTime={readingTime} />;
+  return <BlogIdClient blog={blog} markdown={markdown || ""} />;
 }

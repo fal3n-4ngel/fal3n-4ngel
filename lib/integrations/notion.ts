@@ -187,7 +187,11 @@ export interface BlogItemData {
   date: string;
   excerpt: string;
   url: string;
+  readingTime: number;
 }
+
+import { NotionToMarkdown } from "notion-to-md";
+import { calculateReadingTime } from "@/lib/utils/reading-time";
 
 export const getBlogs = unstable_cache(
   async (): Promise<BlogItemData[]> => {
@@ -204,26 +208,32 @@ export const getBlogs = unstable_cache(
         ],
       });
 
-      return response.results.map((page: any) => {
-        return {
-          id: page.id,
-          title: page.properties.Title?.title?.[0]?.plain_text || "",
-          slug: page.properties.Slug?.rich_text?.[0]?.plain_text || "",
-          date: page.properties.Date?.rich_text?.[0]?.plain_text || "",
-          excerpt: page.properties.Excerpt?.rich_text?.[0]?.plain_text || "",
-          url: page.properties.URL?.url || "",
-        };
-      });
+      // Reading time is computed here, once, from the full article body — the
+      // list and the article page both read this same value, so they can
+      // never disagree the way excerpt-only vs full-body estimates used to.
+      return await Promise.all(
+        response.results.map(async (page: any) => {
+          const excerpt = page.properties.Excerpt?.rich_text?.[0]?.plain_text || "";
+          const markdown = await getNotionPageMarkdown(page.id).catch(() => "");
+          return {
+            id: page.id,
+            title: page.properties.Title?.title?.[0]?.plain_text || "",
+            slug: page.properties.Slug?.rich_text?.[0]?.plain_text || "",
+            date: page.properties.Date?.rich_text?.[0]?.plain_text || "",
+            excerpt,
+            url: page.properties.URL?.url || "",
+            readingTime: calculateReadingTime(markdown || excerpt),
+          };
+        })
+      );
     } catch (error) {
       console.error("❌ Notion Fetch Error for Blogs:", error);
       return [];
     }
   },
-  ["blogs-v3"],
+  ["blogs-v4"],
   { revalidate: 60, tags: ["blogs-v3"] }
 );
-
-import { NotionToMarkdown } from "notion-to-md";
 
 export const getNotionPageMarkdown = unstable_cache(
   async (pageId: string) => {
@@ -277,13 +287,17 @@ export async function createBlog(data: {
     });
 
     const page = response as any;
+    const excerpt = page.properties.Excerpt?.rich_text?.[0]?.plain_text || data.excerpt;
     return {
       id: page.id,
       title: page.properties.Title?.title?.[0]?.plain_text || data.title,
       slug: page.properties.Slug?.rich_text?.[0]?.plain_text || data.slug,
       date: page.properties.Date?.rich_text?.[0]?.plain_text || data.date,
-      excerpt: page.properties.Excerpt?.rich_text?.[0]?.plain_text || data.excerpt,
+      excerpt,
       url: page.properties.URL?.url || data.url || "",
+      // Approximate from the excerpt until the article body exists — getBlogs()
+      // recomputes this from the full markdown on the next cache refresh.
+      readingTime: calculateReadingTime(excerpt),
     };
   } catch (error) {
     console.error("❌ Notion create page error:", error);
@@ -336,13 +350,15 @@ export async function updateBlog(
     });
 
     const page = response as any;
+    const excerpt = page.properties.Excerpt?.rich_text?.[0]?.plain_text || "";
     return {
       id: page.id,
       title: page.properties.Title?.title?.[0]?.plain_text || "",
       slug: page.properties.Slug?.rich_text?.[0]?.plain_text || "",
       date: page.properties.Date?.rich_text?.[0]?.plain_text || "",
-      excerpt: page.properties.Excerpt?.rich_text?.[0]?.plain_text || "",
+      excerpt,
       url: page.properties.URL?.url || "",
+      readingTime: calculateReadingTime(excerpt),
     };
   } catch (error) {
     console.error("❌ Notion update page error:", error);

@@ -31,16 +31,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     isPlaying: false,
   });
   const [calendarStatus, setCalendarStatus] = useState<AvailabilityStatus | null>(null);
-  const [traktData, setTraktData] = useState<{
-    isWatching: boolean;
-    title?: string;
-    type?: "movie" | "episode";
-    year?: number;
-    showTitle?: string;
-    season?: number;
-    episode?: number;
-    lastWatchedAt?: string;
-  } | null>(null);
 
   const { data: lanyardData } = useLanyard("849515993546096660");
 
@@ -51,12 +41,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
     getCalendarAvailabilityStatus().then((status) => {
       if (status) setCalendarStatus(status);
     });
-    fetch("/api/trakt/watching")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) setTraktData(data);
-      })
-      .catch((err) => console.error("Failed to fetch Trakt status:", err));
   }, []);
 
 
@@ -82,20 +66,8 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
   };
 
   let lastSeenSpotifyText: string | null = null;
-  let spotifyTime = 0;
   if (!spotifyData.isPlaying && spotifyData.lastPlayedAt) {
-    spotifyTime = new Date(spotifyData.lastPlayedAt).getTime();
     lastSeenSpotifyText = `Last seen ${formatTimeAgo(spotifyData.lastPlayedAt)}`;
-  }
-
-  let lastWatchedTraktText: string | null = null;
-  let traktTime = 0;
-  if (traktData && !traktData.isWatching && traktData.lastWatchedAt) {
-    traktTime = new Date(traktData.lastWatchedAt).getTime();
-    const prefix = traktData.type === "movie" 
-      ? `Last watched: ${traktData.title}`
-      : `Last watched: ${traktData.showTitle} S${String(traktData.season).padStart(2, "0")}E${String(traktData.episode).padStart(2, "0")}`;
-    lastWatchedTraktText = `${prefix} (${formatTimeAgo(traktData.lastWatchedAt)})`;
   }
 
   let displayStatus = collaborationStatus;
@@ -111,12 +83,6 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       displayStatus = true;
       statusColor = "bg-green-500 animate-pulse";
       displayText = spotifyData.title ? `Listening: ${spotifyData.title} - ${spotifyData.artist}` : "Listening to Spotify";
-    } else if (traktData?.isWatching) {
-      displayStatus = true;
-      statusColor = "bg-orange-500 animate-pulse";
-      displayText = traktData.type === "movie"
-        ? `Watching: ${traktData.title} (${traktData.year})`
-        : `Watching: ${traktData.showTitle} S${String(traktData.season).padStart(2, "0")}E${String(traktData.episode).padStart(2, "0")}`;
     } else if (lanyardData && lanyardData.discord_status !== "offline") {
       const activeGameOrCoding = lanyardData.activities.find((act) => act.type === 0);
       const customStatus = lanyardData.activities.find((act) => act.type === 4);
@@ -155,12 +121,9 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
       }
     } else {
       displayStatus = false;
-      if (spotifyTime > traktTime && lastSeenSpotifyText) {
+      if (lastSeenSpotifyText) {
         statusColor = "bg-zinc-600";
         displayText = lastSeenSpotifyText;
-      } else if (traktTime > spotifyTime && lastWatchedTraktText) {
-        statusColor = "bg-zinc-600";
-        displayText = lastWatchedTraktText;
       } else {
         statusColor = "bg-red-500";
         displayText = "AFK";
@@ -175,12 +138,12 @@ export const AboutSection = ({ isEscaping, triggerEscape, resetEscape }: AboutSe
         {/* Left column */}
         <SectionTransition direction="left" delay={0.05} className="flex-1 space-y-8">
           <ParallaxElement speed={0.1}>
-            <div className="space-grotesk interactable max-w-2xl text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
+            <h1 className="space-grotesk interactable max-w-2xl text-3xl font-light leading-[1.1] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
               <StaggerChild direction="up">
                 Building performant,{" "}
                 <span className="text-white/60">scalable digital experiences.</span>
               </StaggerChild>
-            </div>
+            </h1>
 
             <div className="mt-12 flex flex-col border-t border-white/10 pt-8 font-mono md:mt-24 md:flex-row md:gap-12">
               <StaggerChild direction="up" distance={15}>

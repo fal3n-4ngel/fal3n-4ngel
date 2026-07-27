@@ -17,11 +17,9 @@ import remarkGfm from "remark-gfm";
 export default function BlogIdClient({
   blog,
   markdown,
-  readingTime,
 }: {
   blog: BlogItemData;
   markdown: string;
-  readingTime: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { x, y } = useFollowPointer(ref);
@@ -58,7 +56,7 @@ export default function BlogIdClient({
         {/* Article Header */}
         <FadeUp>
           <div className="mt-12 space-y-6 border-b border-white/10 pb-8">
-            <h1 className="space-grotesk text-balance text-3xl font-light leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+            <h1 className="space-grotesk text-balance text-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
               {blog.title}
             </h1>
 
@@ -69,7 +67,7 @@ export default function BlogIdClient({
                 <span>{blog.date}</span>
               </div>
               <span className="text-neutral-700">•</span>
-              <span>{readingTime} min read</span>
+              <span>{blog.readingTime} min read</span>
             </div>
           </div>
         </FadeUp>
