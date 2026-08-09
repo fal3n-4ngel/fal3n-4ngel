@@ -189,86 +189,92 @@ export async function sendWebhookEvent(report: HealthReport): Promise<boolean> {
 }
 
 export function buildAlertEmailHtml(report: HealthReport): string {
-  const rows = report.services
+  const serviceCards = report.services
     .map(
       (s) => `
-      <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-        <td style="padding: 14px 16px; color: rgba(255, 255, 255, 0.85); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px;">
-          ${s.service}
-        </td>
-        <td style="padding: 14px 16px;">
-          <span style="display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: ${s.ok ? "rgba(16, 185, 129, 0.1)" : "rgba(239, 68, 68, 0.1)"}; color: ${s.ok ? "#34d399" : "#f87171"};">
-            ${s.ok ? "Healthy" : "Down"}
-          </span>
-        </td>
-        <td style="padding: 14px 16px; color: rgba(255, 255, 255, 0.5); font-size: 13px;">
-          ${s.status ?? "—"}
-        </td>
-        <td style="padding: 14px 16px; color: rgba(255, 255, 255, 0.5); font-size: 13px;">
-          ${s.latency_ms} ms
-        </td>
-        <td style="padding: 14px 16px; color: #f87171; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; max-width: 250px; word-break: break-all;">
-          ${s.error ? `<code>${s.error}</code>` : "—"}
-        </td>
-      </tr>`
+      <div style="background-color: #18181b; border: 1px solid ${s.ok ? "rgba(16, 185, 129, 0.2)" : "rgba(239, 68, 68, 0.3)"}; border-radius: 10px; padding: 16px; margin-bottom: 12px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+          <tr>
+            <td style="vertical-align: middle;">
+              <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 14px; font-weight: 600; color: #ffffff;">
+                ${s.service}
+              </span>
+            </td>
+            <td style="text-align: right; vertical-align: middle;">
+              <span style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background-color: ${s.ok ? "rgba(16, 185, 129, 0.15)" : "rgba(239, 68, 68, 0.2)"}; color: ${s.ok ? "#34d399" : "#f87171"}; border: 1px solid ${s.ok ? "rgba(52, 211, 153, 0.3)" : "rgba(248, 113, 113, 0.3)"};">
+                ${s.ok ? "Healthy" : "Down"}
+              </span>
+            </td>
+          </tr>
+        </table>
+        
+        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.06); font-size: 12px; color: rgba(255, 255, 255, 0.6); display: flex; justify-content: space-between;">
+          <span>HTTP Status: <strong style="color: #ffffff;">${s.status ?? "N/A"}</strong></span>
+          <span>Latency: <strong style="color: #ffffff;">${s.latency_ms} ms</strong></span>
+        </div>
+
+        ${
+          s.error
+            ? `<div style="margin-top: 8px; padding: 8px 10px; background-color: rgba(239, 68, 68, 0.08); border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.2); color: #f87171; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; word-break: break-all;">
+                Trace: ${s.error}
+               </div>`
+            : ""
+        }
+      </div>`
     )
     .join("");
 
   return `
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${report.ok ? "Services Active" : "Service Outage Alert"}</title>
       </head>
-      <body style="margin: 0; padding: 40px 20px; background-color: #09090b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        <div style="max-width: 720px; margin: 0 auto; background-color: #121214; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+      <body style="margin: 0; padding: 16px 8px; background-color: #09090b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+        <div style="max-width: 540px; margin: 0 auto; background-color: #121214; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
           
           <!-- Header Banner -->
-          <div style="padding: 32px 32px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="font-size: 24px;">${report.ok ? "🟢" : "🚨"}</span>
-              <h2 style="margin: 0; font-size: 20px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em;">
-                ${report.ok ? "Services Active" : "Service Outage"}
-              </h2>
-
-            </div>
-            <p style="margin: 12px 0 0; color: rgba(255, 255, 255, 0.6); font-size: 14px; line-height: 1.5;">
-              ${report.ok 
-                ? "All monitored services are fully operational and responding normally." 
-                : "One or more services failed a health check."
-              } Checked on <strong>${new Date(report.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST</strong>.
+          <div style="padding: 24px 20px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: ${report.ok ? "linear-gradient(180deg, rgba(16,185,129,0.08) 0%, rgba(18,18,20,0) 100%)" : "linear-gradient(180deg, rgba(239,68,68,0.12) 0%, rgba(18,18,20,0) 100%)"};">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+              <tr>
+                <td style="font-size: 28px; width: 36px; vertical-align: middle;">
+                  ${report.ok ? "🟢" : "🚨"}
+                </td>
+                <td style="vertical-align: middle;">
+                  <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #ffffff; letter-spacing: -0.01em;">
+                    ${report.ok ? "All Services Operational" : "Service Outage Alert"}
+                  </h2>
+                </td>
+              </tr>
+            </table>
+            
+            <p style="margin: 12px 0 0; color: rgba(255, 255, 255, 0.65); font-size: 13px; line-height: 1.5;">
+              ${
+                report.ok
+                  ? "All monitored endpoints are active and responding normally."
+                  : "One or more services failed their automated health check."
+              }<br/>
+              Checked at <strong>${new Date(report.timestamp).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST</strong>
             </p>
           </div>
 
-
-          <!-- Services Table -->
-          <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 600px;">
-              <thead>
-                <tr style="background-color: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Service</th>
-                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Status</th>
-                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">HTTP</th>
-                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Latency</th>
-                  <th style="padding: 14px 16px; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Error / Trace</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${rows}
-              </tbody>
-            </table>
+          <!-- Services List Cards -->
+          <div style="padding: 20px 16px 8px;">
+            ${serviceCards}
           </div>
 
-          <!-- Footer Info -->
-          <div style="padding: 24px 32px; background-color: rgba(255, 255, 255, 0.01); border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <span style="color: rgba(255, 255, 255, 0.35); font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">
-              Auto-triggered by /api/cron/monitor
+          <!-- Footer -->
+          <div style="padding: 16px 20px; background-color: rgba(255, 255, 255, 0.02); border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center;">
+            <span style="display: block; color: rgba(255, 255, 255, 0.4); font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; margin-bottom: 8px;">
+              Automated Monitor • /api/cron/monitor
             </span>
-            <a href="https://www.adithyakrishnan.com" style="color: #60a5fa; font-size: 12px; text-decoration: none; font-weight: 500;">
-              Go to Website →
+            <a href="https://www.adithyakrishnan.com" style="display: inline-block; color: #60a5fa; font-size: 12px; font-weight: 600; text-decoration: none; padding: 6px 12px; border-radius: 6px; background-color: rgba(96, 165, 250, 0.1);">
+              View Website →
             </a>
           </div>
+
         </div>
       </body>
     </html>`;
