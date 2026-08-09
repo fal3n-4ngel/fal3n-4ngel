@@ -98,13 +98,14 @@ export function checkWebsite() {
   return checkService("website", SITE_URL, {}, (s) => s === 200);
 }
 
-/** The expenses API surface: an unauthenticated 401 proves routing + handler are alive. */
+/** Standalone GCP Cloud Run Portfolio API Service. */
 export function checkExpensesApi() {
+  const apiUrl = process.env.PORTFOLIO_API_URL || "https://api.adithyakrishnan.com";
   return checkService(
-    "website-expenses-api",
-    `${SITE_URL}/api/expenses/categories`,
+    "portfolio-api",
+    `${apiUrl}/health`,
     {},
-    (s) => s === 401 || s === 200
+    (s) => s === 200
   );
 }
 
