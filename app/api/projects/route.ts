@@ -4,7 +4,10 @@ import { NextRequest } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  return proxyToPortfolioApi(req, "/api/notion/projects");
+  return proxyToPortfolioApi(req, {
+    targetPath: "/api/notion/projects",
+    requireAuth: true,
+  });
 }
 
 export async function OPTIONS() {

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm run type-check)",
+      "PowerShell(npm run lint)",
+      "PowerShell(npx eslint app/api/expenses app/api/health app/api/cron app/blogs lib/expenses-auth.ts lib/expenses-analytics.ts lib/monitoring.ts lib/integrations/expenses.ts)",
+      "PowerShell(npx eslint app/api/github/route.ts app/api/stats/route.ts lib/integrations/github.ts; echo \"exit: $LASTEXITCODE\")",
+      "Bash(node -r dotenv/config scripts/readme/generate.mjs dotenv_config_path=.env.local)",
+      "Bash(node -e ' *)",
+      "Bash(npx tsc *)",
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/blogs/this-id-does-not-exist)",
+      "Bash(npm run *)"
+    ]
+  }
+}

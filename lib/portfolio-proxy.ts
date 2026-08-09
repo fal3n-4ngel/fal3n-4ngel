@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { validateApiKey, unauthorizedResponse, badRequest } from "@/lib/expenses-auth";
 
 const TARGET_BASE_URL = process.env.PORTFOLIO_API_URL || "https://api.adithyakrishnan.com";
 const API_KEY = process.env.API_KEY || "expenses_adi_secret_9k2mXp7vLqR4";
 
-/**
- * Proxy helper forwarding requests from Next.js serverless to standalone Spring Boot portfolio-api on GCP Cloud Run
- */
-export async function proxyToPortfolioApi(req: NextRequest, customPath?: string) {
-  const path = customPath || req.nextUrl.pathname;
+interface ProxyOptions {
+  requireAuth?: boolean;
+  targetPath?: string;
+  cacheControl?: string;
+}
+
+export async function proxyToPortfolioApi(req: NextRequest, options?: ProxyOptions) {
+  if (options?.requireAuth && !validateApiKey(req)) {
+    return unauthorizedResponse();
+  }
+
+  const path = options?.targetPath || req.nextUrl.pathname;
   const search = req.nextUrl.search;
   const targetUrl = `${TARGET_BASE_URL}${path}${search}`;
 
@@ -19,22 +27,49 @@ export async function proxyToPortfolioApi(req: NextRequest, customPath?: string)
     const init: RequestInit = {
       method: req.method,
       headers,
-      cache: "no-store",
     };
 
-    if (["POST", "PUT", "PATCH"].includes(req.method)) {
-      init.body = await req.text();
+    if (["POST", "PUT", "PATCH", "DELETE"].includes(req.method)) {
+      try {
+        const textBody = await req.text();
+        init.body = textBody;
+
+        // Input validation for POST /api/expenses
+        if (req.method === "POST" && (path === "/api/expenses" || path.endsWith("/api/expenses"))) {
+          if (textBody) {
+            try {
+              const jsonBody = JSON.parse(textBody);
+              if (!jsonBody.title || jsonBody.amount === undefined) {
+                return badRequest("`title` and `amount` are required.");
+              }
+              if (typeof jsonBody.amount !== "number" || !Number.isFinite(jsonBody.amount)) {
+                return badRequest("`amount` must be a finite number.");
+              }
+            } catch {
+              return badRequest("Request body must be valid JSON.");
+            }
+          }
+        }
+      } catch {
+        // Empty body
+      }
     }
 
     const res = await fetch(targetUrl, init);
     const body = await res.arrayBuffer();
 
+    const responseHeaders: Record<string, string> = {
+      "content-type": res.headers.get("content-type") || "application/json",
+    };
+
+    const cacheHeader = options?.cacheControl || res.headers.get("cache-control");
+    if (cacheHeader) {
+      responseHeaders["cache-control"] = cacheHeader;
+    }
+
     return new NextResponse(body, {
       status: res.status,
-      headers: {
-        "content-type": res.headers.get("content-type") || "application/json",
-        "cache-control": res.headers.get("cache-control") || "no-store",
-      },
+      headers: responseHeaders,
     });
   } catch (err: any) {
     return NextResponse.json(
