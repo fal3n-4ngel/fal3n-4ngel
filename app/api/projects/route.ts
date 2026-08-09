@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   return proxyToPortfolioApi(req, {
     targetPath: "/api/notion/projects",
-    requireAuth: true,
+    defaultAuth: true,
   });
 }
 

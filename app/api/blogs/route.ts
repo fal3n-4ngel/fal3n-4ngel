@@ -6,15 +6,8 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest) {
   return proxyToPortfolioApi(req, {
     targetPath: "/api/notion/blogs",
-    requireAuth: true,
+    defaultAuth: true,
     cacheControl: "public, s-maxage=60, stale-while-revalidate=30",
-  });
-}
-
-export async function POST(req: NextRequest) {
-  return proxyToPortfolioApi(req, {
-    targetPath: "/api/notion/blogs",
-    requireAuth: true,
   });
 }
 
