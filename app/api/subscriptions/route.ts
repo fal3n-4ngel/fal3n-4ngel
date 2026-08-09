@@ -1,32 +1,20 @@
-import { NextRequest, NextResponse } from "next/server";
-import { validateApiKey, unauthorizedResponse, corsHeaders, parseJsonBody } from "@/lib/expenses-auth";
-import { phubProxyRequest } from "@/lib/integrations/phub";
+import { proxyToPortfolioApi } from "@/lib/portfolio-proxy";
+import { NextRequest } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  if (!validateApiKey(req)) return unauthorizedResponse();
-
-  const data = await phubProxyRequest("/api/subscriptions", "GET");
-  
-  if (data === null) {
-    return NextResponse.json({ error: "Failed to fetch subscriptions from dashboard" }, { status: 500, headers: corsHeaders() });
-  }
-  return NextResponse.json(data, { headers: corsHeaders() });
+  return proxyToPortfolioApi(req);
 }
 
 export async function POST(req: NextRequest) {
-  if (!validateApiKey(req)) return unauthorizedResponse();
+  return proxyToPortfolioApi(req);
+}
 
-  const body = await parseJsonBody(req);
-  const data = await phubProxyRequest("/api/subscriptions", "POST", body);
-
-  if (data === null) {
-    return NextResponse.json({ error: "Failed to add subscription to dashboard" }, { status: 500, headers: corsHeaders() });
-  }
-  return NextResponse.json(data, { headers: corsHeaders() });
+export async function DELETE(req: NextRequest) {
+  return proxyToPortfolioApi(req);
 }
 
 export async function OPTIONS() {
-  return new Response(null, { status: 204, headers: corsHeaders() });
+  return new Response(null, { status: 204 });
 }
