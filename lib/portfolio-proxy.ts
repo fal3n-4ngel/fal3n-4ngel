@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { validateApiKey, unauthorizedResponse, badRequest } from "@/lib/expenses-auth";
 
 const TARGET_BASE_URL = process.env.PORTFOLIO_API_URL || "https://api.adithyakrishnan.com";
-const API_KEY = process.env.API_KEY || "expenses_adi_secret_9k2mXp7vLqR4";
+const DEFAULT_API_KEY = process.env.API_KEY || "expenses_adi_secret_9k2mXp7vLqR4";
 
-interface ProxyOptions {
+export interface ProxyOptions {
   requireAuth?: boolean;
+  defaultAuth?: boolean;
   targetPath?: string;
   cacheControl?: string;
 }
@@ -20,8 +21,13 @@ export async function proxyToPortfolioApi(req: NextRequest, options?: ProxyOptio
   const targetUrl = `${TARGET_BASE_URL}${path}${search}`;
 
   const headers = new Headers(req.headers);
-  headers.set("Authorization", `Bearer ${API_KEY}`);
   headers.delete("host");
+
+  // Attach default API key if defaultAuth is enabled or if requireAuth is not set
+  const hasAuth = headers.has("authorization");
+  if (!hasAuth && (options?.defaultAuth || !options?.requireAuth)) {
+    headers.set("Authorization", `Bearer ${DEFAULT_API_KEY}`);
+  }
 
   try {
     const init: RequestInit = {
