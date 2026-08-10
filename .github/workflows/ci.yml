@@ -1,4 +1,4 @@
-name: API & Build Integration CI
+name: Next.js Website CI
 
 on:
   push:
@@ -8,10 +8,9 @@ on:
     branches:
       - release/portfolio
 
-
 jobs:
-  test:
-    name: Run Build & Integration Tests
+  build-and-test:
+    name: Type-Check, Lint & Build
     runs-on: ubuntu-latest
 
     steps:
@@ -36,11 +35,4 @@ jobs:
       - name: Build Next.js Production App
         run: npm run build
         env:
-          # Next.js build might expect these to build correctly, passing mock values
-          NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
-          API_KEY: "expenses_adi_secret_9k2mXp7vLqR4"
-
-      - name: Run Integration Tests
-        run: npm run test:integration
-        env:
-          API_KEY: "expenses_adi_secret_9k2mXp7vLqR4"
+          NEXT_PUBLIC_SITE_URL: "https://www.adithyakrishnan.com"
