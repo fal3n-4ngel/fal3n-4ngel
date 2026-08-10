@@ -15,7 +15,7 @@
  */
 
 const SITE_URL = process.env.SITE_URL || "https://www.adithyakrishnan.com";
-const CHECK_TIMEOUT_MS = 8000;
+const CHECK_TIMEOUT_MS = 15000;
 
 export interface ServiceStatus {
   service: string;
