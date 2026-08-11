@@ -16,9 +16,8 @@
 <summary>🌱 Worklog</summary>
 <br />
 
-- [fal3n-4ngel/fal3n-4ngel](https://github.com/fal3n-4ngel/fal3n-4ngel) — : > _(today)_
 - [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Consolidate your media watchlists, track daily expenses with custom salary cycles, maintain a book library, and keep a scratchpad — all stored privately in your own database. _(today)_
-- [fal3n-4ngel/SOYO](https://github.com/fal3n-4ngel/SOYO) — SOYO - Stream Own Your Own || Effortlessly stream files from your local system via local network and enjoy your personal collection anywhere in your home. _(yesterday)_
+- [fal3n-4ngel/fal3n-4ngel](https://github.com/fal3n-4ngel/fal3n-4ngel) — : > _(today)_
 
 </details>
 
