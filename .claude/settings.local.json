@@ -3,7 +3,7 @@
     "allow": [
       "PowerShell(npm run type-check)",
       "PowerShell(npm run lint)",
-      "PowerShell(npx eslint app/api/expenses app/api/health app/api/cron app/blogs lib/expenses-auth.ts lib/expenses-analytics.ts lib/monitoring.ts lib/integrations/expenses.ts)",
+      "PowerShell(npx eslint app/api/health app/api/cron app/blogs lib/monitoring.ts)",
       "PowerShell(npx eslint app/api/github/route.ts app/api/stats/route.ts lib/integrations/github.ts; echo \"exit: $LASTEXITCODE\")",
       "Bash(node -r dotenv/config scripts/readme/generate.mjs dotenv_config_path=.env.local)",
       "Bash(node -e ' *)",

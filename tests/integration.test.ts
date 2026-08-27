@@ -20,16 +20,6 @@ describe("Portfolio UI API Integration Tests", () => {
       assert.ok("isPlaying" in body);
     });
 
-    test("GET /api/blogs returns 200 or 500", async () => {
-      const res = await fetch(`${targetUrl}/api/blogs`);
-      assert.ok(res.status === 200 || res.status === 500, `Expected 200 or 500, got ${res.status}`);
-    });
-
-    test("GET /api/projects returns 200 or 500", async () => {
-      const res = await fetch(`${targetUrl}/api/projects`);
-      assert.ok(res.status === 200 || res.status === 500, `Expected 200 or 500, got ${res.status}`);
-    });
-
     test("GET /api/stats/public returns 200 or 500", async () => {
       const res = await fetch(`${targetUrl}/api/stats/public`);
       assert.ok(res.status === 200 || res.status === 500, `Expected 200 or 500, got ${res.status}`);

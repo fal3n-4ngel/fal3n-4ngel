@@ -98,24 +98,12 @@ export function checkWebsite() {
   return checkService("website", SITE_URL, {}, (s) => s === 200);
 }
 
-/** Standalone GCP Cloud Run Portfolio API Service. */
-export function checkExpensesApi() {
-  const apiUrl = process.env.PORTFOLIO_API_URL || "https://api.adithyakrishnan.com";
-  return checkService(
-    "portfolio-api",
-    `${apiUrl}/health`,
-    {},
-    (s) => s === 200
-  );
-}
-
 export async function runHealthChecks(): Promise<HealthReport> {
   const services = await Promise.all([
     checkGithub(),
     checkNotion(),
     checkSpotify(),
     checkWebsite(),
-    checkExpensesApi(),
   ]);
 
   return {
