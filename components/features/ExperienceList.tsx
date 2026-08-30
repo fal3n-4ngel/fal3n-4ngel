@@ -1,5 +1,5 @@
 import FadeUp from "@/components/ui/FadeUp";
-import { type ExperienceItem } from "@/data/experience";
+import { EXPERIENCE_DATA, type ExperienceItem } from "@/data/experience";
 import { getExperiences } from "@/lib/integrations/notion";
 import { memo, useEffect, useState } from "react";
 
@@ -21,7 +21,7 @@ const ExperienceItem = memo(({ item }: { item: ExperienceItem }) => (
 ExperienceItem.displayName = "ExperienceItem";
 
 export const ExperienceList = memo(() => {
-  const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
+  const [experiences, setExperiences] = useState<ExperienceItem[]>(EXPERIENCE_DATA);
 
   useEffect(() => {
     getExperiences().then((data) => { if (data?.length) setExperiences(data); });

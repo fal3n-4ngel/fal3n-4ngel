@@ -1,6 +1,6 @@
 "use server";
 
-import { ExperienceItem } from "@/data/experience";
+import { EXPERIENCE_DATA, ExperienceItem } from "@/data/experience";
 import { Project } from "@/types/projects";
 import { Client } from "@notionhq/client";
 import { unstable_cache } from "next/cache";
@@ -73,7 +73,7 @@ export const getSiteConfig = unstable_cache(
 export const getExperiences = unstable_cache(
   async (): Promise<ExperienceItem[]> => {
     try {
-      if (!EXPERIENCES_DB_ID) return [];
+      if (!EXPERIENCES_DB_ID) return EXPERIENCE_DATA;
 
       const response = await notion.databases.query({
         database_id: EXPERIENCES_DB_ID,
@@ -85,7 +85,7 @@ export const getExperiences = unstable_cache(
         ],
       });
 
-      return response.results.map((page: unknown) => {
+      const items = response.results.map((page: unknown) => {
         const p = page as NotionPage;
         return {
           title: p.properties.Title?.title?.[0]?.plain_text || "",
@@ -94,9 +94,11 @@ export const getExperiences = unstable_cache(
           period: p.properties.Period?.rich_text?.[0]?.plain_text || "",
         };
       });
+
+      return items.length > 0 ? items : EXPERIENCE_DATA;
     } catch (error) {
       console.error("❌ Notion Fetch Error:", error);
-      return [];
+      return EXPERIENCE_DATA;
     }
   },
   ["experiences"],
