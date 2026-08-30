@@ -17,8 +17,8 @@ export async function GET() {
     projectsList = LOCAL_PROJECTS;
   }
 
-  let awardsList = await getAwards().catch(() => []);
-  let blogsList = await getBlogs().catch(() => []);
+  const awardsList = await getAwards().catch(() => []);
+  const blogsList = await getBlogs().catch(() => []);
 
   const markdown = `# Adithya Krishnan
 
