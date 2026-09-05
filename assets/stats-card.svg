@@ -48,7 +48,7 @@
       
         <circle cx="176" cy="126" r="2.6" fill="#5C7C97" />
         <text x="190" y="130" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="12" letter-spacing="1" fill="#8A8274">COMMITS '26</text>
-        <text x="450" y="130" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="17" font-weight="600" fill="#3B332C" text-anchor="end">280</text>
+        <text x="450" y="130" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="17" font-weight="600" fill="#3B332C" text-anchor="end">281</text>
       
         <circle cx="176" cy="160" r="2.6" fill="#8B9A81" />
         <text x="190" y="164" font-family='"JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, ui-monospace, monospace' font-size="12" letter-spacing="1" fill="#8A8274">PULL REQS</text>
@@ -65,7 +65,7 @@
   
     <circle cx="590" cy="160" r="44" fill="none" stroke="#3B332C" stroke-opacity="0.12" stroke-width="7" />
     <circle cx="590" cy="160" r="44" fill="none" stroke="#5C7C97" stroke-width="7" stroke-linecap="round"
-      stroke-dasharray="220.4402869176291 56.01986659827267" transform="rotate(-90 590 160)" />
+      stroke-dasharray="220.44598983015192 56.01416368574985" transform="rotate(-90 590 160)" />
     <text x="590" y="168" font-family='"Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif' font-size="24" font-weight="700" fill="#3B332C" text-anchor="middle">A</text>
   
 
