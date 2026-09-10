@@ -16,9 +16,8 @@
 <summary>🌱 Worklog</summary>
 <br />
 
-- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable privacy-first dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(2 days ago)_
-- [fal3n-4ngel/Monolith](https://github.com/fal3n-4ngel/Monolith) — Central domain-event ingest for Continuum Home and other personal applications. Java 21 / Spring Boot 3, backed by BigQuery, deployed to Cloud Run behind monolith-postbacks.adithyakrishnan.com. _(today)_
-- [fal3n-4ngel/fal3n-4ngel](https://github.com/fal3n-4ngel/fal3n-4ngel) — : > _(yesterday)_
+- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable privacy-first dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(today)_
+- [fal3n-4ngel/Monolith](https://github.com/fal3n-4ngel/Monolith) — Central domain-event ingest for Continuum Home and other personal applications. Java 21 / Spring Boot 3, backed by BigQuery, deployed to Cloud Run behind monolith-postbacks.adithyakrishnan.com. _(yesterday)_
 
 </details>
 
