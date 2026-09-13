@@ -8,7 +8,7 @@ import * as THREE from "three";
 
 export const HeroGhostSection: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const [statusText, setStatusText] = useState("Available for work");
+  const [statusText, setStatusText] = useState("Alive");
   const [statusDotColor, setStatusDotColor] = useState("bg-emerald-400 shadow-[0_0_8px_#34d399]");
   const [calendarStatus, setCalendarStatus] = useState<string | null>(null);
   const [forceHeadset, setForceHeadset] = useState(false);
@@ -64,7 +64,7 @@ export const HeroGhostSection: React.FC = () => {
         setStatusText("Busy (In a meeting)");
         setStatusDotColor("bg-amber-400 shadow-[0_0_8px_#fbbf24]");
       } else if (!flagsRef.current.isMusic) {
-        setStatusText("Available for work");
+        setStatusText("Alive");
         setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399]");
       }
       return;
@@ -116,7 +116,7 @@ export const HeroGhostSection: React.FC = () => {
       setStatusText("Do Not Disturb");
       setStatusDotColor("bg-red-400 shadow-[0_0_8px_#f87171]");
     } else {
-      setStatusText("Available for work");
+      setStatusText("Alive");
       setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399]");
     }
   }, [lanyardData, calendarStatus]);
