@@ -27,17 +27,18 @@ export const StickySubHeader: React.FC = () => {
           : "-translate-y-full opacity-0 pointer-events-none"
       }`}
     >
-      <div className="flex flex-col">
-        <a href="#" className="text-xs font-medium text-white tracking-wide hover:text-zinc-300 transition-colors">
+      <div className="flex flex-col min-w-0 pr-2">
+        <a href="#" className="text-xs font-medium text-white tracking-wide hover:text-zinc-300 transition-colors truncate">
           Adithya Krishnan
         </a>
-        <span className="text-[11px] text-zinc-500 font-mono">Software Engineer</span>
+        <span className="hidden sm:inline text-[11px] text-zinc-500 font-mono">Software Engineer</span>
       </div>
 
-      <div className="flex items-center gap-6 text-[12px] font-mono">
-        <div className="flex items-center gap-2 text-zinc-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
-          <span>Available Today</span>
+      <div className="flex items-center gap-3 sm:gap-6 text-[11px] sm:text-[12px] font-mono flex-shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-zinc-300">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399] flex-shrink-0" />
+          <span className="hidden sm:inline">Available Today</span>
+          <span className="sm:hidden">Available</span>
         </div>
         <a
           href="#contact"

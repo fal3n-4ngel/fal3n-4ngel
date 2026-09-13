@@ -14,7 +14,7 @@ interface AsciiParticle {
   alpha: number;
 }
 
-const ASCII_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@&%$*!?+=<>~";
+const ASCII_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@&%$*!?+=<>~";
 
 export const AsciiTextCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -62,7 +62,9 @@ export const AsciiTextCanvas: React.FC = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
       width = Math.max(rect.width, window.innerWidth || 1200);
-      height = Math.max(rect.height || 380, 320);
+      const isMobile = width < 768;
+      const targetHeight = isMobile ? 340 : 380;
+      height = Math.max(rect.height || targetHeight, 300);
 
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
@@ -78,22 +80,19 @@ export const AsciiTextCanvas: React.FC = () => {
       const offCtx = offscreen.getContext("2d");
       if (!offCtx) return;
 
-      offCtx.fillStyle = "#000000";
-      offCtx.fillRect(0, 0, width, height);
+      const text = isMobile ? "Adi" : "ADITHYA KRISHNAN";
 
-      const text = "ADITHYA KRISHNAN";
-
-      // Scale font size to span ~90% of screen width, nicely framed within container height
-      let fontSize = Math.floor(width / 12);
-      fontSize = Math.min(Math.max(fontSize, 24), Math.floor(height * 0.45));
+      // Scale font size: on mobile "Adi" fills ~75% of width; on desktop full name fills ~90%
+      const targetWidth = isMobile ? width * 0.75 : width * 0.90;
+      let fontSize = Math.floor(width / (isMobile ? 3 : 12));
+      fontSize = Math.min(Math.max(fontSize, 36), Math.floor(height * (isMobile ? 0.62 : 0.45)));
 
       offCtx.font = `900 ${fontSize}px sans-serif`;
       const measured = offCtx.measureText(text).width;
       if (measured > 0) {
-        const targetWidth = width * 0.90;
         fontSize = Math.floor(fontSize * (targetWidth / measured));
       }
-      fontSize = Math.min(Math.max(fontSize, 22), Math.floor(height * 0.42));
+      fontSize = Math.min(Math.max(fontSize, 32), Math.floor(height * (isMobile ? 0.60 : 0.42)));
 
       offCtx.font = `900 ${fontSize}px sans-serif`;
       offCtx.textAlign = "center";
@@ -104,8 +103,8 @@ export const AsciiTextCanvas: React.FC = () => {
       const imgData = offCtx.getImageData(0, 0, width, height);
       const data = imgData.data;
 
-      // Density step proportional to font size
-      const step = Math.max(Math.floor(fontSize / 8), 7);
+      // Density step proportional to font size - fine-grained for crisp mobile rendering
+      const step = isMobile ? 6 : Math.max(Math.floor(fontSize / 8), 6);
       particles = [];
 
       for (let y = 0; y < height; y += step) {
@@ -312,13 +311,14 @@ export const AsciiTextCanvas: React.FC = () => {
       {/* Reduced height container tightly framing contents, non-interactable so cursor stays compact */}
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden select-none bg-black cursor-pointer"
-        style={{ minHeight: "340px", height: "380px" }}
+        className="relative w-full overflow-hidden select-none bg-black cursor-pointer touch-pan-y"
+        style={{ minHeight: "320px", height: "360px", touchAction: "pan-y" }}
       >
         <canvas
           ref={canvasRef}
           onClick={toggleInteraction}
-          className="block h-full w-full cursor-pointer"
+          className="block h-full w-full cursor-pointer touch-pan-y"
+          style={{ touchAction: "pan-y" }}
         />
       </div>
     </section>

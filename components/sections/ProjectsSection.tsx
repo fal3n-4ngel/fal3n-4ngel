@@ -43,7 +43,7 @@ const ProjectImage: React.FC<{
   }
 
   return (
-    <div className="relative w-full min-h-[240px] sm:min-h-[320px] bg-zinc-950 overflow-hidden">
+    <div className="relative w-full min-h-[190px] xs:min-h-[220px] sm:min-h-[320px] bg-zinc-950 overflow-hidden">
       {/* Background loading skeleton that displays smoothly while fetching */}
       {!loaded && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900/80 animate-pulse">
@@ -106,19 +106,19 @@ export const ProjectsSection: React.FC = () => {
   return (
     <section
       id="projects"
-      className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-20 md:py-28"
+      className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
-      <div className="flex w-full flex-col gap-16 lg:flex-row lg:items-start lg:gap-24">
+      <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
         {/* ── Left Column: Projects Heading fixed / sticky on the side (matching Achievements) ── */}
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
-          <h2 className="interactable text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
+          <h2 className="interactable text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
             Projects
           </h2>
-          <p className="mt-3 text-sm sm:text-base font-light text-zinc-400 max-w-md">
+          <p className="mt-2.5 sm:mt-3 text-sm sm:text-base font-light text-zinc-400 max-w-md">
             Selected digital products, web platforms, and distributed systems.
           </p>
 
-          <div className="mt-8 hidden lg:block font-mono text-sm text-zinc-500">
+          <div className="mt-6 sm:mt-8 hidden lg:block font-mono text-sm text-zinc-500">
             <a
               href="https://github.com/fal3n-4ngel?tab=repositories"
               target="_blank"
@@ -132,7 +132,7 @@ export const ProjectsSection: React.FC = () => {
         </div>
 
         {/* ── Right Column: Vertical Stream of Project Cards ──────────────── */}
-        <div className="flex flex-col gap-24 lg:w-1/2">
+        <div className="flex flex-col gap-16 sm:gap-24 lg:w-1/2">
           {displayProjects.map((project, idx) => {
             const skills =
               project.skills && project.skills.length > 0
@@ -146,19 +146,19 @@ export const ProjectsSection: React.FC = () => {
             return (
               <article key={project.name} className="interactable flex w-full flex-col">
                 {/* Project Title & Scope */}
-                <div className="flex flex-col mb-4">
+                <div className="flex flex-col mb-3 sm:mb-4">
                   <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500 mb-1.5">
-                    0{idx + 1} // {projectEvent}
+                    {`0${idx + 1} // ${projectEvent}`}
                   </span>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-light tracking-tight text-white uppercase leading-tight">
+                  <h3 className="text-xl sm:text-3xl md:text-4xl font-light tracking-tight text-white uppercase leading-tight">
                     <a
                       href={project.view || "https://github.com/fal3n-4ngel"}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="interactable hover:text-zinc-300 transition-colors inline-flex items-baseline gap-2.5"
+                      className="interactable hover:text-zinc-300 transition-colors inline-flex items-baseline gap-2"
                     >
                       <span>{project.name}</span>
-                      <span className="text-zinc-600 font-light text-xl sm:text-2xl">↗</span>
+                      <span className="text-zinc-600 font-light text-lg sm:text-2xl">↗</span>
                     </a>
                   </h3>
                 </div>
@@ -183,7 +183,7 @@ export const ProjectsSection: React.FC = () => {
                       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all" />
 
                       {/* Floating hover badge */}
-                      <div className="absolute top-3.5 right-3.5 flex items-center gap-1 rounded-full border border-white/20 bg-black/80 px-3 py-1 font-mono text-[11px] text-white backdrop-blur-md opacity-0 transition-all duration-300 group-hover:opacity-100 shadow-xl">
+                      <div className="absolute top-3 right-3 sm:top-3.5 sm:right-3.5 flex items-center gap-1 rounded-full border border-white/20 bg-black/80 px-2.5 py-1 sm:px-3 sm:py-1 font-mono text-[10px] sm:text-[11px] text-white backdrop-blur-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 shadow-xl">
                         <span>View Project</span>
                         <span>↗</span>
                       </div>
@@ -192,9 +192,9 @@ export const ProjectsSection: React.FC = () => {
                 </div>
 
                 {/* Metadata & Description */}
-                <div className="mt-6 flex flex-col space-y-4">
+                <div className="mt-5 sm:mt-6 flex flex-col space-y-3.5 sm:space-y-4">
                   {/* Metadata Row */}
-                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] text-zinc-400 border-b border-white/5 pb-3">
+                  <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-1.5 font-mono text-[10px] sm:text-[11px] text-zinc-400 border-b border-white/5 pb-2.5 sm:pb-3">
                     <div className="flex items-center gap-1.5">
                       <span className="text-zinc-600 uppercase">Type:</span>
                       <span className="text-zinc-200 uppercase font-medium">{projectType}</span>
@@ -210,11 +210,11 @@ export const ProjectsSection: React.FC = () => {
                   </div>
 
                   {/* Tech stack badges */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {skills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-zinc-300"
+                        className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 sm:px-2.5 sm:py-1 font-mono text-[10px] sm:text-[11px] text-zinc-300"
                       >
                         {skill}
                       </span>
@@ -223,7 +223,7 @@ export const ProjectsSection: React.FC = () => {
 
                   {/* Description */}
                   {project.description && (
-                    <p className="text-sm font-light leading-relaxed text-zinc-400">
+                    <p className="text-xs sm:text-sm font-light leading-relaxed text-zinc-400">
                       {project.description}
                     </p>
                   )}

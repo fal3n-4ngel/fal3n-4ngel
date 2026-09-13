@@ -21,22 +21,22 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-20 md:py-28"
+      className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
-      <div className="flex w-full flex-col gap-16 lg:flex-row lg:items-start lg:gap-24">
+      <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
         {/* ── Left Column: Heading & Note ──────────────────────── */}
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
             Contact
           </h2>
-          <p className="mt-3 text-xs sm:text-sm font-light text-zinc-400 max-w-md">
+          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm font-light text-zinc-400 max-w-md">
             Want to work together? Anything else to tell me? Feel free to contact me!
           </p>
         </div>
 
         {/* ── Right Column: Email Display & Actions ────────────── */}
         <div className="flex flex-col lg:w-1/2">
-          <span className="font-sans text-sm text-zinc-400">Email</span>
+          <span className="font-sans text-xs sm:text-sm text-zinc-400">Email</span>
 
           {/* Huge Email Typography */}
           <a

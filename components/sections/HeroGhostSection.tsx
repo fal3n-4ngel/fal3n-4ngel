@@ -2,7 +2,6 @@
 
 import { useLanyard } from "@/hooks";
 import { getCalendarAvailabilityStatus } from "@/lib/integrations/google-calendar";
-import { getSiteConfig } from "@/lib/integrations/notion";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
@@ -50,7 +49,7 @@ export const HeroGhostSection: React.FC = () => {
             setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse");
           }
         }
-      } catch (err) {
+      } catch {
         // silent fallback
       }
     };
@@ -151,8 +150,13 @@ export const HeroGhostSection: React.FC = () => {
 
     // Scene & Camera - positioned to view the entire ghost floating freely
     const scene = new THREE.Scene();
+    const isMobileInit = initW < 768;
     const camera = new THREE.PerspectiveCamera(40, initW / initH, 0.1, 100);
-    camera.position.set(0, -0.2, 13.5);
+    if (isMobileInit) {
+      camera.position.set(0, 0.35, 15.0);
+    } else {
+      camera.position.set(0, -0.2, 13.5);
+    }
 
     // ── Soft Ethereal Lighting (Original Ghost Look) ─────────────────────────
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
@@ -168,7 +172,8 @@ export const HeroGhostSection: React.FC = () => {
 
     // ── Build Chrome Ghost Geometry ──────────────────────────────────────────
     const ghostGroup = new THREE.Group();
-    ghostGroup.scale.set(0.66, 0.66, 0.66);
+    const initGhostScale = isMobileInit ? 0.52 : 0.66;
+    ghostGroup.scale.set(initGhostScale, initGhostScale, initGhostScale);
 
     const segmentsX = 40;
     const segmentsY = 40;
@@ -690,6 +695,14 @@ export const HeroGhostSection: React.FC = () => {
       const h = rect.height || mount.clientHeight;
       if (w > 20 && h > 20) {
         camera.aspect = w / h;
+        const isMob = w < 768;
+        const sc = isMob ? 0.52 : 0.66;
+        ghostGroup.scale.set(sc, sc, sc);
+        if (isMob) {
+          camera.position.set(0, 0.35, 15.0);
+        } else {
+          camera.position.set(0, -0.2, 13.5);
+        }
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
         ghostBaseX = w >= 1024 ? 2.4 : 0;
@@ -727,7 +740,7 @@ export const HeroGhostSection: React.FC = () => {
     window.addEventListener("cursor-click", onCursorClick);
 
     // ── Animation Loop ────────────────────────────────────────────────────────
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const animate = () => {
       animFrameId = requestAnimationFrame(animate);
@@ -786,7 +799,7 @@ export const HeroGhostSection: React.FC = () => {
 
       // ── Interactive & Natural Eye Blinking & Squash Animation ────────────────
       let blinkFactor = 1.0;
-      let leftWinkFactor = 1.0;
+      const leftWinkFactor = 1.0;
       let rightWinkFactor = 1.0;
 
       // 1. Natural Periodic Blinking (Every ~3.8s)
@@ -987,11 +1000,11 @@ export const HeroGhostSection: React.FC = () => {
   return (
     <section className="relative flex h-screen h-[100dvh] max-h-[100dvh] w-full flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-6 md:py-8 select-none">
       {/* ── Top Navigation (matching reference pic thieb.co) ────────────────── */}
-      <header className="relative z-30 flex w-full items-center justify-between font-sans text-xs sm:text-sm tracking-wide">
+      <header className="relative z-30 flex w-full items-center justify-between font-sans text-xs sm:text-sm tracking-wide gap-2">
         {/* Left: Branding */}
         <Link
           href="/"
-          className="interactable text-white font-medium hover:text-zinc-300 transition-colors tracking-wide"
+          className="interactable text-white font-medium hover:text-zinc-300 transition-colors tracking-wide truncate max-w-[170px] sm:max-w-none"
         >
           adithyakrishnan.com
         </Link>
@@ -1010,10 +1023,10 @@ export const HeroGhostSection: React.FC = () => {
         </nav>
 
         {/* Right: Email / Touch */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-shrink-0">
           <a
             href="mailto:hello@adithyakrishnan.com"
-            className="interactable text-zinc-300 hover:text-white transition-colors text-xs"
+            className="interactable text-zinc-300 hover:text-white transition-colors text-xs truncate max-w-[180px] sm:max-w-none"
           >
             hello@adithyakrishnan.com
           </a>
@@ -1023,43 +1036,44 @@ export const HeroGhostSection: React.FC = () => {
       {/* ── Three.js 3D Chrome Ghost Canvas (Absolute full hero background) ──── */}
       <div
         ref={mountRef}
-        className="absolute inset-0 z-10 h-full w-full cursor-grab active:cursor-grabbing"
+        className="absolute inset-0 z-10 h-full w-full cursor-grab active:cursor-grabbing touch-pan-y"
+        style={{ touchAction: "pan-y" }}
       />
 
       {/* ── Center Content: Display Typography (matching reference pic thieb.co) ─ */}
       <div className="relative z-20 flex flex-1 flex-col justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
-        <h1 className="interactable pointer-events-auto text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-light tracking-tight text-white leading-[1.14]">
+        <h1 className="interactable pointer-events-auto text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">
           <span className="text-white font-normal">I’m Adi</span>
           <span className="text-zinc-500 font-light mx-2 sm:mx-3">—</span>
           <span className="text-zinc-200">a Multidisciplinary Software Engineer,</span>
-          <br className="hidden sm:inline" />
+          <br className="hidden sm:inline" />{" "}
           <span className="text-zinc-400 font-light">
-            with a focus on web design, cloud, and personal utilities.
+            building for the web, cloud, and everything in between.
           </span>
         </h1>
       </div>
 
       {/* ── Bottom Section: Location & Live Status & Scroll Arrow ───────────── */}
-      <footer className="relative z-30 flex w-full items-end justify-between pt-4 pointer-events-none">
+      <footer className="relative z-30 flex w-full items-end justify-between pt-4 pb-2 sm:pb-0 pointer-events-none gap-4">
         {/* Bottom Left: Live Activity Status & Location */}
-        <div className="flex flex-col gap-1.5 pointer-events-auto">
+        <div className="flex flex-col gap-1.5 pointer-events-auto max-w-[80%] sm:max-w-none">
           <button
             type="button"
             onClick={() => setForceHeadset((prev) => !prev)}
             className="interactable flex items-center gap-2 group cursor-pointer text-left focus:outline-none"
             title="Click to toggle headset & music animation"
           >
-            <span className={`inline-block h-2 w-2 rounded-full ${statusDotColor} transition-transform group-hover:scale-125`} />
-            <span className="font-mono text-xs text-zinc-300 tracking-wide font-medium group-hover:text-white transition-colors">
+            <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform group-hover:scale-125`} />
+            <span className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium group-hover:text-white transition-colors truncate">
               {statusText}
             </span>
             {forceHeadset && (
-              <span className="text-[10px] font-mono text-zinc-300 border border-zinc-700 bg-white/5 px-1.5 py-0.5 rounded ml-1">
+              <span className="text-[9px] sm:text-[10px] font-mono text-zinc-300 border border-zinc-700 bg-white/5 px-1.5 py-0.5 rounded ml-1 flex-shrink-0">
                 HEADSET ON
               </span>
             )}
           </button>
-          <div className="font-mono text-[11px] text-zinc-500 tracking-widest uppercase">
+          <div className="font-mono text-[10px] sm:text-[11px] text-zinc-500 tracking-widest uppercase truncate">
             Software Engineer · Kerala, India
           </div>
         </div>
@@ -1068,7 +1082,7 @@ export const HeroGhostSection: React.FC = () => {
         <a
           href="#achievements"
           aria-label="Scroll to achievements"
-          className="interactable group pointer-events-auto flex items-center justify-center p-2 text-zinc-400 hover:text-white transition-colors text-lg"
+          className="interactable group pointer-events-auto flex items-center justify-center p-2 text-zinc-400 hover:text-white transition-colors text-lg flex-shrink-0"
         >
           <span className="transition-transform duration-300 group-hover:translate-y-1">
             ↓
