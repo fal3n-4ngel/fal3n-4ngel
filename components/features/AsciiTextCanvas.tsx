@@ -163,7 +163,6 @@ export const AsciiTextCanvas: React.FC = () => {
 
     window.addEventListener("resize", initParticles);
     canvas.addEventListener("mousemove", onMouseMove);
-    canvas.addEventListener("mouseenter", onMouseEnter);
     canvas.addEventListener("mouseleave", onMouseLeave);
     canvas.addEventListener("touchmove", onTouchMove, { passive: true });
     canvas.addEventListener("touchend", onTouchEnd);
@@ -302,7 +301,6 @@ export const AsciiTextCanvas: React.FC = () => {
       cancelAnimationFrame(animFrameId);
       window.removeEventListener("resize", initParticles);
       canvas.removeEventListener("mousemove", onMouseMove);
-      canvas.removeEventListener("mouseenter", onMouseEnter);
       canvas.removeEventListener("mouseleave", onMouseLeave);
       canvas.removeEventListener("touchmove", onTouchMove);
       canvas.removeEventListener("touchend", onTouchEnd);
@@ -311,30 +309,17 @@ export const AsciiTextCanvas: React.FC = () => {
 
   return (
     <section className="relative w-full overflow-hidden border-t border-white/10 bg-black">
-      {/* Reduced height container tightly framing contents */}
+      {/* Reduced height container tightly framing contents, non-interactable so cursor stays compact */}
       <div
         ref={containerRef}
-        className="ascii-canvas-container relative w-full overflow-hidden select-none cursor-none bg-black"
+        className="relative w-full overflow-hidden select-none bg-black cursor-pointer"
         style={{ minHeight: "340px", height: "380px" }}
       >
         <canvas
           ref={canvasRef}
           onClick={toggleInteraction}
-          className="block h-full w-full cursor-none"
+          className="block h-full w-full cursor-pointer"
         />
-
-        {/* Follower Cursor Badge: "Click to interact" inside the canvas rectangle */}
-        {isHovered && cursorPos.x > 0 && (
-          <div
-            className="pointer-events-none fixed z-[999999] -translate-x-1/2 -translate-y-1/2 rounded-md border border-white/20 bg-black/85 px-3.5 py-1.5 font-sans text-xs text-zinc-200 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.85)]"
-            style={{
-              left: `${cursorPos.x}px`,
-              top: `${cursorPos.y}px`,
-            }}
-          >
-            Click to interact
-          </div>
-        )}
       </div>
     </section>
   );
