@@ -1,154 +1,249 @@
 "use client";
 
-import FadeUp from "@/components/ui/FadeUp";
-import { ProjectCard } from "@/components/cards/ProjectCard";
-import { GithubProjectCard } from "@/components/cards/GithubProjectCard";
-import { SkillsPanel } from "@/components/features/SkillsPanel";
-import { projects, projectSkills, skillIcons } from "@/data/projects";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { getProjects } from "@/lib/integrations/notion";
-import { Project, Repo } from "@/types";
-import React, { useEffect, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { RiArrowUpCircleLine } from "react-icons/ri";
+import { projects as fallbackProjects, projectSkills } from "@/data/projects";
+import { Project } from "@/types/projects";
 
-const ProjectEntry: React.FC<{ project: Project; onVisible: () => void }> = ({ project, onVisible }) => {
-  const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: false });
-  useEffect(() => { if (inView) onVisible(); }, [inView, onVisible]);
-  return (
-    <div ref={ref}>
-      <FadeUp><ProjectCard {...project} /></FadeUp>
-    </div>
-  );
-};
-
-const GithubEntry: React.FC<{ repo: Repo; onVisible: () => void }> = ({ repo, onVisible }) => {
-  const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: false });
-  useEffect(() => { if (inView) onVisible(); }, [inView, onVisible]);
-  return (
-    <div ref={ref}>
-      <GithubProjectCard
-        url1={Math.random() * 11}
-        name={repo.name.toUpperCase()}
-        type="GitHub Repository"
-        event="Projects"
-        date={new Date(repo.created_at).getFullYear().toString()}
-        view={repo.html_url}
-      />
-    </div>
-  );
-};
-
-const ProjectsSection: React.FC = () => {
-  const [projectsList, setProjectsList] = useState<Project[]>([]);
-  const [repos, setRepos] = useState<Repo[]>([]);
-  const [activeProject, setActiveProject] = useState<string | null>(null);
-  const [isGitHubProjectActive, setIsGitHubProjectActive] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(0);
-
-  const { ref: sectionRef, inView: sectionInView } = useInView({ threshold: 0.05, triggerOnce: false });
-  const { ref: breakRef, inView: breakInView } = useInView({ threshold: 0.0001, triggerOnce: false });
+const ProjectImage: React.FC<{
+  src: string;
+  name: string;
+  type: string;
+  priority?: boolean;
+}> = ({ src, name, type, priority }) => {
+  const [loaded, setLoaded] = useState(false);
+  const [useDirectImg, setUseDirectImg] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    getProjects().then((data) => { if (data?.length) setProjectsList(data); });
-  }, []);
+    setLoaded(false);
+    setUseDirectImg(false);
+    setError(false);
 
-  useEffect(() => {
-    if (breakInView) setVisibleCount(0);
-  }, [breakInView]);
-
-  useEffect(() => {
-    const fetchRepos = async () => {
-      try {
-        const res = await fetch("https://api.github.com/users/fal3n-4ngel/repos");
-        const data = await res.json();
-        const filtered = data
-          .filter((r: Repo) => !r.fork || r.stargazers_count > 0)
-          .sort((a: Repo, b: Repo) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-          );
-        setRepos(filtered);
-      } catch { /* silently fail */ }
-    };
-    fetchRepos();
-  }, []);
-
-  const displayedProjects = projectsList.length > 0 ? projectsList : projects;
-
-  const dynamicProjectSkills: Record<string, string[]> = { ...projectSkills };
-  displayedProjects.forEach((p) => {
-    if (p.skills && p.skills.length > 0) {
-      dynamicProjectSkills[p.name] = p.skills;
+    // Warm up the image in browser cache even after page load
+    if (src && typeof window !== "undefined") {
+      const img = new window.Image();
+      img.onload = () => setLoaded(true);
+      img.onerror = () => {
+        // If Next optimizer fails or URL is direct Notion S3 link, switch to direct <img>
+        setUseDirectImg(true);
+      };
+      img.src = src;
     }
-  });
+  }, [src]);
+
+  if (error || !src) {
+    return (
+      <div className="flex aspect-[16/9] min-h-[300px] w-full flex-col items-center justify-center p-12 text-center bg-zinc-900/60">
+        <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">{type}</span>
+        <span className="mt-3 text-xl font-light text-white">{name}</span>
+      </div>
+    );
+  }
 
   return (
-    <section className="relative min-h-screen w-full px-12 py-24" ref={sectionRef}>
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-16 md:flex-row md:items-start md:gap-24">
-
-        {/* Project list */}
-        <div className="z-10 w-full flex-1">
-          <div className="mb-12" ref={breakRef}>
-            <FadeUp>
-              <h2 className="font-mono text-sm uppercase tracking-[0.3em] text-neutral-500 md:text-xl">
-                Selected Works
-              </h2>
-            </FadeUp>
+    <div className="relative w-full min-h-[240px] sm:min-h-[320px] bg-zinc-950 overflow-hidden">
+      {/* Background loading skeleton that displays smoothly while fetching */}
+      {!loaded && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900/80 animate-pulse">
+          <div className="flex flex-col items-center gap-2">
+            <span className="h-4 w-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500">
+              Loading preview...
+            </span>
           </div>
+        </div>
+      )}
 
-          <div className="space-y-48">
-            {displayedProjects.map((project) => (
-              <ProjectEntry
-                key={project.name}
-                project={project}
-                onVisible={() => { setActiveProject(project.name); setIsGitHubProjectActive(false); }}
-              />
-            ))}
-            {repos.slice(0, visibleCount).map((repo) => (
-              <GithubEntry
-                key={repo.id}
-                repo={repo}
-                onVisible={() => { setActiveProject(repo.name); setIsGitHubProjectActive(true); }}
-              />
-            ))}
-          </div>
+      {useDirectImg ? (
+        <img
+          src={src}
+          alt={name}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
+          className={`w-full h-auto block transition-all duration-700 ease-out group-hover:scale-[1.01] ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ) : (
+        <Image
+          src={src}
+          alt={name}
+          width={1600}
+          height={1100}
+          sizes="(max-width: 1024px) 100vw, 800px"
+          priority={priority}
+          onLoad={() => setLoaded(true)}
+          onError={() => {
+            // Attempt direct img tag before declaring failure
+            setUseDirectImg(true);
+          }}
+          className={`w-full h-auto block transition-all duration-700 ease-out group-hover:scale-[1.01] ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      )}
+    </div>
+  );
+};
 
-          {/* Load more / collapse controls */}
-          <div className="mt-16 flex flex-col items-center gap-8">
-            <div className="flex flex-wrap justify-center gap-4">
-              {visibleCount < repos.length && (
-                <button
-                  onClick={() => setVisibleCount((c) => Math.min(c + 3, repos.length))}
-                  className="interactable flex items-center gap-3 border border-white/10 bg-white/[0.02] px-6 py-3 font-mono text-xs uppercase tracking-widest text-neutral-400 transition-all hover:border-white/30 hover:bg-white/[0.05] hover:text-white"
-                >
-                  <RiArrowUpCircleLine className="h-4 w-4 rotate-180" />
-                  discover more
-                </button>
-              )}
-              {visibleCount >= 1 && (
-                <button
-                  onClick={() => setVisibleCount((c) => Math.max(c - 3, 0))}
-                  className="interactable flex items-center gap-3 border border-white/10 bg-white/[0.02] px-6 py-3 font-mono text-xs uppercase tracking-widest text-neutral-400 transition-all hover:border-white/30 hover:bg-white/[0.05] hover:text-white"
-                >
-                  <RiArrowUpCircleLine className="h-4 w-4" />
-                  collapse
-                </button>
-              )}
-            </div>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-600">
-              Projects are dynamically fetched through GitHub API
-            </p>
+export const ProjectsSection: React.FC = () => {
+  const [projectList, setProjectList] = useState<Project[]>(fallbackProjects);
+
+  useEffect(() => {
+    getProjects().then((data) => {
+      if (data && data.length > 0) {
+        setProjectList(data);
+      }
+    });
+  }, []);
+
+  // Display top projects in vertical sequence
+  const displayProjects = projectList.slice(0, 6);
+
+  return (
+    <section
+      id="projects"
+      className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-20 md:py-28"
+    >
+      <div className="flex w-full flex-col gap-16 lg:flex-row lg:items-start lg:gap-24">
+        {/* ── Left Column: Projects Heading fixed / sticky on the side (matching Achievements) ── */}
+        <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
+          <h2 className="interactable text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
+            Projects
+          </h2>
+          <p className="mt-3 text-sm sm:text-base font-light text-zinc-400 max-w-md">
+            Selected digital products, web platforms, and distributed systems.
+          </p>
+
+          <div className="mt-8 hidden lg:block font-mono text-sm text-zinc-500">
+            <a
+              href="https://github.com/fal3n-4ngel?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="interactable inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"
+            >
+              <span>[ Browse all repositories on GitHub ]</span>
+              <span>↗</span>
+            </a>
           </div>
         </div>
 
-        {/* Sticky skills panel — desktop only */}
-        <div className="no-scrollbar sticky top-[18vh] hidden max-h-[85vh] w-80 self-start overflow-y-auto pb-12 md:block">
-          <SkillsPanel
-            activeProject={activeProject}
-            isVisible={sectionInView && !isGitHubProjectActive}
-            skillIcons={skillIcons}
-            projectSkills={dynamicProjectSkills}
-          />
+        {/* ── Right Column: Vertical Stream of Project Cards ──────────────── */}
+        <div className="flex flex-col gap-24 lg:w-1/2">
+          {displayProjects.map((project, idx) => {
+            const skills =
+              project.skills && project.skills.length > 0
+                ? project.skills
+                : projectSkills[project.name] || ["Next.js", "Full Stack"];
+
+            const projectType = project.type || "WEBSITE";
+            const projectEvent = project.event || "SIDE PROJECT";
+            const projectYear = project.date || "2024";
+
+            return (
+              <article key={project.name} className="interactable flex w-full flex-col">
+                {/* Project Title & Scope */}
+                <div className="flex flex-col mb-4">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500 mb-1.5">
+                    0{idx + 1} // {projectEvent}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-light tracking-tight text-white uppercase leading-tight">
+                    <a
+                      href={project.view || "https://github.com/fal3n-4ngel"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="interactable hover:text-zinc-300 transition-colors inline-flex items-baseline gap-2.5"
+                    >
+                      <span>{project.name}</span>
+                      <span className="text-zinc-600 font-light text-xl sm:text-2xl">↗</span>
+                    </a>
+                  </h3>
+                </div>
+
+                {/* Project Preview Image with background load support */}
+                <div className="w-full">
+                  <a
+                    href={project.view || "https://github.com/fal3n-4ngel"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative block w-full overflow-hidden rounded-xl border border-white/15 bg-zinc-950/90 shadow-xl transition-all duration-500 hover:border-white/35"
+                  >
+                    <div className="relative w-full overflow-hidden bg-zinc-950">
+                      <ProjectImage
+                        src={project.url1}
+                        name={project.name}
+                        type={projectType}
+                        priority={idx === 0}
+                      />
+
+                      {/* Subtle glass inner rim */}
+                      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all" />
+
+                      {/* Floating hover badge */}
+                      <div className="absolute top-3.5 right-3.5 flex items-center gap-1 rounded-full border border-white/20 bg-black/80 px-3 py-1 font-mono text-[11px] text-white backdrop-blur-md opacity-0 transition-all duration-300 group-hover:opacity-100 shadow-xl">
+                        <span>View Project</span>
+                        <span>↗</span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+                {/* Metadata & Description */}
+                <div className="mt-6 flex flex-col space-y-4">
+                  {/* Metadata Row */}
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] text-zinc-400 border-b border-white/5 pb-3">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-zinc-600 uppercase">Type:</span>
+                      <span className="text-zinc-200 uppercase font-medium">{projectType}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-zinc-600 uppercase">Scope:</span>
+                      <span className="text-zinc-200 font-medium">{projectEvent}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-zinc-600 uppercase">Year:</span>
+                      <span className="text-zinc-300">{projectYear}</span>
+                    </div>
+                  </div>
+
+                  {/* Tech stack badges */}
+                  <div className="flex flex-wrap gap-2">
+                    {skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-zinc-300"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Description */}
+                  {project.description && (
+                    <p className="text-sm font-light leading-relaxed text-zinc-400">
+                      {project.description}
+                    </p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
+      </div>
+
+      {/* Mobile view all link */}
+      <div className="mt-12 flex lg:hidden justify-center font-mono text-xs text-zinc-500">
+        <a
+          href="https://github.com/fal3n-4ngel?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-zinc-400 hover:text-white transition-colors"
+        >
+          [ Browse all repositories on GitHub ↗ ]
+        </a>
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-import ClientBackground from "@/components/layout/ClientBackground";
 import Maintenance from "@/components/layout/Maintenance";
 
 
@@ -161,7 +160,6 @@ export default async function RootLayout({
           <Maintenance content={maintenanceText} />
         ) : (
           <LenisProvider>
-            <ClientBackground />
             <div className="relative z-[1]">{children}</div>
           </LenisProvider>
 

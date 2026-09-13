@@ -43,7 +43,8 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
     const isResume = !!targetElement.closest(".resumeLogo");
     const isMail = !!targetElement.closest(".mailLogo");
     const isProj = !!targetElement.closest(".projImg");
-    const isInteractable = !!targetElement.closest(".interactable");
+    const isLinkOrBtn = !!targetElement.closest("a, button, [role='button']");
+    const isInteractable = !!targetElement.closest(".interactable") || isLinkOrBtn;
 
     const interactionType = isProj ? "project" : null;
     const isInteractingVal = isProj || isInteractable || isGitHub || isLinkedIn || isResume || isMail;
@@ -56,6 +57,23 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
       ) {
         return prev;
       }
+
+      if (typeof window !== "undefined") {
+        if (!prev.isInteracting && isInteractingVal) {
+          window.dispatchEvent(
+            new CustomEvent("cursor-interact", {
+              detail: { isInteracting: true, interactionType },
+            })
+          );
+        } else if (prev.isInteracting && !isInteractingVal) {
+          window.dispatchEvent(
+            new CustomEvent("cursor-interact", {
+              detail: { isInteracting: false, interactionType: null },
+            })
+          );
+        }
+      }
+
       return { isInteracting: isInteractingVal, interactionType };
     });
 
@@ -80,9 +98,19 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
   }, []);
 
   useEffect(() => {
+    const handleMouseDown = (e: MouseEvent) => {
+      window.dispatchEvent(
+        new CustomEvent("cursor-click", {
+          detail: { x: e.clientX, y: e.clientY },
+        })
+      );
+    };
+
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mousedown", handleMouseDown, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
     };
   }, [handleMouseMove]);
 
@@ -109,9 +137,9 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
       }}
       transition={{
         type: "spring",
-        damping: 20,
-        stiffness: 100,
-        mass: 0.5,
+        damping: 24,
+        stiffness: 140,
+        mass: 0.4,
       }}
       className={cursorClasses}
     />

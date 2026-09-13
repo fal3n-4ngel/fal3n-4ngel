@@ -1,64 +1,112 @@
-import FadeUp from "@/components/ui/FadeUp";
-import MagneticElement from "@/components/ui/MagneticElement";
-import { COPYRIGHT_TEXT, SOCIAL_LINKS } from "@/data/social-links";
-import { scrollToTop } from "@/lib/utils/smoothScroll";
-import { memo } from "react";
+"use client";
 
-export const Footer = memo(() => (
-  <footer className="w-full px-6 py-24 md:px-12 md:py-32">
-    <div className="mx-auto max-w-6xl">
-      {/* CTA */}
-      <FadeUp>
-        <div className="mb-20 border-t border-white/[0.08] pt-16">
-          <h2 className="font-grotesk text-4xl font-extralight tracking-tight text-[#666666] md:text-6xl lg:text-7xl">
-            Let&apos;s work <span className="text-[#e8e4e0]">together</span>
-          </h2>
-          <div className="mt-6">
-            <a
-              href="mailto:hello@adithyakrishnan.com"
-              className="interactable inline-block font-mono text-sm tracking-[0.15em] text-[#999] transition-colors duration-300 hover:text-[#e8e4e0]"
-            >
-              hello@adithyakrishnan.com →
-            </a>
+import { scrollToTop } from "@/lib/utils/smoothScroll";
+import React from "react";
+
+export const Footer: React.FC = () => {
+  return (
+    <footer className="w-full bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-16 md:py-24 text-zinc-400">
+      <div className="flex w-full flex-col justify-between gap-12">
+        {/* Navigation & Contact Columns matching Image 5 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24">
+          {/* Contact Column */}
+          <div className="flex flex-col">
+            <h4 className="text-xl font-light text-white tracking-tight mb-6">Contact</h4>
+            <div className="flex flex-col gap-3 font-sans text-xs sm:text-sm">
+              <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                <span className="text-zinc-500">GitHub</span>
+                <a
+                  href="https://github.com/fal3n-4ngel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-300 hover:text-white transition-colors"
+                >
+                  @fal3n-4ngel
+                </a>
+              </div>
+
+              <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                <span className="text-zinc-500">LinkedIn</span>
+                <a
+                  href="https://www.linkedin.com/in/fal3n-4ngel/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-300 hover:text-white transition-colors"
+                >
+                  /in/fal3n-4ngel
+                </a>
+              </div>
+
+              <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                <span className="text-zinc-500">Twitter / X</span>
+                <a
+                  href="https://twitter.com/fal3n4ngel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-300 hover:text-white transition-colors"
+                >
+                  @fal3n4ngel
+                </a>
+              </div>
+
+              <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                <span className="text-zinc-500">Email</span>
+                <a
+                  href="mailto:hello@adithyakrishnan.com"
+                  className="text-zinc-300 hover:text-white transition-colors"
+                >
+                  hello@adithyakrishnan.com
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Column */}
+          <div className="flex flex-col">
+            <h4 className="text-xl font-light text-white tracking-tight mb-6">Navigation</h4>
+            <div className="flex flex-col gap-3 font-sans text-xs sm:text-sm">
+              <button
+                onClick={scrollToTop}
+                className="flex items-center justify-between border-b border-white/5 pb-2 text-left text-zinc-300 hover:text-white transition-colors cursor-pointer"
+              >
+                <span>Adithya Krishnan</span>
+                <span className="text-zinc-500">↑</span>
+              </button>
+
+              <a
+                href="#projects"
+                className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
+              >
+                <span>Projects</span>
+                <span className="text-zinc-500">↑</span>
+              </a>
+
+              <a
+                href="#achievements"
+                className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
+              >
+                <span>Achievements</span>
+                <span className="text-zinc-500">↑</span>
+              </a>
+
+              <a
+                href="#contact"
+                className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
+              >
+                <span>Contact</span>
+                <span className="text-zinc-500">↑</span>
+              </a>
+            </div>
           </div>
         </div>
-      </FadeUp>
 
-      {/* Bottom bar */}
-      <div className="flex flex-col items-center justify-between gap-8 border-t border-white/[0.08] pt-8 md:flex-row">
-        {/* Social links */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-          {SOCIAL_LINKS.map((link) => (
-            <MagneticElement key={link.label}>
-              <a
-                href={link.href}
-                target={link.target}
-                rel={link.rel}
-                className="interactable font-mono text-[10px] uppercase tracking-[0.2em] text-[#555] transition-colors duration-300 hover:text-[#e8e4e0]"
-                aria-label={link.label}
-              >
-                {link.label}
-              </a>
-            </MagneticElement>
-          ))}
+        {/* Copyright notice */}
+        <div className="pt-8 text-xs font-mono text-zinc-600">
+          © {new Date().getFullYear()} Adithya Krishnan
         </div>
-
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#555]">
-          {COPYRIGHT_TEXT}
-        </span>
-
-        <MagneticElement>
-          <button
-            onClick={scrollToTop}
-            className="interactable font-mono text-[10px] uppercase tracking-[0.2em] text-[#555] transition-colors duration-300 hover:text-[#c4a47c]"
-            aria-label="Back to top"
-          >
-            Back to top ↑
-          </button>
-        </MagneticElement>
       </div>
-    </div>
-  </footer>
-));
+    </footer>
+  );
+};
 
-Footer.displayName = "Footer";
+export default Footer;

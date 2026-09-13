@@ -6,32 +6,31 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import LoadingPage from "./loading";
 
 import { CustomCursor } from "@/components/layout/CustomCursor";
-import { SectionTransition } from "@/components/ui/SectionTransition";
+import { StickySubHeader } from "@/components/layout/StickySubHeader";
+import { HeroGhostSection } from "@/components/sections/HeroGhostSection";
 import { useFollowPointer, useGhostEscape } from "@/hooks";
 import { getProjects } from "@/lib/integrations/notion";
 import { preloadImages } from "@/lib/preload-images";
 
-// Hard cap so a slow network or a stalled Notion fetch can't hold the
-// loading screen forever — after this we reveal the page regardless.
-const PRELOAD_TIMEOUT_MS = 4000;
+const PRELOAD_TIMEOUT_MS = 3000;
 
-const Navbar = dynamic(
-  () => import("@/components/layout/Navbar").then((mod) => ({ default: mod.Navbar })),
-  {
-    ssr: true,
-  }
-);
 const ProjectsSection = dynamic(() => import("@/components/sections/ProjectsSection"), {
   ssr: false,
 });
+const AchievementsSection = dynamic(
+  () => import("@/components/sections/AchievementsSection").then((mod) => mod.AchievementsSection),
+  { ssr: false }
+);
+const ContactSection = dynamic(
+  () => import("@/components/sections/ContactSection").then((mod) => mod.ContactSection),
+  { ssr: false }
+);
+const AsciiTextCanvas = dynamic(
+  () => import("@/components/features/AsciiTextCanvas").then((mod) => mod.AsciiTextCanvas),
+  { ssr: false }
+);
 const Footer = dynamic(
   () => import("@/components/layout/Footer").then((mod) => ({ default: mod.Footer })),
-  {
-    ssr: true,
-  }
-);
-const AboutSection = dynamic(
-  () => import("@/components/sections/AboutSection").then((mod) => ({ default: mod.AboutSection })),
   { ssr: true }
 );
 
@@ -40,15 +39,12 @@ export default function Home() {
   const { x, y } = useFollowPointer(ref);
   const [isLoading, setIsLoading] = useState(true);
   const [preloadProgress, setPreloadProgress] = useState(0);
-  const { isEscaping, triggerEscape, resetEscape } = useGhostEscape(x, y);
+  const { isEscaping } = useGhostEscape(x, y);
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
   }, []);
 
-  // Warm the browser's cache for every live project cover image (Notion/Blob
-  // URLs) while the loading screen is up, so the Projects section never
-  // shows a bare pop-in when the user scrolls to it later.
   useEffect(() => {
     let cancelled = false;
     let timedOut = false;
@@ -64,12 +60,12 @@ export default function Home() {
         const liveProjects = await getProjects();
         urls = liveProjects?.map((p) => p.url1) ?? [];
       } catch {
-        // No live data — nothing to preload, page renders with whatever the
-        // section falls back to.
+        // Fallback
       }
 
-      if (cancelled || timedOut) return;
+      if (cancelled) return;
 
+      // Continue loading images in the background even after page load!
       await preloadImages(urls, ({ loaded, total }) => {
         if (!cancelled && !timedOut) {
           setPreloadProgress(total === 0 ? 100 : Math.round((loaded / total) * 100));
@@ -84,34 +80,34 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-full min-h-screen w-full text-white">
+    <div className="h-full min-h-screen w-full bg-black text-white selection:bg-white selection:text-black">
       <AnimatePresence>
         {isLoading && <LoadingPage onComplete={handleLoadingComplete} progress={preloadProgress} />}
       </AnimatePresence>
 
       <CustomCursor x={x} y={y} isEscaping={isEscaping} />
 
-      <main
-        className="flex min-h-screen w-full flex-col items-center justify-between text-white selection:bg-white selection:text-black"
-        ref={ref}
-      >
-        <Navbar />
+      {/* Sticky Secondary Top Bar matching Image 2 */}
+      <StickySubHeader />
 
-        <div id="about" className="w-full">
-          <AboutSection
-            isEscaping={isEscaping}
-            triggerEscape={triggerEscape}
-            resetEscape={resetEscape}
-          />
-        </div>
+      <main className="flex min-h-screen w-full flex-col items-center bg-black" ref={ref}>
+        {/* Section 1: Hero with 3D Chrome Ghost & Typography (Image 1) */}
+        <HeroGhostSection />
 
-        <SectionTransition id="projects" direction="up" className="w-full" distance={50}>
-          <ProjectsSection />
-        </SectionTransition>
+        {/* Section 2: Achievements with Experience, Skills & Languages (Images 2 & 3) */}
+        <AchievementsSection />
 
-        <SectionTransition direction="up" delay={0.1} className="w-full" distance={30}>
-          <Footer />
-        </SectionTransition>
+        {/* Section 3: Projects Section */}
+        <ProjectsSection />
+
+        {/* Section 4: Contact with Email Typography and Actions (Image 4) */}
+        <ContactSection />
+
+        {/* Section 5: Interactive ASCII Text Physics Animation (Images 1-4) */}
+        <AsciiTextCanvas />
+
+        {/* Section 6: Footer with Navigation and Contact Columns (Image 5) */}
+        <Footer />
       </main>
     </div>
   );
