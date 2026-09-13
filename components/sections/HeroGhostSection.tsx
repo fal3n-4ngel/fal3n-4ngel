@@ -1006,7 +1006,7 @@ export const HeroGhostSection: React.FC = () => {
           href="/"
           className="interactable text-white font-medium hover:text-zinc-300 transition-colors tracking-wide truncate max-w-[170px] sm:max-w-none"
         >
-          adithyakrishnan.com
+          Adi
         </Link>
 
         {/* Center: Navigation Links */}
