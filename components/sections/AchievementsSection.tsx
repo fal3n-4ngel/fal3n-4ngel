@@ -57,7 +57,7 @@ export const AchievementsSection: React.FC = () => {
       className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-        {/* ── Left Column: Section Title & Subtitle (matching reference exactly) ── */}
+        {/* ── Left Column: Section Title & Subtitle ── */}
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
           <h2 className="interactable text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
             Achievements
@@ -79,128 +79,100 @@ export const AchievementsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Right Column: Experience, Skills & Awards Tables ───────────── */}
+        {/* ── Right Column: Experience, Skills & Awards ───────────── */}
         <div className="flex flex-col gap-12 sm:gap-14 lg:w-1/2">
-          {/* ── Experience Table ────────────────────────────────────────── */}
+          {/* ── Experience ────────────────────────────────────────── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Experience
             </h3>
-            <div className="w-full overflow-x-auto pb-2">
-              <table className="w-full min-w-[440px] sm:min-w-0 text-left font-sans text-sm sm:text-[15px]">
-                <thead>
-                  <tr className="border-b border-white/10 text-xs font-mono uppercase tracking-wider text-zinc-400">
-                    <th className="pb-3.5 font-normal w-5/12">WHAT</th>
-                    <th className="pb-3.5 font-normal w-4/12">WHERE</th>
-                    <th className="pb-3.5 font-normal text-right w-3/12">WHEN</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {experiences.map((exp, idx) => (
-                    <tr key={idx} className="interactable group transition-colors hover:bg-white/[0.03] cursor-default">
-                      <td className="py-4 pr-4 text-zinc-100 font-normal group-hover:text-white transition-colors">
-                        {exp.title}
-                      </td>
-                      <td className="py-4 pr-4 text-zinc-300 font-light">
-                        {exp.companyUrl ? (
-                          <a
-                            href={exp.companyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="interactable hover:text-white transition-colors underline-offset-4 hover:underline"
-                          >
-                            {exp.company}
-                          </a>
-                        ) : (
-                          exp.company
-                        )}
-                      </td>
-                      <td className="py-4 text-right font-mono text-xs sm:text-[13px] text-zinc-400 whitespace-nowrap">
-                        {exp.period}
-                      </td>
-                    </tr>
-                  ))}
-                  {/* Education row */}
-                  <tr className="interactable group transition-colors hover:bg-white/[0.03] cursor-default">
-                    <td className="py-4 pr-4 text-zinc-100 font-normal group-hover:text-white transition-colors">
-                      Bachelor of Technology (CSE)
-                    </td>
-                    <td className="py-4 pr-4 text-zinc-300 font-light">
-                      APJ Abdul Kalam Tech University
-                    </td>
-                    <td className="py-4 text-right font-mono text-xs sm:text-[13px] text-zinc-400 whitespace-nowrap">
-                      2020 - 2024
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
+              {experiences.map((exp, idx) => (
+                <div
+                  key={idx}
+                  className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
+                >
+                  <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
+                    {exp.title}
+                  </span>
+                  <span className="font-mono text-xs sm:text-[13px] text-zinc-400">
+                    {exp.companyUrl ? (
+                      <a
+                        href={exp.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="interactable hover:text-white transition-colors underline-offset-4 hover:underline"
+                      >
+                        {exp.company}
+                      </a>
+                    ) : (
+                      exp.company
+                    )}
+                    {" · "}
+                    {exp.period}
+                  </span>
+                </div>
+              ))}
+              {/* Education row */}
+              <div className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default">
+                <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
+                  Bachelor of Technology (CSE)
+                </span>
+                <span className="font-mono text-xs sm:text-[13px] text-zinc-400">
+                  APJ Abdul Kalam Tech University · 2020 - 2024
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* ── Skills Table ────────────────────────────────────────────── */}
+          {/* ── Skills ────────────────────────────────────────────── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Skills
             </h3>
-            <div className="w-full overflow-x-auto pb-2">
-              <table className="w-full min-w-[440px] sm:min-w-0 text-left font-sans text-sm sm:text-[15px]">
-                <thead>
-                  <tr className="border-b border-white/10 text-xs font-mono uppercase tracking-wider text-zinc-400">
-                    <th className="pb-3.5 font-normal w-1/3">CATEGORY</th>
-                    <th className="pb-3.5 font-normal w-2/3 text-right">TECHNOLOGIES</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {skillsData.map((item, idx) => (
-                    <tr key={idx} className="interactable group transition-colors hover:bg-white/[0.03] cursor-default">
-                      <td className="py-4 pr-4 text-zinc-100 font-medium align-top group-hover:text-white transition-colors">
-                        {item.category}
-                      </td>
-                      <td className="py-4 text-right text-zinc-300 font-light leading-relaxed">
-                        {item.technologies}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
+              {skillsData.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="interactable group flex flex-col gap-1 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
+                >
+                  <span className="text-sm sm:text-[15px] font-medium text-zinc-100 group-hover:text-white transition-colors">
+                    {item.category}
+                  </span>
+                  <span className="text-sm text-zinc-300 font-light leading-relaxed">
+                    {item.technologies}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* ── Awards Table (Replacing Languages) ───────────────────────── */}
+          {/* ── Awards ───────────────────────── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Awards
             </h3>
-            <div className="w-full overflow-x-auto pb-2">
-              <table className="w-full min-w-[440px] sm:min-w-0 text-left font-sans text-sm sm:text-[15px]">
-                <thead>
-                  <tr className="border-b border-white/10 text-xs font-mono uppercase tracking-wider text-zinc-400">
-                    <th className="pb-3.5 font-normal w-5/12">HONOR</th>
-                    <th className="pb-3.5 font-normal w-4/12">ORGANIZER / EVENT</th>
-                    <th className="pb-3.5 font-normal text-right w-3/12">YEAR</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  {awards.map((item, idx) => (
-                    <tr key={idx} className="interactable group transition-colors hover:bg-white/[0.03] cursor-default">
-                      <td className="py-4 pr-4 text-zinc-100 font-normal group-hover:text-white transition-colors">
-                        <div>{item.title}</div>
-                        {item.team && (
-                          <div className="text-xs font-mono text-zinc-400 mt-1">
-                            {item.team}
-                          </div>
-                        )}
-                      </td>
-                      <td className="py-4 pr-4 text-zinc-300 font-light">
-                        {item.org}
-                      </td>
-                      <td className="py-4 text-right font-mono text-xs sm:text-[13px] text-zinc-400 whitespace-nowrap">
-                        {item.date}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
+              {awards.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
+                >
+                  <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
+                    {item.title}
+                  </span>
+                  <span className="font-mono text-xs sm:text-[13px] text-zinc-400">
+                    {item.org}
+                    {" · "}
+                    {item.date}
+                  </span>
+                  {item.team && (
+                    <span className="text-xs font-mono text-zinc-500 mt-0.5">
+                      {item.team}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
