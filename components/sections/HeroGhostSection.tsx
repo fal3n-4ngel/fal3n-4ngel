@@ -14,6 +14,7 @@ export const HeroGhostSection: React.FC = () => {
   const [statusText, setStatusText] = useState("Alive");
   const [statusDotColor, setStatusDotColor] = useState("bg-emerald-400 shadow-[0_0_8px_#34d399]");
   const [calendarStatus, setCalendarStatus] = useState<string | null>(null);
+  const [isAscii, setIsAscii] = useState(true);
 
   const [flags, setFlags] = useState({
     isCoding: false,
@@ -141,6 +142,18 @@ export const HeroGhostSection: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3 flex-shrink-0">
+          <button
+            type="button"
+            onClick={() => setIsAscii((prev) => !prev)}
+            aria-label="Toggle 3D ASCII Ghost"
+            className="interactable flex items-center gap-1.5 px-2.5 py-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-colors font-mono text-[11px] text-zinc-300 hover:text-white cursor-pointer"
+          >
+            <span className="text-zinc-500">RENDER:</span>
+            <span className={isAscii ? "text-emerald-400 font-medium" : "text-zinc-400"}>
+              {isAscii ? "ASCII" : "3D"}
+            </span>
+          </button>
+
           <a
             href="mailto:hello@adithyakrishnan.com"
             className="interactable text-zinc-300 hover:text-white transition-colors text-xs truncate max-w-[180px] sm:max-w-none"
@@ -150,7 +163,12 @@ export const HeroGhostSection: React.FC = () => {
         </div>
       </header>
 
-      <GhostCanvas isMusic={flags.isMusic} isCoding={flags.isCoding} isGaming={flags.isGaming} />
+      <GhostCanvas
+        isMusic={flags.isMusic}
+        isCoding={flags.isCoding}
+        isGaming={flags.isGaming}
+        isAscii={isAscii}
+      />
 
       <div className="relative z-20 flex flex-1 flex-col justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
         <h1 className="interactable pointer-events-auto text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">

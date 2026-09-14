@@ -7,19 +7,26 @@ interface GhostCanvasProps {
   isMusic?: boolean;
   isCoding?: boolean;
   isGaming?: boolean;
+  isAscii?: boolean;
 }
 
 export const GhostCanvas: React.FC<GhostCanvasProps> = ({
   isMusic = false,
   isCoding = false,
   isGaming = false,
+  isAscii = true,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const flagsRef = useRef({ isMusic, isCoding, isGaming });
+  const isAsciiRef = useRef(isAscii);
 
   useEffect(() => {
     flagsRef.current = { isMusic, isCoding, isGaming };
   }, [isMusic, isCoding, isGaming]);
+
+  useEffect(() => {
+    isAsciiRef.current = isAscii;
+  }, [isAscii]);
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -39,11 +46,33 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
+      preserveDrawingBuffer: true,
       powerPreference: "high-performance",
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(initW, initH);
+    renderer.domElement.className = "absolute inset-0 transition-opacity duration-300 pointer-events-none";
     mount.appendChild(renderer.domElement);
+
+    const asciiCanvas = document.createElement("canvas");
+    asciiCanvas.className = "absolute inset-0 transition-opacity duration-300 pointer-events-none";
+    mount.appendChild(asciiCanvas);
+    const asciiCtx = asciiCanvas.getContext("2d");
+
+    const sampleCanvas = document.createElement("canvas");
+    const sampleCtx = sampleCanvas.getContext("2d", { willReadFrequently: true });
+
+    const updateAsciiSize = (w: number, h: number) => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      asciiCanvas.width = Math.floor(w * dpr);
+      asciiCanvas.height = Math.floor(h * dpr);
+      asciiCanvas.style.width = `${w}px`;
+      asciiCanvas.style.height = `${h}px`;
+      if (asciiCtx) {
+        asciiCtx.scale(dpr, dpr);
+      }
+    };
+    updateAsciiSize(initW, initH);
 
     const scene = new THREE.Scene();
     const isMobileInit = initW < 768;
@@ -576,6 +605,7 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
         }
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
+        updateAsciiSize(w, h);
         ghostBaseX = w >= 1024 ? 2.4 : 0;
       }
     };
@@ -779,6 +809,58 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
       }
 
       renderer.render(scene, camera);
+
+      if (isAsciiRef.current && asciiCtx && sampleCtx) {
+        renderer.domElement.style.opacity = "0";
+        asciiCanvas.style.opacity = "1";
+
+        const { w, h } = getDims();
+        const isMob = w < 768;
+        const charW = isMob ? 8.5 : 10;
+        const charH = isMob ? 13 : 15;
+        const cols = Math.floor(w / charW);
+        const rows = Math.floor(h / charH);
+
+        if (sampleCanvas.width !== cols || sampleCanvas.height !== rows) {
+          sampleCanvas.width = cols;
+          sampleCanvas.height = rows;
+        }
+
+        sampleCtx.clearRect(0, 0, cols, rows);
+        sampleCtx.drawImage(renderer.domElement, 0, 0, cols, rows);
+        const imgData = sampleCtx.getImageData(0, 0, cols, rows).data;
+
+        asciiCtx.clearRect(0, 0, w, h);
+        asciiCtx.font = `bold ${isMob ? 11 : 12}px monospace`;
+        asciiCtx.textAlign = "center";
+        asciiCtx.textBaseline = "middle";
+
+        const ramp = " .·:+=*#";
+        const rampLen = ramp.length - 1;
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const idx = (r * cols + c) * 4;
+            const a = imgData[idx + 3] ?? 0;
+            if (a < 10) continue;
+
+            const red = imgData[idx] ?? 0;
+            const grn = imgData[idx + 1] ?? 0;
+            const blu = imgData[idx + 2] ?? 0;
+            const bright = (0.299 * red + 0.587 * grn + 0.114 * blu) / 255;
+
+            const chIdx = Math.min(Math.floor(bright * rampLen), rampLen);
+            const ch = ramp[chIdx] || ".";
+
+            const alpha = Math.min(0.28 + bright * 0.56, 0.86);
+            asciiCtx.fillStyle = `rgba(230, 240, 248, ${alpha})`;
+            asciiCtx.fillText(ch, c * charW + charW / 2, r * charH + charH / 2);
+          }
+        }
+      } else {
+        renderer.domElement.style.opacity = "1";
+        asciiCanvas.style.opacity = "0";
+      }
     };
 
     animate();
@@ -796,6 +878,9 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
       renderer.dispose();
       if (mount.contains(renderer.domElement)) {
         mount.removeChild(renderer.domElement);
+      }
+      if (mount.contains(asciiCanvas)) {
+        mount.removeChild(asciiCanvas);
       }
 
       for (const c of codes) {

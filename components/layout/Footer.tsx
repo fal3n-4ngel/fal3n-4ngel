@@ -166,8 +166,19 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-8 text-xs font-mono text-zinc-600">
-          © {new Date().getFullYear()} Adithya Krishnan
+        <div className="pt-8 flex items-center justify-between text-xs font-mono text-zinc-600">
+          <span>© {new Date().getFullYear()} Adithya Krishnan</span>
+          <button
+            type="button"
+            onMouseEnter={() => triggerAsciiMorph("GHOST")}
+            onMouseLeave={() => triggerAsciiMorph(null)}
+            onTouchStart={() => triggerAsciiMorph("GHOST")}
+            aria-label="Ghost Mascot ASCII morph"
+            className="cursor-pointer hover:text-zinc-300 transition-colors flex items-center gap-1.5 opacity-70 hover:opacity-100"
+          >
+            <span>mascot</span>
+            <span>👻</span>
+          </button>
         </div>
       </div>
     </footer>

@@ -24,7 +24,8 @@ type AsciiIconType =
   | "navigation"
   | "projects"
   | "achievements"
-  | "calendar";
+  | "calendar"
+  | "ghost";
 
 function matchAsciiIcon(text: string): AsciiIconType | null {
   const upper = text.toUpperCase().trim();
@@ -36,6 +37,7 @@ function matchAsciiIcon(text: string): AsciiIconType | null {
   if (upper === "PROJECTS") return "projects";
   if (upper === "ACHIEVEMENTS") return "achievements";
   if (upper === "BOOK A MEETING" || upper === "CALENDAR") return "calendar";
+  if (upper.includes("GHOST") || upper.includes("MASCOT") || upper.includes("👻")) return "ghost";
   return null;
 }
 
@@ -283,6 +285,43 @@ function drawAsciiIcon(
     ctx.lineTo(cx - cw * 0.04, cy + ch * 0.3);
     ctx.lineTo(cx + cw * 0.2, cy + ch * 0.05);
     ctx.stroke();
+    return;
+  }
+
+  if (icon === "ghost") {
+    const gw = size * 0.72;
+    const gh = size * 0.95;
+    const gx = cx - gw / 2;
+    const gy = cy - gh / 2;
+
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.moveTo(gx, gy + gh * 0.45);
+    ctx.bezierCurveTo(gx, gy, gx + gw, gy, gx + gw, gy + gh * 0.45);
+    ctx.lineTo(gx + gw, gy + gh * 0.85);
+    const pleats = 4;
+    const pleatW = gw / pleats;
+    for (let i = pleats - 1; i >= 0; i--) {
+      const px = gx + i * pleatW;
+      ctx.quadraticCurveTo(px + pleatW * 0.5, gy + gh * 1.02, px, gy + gh * 0.85);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#000000";
+    const eyeW = gw * 0.12;
+    const eyeH = gh * 0.16;
+    const eyeY = gy + gh * 0.42;
+
+    ctx.beginPath();
+    ctx.ellipse(cx - gw * 0.2, eyeY, eyeW, eyeH, -0.08, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.ellipse(cx + gw * 0.2, eyeY, eyeW, eyeH, 0.08, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#ffffff";
     return;
   }
 }
