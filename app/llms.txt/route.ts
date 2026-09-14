@@ -1,7 +1,7 @@
 import { EXPERIENCE_DATA } from "@/data/experience";
 import { projects as LOCAL_PROJECTS } from "@/data/projects";
 import { SKILLS_DATA } from "@/data/skills";
-import { getAwards, getBlogs, getExperiences, getProjects } from "@/lib/integrations/notion";
+import { getAwards, getExperiences, getProjects } from "@/lib/integrations/notion";
 import { NextResponse } from "next/server";
 
 export const revalidate = 3600; // Cache for 1 hour
@@ -18,7 +18,6 @@ export async function GET() {
   }
 
   const awardsList = await getAwards().catch(() => []);
-  const blogsList = await getBlogs().catch(() => []);
 
   const markdown = `# Adithya Krishnan
 
@@ -55,19 +54,10 @@ ${
         )
         .join("\n")
     : ""
-}${
-  blogsList && blogsList.length > 0
-    ? `\n## Blog Posts\n` +
-      blogsList
-        .map(
-          (b) =>
-            `- [${b.title}](https://www.adithyakrishnan.com/blogs/${b.id}) (${b.date}): ${b.excerpt}`
-        )
-        .join("\n")
-    : ""
 }
 ## Links & Contact
 - **Website:** https://www.adithyakrishnan.com
+- **Book a Meeting:** https://www.adithyakrishnan.com/book
 - **GitHub:** https://github.com/fal3n-4ngel
 - **LinkedIn:** https://www.linkedin.com/in/fal3n-4ngel/
 - **Email:** mailto:hello@adithyakrishnan.com

@@ -134,10 +134,11 @@ export const ProjectsSection: React.FC = () => {
         {/* ── Right Column: Vertical Stream of Project Cards ──────────────── */}
         <div className="flex flex-col gap-16 sm:gap-24 lg:w-1/2">
           {displayProjects.map((project, idx) => {
-            const skills =
+            const rawSkills =
               project.skills && project.skills.length > 0
                 ? project.skills
                 : projectSkills[project.name] || ["Next.js", "Full Stack"];
+            const skills = Array.from(new Set(rawSkills));
 
             const projectType = project.type || "WEBSITE";
             const projectEvent = project.event || "SIDE PROJECT";
@@ -211,9 +212,9 @@ export const ProjectsSection: React.FC = () => {
 
                   {/* Tech stack badges */}
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {skills.map((skill) => (
+                    {skills.map((skill, sIdx) => (
                       <span
-                        key={skill}
+                        key={`${project.name}-${skill}-${sIdx}`}
                         className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 sm:px-2.5 sm:py-1 font-mono text-[10px] sm:text-[11px] text-zinc-300"
                       >
                         {skill}

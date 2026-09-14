@@ -648,6 +648,9 @@ export const HeroGhostSection: React.FC = () => {
     let lastClickTime = -10;
     let lastWinkTime = -10;
 
+    const startTime = performance.now();
+    const getElapsedTime = () => (performance.now() - startTime) * 0.001;
+
     const onPointerMove = (e: MouseEvent) => {
       const rect = mount.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -672,13 +675,13 @@ export const HeroGhostSection: React.FC = () => {
 
     const onPointerDown = (e: MouseEvent) => {
       isDragging = true;
-      lastClickTime = clock.getElapsedTime();
+      lastClickTime = getElapsedTime();
       prevMouseX = e.clientX;
       prevMouseY = e.clientY;
     };
 
     const onDoubleClick = () => {
-      lastWinkTime = clock.getElapsedTime();
+      lastWinkTime = getElapsedTime();
     };
 
     const onPointerUp = () => {
@@ -720,14 +723,14 @@ export const HeroGhostSection: React.FC = () => {
       const customEvent = e as CustomEvent<{ isInteracting: boolean }>;
       if (customEvent.detail?.isInteracting) {
         isCursorInteracting = true;
-        lastCursorInteractTime = clock.getElapsedTime();
+        lastCursorInteractTime = getElapsedTime();
       } else {
         isCursorInteracting = false;
       }
     };
 
     const onCursorClick = () => {
-      lastClickTime = clock.getElapsedTime();
+      lastClickTime = getElapsedTime();
     };
 
     mount.addEventListener("mousemove", onPointerMove);
@@ -739,11 +742,9 @@ export const HeroGhostSection: React.FC = () => {
     window.addEventListener("cursor-click", onCursorClick);
 
     // ── Animation Loop ────────────────────────────────────────────────────────
-    const clock = new THREE.Clock();
-
     const animate = () => {
       animFrameId = requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
+      const elapsed = getElapsedTime();
 
       // Skirt wave flutter animation
       const posArray = posAttr.array as Float32Array;

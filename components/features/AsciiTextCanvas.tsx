@@ -57,6 +57,111 @@ export const AsciiTextCanvas: React.FC = () => {
     const getRandomChar = () =>
       ASCII_CHARS[Math.floor(Math.random() * ASCII_CHARS.length)] || "A";
 
+    let currentText = "";
+
+    const getTargetPoints = (displayText: string) => {
+      const offscreen = document.createElement("canvas");
+      offscreen.width = width;
+      offscreen.height = height;
+      const offCtx = offscreen.getContext("2d");
+      if (!offCtx) return [];
+
+      const isMobile = width < 768;
+      const stepX = isMobile ? 12 : 9;
+      const stepY = isMobile ? 19 : 15;
+
+      const targetWidth = isMobile ? width * 0.75 : width * 0.90;
+      let fontSize = Math.floor(width / (isMobile ? 3 : 10));
+      fontSize = Math.min(Math.max(fontSize, 36), Math.floor(height * (isMobile ? 0.65 : 0.65)));
+
+      offCtx.font = `900 ${fontSize}px sans-serif`;
+      const measured = offCtx.measureText(displayText).width;
+      if (measured > 0) {
+        fontSize = Math.floor(fontSize * (targetWidth / measured));
+      }
+      fontSize = Math.min(Math.max(fontSize, 32), Math.floor(height * (isMobile ? 0.62 : 0.62)));
+
+      offCtx.font = `900 ${fontSize}px sans-serif`;
+      offCtx.textAlign = "center";
+      offCtx.textBaseline = "middle";
+      offCtx.fillStyle = "#ffffff";
+      offCtx.fillText(displayText, width / 2, height / 2);
+
+      const imgData = offCtx.getImageData(0, 0, width, height);
+      const data = imgData.data;
+      const points: { x: number; y: number }[] = [];
+
+      const startX = Math.floor((width % stepX) / 2);
+      const startY = Math.floor((height % stepY) / 2);
+
+      for (let y = startY; y < height; y += stepY) {
+        for (let x = startX; x < width; x += stepX) {
+          const index = (y * width + x) * 4;
+          const r = data[index] ?? 0;
+          if (r > 125) {
+            points.push({ x, y });
+          }
+        }
+      }
+      return points;
+    };
+
+    const morphTo = (newText: string) => {
+      if (!newText || newText === currentText || width <= 0 || height <= 0) return;
+      currentText = newText;
+
+      if (animStateRef.current !== "assembled") {
+        setAnimState("assembled");
+      }
+
+      const newPoints = getTargetPoints(newText);
+      if (newPoints.length === 0) return;
+
+      if (newPoints.length <= particles.length) {
+        for (let i = 0; i < particles.length; i++) {
+          const pt = newPoints[i % newPoints.length];
+          const p = particles[i];
+          if (pt && p) {
+            p.targetX = pt.x;
+            p.targetY = pt.y;
+            p.vx += (Math.random() - 0.5) * 5;
+            p.vy += (Math.random() - 0.5) * 5;
+          }
+        }
+      } else {
+        for (let i = 0; i < particles.length; i++) {
+          const pt = newPoints[i];
+          const p = particles[i];
+          if (pt && p) {
+            p.targetX = pt.x;
+            p.targetY = pt.y;
+            p.vx += (Math.random() - 0.5) * 5;
+            p.vy += (Math.random() - 0.5) * 5;
+          }
+        }
+        for (let i = particles.length; i < newPoints.length; i++) {
+          const pt = newPoints[i];
+          if (!pt) continue;
+          const parent =
+            particles[Math.floor(Math.random() * particles.length)] || {
+              x: width / 2,
+              y: height / 2,
+            };
+          particles.push({
+            x: parent.x + (Math.random() - 0.5) * 8,
+            y: parent.y + (Math.random() - 0.5) * 8,
+            vx: (Math.random() - 0.5) * 6,
+            vy: (Math.random() - 0.5) * 6,
+            targetX: pt.x,
+            targetY: pt.y,
+            char: getRandomChar(),
+            charTick: Math.floor(Math.random() * 40),
+            alpha: 0.88 + Math.random() * 0.12,
+          });
+        }
+      }
+    };
+
     const initParticles = () => {
       const rect = container.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -73,64 +178,47 @@ export const AsciiTextCanvas: React.FC = () => {
 
       ctx.scale(dpr, dpr);
 
-      // Offscreen canvas for typography raster sampling
-      const offscreen = document.createElement("canvas");
-      offscreen.width = width;
-      offscreen.height = height;
-      const offCtx = offscreen.getContext("2d");
-      if (!offCtx) return;
+      const defaultText = isMobile ? "Adi" : "ADITHYA KRISHNAN";
+      currentText = defaultText;
 
-      const text = isMobile ? "Adi" : "ADITHYA KRISHNAN";
+      const points = getTargetPoints(defaultText);
+      particles = points.map((pt) => ({
+        x: pt.x,
+        y: pt.y,
+        vx: 0,
+        vy: 0,
+        targetX: pt.x,
+        targetY: pt.y,
+        char: getRandomChar(),
+        charTick: Math.floor(Math.random() * 40),
+        alpha: 0.88 + Math.random() * 0.12,
+      }));
+    };
 
+    let revertTimeout: ReturnType<typeof setTimeout> | null = null;
 
-      const stepX = isMobile ? 12 : 9;
-      const stepY = isMobile ? 19 : 15;
-
-      const targetWidth = isMobile ? width * 0.75 : width * 0.90;
-      let fontSize = Math.floor(width / (isMobile ? 3 : 10));
-      fontSize = Math.min(Math.max(fontSize, 40), Math.floor(height * (isMobile ? 0.65 : 0.65)));
-
-      offCtx.font = `900 ${fontSize}px sans-serif`;
-      const measured = offCtx.measureText(text).width;
-      if (measured > 0) {
-        fontSize = Math.floor(fontSize * (targetWidth / measured));
-      }
-      fontSize = Math.min(Math.max(fontSize, 36), Math.floor(height * (isMobile ? 0.62 : 0.62)));
-
-      offCtx.font = `900 ${fontSize}px sans-serif`;
-      offCtx.textAlign = "center";
-      offCtx.textBaseline = "middle";
-      offCtx.fillStyle = "#ffffff";
-      offCtx.fillText(text, width / 2, height / 2);
-
-      const imgData = offCtx.getImageData(0, 0, width, height);
-      const data = imgData.data;
-
-      particles = [];
-
-      const startX = Math.floor((width % stepX) / 2);
-      const startY = Math.floor((height % stepY) / 2);
-
-      for (let y = startY; y < height; y += stepY) {
-        for (let x = startX; x < width; x += stepX) {
-          const index = (y * width + x) * 4;
-          const r = data[index] ?? 0;
-          if (r > 125) {
-            particles.push({
-              x: x,
-              y: y,
-              vx: 0,
-              vy: 0,
-              targetX: x,
-              targetY: y,
-              char: getRandomChar(),
-              charTick: Math.floor(Math.random() * 40),
-              alpha: 0.88 + Math.random() * 0.12,
-            });
-          }
+    const onMorphEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ text: string | null }>;
+      const targetText = customEvent.detail?.text;
+      const isMobile = width < 768;
+      const defaultText = isMobile ? "Adi" : "ADITHYA KRISHNAN";
+      if (targetText && targetText.trim()) {
+        if (revertTimeout) {
+          clearTimeout(revertTimeout);
+          revertTimeout = null;
         }
+        morphTo(targetText.trim().toUpperCase());
+      } else {
+        if (revertTimeout) clearTimeout(revertTimeout);
+        // Hold the morphed text for 400ms before reverting so the transition settles cleanly and avoids flickering
+        revertTimeout = setTimeout(() => {
+          morphTo(defaultText);
+          revertTimeout = null;
+        }, 400);
       }
     };
+
+    window.addEventListener("ascii-text-morph", onMorphEvent);
 
     const timer = setTimeout(initParticles, 50);
 
@@ -219,10 +307,10 @@ export const AsciiTextCanvas: React.FC = () => {
           // Spring force towards target
           const dx = p.targetX - p.x;
           const dy = p.targetY - p.y;
-          p.vx += dx * 0.08;
-          p.vy += dy * 0.08;
-          p.vx *= 0.72;
-          p.vy *= 0.72;
+          p.vx += dx * 0.07;
+          p.vy += dy * 0.07;
+          p.vx *= 0.76;
+          p.vy *= 0.76;
 
           // Local cursor repulsion
           if (isMouseInside) {
@@ -300,8 +388,10 @@ export const AsciiTextCanvas: React.FC = () => {
     render();
 
     return () => {
+      if (revertTimeout) clearTimeout(revertTimeout);
       clearTimeout(timer);
       cancelAnimationFrame(animFrameId);
+      window.removeEventListener("ascii-text-morph", onMorphEvent);
       window.removeEventListener("resize", initParticles);
       canvas.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);

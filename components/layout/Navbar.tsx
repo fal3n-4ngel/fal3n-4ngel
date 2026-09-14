@@ -1,43 +1,70 @@
 "use client";
 
-import MagneticElement from "@/components/ui/MagneticElement";
-import { motion } from "framer-motion";
 import Link from "next/link";
+import React from "react";
 
-export const Navbar = () => (
-  <motion.nav
-    initial={{ y: -100, opacity: 0 }}
-    animate={{ y: 0, opacity: 1 }}
-    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-    className="fixed left-0 right-0 top-0 z-50 w-full py-8 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:py-12"
-  >
-    <div className="mx-auto flex max-w-7xl items-center justify-between border border-transparent bg-transparent px-12 py-8 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+interface NavbarProps {
+  current?: "writing" | "book" | "home" | string;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ current }) => (
+  <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between border-b border-white/10 bg-black/85 px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-4 backdrop-blur-md transition-all duration-300">
+    <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
       <Link
         href="/"
-        className="interactable font-space font-mono text-2xl font-light tracking-wider text-white transition-opacity hover:opacity-80"
+        className="interactable text-xs font-medium text-white tracking-wide hover:text-zinc-300 transition-colors truncate"
       >
-        Adi.
+        Adithya Krishnan
       </Link>
-      <div className="flex items-center gap-5 font-mono text-[11px] tracking-[0.1em] text-white/50 md:gap-10 md:text-[14px]">
-        <MagneticElement>
-          <a
-            href="/Resume_Adithya_Krishnan_sept.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="interactable transition-colors duration-300 hover:text-white"
-          >
-            resume
-          </a>
-        </MagneticElement>
-        <MagneticElement>
-          <a
-            href="mailto:hello@adithyakrishnan.com"
-            className="interactable transition-colors duration-300 hover:text-white"
-          >
-            contact
-          </a>
-        </MagneticElement>
-      </div>
+      <span className="text-zinc-700 hidden sm:inline">/</span>
+      <span className="hidden sm:inline text-[11px] text-zinc-500 font-mono">
+        Software Engineer
+      </span>
+      {current && current !== "home" && (
+        <>
+          <span className="text-zinc-700">/</span>
+          <span className="text-[11px] text-zinc-300 font-mono capitalize">
+            {current}
+          </span>
+        </>
+      )}
     </div>
-  </motion.nav>
+
+    <nav className="flex items-center gap-3.5 sm:gap-6 text-[11px] sm:text-[12px] font-mono flex-shrink-0">
+      <div className="hidden sm:flex items-center gap-1.5 sm:gap-2 text-zinc-300">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399] flex-shrink-0" />
+        <span>Available Today</span>
+      </div>
+      <Link
+        href="/#projects"
+        className="interactable text-zinc-400 hover:text-white transition-colors"
+      >
+        Projects
+      </Link>
+      <Link
+        href="/book"
+        className={`interactable transition-colors ${
+          current === "book" ? "text-white font-medium" : "text-zinc-400 hover:text-white"
+        }`}
+      >
+        Book Meeting
+      </Link>
+      <Link
+        href="/#contact"
+        className="interactable text-zinc-400 hover:text-white transition-colors"
+      >
+        Contact
+      </Link>
+      <a
+        href="/Resume_Adithya_Krishnan_sept.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="interactable hidden md:inline text-zinc-500 hover:text-zinc-300 transition-colors"
+      >
+        Resume ↗
+      </a>
+    </nav>
+  </header>
 );
+
+export default Navbar;

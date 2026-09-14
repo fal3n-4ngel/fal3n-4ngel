@@ -1,6 +1,6 @@
 import { fetchGithubData } from "@/lib/integrations/github";
 import { getCalendarEvents, getAvailabilityStatus } from "@/lib/integrations/google-calendar";
-import { getBlogs, getExperiences, getProjects } from "@/lib/integrations/notion";
+import { getExperiences, getProjects } from "@/lib/integrations/notion";
 import { getNowPlaying } from "@/lib/integrations/spotify";
 import { NextResponse } from "next/server";
 
@@ -9,11 +9,10 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     // Fetch stats concurrently using Promise.allSettled for maximum fault tolerance
-    const [spotifyResult, githubResult, blogsResult, projectsResult, experiencesResult, calendarResult] =
+    const [spotifyResult, githubResult, projectsResult, experiencesResult, calendarResult] =
       await Promise.allSettled([
         getNowPlaying(),
         fetchGithubData(),
-        getBlogs(),
         getProjects(),
         getExperiences(),
         getCalendarEvents(),
@@ -32,7 +31,6 @@ export async function GET() {
       : null;
 
     const notion = {
-      blogsCount: blogsResult.status === "fulfilled" ? blogsResult.value.length : 0,
       projectsCount: projectsResult.status === "fulfilled" ? projectsResult.value.length : 0,
       experiencesCount: experiencesResult.status === "fulfilled" ? experiencesResult.value.length : 0,
     };

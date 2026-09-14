@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export const StickySubHeader: React.FC = () => {
@@ -40,6 +41,12 @@ export const StickySubHeader: React.FC = () => {
           <span className="hidden sm:inline">Available Today</span>
           <span className="sm:hidden">Available</span>
         </div>
+        <Link
+          href="/book"
+          className="text-zinc-400 hover:text-white transition-colors"
+        >
+          Book a Call
+        </Link>
         <a
           href="#contact"
           className="text-zinc-400 hover:text-white transition-colors"

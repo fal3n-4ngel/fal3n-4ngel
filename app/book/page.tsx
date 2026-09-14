@@ -1,9 +1,11 @@
 "use client";
 
 import { CustomCursor } from "@/components/layout/CustomCursor";
+import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import FadeUp from "@/components/ui/FadeUp";
 import { useFollowPointer } from "@/hooks";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { RiCalendarCheckLine, RiLoader4Line, RiTimeLine } from "react-icons/ri";
 
@@ -145,31 +147,43 @@ export default function BookMeetingPage() {
 
   return (
     <div
-      className="flex h-full min-h-screen w-full flex-col justify-between bg-black text-white"
+      className="flex min-h-screen w-full flex-col justify-between bg-black text-white selection:bg-white selection:text-black"
       ref={ref}
     >
-      <Navbar />
+      <Navbar current="book" />
       <CustomCursor x={x} y={y} />
 
-      <main className="mx-auto w-full max-w-5xl px-6 pb-24 pt-32 sm:px-8 md:px-12 md:pt-40">
-        <div className="mb-12 space-y-4">
+      <main className="w-full flex-1 px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 max-w-7xl mx-auto">
+        <div className="mb-10 sm:mb-14 space-y-4">
           <FadeUp>
-            <div className="flex items-center gap-3">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-              <h1 className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-500">
-                Scheduling
-              </h1>
+            <div className="mb-4">
+              <Link
+                href="/"
+                className="interactable inline-flex items-center gap-2 font-mono text-[11px] text-zinc-500 hover:text-white transition-colors"
+              >
+                <span>←</span>
+                <span>Return to Portfolio</span>
+              </Link>
             </div>
           </FadeUp>
+
           <FadeUp>
-            <h2 className="text-3xl font-light tracking-tight text-white md:text-5xl">
-              Book a Virtual Meeting
-            </h2>
+            <div className="flex items-center gap-2.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-zinc-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+              <span>Calendar Scheduling // Live Google Sync</span>
+            </div>
           </FadeUp>
+
           <FadeUp>
-            <p className="max-w-2xl text-sm font-light text-neutral-400 md:text-base">
-              Select a date and time slot to sync with me. Slots are defined in Asia/Kolkata (IST)
-              but displayed below in your local browser timezone.
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white uppercase">
+              Book a Virtual Meeting
+            </h1>
+          </FadeUp>
+
+          <FadeUp>
+            <p className="max-w-2xl text-sm sm:text-base font-light text-zinc-400 leading-relaxed">
+              Select a date, duration, and time slot to sync with me. Slots are defined in Asia/Kolkata (IST)
+              and automatically translated to your local browser timezone.
             </p>
           </FadeUp>
         </div>
@@ -416,6 +430,8 @@ export default function BookMeetingPage() {
           </div>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 }

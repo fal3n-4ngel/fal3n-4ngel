@@ -19,6 +19,7 @@ const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 const API_KEY = process.env.GOOGLE_API_KEY;
 const READONLY_CALENDAR_IDS = process.env.GOOGLE_READONLY_CALENDAR_IDS;
+let hasWarnedCredentials = false;
 
 const getFormattedPrivateKey = () => {
   if (!PRIVATE_KEY) return undefined;
@@ -156,7 +157,10 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
       });
     }
 
-    console.warn("⚠️ Missing Google Calendar credentials. Configure either Service Account (GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_PRIVATE_KEY) or API Key (GOOGLE_API_KEY).");
+    if (!hasWarnedCredentials) {
+      console.warn("⚠️ Missing Google Calendar credentials. Configure either Service Account (GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_PRIVATE_KEY) or API Key (GOOGLE_API_KEY).");
+      hasWarnedCredentials = true;
+    }
     return [];
   } catch (error) {
     console.error("❌ Failed to fetch calendar events from Google:", error);

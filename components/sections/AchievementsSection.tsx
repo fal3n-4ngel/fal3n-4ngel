@@ -119,7 +119,14 @@ export const AchievementsSection: React.FC = () => {
                   Bachelor of Technology (CSE)
                 </span>
                 <span className="font-mono text-xs sm:text-[13px] text-zinc-400">
-                  APJ Abdul Kalam Tech University · 2020 - 2024
+                  <a
+                    href="https://ktu.edu.in/?ref=adithyakrishnan.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="interactable hover:text-white transition-colors underline-offset-4 hover:underline"
+                  >
+                    APJ Abdul Kalam Technological University</a> · 2021 - 2025
+                  
                 </span>
               </div>
             </div>

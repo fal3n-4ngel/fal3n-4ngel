@@ -70,7 +70,7 @@ const BLOCKCHAIN_STACK = ["Blockchain", "Solidity", "Firebase", "Ethereum"];
 const AI_STACK = ["Python", "AI/ML"];
 
 export const projectSkills: Record<string, string[]> = {
-  "PHub Dashboard": [...WEB_STACK, "Firebase", "TypeScript", "Tailwind CSS"],
+  "PHub Dashboard": [...WEB_STACK, "Firebase"],
   DASH: [...WEB_STACK, "Tauri", "Python", "Serverless", "Peer to Peer"],
   "FLASH DRIVE": [...WEB_STACK, "Firebase", ...AI_STACK, "Stable Diffusion"],
   Tuples: [...WEB_STACK, "Firebase", ...AI_STACK],
@@ -84,7 +84,7 @@ export const projectSkills: Record<string, string[]> = {
 
 export const projects: Project[] = [
   {
-    url1: "/PHubDashboard.png",
+    url1: "/Continuum.png",
     name: "PHub Dashboard",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -94,7 +94,7 @@ export const projects: Project[] = [
       "A dynamic personal dashboard hub for managing expenses, media watchlist (anime/movies/shows), and custom integrations with Firebase Authentication and OpenAPI support.",
   },
   {
-    url1: "/dash.png",
+    url1: "/Dash.png",
     name: "DASH",
     type: PROJECT_TYPES.DESKTOP,
     event: EVENT_TYPES.COLLEGE,
@@ -104,7 +104,7 @@ export const projects: Project[] = [
       "DASH - Distributed Adaptive Serverless Hosting offers a peer-to-peer, cost-effective, and efficient alternative for hosting serverless functions. It delivers a streamlined solution designed with developers in mind, providing simplicity and effectiveness without compromising performance.",
   },
   {
-    url1: "/Flash1.png",
+    url1: "/Flashdrive.png",
     name: "FLASH DRIVE",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -134,7 +134,7 @@ export const projects: Project[] = [
       "A Next.js-powered local streaming solution that turns your computer into a personal media server. Built to solve the problem of limited mobile storage, SOYO lets you stream your video library across all devices on your network through a clean, modern interface.",
   },
   {
-    url1: "/smartcertify.png",
+    url1: "/Smartcertify.png",
     name: "SMART CERTIFY",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.BLOCKHASH,
@@ -144,7 +144,7 @@ export const projects: Project[] = [
       "A blockchain-based certification platform that uniquely identifies organizations through secure wallet IDs and authenticates users via AADHAR integration, ensuring tamper-proof documentation. This project secured the winning spot at BlockHash 2023 by the Kerala Blockchain Academy.",
   },
   {
-    url1: "/betterfunds.png",
+    url1: "/Betterfunds.png",
     name: "BETTER FUNDS",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.HACKATHON,
@@ -154,7 +154,7 @@ export const projects: Project[] = [
       "Developed in a 24-hour hackathon (Zilckathon - HFT), Better Funds is a blockchain-based incentivized crowdfunding platform. Contributors earn tokens proportional to their contributions, which can be redeemed in a marketplace.",
   },
   {
-    url1: "/Sustaina1.png",
+    url1: "/SustainableGoals.png",
     name: "SUS GOALS",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -164,7 +164,7 @@ export const projects: Project[] = [
       "A college project centered on promoting sustainable development goals (SDGs). SUS Goals provides users with daily tasks to complete and maintains a global counter of completed tasks, helping SDGs through an engaging digital experience.",
   },
   {
-    url1: "/Drish.png",
+    url1: "/Drishti.png",
     name: "DRISHTI",
     type: PROJECT_TYPES.MOBILE,
     event: EVENT_TYPES.HACKATHON,
@@ -174,7 +174,7 @@ export const projects: Project[] = [
       "Drishti simplifies hazard reporting and notifications, focusing on incidents like snapped powerlines or broken pipelines. Developed for Define Hack 2022, it enables users to report hazards, receive alerts, and track report status, while admins manage responses through a web service.",
   },
   {
-    url1: "/Ctrack.png",
+    url1: "/Ctracker.png",
     name: "C-TRACKER",
     type: PROJECT_TYPES.JAVA_SWING,
     event: EVENT_TYPES.COLLEGE,
