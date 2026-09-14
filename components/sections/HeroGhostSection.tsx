@@ -179,7 +179,7 @@ export const HeroGhostSection: React.FC = () => {
         isGaming={flags.isGaming}
       />
 
-      <div className="relative z-20 flex flex-1 flex-col justify-end pb-8 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
+      <div className="relative z-20 flex flex-1 flex-col justify-end pb-6 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
         <h1 className="interactable pointer-events-auto text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">
           <span className="text-white font-normal">I’m Adi</span>
           <span className="text-zinc-500 font-light mx-2 sm:mx-3">—</span>
@@ -190,7 +190,7 @@ export const HeroGhostSection: React.FC = () => {
           </span>
         </h1>
 
-        <blockquote className="interactable pointer-events-auto mt-6 sm:mt-8 border-l border-white/20 pl-3.5 sm:pl-4 max-w-xl">
+        <blockquote className="hidden sm:block interactable pointer-events-auto mt-6 sm:mt-8 border-l border-white/20 pl-3.5 sm:pl-4 max-w-xl">
           <p className="font-mono text-xs sm:text-[13px] text-zinc-300 italic leading-relaxed">
             “Like I always say, can&apos;t find a door? Make your own.”
           </p>
@@ -201,30 +201,30 @@ export const HeroGhostSection: React.FC = () => {
       </div>
 
       <footer className="relative z-30 flex w-full items-end justify-between pt-4 pb-2 sm:pb-0 pointer-events-none gap-4">
-        <div className="flex flex-col gap-1.5 pointer-events-auto max-w-[80%] sm:max-w-none">
-          <div className="flex items-center gap-2 text-left">
-            <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform`} />
-            <span
-              className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium truncate"
-              title={statusText}
-            >
-              {statusText}
-            </span>
+          <div className="flex flex-col gap-1.5 pointer-events-auto max-w-[80%] sm:max-w-none">
+            <div className="flex items-center gap-2 text-left">
+              <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform`} />
+              <span
+                className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium truncate"
+                title={statusText}
+              >
+                {statusText}
+              </span>
+            </div>
+            <div className="font-mono text-[10px] sm:text-[11px] text-zinc-500 tracking-widest uppercase truncate">
+              Software Engineer · Kerala, India
+            </div>
           </div>
-          <div className="font-mono text-[10px] sm:text-[11px] text-zinc-500 tracking-widest uppercase truncate">
-            Software Engineer · Kerala, India
-          </div>
-        </div>
 
-        <a
-          href="#achievements"
-          aria-label="Scroll to achievements"
-          className="interactable group pointer-events-auto flex items-center justify-center p-2 text-zinc-400 hover:text-white transition-colors text-lg flex-shrink-0"
-        >
-          <span className="transition-transform duration-300 group-hover:translate-y-1">
-            ↓
-          </span>
-        </a>
+          <a
+            href="#achievements"
+            aria-label="Scroll to achievements"
+            className="interactable group pointer-events-auto flex items-center justify-center p-2 text-zinc-400 hover:text-white transition-colors text-lg flex-shrink-0"
+          >
+            <span className="transition-transform duration-300 group-hover:translate-y-1">
+              ↓
+            </span>
+          </a>
       </footer>
     </section>
   );

@@ -166,6 +166,15 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
+        <blockquote className="block sm:hidden border-l border-white/20 pl-3.5 max-w-sm">
+          <p className="font-mono text-xs text-zinc-300 italic leading-relaxed">
+            “Like I always say, can&apos;t find a door? Make your own.”
+          </p>
+          <cite className="mt-1.5 block font-mono text-[11px] text-zinc-500 not-italic">
+            — Edward Elric, Fullmetal Alchemist
+          </cite>
+        </blockquote>
+
         <div className="pt-8 flex items-center justify-between text-xs font-mono text-zinc-600">
           <span>© {new Date().getFullYear()} Adithya Krishnan</span>
           <button
