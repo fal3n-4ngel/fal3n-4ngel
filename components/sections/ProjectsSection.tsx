@@ -43,7 +43,7 @@ const ProjectImage: React.FC<{
   }
 
   return (
-    <div className="relative w-full min-h-[190px] xs:min-h-[220px] sm:min-h-[320px] bg-zinc-950 overflow-hidden">
+    <div className={`relative w-full overflow-hidden ${!loaded ? "aspect-[16/10] bg-zinc-950" : ""}`}>
       {/* Background loading skeleton that displays smoothly while fetching */}
       {!loaded && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900/80 animate-pulse">

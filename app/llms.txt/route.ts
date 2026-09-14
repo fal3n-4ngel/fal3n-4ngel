@@ -71,7 +71,7 @@ ${
 - **GitHub:** https://github.com/fal3n-4ngel
 - **LinkedIn:** https://www.linkedin.com/in/fal3n-4ngel/
 - **Email:** mailto:hello@adithyakrishnan.com
-- **Resume:** https://www.adithyakrishnan.com/Resume_Adithya_Krishnan.pdf
+- **Resume:** https://www.adithyakrishnan.com/Resume_Adithya_Krishnan_sept.pdf
 `;
 
   return new NextResponse(markdown, {

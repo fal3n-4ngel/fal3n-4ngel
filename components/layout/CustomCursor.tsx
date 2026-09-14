@@ -13,7 +13,7 @@ type CustomCursorProps = {
 export const CustomCursor: React.FC<CustomCursorProps> = ({
   x,
   y,
-  isEscaping = false,
+  isEscaping: _isEscaping = false,
 }) => {
 
 

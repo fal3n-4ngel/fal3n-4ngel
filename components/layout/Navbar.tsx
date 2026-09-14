@@ -21,7 +21,7 @@ export const Navbar = () => (
       <div className="flex items-center gap-5 font-mono text-[11px] tracking-[0.1em] text-white/50 md:gap-10 md:text-[14px]">
         <MagneticElement>
           <a
-            href="/Resume_Adithya_Krishnan.pdf"
+            href="/Resume_Adithya_Krishnan_sept.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="interactable transition-colors duration-300 hover:text-white"

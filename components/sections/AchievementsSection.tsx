@@ -68,7 +68,7 @@ export const AchievementsSection: React.FC = () => {
 
           <div className="mt-6 sm:mt-8 font-mono text-xs sm:text-sm">
             <a
-              href="/Resume_Adithya_Krishnan.pdf"
+              href="/Resume_Adithya_Krishnan_sept.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="interactable inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"

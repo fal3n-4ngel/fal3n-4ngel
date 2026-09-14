@@ -11,19 +11,12 @@ export const HeroGhostSection: React.FC = () => {
   const [statusText, setStatusText] = useState("Alive");
   const [statusDotColor, setStatusDotColor] = useState("bg-emerald-400 shadow-[0_0_8px_#34d399]");
   const [calendarStatus, setCalendarStatus] = useState<string | null>(null);
-  const [forceHeadset, setForceHeadset] = useState(false);
 
   const flagsRef = useRef({
     isCoding: false,
     isMusic: false,
     isGaming: false,
-    forceHeadset: false,
   });
-
-  // Keep ref in sync with forceHeadset
-  useEffect(() => {
-    flagsRef.current.forceHeadset = forceHeadset;
-  }, [forceHeadset]);
 
   // Hook into live Discord / Calendar status if available
   const { data: lanyardData } = useLanyard("849515993546096660");
@@ -84,25 +77,31 @@ export const HeroGhostSection: React.FC = () => {
         !act.name.toLowerCase().includes("cursor")
     );
 
-    const coding = !!vsCodeAct;
-    const music = lanyardData.listening_to_spotify;
+    const music = !!lanyardData.listening_to_spotify || flagsRef.current.isMusic;
+    // If two states are together like coding and music, use only 1: music!
+    const coding = !!vsCodeAct && !music;
+    const gaming = !!gameAct && !music && !coding;
 
     flagsRef.current.isCoding = coding;
-    flagsRef.current.isMusic = music || flagsRef.current.isMusic;
-    flagsRef.current.isGaming = !!gameAct;
+    flagsRef.current.isMusic = music;
+    flagsRef.current.isGaming = gaming;
 
-    if (coding && vsCodeAct) {
+    if (music) {
+      const spotify = lanyardData.activities?.find((act) => act.name === "Spotify");
+      const song = spotify?.details
+        ? `${spotify.details} - ${spotify.state}`
+        : statusText.startsWith("Listening to:")
+        ? statusText.replace("Listening to: ", "")
+        : "Spotify";
+      setStatusText(`Listening to: ${song}`);
+      setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse");
+    } else if (coding && vsCodeAct) {
       const detail = vsCodeAct.details || vsCodeAct.state || "VS Code";
       setStatusText(`Coding: ${detail}`);
       setStatusDotColor("bg-blue-400 shadow-[0_0_8px_#60a5fa] animate-pulse");
-    } else if (gameAct) {
+    } else if (gaming && gameAct) {
       setStatusText(`Playing: ${gameAct.name}`);
       setStatusDotColor("bg-purple-400 shadow-[0_0_8px_#c084fc] animate-pulse");
-    } else if (music) {
-      const spotify = lanyardData.activities?.find((act) => act.name === "Spotify");
-      const song = spotify?.details ? `${spotify.details} - ${spotify.state}` : "Spotify";
-      setStatusText(`Listening to: ${song}`);
-      setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse");
     } else if (calendarStatus === "Busy") {
       setStatusText("Busy (In a meeting)");
       setStatusDotColor("bg-amber-400 shadow-[0_0_8px_#fbbf24]");
@@ -768,7 +767,7 @@ export const HeroGhostSection: React.FC = () => {
       ghostMaterial.opacity = 0.14 + Math.min(Math.abs(mouseX) + Math.abs(mouseY), 1.0) * 0.08 + hoverBoost;
 
       // Music head-bob rhythm
-      if (flagsRef.current.isMusic || flagsRef.current.forceHeadset) {
+      if (flagsRef.current.isMusic) {
         ghostGroup.position.y += Math.sin(elapsed * 4.0) * 0.04;
         ghostGroup.rotation.z = Math.sin(elapsed * 2.5) * 0.04;
       } else {
@@ -776,13 +775,9 @@ export const HeroGhostSection: React.FC = () => {
         ghostGroup.rotation.z = Math.sin(elapsed * 1.2) * 0.04;
       }
 
-      // Headset scale transition (Shown during Spotify music, gaming, or when toggled)
+      // Headset scale transition (Shown during Spotify music or gaming)
       const targetHeadsetScale =
-        flagsRef.current.isMusic ||
-        flagsRef.current.isGaming ||
-        flagsRef.current.forceHeadset
-          ? 1.0
-          : 0.0;
+        flagsRef.current.isMusic || flagsRef.current.isGaming ? 1.0 : 0.0;
       headsetScale += (targetHeadsetScale - headsetScale) * 0.08;
       if (headsetScale > 0.01) {
         headsetGroup.visible = true;
@@ -791,8 +786,10 @@ export const HeroGhostSection: React.FC = () => {
         headsetGroup.visible = false;
       }
 
-      // Coding glasses scale transition
-      const targetGlassesScale = flagsRef.current.isCoding ? 1.0 : 0.0;
+      // Coding glasses scale transition (suppressed if music is active)
+      const isMusicActive = flagsRef.current.isMusic;
+      const isCodingActive = flagsRef.current.isCoding && !isMusicActive;
+      const targetGlassesScale = isCodingActive ? 1.0 : 0.0;
       glassesScale += (targetGlassesScale - glassesScale) * 0.1;
       glassesGroup.scale.set(glassesScale, glassesScale, glassesScale);
       glassesGroup.visible = glassesScale > 0.01;
@@ -853,8 +850,8 @@ export const HeroGhostSection: React.FC = () => {
 
       // Eye concentration scaling during coding + curious widening when tracking cursor / hovering interactables
       const curiosity = Math.min(Math.abs(mouseX) + Math.abs(mouseY), 1.0) + (isCursorInteracting ? 0.25 : 0);
-      const baseEyeScaleY = flagsRef.current.isCoding ? 0.72 : 1.0 + curiosity * 0.08;
-      const baseEyeScaleX = flagsRef.current.isCoding ? 0.94 : 1.0 + curiosity * 0.04;
+      const baseEyeScaleY = isCodingActive ? 0.72 : 1.0 + curiosity * 0.08;
+      const baseEyeScaleX = isCodingActive ? 0.94 : 1.0 + curiosity * 0.04;
 
       eyeScaleY += (baseEyeScaleY - eyeScaleY) * 0.1;
       eyeScaleX += (baseEyeScaleX - eyeScaleX) * 0.1;
@@ -863,9 +860,9 @@ export const HeroGhostSection: React.FC = () => {
       leftEye.scale.set(eyeScaleX, Math.max(eyeScaleY * blinkFactor * leftWinkFactor, 0.04), 1.0);
       rightEye.scale.set(eyeScaleX, Math.max(eyeScaleY * blinkFactor * rightWinkFactor, 0.04), 1.0);
 
-      // Animate Floating Code Particles (When coding)
+      // Animate Floating Code Particles (When coding and not music)
       for (const c of codes) {
-        if (flagsRef.current.isCoding) {
+        if (isCodingActive) {
           c.mesh.visible = true;
           c.age += c.speedY;
           if (c.age > 1.0) c.age = 0.0;
@@ -895,9 +892,9 @@ export const HeroGhostSection: React.FC = () => {
         }
       }
 
-      // Animate Floating Music Notes (When playing Spotify or headset preview)
+      // Animate Floating Music Notes (When playing Spotify)
       for (const n of notes) {
-        if (flagsRef.current.isMusic || flagsRef.current.forceHeadset) {
+        if (flagsRef.current.isMusic) {
           n.mesh.visible = true;
           n.age += n.speedY;
           if (n.age > 1.0) n.age = 0.0;
@@ -1051,28 +1048,28 @@ export const HeroGhostSection: React.FC = () => {
             building for the web, cloud, and everything in between.
           </span>
         </h1>
+
+        {/* Option 1: Personal Philosophy Quote */}
+        <blockquote className="interactable pointer-events-auto mt-6 sm:mt-8 border-l border-white/20 pl-3.5 sm:pl-4 max-w-xl">
+          <p className="font-mono text-xs sm:text-[13px] text-zinc-300 italic leading-relaxed">
+            “Like I always say, can&apos;t find a door? Make your own.”
+          </p>
+          <cite className="mt-1.5 block font-mono text-[11px] text-zinc-500 not-italic">
+            — Edward Elric, Fullmetal Alchemist
+          </cite>
+        </blockquote>
       </div>
 
       {/* ── Bottom Section: Location & Live Status & Scroll Arrow ───────────── */}
       <footer className="relative z-30 flex w-full items-end justify-between pt-4 pb-2 sm:pb-0 pointer-events-none gap-4">
         {/* Bottom Left: Live Activity Status & Location */}
         <div className="flex flex-col gap-1.5 pointer-events-auto max-w-[80%] sm:max-w-none">
-          <button
-            type="button"
-            onClick={() => setForceHeadset((prev) => !prev)}
-            className="interactable flex items-center gap-2 group cursor-pointer text-left focus:outline-none"
-            title="Click to toggle headset & music animation"
-          >
-            <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform group-hover:scale-125`} />
-            <span className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium group-hover:text-white transition-colors truncate">
+          <div className="flex items-center gap-2 text-left">
+            <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform`} />
+            <span className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium truncate">
               {statusText}
             </span>
-            {forceHeadset && (
-              <span className="text-[9px] sm:text-[10px] font-mono text-zinc-300 border border-zinc-700 bg-white/5 px-1.5 py-0.5 rounded ml-1 flex-shrink-0">
-                HEADSET ON
-              </span>
-            )}
-          </button>
+          </div>
           <div className="font-mono text-[10px] sm:text-[11px] text-zinc-500 tracking-widest uppercase truncate">
             Software Engineer · Kerala, India
           </div>

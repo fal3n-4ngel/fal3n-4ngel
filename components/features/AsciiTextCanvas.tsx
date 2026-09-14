@@ -14,7 +14,7 @@ interface AsciiParticle {
   alpha: number;
 }
 
-const ASCII_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@&%$*!?+=<>~";
+const ASCII_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@&%$*!?+=<>~";
 
 export const AsciiTextCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,17 +82,20 @@ export const AsciiTextCanvas: React.FC = () => {
 
       const text = isMobile ? "Adi" : "ADITHYA KRISHNAN";
 
-      // Scale font size: on mobile "Adi" fills ~75% of width; on desktop full name fills ~90%
+
+      const stepX = isMobile ? 12 : 9;
+      const stepY = isMobile ? 19 : 15;
+
       const targetWidth = isMobile ? width * 0.75 : width * 0.90;
-      let fontSize = Math.floor(width / (isMobile ? 3 : 12));
-      fontSize = Math.min(Math.max(fontSize, 36), Math.floor(height * (isMobile ? 0.62 : 0.45)));
+      let fontSize = Math.floor(width / (isMobile ? 3 : 10));
+      fontSize = Math.min(Math.max(fontSize, 40), Math.floor(height * (isMobile ? 0.65 : 0.65)));
 
       offCtx.font = `900 ${fontSize}px sans-serif`;
       const measured = offCtx.measureText(text).width;
       if (measured > 0) {
         fontSize = Math.floor(fontSize * (targetWidth / measured));
       }
-      fontSize = Math.min(Math.max(fontSize, 32), Math.floor(height * (isMobile ? 0.60 : 0.42)));
+      fontSize = Math.min(Math.max(fontSize, 36), Math.floor(height * (isMobile ? 0.62 : 0.62)));
 
       offCtx.font = `900 ${fontSize}px sans-serif`;
       offCtx.textAlign = "center";
@@ -103,25 +106,26 @@ export const AsciiTextCanvas: React.FC = () => {
       const imgData = offCtx.getImageData(0, 0, width, height);
       const data = imgData.data;
 
-      // Density step proportional to font size - fine-grained for crisp mobile rendering
-      const step = isMobile ? 6 : Math.max(Math.floor(fontSize / 8), 6);
       particles = [];
 
-      for (let y = 0; y < height; y += step) {
-        for (let x = 0; x < width; x += step) {
+      const startX = Math.floor((width % stepX) / 2);
+      const startY = Math.floor((height % stepY) / 2);
+
+      for (let y = startY; y < height; y += stepY) {
+        for (let x = startX; x < width; x += stepX) {
           const index = (y * width + x) * 4;
           const r = data[index] ?? 0;
-          if (r > 100) {
+          if (r > 125) {
             particles.push({
-              x: x + (Math.random() - 0.5) * 3,
-              y: y + (Math.random() - 0.5) * 3,
-              vx: (Math.random() - 0.5) * 0.3,
-              vy: (Math.random() - 0.5) * 0.3,
+              x: x,
+              y: y,
+              vx: 0,
+              vy: 0,
               targetX: x,
               targetY: y,
               char: getRandomChar(),
               charTick: Math.floor(Math.random() * 40),
-              alpha: 0.8 + Math.random() * 0.2,
+              alpha: 0.88 + Math.random() * 0.12,
             });
           }
         }
@@ -197,7 +201,7 @@ export const AsciiTextCanvas: React.FC = () => {
         lastState = currentState;
       }
 
-      ctx.font = width < 640 ? "9px monospace" : "11px monospace";
+      ctx.font = width < 768 ? "bold 14px monospace" : "bold 11px monospace";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
