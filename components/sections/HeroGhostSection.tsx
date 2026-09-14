@@ -1,10 +1,10 @@
 "use client";
 
+import { useLanyard } from "@/hooks";
+import { getCalendarAvailabilityStatus } from "@/lib/integrations/google-calendar";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useLanyard } from "@/hooks";
-import { getCalendarAvailabilityStatus } from "@/lib/integrations/google-calendar";
 
 const GhostCanvas = dynamic(() => import("@/components/features/GhostCanvas"), {
   ssr: false,
@@ -142,18 +142,6 @@ export const HeroGhostSection: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3 flex-shrink-0">
-          <button
-            type="button"
-            onClick={() => setIsAscii((prev) => !prev)}
-            aria-label="Toggle 3D ASCII Ghost"
-            className="interactable flex items-center gap-1.5 px-2.5 py-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-colors font-mono text-[11px] text-zinc-300 hover:text-white cursor-pointer"
-          >
-            <span className="text-zinc-500">RENDER:</span>
-            <span className={isAscii ? "text-emerald-400 font-medium" : "text-zinc-400"}>
-              {isAscii ? "ASCII" : "3D"}
-            </span>
-          </button>
-
           <a
             href="mailto:hello@adithyakrishnan.com"
             className="interactable text-zinc-300 hover:text-white transition-colors text-xs truncate max-w-[180px] sm:max-w-none"
