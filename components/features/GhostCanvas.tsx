@@ -14,19 +14,16 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
   isMusic = false,
   isCoding = false,
   isGaming = false,
-  isAscii = true,
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const flagsRef = useRef({ isMusic, isCoding, isGaming });
-  const isAsciiRef = useRef(isAscii);
+
 
   useEffect(() => {
     flagsRef.current = { isMusic, isCoding, isGaming };
   }, [isMusic, isCoding, isGaming]);
 
-  useEffect(() => {
-    isAsciiRef.current = isAscii;
-  }, [isAscii]);
+
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -822,7 +819,7 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
 
       renderer.render(scene, camera);
 
-      if (isAsciiRef.current && asciiCtx && sampleCtx) {
+      if (asciiCtx && sampleCtx) {
         renderer.domElement.style.opacity = "0";
         asciiCanvas.style.opacity = "1";
 

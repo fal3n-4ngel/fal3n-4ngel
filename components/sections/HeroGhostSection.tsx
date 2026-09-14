@@ -15,7 +15,6 @@ export const HeroGhostSection: React.FC = () => {
   const [statusText, setStatusText] = useState("Alive");
   const [statusDotColor, setStatusDotColor] = useState("bg-emerald-400 shadow-[0_0_8px_#34d399]");
   const [calendarInfo, setCalendarInfo] = useState<AvailabilityStatus | null>(null);
-  const [isAscii, setIsAscii] = useState(true);
 
   const [flags, setFlags] = useState({
     isCoding: false,
@@ -178,7 +177,6 @@ export const HeroGhostSection: React.FC = () => {
         isMusic={flags.isMusic}
         isCoding={flags.isCoding}
         isGaming={flags.isGaming}
-        isAscii={isAscii}
       />
 
       <div className="relative z-20 flex flex-1 flex-col justify-end pb-8 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
