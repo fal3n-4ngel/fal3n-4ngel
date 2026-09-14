@@ -60,10 +60,10 @@ export const AchievementsSection: React.FC = () => {
         {/* ── Left Column: Section Title & Subtitle ── */}
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
           <h2 className="interactable text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
-            Achievements
+            Background
           </h2>
           <p className="mt-2.5 sm:mt-3 text-sm sm:text-base font-light text-zinc-400">
-            An overview of my credentials and skillset.
+            Where I’ve worked, learned, and built.
           </p>
 
           <div className="mt-6 sm:mt-8 font-mono text-xs sm:text-sm">

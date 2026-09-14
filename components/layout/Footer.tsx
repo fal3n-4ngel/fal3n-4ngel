@@ -137,7 +137,7 @@ export const Footer: React.FC = () => {
                 onTouchStart={() => triggerAsciiMorph("ACHIEVEMENTS")}
                 className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
               >
-                <span>Achievements</span>
+                <span>Background</span>
                 <span className="text-zinc-500">↑</span>
               </a>
 

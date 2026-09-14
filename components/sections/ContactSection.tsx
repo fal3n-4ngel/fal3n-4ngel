@@ -27,9 +27,6 @@ export const ContactSection: React.FC = () => {
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
             Contact
           </h2>
-          <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm font-light text-zinc-400 max-w-md">
-            Want to work together? Anything else to tell me? Feel free to contact me!
-          </p>
         </div>
 
         <div className="flex flex-col lg:w-1/2">
@@ -49,13 +46,6 @@ export const ContactSection: React.FC = () => {
             >
               [ {copied ? "Copied!" : "Copy Email"} ]
             </button>
-
-            <a
-              href={`mailto:${email}`}
-              className="text-zinc-300 hover:text-white transition-colors"
-            >
-              [ Open in Email Client ]
-            </a>
           </div>
         </div>
       </div>
