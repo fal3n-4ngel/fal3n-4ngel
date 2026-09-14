@@ -158,7 +158,7 @@ export const HeroGhostSection: React.FC = () => {
         isAscii={isAscii}
       />
 
-      <div className="relative z-20 flex flex-1 flex-col justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
+      <div className="relative z-20 flex flex-1 flex-col justify-end pb-8 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
         <h1 className="interactable pointer-events-auto text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">
           <span className="text-white font-normal">I’m Adi</span>
           <span className="text-zinc-500 font-light mx-2 sm:mx-3">—</span>

@@ -587,6 +587,7 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
     };
 
     let ghostBaseX = initW >= 1024 ? 2.4 : 0;
+    let ghostBaseY = initW < 768 ? 1.8 : (initW < 1024 ? 1.1 : 0.2);
 
     const onResize = () => {
       if (!mount) return;
@@ -607,6 +608,7 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
         renderer.setSize(w, h);
         updateAsciiSize(w, h);
         ghostBaseX = w >= 1024 ? 2.4 : 0;
+        ghostBaseY = w < 768 ? 1.8 : (w < 1024 ? 1.1 : 0.2);
       }
     };
 
@@ -657,7 +659,7 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
       ghostGeom.computeVertexNormals();
 
       ghostGroup.position.x = ghostBaseX;
-      ghostGroup.position.y = 0.2 + Math.sin(elapsed * 1.8) * 0.15;
+      ghostGroup.position.y = ghostBaseY + Math.sin(elapsed * 1.8) * 0.15;
 
       const hoverBoost = isCursorInteracting ? 0.06 : 0;
       ghostMaterial.opacity = 0.14 + Math.min(Math.abs(mouseX) + Math.abs(mouseY), 1.0) * 0.08 + hoverBoost;
