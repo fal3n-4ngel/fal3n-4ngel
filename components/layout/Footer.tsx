@@ -24,6 +24,7 @@ export const Footer: React.FC = () => {
             <h4
               onMouseEnter={() => triggerAsciiMorph("CONTACT")}
               onMouseLeave={() => triggerAsciiMorph(null)}
+              onTouchStart={() => triggerAsciiMorph("CONTACT")}
               className="text-xl font-light text-white tracking-tight mb-6 cursor-default transition-colors hover:text-zinc-200 inline-block w-fit"
             >
               Contact
@@ -32,6 +33,7 @@ export const Footer: React.FC = () => {
               <div
                 onMouseEnter={() => triggerAsciiMorph("GITHUB")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("GITHUB")}
                 className="flex items-center justify-between border-b border-white/5 pb-2"
               >
                 <span className="text-zinc-500">GitHub</span>
@@ -48,6 +50,7 @@ export const Footer: React.FC = () => {
               <div
                 onMouseEnter={() => triggerAsciiMorph("LINKEDIN")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("LINKEDIN")}
                 className="flex items-center justify-between border-b border-white/5 pb-2"
               >
                 <span className="text-zinc-500">LinkedIn</span>
@@ -62,8 +65,9 @@ export const Footer: React.FC = () => {
               </div>
 
               <div
-                onMouseEnter={() => triggerAsciiMorph("TWITTER / X")}
+                onMouseEnter={() => triggerAsciiMorph("X")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("X")}
                 className="flex items-center justify-between border-b border-white/5 pb-2"
               >
                 <span className="text-zinc-500">Twitter / X</span>
@@ -80,6 +84,7 @@ export const Footer: React.FC = () => {
               <div
                 onMouseEnter={() => triggerAsciiMorph("EMAIL")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("EMAIL")}
                 className="flex items-center justify-between border-b border-white/5 pb-2"
               >
                 <span className="text-zinc-500">Email</span>
@@ -97,6 +102,7 @@ export const Footer: React.FC = () => {
             <h4
               onMouseEnter={() => triggerAsciiMorph("NAVIGATION")}
               onMouseLeave={() => triggerAsciiMorph(null)}
+              onTouchStart={() => triggerAsciiMorph("NAVIGATION")}
               className="text-xl font-light text-white tracking-tight mb-6 cursor-default transition-colors hover:text-zinc-200 inline-block w-fit"
             >
               Navigation
@@ -106,6 +112,7 @@ export const Footer: React.FC = () => {
                 onClick={scrollToTop}
                 onMouseEnter={() => triggerAsciiMorph("ADITHYA KRISHNAN")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("ADITHYA KRISHNAN")}
                 className="flex items-center justify-between border-b border-white/5 pb-2 text-left text-zinc-300 hover:text-white transition-colors cursor-pointer"
               >
                 <span>Adithya Krishnan</span>
@@ -116,6 +123,7 @@ export const Footer: React.FC = () => {
                 href="/#projects"
                 onMouseEnter={() => triggerAsciiMorph("PROJECTS")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("PROJECTS")}
                 className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
               >
                 <span>Projects</span>
@@ -126,6 +134,7 @@ export const Footer: React.FC = () => {
                 href="/#achievements"
                 onMouseEnter={() => triggerAsciiMorph("ACHIEVEMENTS")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("ACHIEVEMENTS")}
                 className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
               >
                 <span>Achievements</span>
@@ -136,6 +145,7 @@ export const Footer: React.FC = () => {
                 href="/book"
                 onMouseEnter={() => triggerAsciiMorph("BOOK A MEETING")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("BOOK A MEETING")}
                 className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
               >
                 <span>Book a Meeting</span>
@@ -146,6 +156,7 @@ export const Footer: React.FC = () => {
                 href="/#contact"
                 onMouseEnter={() => triggerAsciiMorph("CONTACT")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
+                onTouchStart={() => triggerAsciiMorph("CONTACT")}
                 className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
               >
                 <span>Contact</span>
