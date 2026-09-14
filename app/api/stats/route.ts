@@ -15,7 +15,6 @@ export async function GET(req: NextRequest) {
         { status: 401 }
       );
     }
-    // Fetch stats concurrently using Promise.allSettled for maximum fault tolerance
     const [spotifyResult, githubResult, projectsResult, experiencesResult, calendarResult] =
       await Promise.allSettled([
         getNowPlaying(),
@@ -45,7 +44,6 @@ export async function GET(req: NextRequest) {
     const calendarEvents = calendarResult.status === "fulfilled" ? calendarResult.value : [];
     const availability = await getAvailabilityStatus(calendarEvents);
 
-
     return NextResponse.json(
       {
         spotify,
@@ -61,12 +59,11 @@ export async function GET(req: NextRequest) {
           "Cache-Control": "public, max-age=60, s-maxage=60, stale-while-revalidate=30",
         },
       }
-
-
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to assemble consolidated stats", message: error.message },
+      { error: "Failed to assemble consolidated stats", message },
       {
         status: 500,
         headers: {

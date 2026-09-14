@@ -14,14 +14,11 @@ export const fetchGithubData = unstable_cache(
       headers["Authorization"] = `token ${GITHUB_TOKEN}`;
     }
 
-    // 1. Fetch User Profile
     let profileRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
       headers,
       next: { revalidate: 300 },
     });
 
-    // Self-healing: If the provided GITHUB_TOKEN is unauthorized or invalid (401/403),
-    // retry the request publicly without the token.
     if ((profileRes.status === 401 || profileRes.status === 403) && GITHUB_TOKEN) {
       console.warn("⚠️ GitHub Token is invalid/unauthorized. Retrying request publicly.");
       headers = {
@@ -40,7 +37,6 @@ export const fetchGithubData = unstable_cache(
 
     const profile = await profileRes.json();
 
-    // 2. Fetch Repositories (up to 100)
     const reposRes = await fetch(
       `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`,
       {
@@ -53,9 +49,19 @@ export const fetchGithubData = unstable_cache(
       throw new Error(`GitHub repos fetch failed: ${reposRes.statusText}`);
     }
 
-    const repos: any[] = await reposRes.json();
+    interface RawGitHubRepo {
+      name: string;
+      description: string | null;
+      stargazers_count: number;
+      forks_count: number;
+      language: string | null;
+      html_url: string;
+      updated_at: string;
+      fork: boolean;
+    }
 
-    // 3. Process data
+    const repos: RawGitHubRepo[] = await reposRes.json();
+
     let totalStars = 0;
     const languagesMap: Record<string, number> = {};
     
@@ -78,7 +84,6 @@ export const fetchGithubData = unstable_cache(
         };
       });
 
-    // Calculate stars for remaining non-recent repos
     repos.forEach((repo) => {
       if (repo.fork) return;
       const inTop6 = recentRepos.some((r) => r.name === repo.name);

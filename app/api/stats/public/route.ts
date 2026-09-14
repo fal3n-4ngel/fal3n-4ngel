@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    // Fetch stats concurrently using Promise.allSettled for maximum fault tolerance
     const [spotifyResult, githubResult, projectsResult, experiencesResult, calendarResult] =
       await Promise.allSettled([
         getNowPlaying(),
@@ -38,7 +37,6 @@ export async function GET() {
     const calendarEvents = calendarResult.status === "fulfilled" ? calendarResult.value : [];
     const rawAvailability = await getAvailabilityStatus(calendarEvents);
     
-    // Sanitize calendar availability for public eyes
     const availability = {
       status: rawAvailability.status,
       currentEvent: rawAvailability.status === "Busy" ? "Busy" : undefined,
@@ -60,9 +58,10 @@ export async function GET() {
         },
       }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to assemble consolidated stats", message: error.message },
+      { error: "Failed to assemble consolidated stats", message },
       {
         status: 500,
         headers: {

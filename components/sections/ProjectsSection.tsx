@@ -44,7 +44,6 @@ const ProjectImage: React.FC<{
 
   return (
     <div className={`relative w-full overflow-hidden ${!loaded ? "aspect-[16/10] bg-zinc-950" : ""}`}>
-      {/* Background loading skeleton that displays smoothly while fetching */}
       {!loaded && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900/80 animate-pulse">
           <div className="flex flex-col items-center gap-2">
@@ -89,18 +88,23 @@ const ProjectImage: React.FC<{
   );
 };
 
-export const ProjectsSection: React.FC = () => {
-  const [projectList, setProjectList] = useState<Project[]>(fallbackProjects);
+export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
+  initialProjects,
+}) => {
+  const [projectList, setProjectList] = useState<Project[]>(
+    initialProjects && initialProjects.length > 0 ? initialProjects : fallbackProjects
+  );
 
   useEffect(() => {
-    getProjects().then((data) => {
-      if (data && data.length > 0) {
-        setProjectList(data);
-      }
-    });
-  }, []);
+    if (!initialProjects || initialProjects.length === 0) {
+      getProjects().then((data) => {
+        if (data && data.length > 0) {
+          setProjectList(data);
+        }
+      });
+    }
+  }, [initialProjects]);
 
-  // Display top projects in vertical sequence
   const displayProjects = projectList.slice(0, 6);
 
   return (
@@ -109,7 +113,6 @@ export const ProjectsSection: React.FC = () => {
       className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-        {/* ── Left Column: Projects Heading fixed / sticky on the side (matching Achievements) ── */}
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
           <h2 className="interactable text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
             Projects

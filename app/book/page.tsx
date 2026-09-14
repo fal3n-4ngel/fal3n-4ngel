@@ -4,9 +4,8 @@ import { CustomCursor } from "@/components/layout/CustomCursor";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import FadeUp from "@/components/ui/FadeUp";
-import { useFollowPointer } from "@/hooks";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiCalendarCheckLine, RiLoader4Line, RiTimeLine } from "react-icons/ri";
 
 interface BusySlot {
@@ -15,8 +14,6 @@ interface BusySlot {
 }
 
 export default function BookMeetingPage() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { x, y } = useFollowPointer(ref);
 
   const [busySlots, setBusySlots] = useState<BusySlot[]>([]);
   const [loading, setLoading] = useState(false);
@@ -146,12 +143,9 @@ export default function BookMeetingPage() {
   const activeSlots = selectedDate ? generateSlots(selectedDate) : [];
 
   return (
-    <div
-      className="flex min-h-screen w-full flex-col justify-between bg-black text-white selection:bg-white selection:text-black"
-      ref={ref}
-    >
+    <div className="flex min-h-screen w-full flex-col justify-between bg-black text-white selection:bg-white selection:text-black">
       <Navbar current="book" />
-      <CustomCursor x={x} y={y} />
+      <CustomCursor />
 
       <main className="w-full flex-1 px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 pt-28 sm:pt-36 md:pt-40 pb-20 sm:pb-28 max-w-7xl mx-auto">
         <div className="mb-10 sm:mb-14 space-y-4">

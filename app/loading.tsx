@@ -6,8 +6,7 @@ const LoadingPage = ({
   onComplete,
   progress: externalProgress,
 }: {
-  onComplete: () => void;
-  /** When provided, the bar reflects real preload progress (0-100) instead of a simulated fill. */
+  onComplete?: () => void;
   progress?: number;
 }) => {
   const [simulatedProgress, setSimulatedProgress] = useState(0);
@@ -34,7 +33,7 @@ const LoadingPage = ({
       setSimulatedProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(() => onComplete(), 100);
+          setTimeout(() => onComplete?.(), 100);
           return 100;
         }
         return prev + Math.random() * 35 + 15;
@@ -47,10 +46,9 @@ const LoadingPage = ({
     };
   }, [onComplete, isExternal]);
 
-  // Externally-driven progress: fire onComplete once the real preload work finishes.
   useEffect(() => {
     if (!isExternal || progress < 100) return;
-    const t = setTimeout(() => onComplete(), 150);
+    const t = setTimeout(() => onComplete?.(), 150);
     return () => clearTimeout(t);
   }, [isExternal, progress, onComplete]);
 

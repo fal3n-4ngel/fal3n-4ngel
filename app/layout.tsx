@@ -6,39 +6,19 @@ import Maintenance from "@/components/layout/Maintenance";
 
 import { getSiteConfig } from "@/lib/integrations/notion";
 
-import LenisProvider from "@/lib/utils/LenisProvider";
+import LenisProvider from "@/components/providers/LenisProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter, Poppins, Space_Grotesk, Work_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-});
-
-const workSans = Work_Sans({
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-work-sans",
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600"],
-  display: "swap",
-  variable: "--font-poppins",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-space-grotesk",
 });
 
 export const metadata: Metadata = {
@@ -146,7 +126,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${workSans.variable} ${poppins.variable} ${spaceGrotesk.variable} h-full min-h-screen w-full scroll-smooth bg-black`}
+      className={`${inter.variable} h-full min-h-screen w-full scroll-smooth bg-black`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -162,9 +142,6 @@ export default async function RootLayout({
           <LenisProvider>
             <div className="relative z-[1]">{children}</div>
           </LenisProvider>
-
-
-
         )}
         <Script
           id="schema-jsonld"

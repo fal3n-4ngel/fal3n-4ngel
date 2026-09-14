@@ -16,7 +16,6 @@ export async function GET(req: NextRequest) {
     }
 
     const events = await getCalendarEvents(start, end);
-    // Map to ONLY start and end times to maintain privacy
     const busySlots = events
       .filter((event) => event.isBusy)
       .map((event) => ({
@@ -32,9 +31,10 @@ export async function GET(req: NextRequest) {
         "Cache-Control": "public, max-age=60, s-maxage=60",
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to fetch busy slots", message: error.message },
+      { error: "Failed to fetch busy slots", message },
       { status: 500 }
     );
   }
@@ -54,7 +54,6 @@ export async function POST(req: NextRequest) {
 
     const { name, email, dateTime, description, duration } = body;
 
-    // Validate fields
     if (!name || typeof name !== "string" || !name.trim()) {
       return NextResponse.json(
         { error: "Bad Request", message: "Field 'name' is required" },
@@ -91,8 +90,6 @@ export async function POST(req: NextRequest) {
     const endReq = startReq + meetingDuration * 60 * 1000;
     const now = Date.now();
 
-    // 1. Cannot book in the past
-    // Buffer of 5 minutes to account for slight clock offsets
     if (startReq < now - 5 * 60 * 1000) {
       return NextResponse.json(
         { error: "Bad Request", message: "Cannot book a meeting in the past" },
@@ -100,10 +97,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Validate booking hours (9:00 AM - 5:00 PM IST, Weekdays only)
-    const istOffset = 5.5 * 60 * 60 * 1000; // +5:30
+    const istOffset = 5.5 * 60 * 60 * 1000;
     const istTime = new Date(startReq + istOffset);
-    const istDay = istTime.getUTCDay(); // 0 = Sunday, 6 = Saturday
+    const istDay = istTime.getUTCDay();
     const istHour = istTime.getUTCHours();
     const istMin = istTime.getUTCMinutes();
 
@@ -115,8 +111,8 @@ export async function POST(req: NextRequest) {
     }
 
     const startMinutesIST = istHour * 60 + istMin;
-    const workStartIST = 9 * 60; // 9:00 AM
-    const workEndIST = 24 * 60;  // 12:00 AM (midnight)
+    const workStartIST = 9 * 60;
+    const workEndIST = 24 * 60;
 
     if (startMinutesIST < workStartIST || (startMinutesIST + meetingDuration) > workEndIST) {
       return NextResponse.json(
@@ -125,7 +121,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Overlap Check (with buffer of 2 hours around window)
     const queryStart = new Date(startReq - 2 * 60 * 60 * 1000).toISOString();
     const queryEnd = new Date(endReq + 2 * 60 * 60 * 1000).toISOString();
 
@@ -144,7 +139,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 4. Create Calendar Event
     const created = await createCalendarEvent({
       summary: `Portfolio Meeting: ${name}`,
       start: new Date(startReq).toISOString(),
@@ -154,9 +148,10 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, event: created }, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to book meeting", message: error.message },
+      { error: "Failed to book meeting", message },
       { status: 500 }
     );
   }

@@ -81,7 +81,6 @@ export const AchievementsSection: React.FC = () => {
 
         {/* ── Right Column: Experience, Skills & Awards ───────────── */}
         <div className="flex flex-col gap-12 sm:gap-14 lg:w-1/2">
-          {/* ── Experience ────────────────────────────────────────── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Experience
@@ -89,7 +88,7 @@ export const AchievementsSection: React.FC = () => {
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
               {experiences.map((exp, idx) => (
                 <div
-                  key={idx}
+                  key={`${exp.title}-${exp.company || idx}`}
                   className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
                   <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
@@ -113,7 +112,6 @@ export const AchievementsSection: React.FC = () => {
                   </span>
                 </div>
               ))}
-              {/* Education row */}
               <div className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default">
                 <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
                   Bachelor of Technology (CSE)
@@ -125,22 +123,22 @@ export const AchievementsSection: React.FC = () => {
                     rel="noopener noreferrer"
                     className="interactable hover:text-white transition-colors underline-offset-4 hover:underline"
                   >
-                    APJ Abdul Kalam Technological University</a> · 2021 - 2025
-                  
+                    APJ Abdul Kalam Technological University
+                  </a>
+                  {" · "}2021 - 2025
                 </span>
               </div>
             </div>
           </div>
 
-          {/* ── Skills ────────────────────────────────────────────── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Skills
             </h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
-              {skillsData.map((item, idx) => (
+              {skillsData.map((item) => (
                 <div
-                  key={idx}
+                  key={item.category}
                   className="interactable group flex flex-col gap-1 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
                   <span className="text-sm sm:text-[15px] font-medium text-zinc-100 group-hover:text-white transition-colors">
@@ -154,7 +152,6 @@ export const AchievementsSection: React.FC = () => {
             </div>
           </div>
 
-          {/* ── Awards ───────────────────────── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Awards
@@ -162,7 +159,7 @@ export const AchievementsSection: React.FC = () => {
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
               {awards.map((item, idx) => (
                 <div
-                  key={idx}
+                  key={`${item.title}-${item.date || idx}`}
                   className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
                   <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">

@@ -8,7 +8,6 @@ export const StickySubHeader: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show sticky header after scrolling past 80% of hero viewport
       if (window.scrollY > window.innerHeight * 0.7) {
         setIsVisible(true);
       } else {

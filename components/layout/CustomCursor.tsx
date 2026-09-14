@@ -1,21 +1,19 @@
 "use client";
 
 import { CursorState, LogoStates } from "@/types";
-import { motion, MotionValue, useSpring } from "framer-motion";
+import { motion, MotionValue, useMotionValue, useSpring } from "framer-motion";
 import React, { useCallback, useEffect, useState } from "react";
 
 type CustomCursorProps = {
-  x: MotionValue<number>;
-  y: MotionValue<number>;
-  isEscaping?: boolean;
+  x?: MotionValue<number>;
+  y?: MotionValue<number>;
 };
 
-export const CustomCursor: React.FC<CustomCursorProps> = ({
-  x,
-  y,
-  isEscaping: _isEscaping = false,
-}) => {
-
+export const CustomCursor: React.FC<CustomCursorProps> = ({ x, y }) => {
+  const fallbackX = useMotionValue(-100);
+  const fallbackY = useMotionValue(-100);
+  const targetX = x ?? fallbackX;
+  const targetY = y ?? fallbackY;
 
   const [cursorState, setCursorState] = useState<CursorState>({
     isInteracting: false,
@@ -34,10 +32,12 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
   const { isGitHubLogo, isLinkedInLogo, isResumeLogo, isMailLogo } = logoStates;
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!x) fallbackX.set(e.clientX);
+    if (!y) fallbackY.set(e.clientY);
+
     const targetElement = e.target as HTMLElement;
     if (!targetElement) return;
 
-    // Detect if we are hovering over specific interactive classes
     const isGitHub = !!targetElement.closest(".githubLogo");
     const isLinkedIn = !!targetElement.closest(".linkedinLogo");
     const isResume = !!targetElement.closest(".resumeLogo");
@@ -49,7 +49,6 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
     const interactionType = isProj ? "project" : null;
     const isInteractingVal = isProj || isInteractable || isGitHub || isLinkedIn || isResume || isMail;
 
-    // Optimize state setting to prevent re-renders unless the actual hover target category changes
     setCursorState((prev) => {
       if (
         prev.isInteracting === isInteractingVal &&
@@ -95,7 +94,7 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
         isProjImage: isProj,
       };
     });
-  }, []);
+  }, [x, y, fallbackX, fallbackY]);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
@@ -114,10 +113,9 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({
     };
   }, [handleMouseMove]);
 
-  // Spring physics setup for smooth tracking
   const springConfig = { damping: 25, stiffness: 180, mass: 0.4 };
-  const xSpring = useSpring(x, springConfig);
-  const ySpring = useSpring(y, springConfig);
+  const xSpring = useSpring(targetX, springConfig);
+  const ySpring = useSpring(targetY, springConfig);
 
   const cursorClasses = `pointer-events-none z-[10000] hidden rounded-full bg-white md:flex fixed left-0 top-0 mix-blend-difference ${
     isGitHubLogo || isLinkedInLogo || isResumeLogo || isMailLogo ? "animate-pulse" : ""

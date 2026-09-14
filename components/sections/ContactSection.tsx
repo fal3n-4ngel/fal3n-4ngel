@@ -12,7 +12,6 @@ export const ContactSection: React.FC = () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
-      // Fallback
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
@@ -24,7 +23,6 @@ export const ContactSection: React.FC = () => {
       className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-        {/* ── Left Column: Heading & Note ──────────────────────── */}
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
             Contact
@@ -34,11 +32,9 @@ export const ContactSection: React.FC = () => {
           </p>
         </div>
 
-        {/* ── Right Column: Email Display & Actions ────────────── */}
         <div className="flex flex-col lg:w-1/2">
           <span className="font-sans text-xs sm:text-sm text-zinc-400">Email</span>
 
-          {/* Huge Email Typography */}
           <a
             href={`mailto:${email}`}
             className="mt-2 text-2xl sm:text-4xl md:text-5xl font-light tracking-tight text-white transition-colors hover:text-zinc-300 break-all"
@@ -46,7 +42,6 @@ export const ContactSection: React.FC = () => {
             {email}
           </a>
 
-          {/* Actions: Copy Email & Open in Client */}
           <div className="mt-6 flex flex-wrap items-center justify-between border-t border-white/5 pt-4 font-mono text-xs text-zinc-400 gap-4">
             <button
               onClick={handleCopy}

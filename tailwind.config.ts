@@ -3,7 +3,6 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   darkMode: "class",
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -16,9 +15,6 @@ const config: Config = {
       fontFamily: {
         elgoc: ["Elgoc-Thin", "sans-serif"],
         sans: ["var(--font-inter)"],
-        work: ["var(--font-work-sans)"],
-        poppins: ["var(--font-poppins)"],
-        grotesk: ["var(--font-space-grotesk)"],
       },
       animation: {
         "spin-slow": "spin 6s linear infinite",

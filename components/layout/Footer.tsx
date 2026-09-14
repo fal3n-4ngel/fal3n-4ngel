@@ -19,9 +19,7 @@ export const Footer: React.FC = () => {
       className="w-full bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-16 md:py-24 text-zinc-400"
     >
       <div className="flex w-full flex-col justify-between gap-12">
-        {/* Navigation & Contact Columns matching Image 5 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24">
-          {/* Contact Column */}
           <div className="flex flex-col">
             <h4
               onMouseEnter={() => triggerAsciiMorph("CONTACT")}
@@ -95,7 +93,6 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Navigation Column */}
           <div className="flex flex-col">
             <h4
               onMouseEnter={() => triggerAsciiMorph("NAVIGATION")}
@@ -158,7 +155,6 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Copyright notice */}
         <div className="pt-8 text-xs font-mono text-zinc-600">
           © {new Date().getFullYear()} Adithya Krishnan
         </div>

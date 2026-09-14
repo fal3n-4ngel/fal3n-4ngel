@@ -20,7 +20,6 @@ export const AsciiTextCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // States
   const [animState, setAnimState] = useState<"assembled" | "scattered" | "gravity">("assembled");
   const animStateRef = useRef<"assembled" | "scattered" | "gravity">("assembled");
 
@@ -210,7 +209,7 @@ export const AsciiTextCanvas: React.FC = () => {
         morphTo(targetText.trim().toUpperCase());
       } else {
         if (revertTimeout) clearTimeout(revertTimeout);
-        // Hold the morphed text for 400ms before reverting so the transition settles cleanly and avoids flickering
+        // Hold morphed text before reverting to avoid flicker
         revertTimeout = setTimeout(() => {
           morphTo(defaultText);
           revertTimeout = null;
@@ -222,7 +221,6 @@ export const AsciiTextCanvas: React.FC = () => {
 
     const timer = setTimeout(initParticles, 50);
 
-    // Mouse handlers: tracks canvas coordinates for particle repulsion
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       canvasMouseX = e.clientX - rect.left;
@@ -258,7 +256,6 @@ export const AsciiTextCanvas: React.FC = () => {
     canvas.addEventListener("touchmove", onTouchMove, { passive: true });
     canvas.addEventListener("touchend", onTouchEnd);
 
-    // Physics Animation Loop
     let lastState = animStateRef.current;
 
     const render = () => {
@@ -267,7 +264,6 @@ export const AsciiTextCanvas: React.FC = () => {
 
       const currentState = animStateRef.current;
 
-      // Handle transitions
       if (currentState !== lastState) {
         if (currentState === "scattered") {
           for (let i = 0; i < particles.length; i++) {
@@ -297,14 +293,12 @@ export const AsciiTextCanvas: React.FC = () => {
         const p = particles[i];
         if (!p) continue;
 
-        // Subtle character flicker
         p.charTick++;
         if (p.charTick % 28 === 0 && Math.random() < 0.25) {
           p.char = getRandomChar();
         }
 
         if (currentState === "assembled") {
-          // Spring force towards target
           const dx = p.targetX - p.x;
           const dy = p.targetY - p.y;
           p.vx += dx * 0.07;
@@ -312,7 +306,6 @@ export const AsciiTextCanvas: React.FC = () => {
           p.vx *= 0.76;
           p.vy *= 0.76;
 
-          // Local cursor repulsion
           if (isMouseInside) {
             const mdx = p.x - canvasMouseX;
             const mdy = p.y - canvasMouseY;
@@ -326,7 +319,6 @@ export const AsciiTextCanvas: React.FC = () => {
             }
           }
         } else if (currentState === "scattered") {
-          // Space drift
           p.vx *= 0.95;
           p.vy *= 0.95;
           p.vx += (Math.random() - 0.5) * 0.2;
@@ -350,7 +342,6 @@ export const AsciiTextCanvas: React.FC = () => {
           if (p.y < 10) { p.y = 10; p.vy = -p.vy * 0.6; }
           if (p.y > height - 10) { p.y = height - 10; p.vy = -p.vy * 0.6; }
         } else if (currentState === "gravity") {
-          // Gravitational fall and floor bouncing
           p.vy += 0.35;
           p.vx *= 0.96;
 
@@ -402,7 +393,6 @@ export const AsciiTextCanvas: React.FC = () => {
 
   return (
     <section className="relative w-full overflow-hidden border-t border-white/10 bg-black">
-      {/* Reduced height container tightly framing contents, non-interactable so cursor stays compact */}
       <div
         ref={containerRef}
         className="relative w-full overflow-hidden select-none bg-black cursor-pointer touch-pan-y"

@@ -1,17 +1,17 @@
 import { NextRequest } from "next/server";
 
-// Using globalThis to persist the rate limit memory store across dev hot-reloads
-const globalStore = globalThis as any;
+const globalStore = globalThis as typeof globalThis & {
+  rateLimitStore?: Map<string, number[]>;
+};
 if (!globalStore.rateLimitStore) {
   globalStore.rateLimitStore = new Map<string, number[]>();
 }
 
-const store = globalStore.rateLimitStore as Map<string, number[]>;
+const store = globalStore.rateLimitStore;
 
-// Configuration: 100 requests per 15 minutes
 const WINDOW_MS = 15 * 60 * 1000;
 const LIMIT = 100;
-const CLEANUP_INTERVAL_MS = 5 * 60 * 1000; // clean old IPs every 5 minutes
+const CLEANUP_INTERVAL_MS = 5 * 60 * 1000;
 
 let lastCleanup = Date.now();
 
@@ -33,13 +33,11 @@ export function rateLimit(req: NextRequest): {
 } {
   const now = Date.now();
 
-  // Run lazy cleanup occasionally
   if (now - lastCleanup > CLEANUP_INTERVAL_MS) {
     lastCleanup = now;
     cleanupStore();
   }
 
-  // Extract client IP address
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     req.headers.get("x-real-ip") ||
@@ -61,8 +59,6 @@ export function rateLimit(req: NextRequest): {
   }
 
   const timestamps = store.get(ip) || [];
-  
-  // Filter out timestamps older than the window
   const validTimestamps = timestamps.filter((t) => now - t < WINDOW_MS);
 
   const requestCount = validTimestamps.length;

@@ -53,15 +53,13 @@ export interface AvailabilityStatus {
 async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<CalendarEvent[]> {
   try {
     const timeMin = start || new Date().toISOString();
-    const timeMax = end || new Date(new Date(timeMin).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days ahead
-
+    const timeMax = end || new Date(new Date(timeMin).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
     if (!CALENDAR_ID) {
       console.warn("⚠️ GOOGLE_CALENDAR_ID env var is missing. Google Calendar integration is disabled.");
       return [];
     }
 
-    // Option A: Private Calendar via Google Service Account (OAuth JWT)
     if (SERVICE_ACCOUNT_EMAIL && PRIVATE_KEY) {
       const formattedKey = getFormattedPrivateKey();
       const auth = new google.auth.JWT({
@@ -72,7 +70,6 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
 
       const calendar = google.calendar({ version: "v3", auth });
 
-      // Determine the list of calendar IDs to query for availability
       let calendarIds = [CALENDAR_ID];
       if (READONLY_CALENDAR_IDS) {
         const extraIds = READONLY_CALENDAR_IDS.split(",")
@@ -81,9 +78,6 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
         calendarIds = Array.from(new Set([...calendarIds, ...extraIds]));
       }
 
-
-
-      // Fetch upcoming events from all discovered calendars concurrently
       const eventFetches = calendarIds.map(async (id) => {
         try {
           const response = await calendar.events.list({
@@ -119,13 +113,10 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
       const results = await Promise.all(eventFetches);
       const allEvents = results.flat();
 
-      // Sort merged events chronologically
       allEvents.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
       return allEvents;
     }
 
-
-    // Option B: Public Calendar via Google API Key
     if (API_KEY) {
       const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
         CALENDAR_ID
@@ -139,8 +130,18 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
       }
 
       const data = await response.json();
-      const items = data.items || [];
-      return items.map((item: any) => {
+      interface CalendarApiItem {
+        id?: string;
+        summary?: string;
+        start?: { dateTime?: string; date?: string };
+        end?: { dateTime?: string; date?: string };
+        transparency?: string;
+        description?: string;
+        recurrence?: string[];
+        recurringEventId?: string;
+      }
+      const items = (data.items || []) as CalendarApiItem[];
+      return items.map((item) => {
         const start = item.start?.dateTime || item.start?.date || "";
         const end = item.end?.dateTime || item.end?.date || "";
         const isBusy = item.transparency !== "transparent";
@@ -180,13 +181,9 @@ export const getCalendarEvents = unstable_cache(
 );
 
 
-/**
- * Computes current availability (Available vs Busy) based on active calendar events.
- */
 export async function getAvailabilityStatus(events: CalendarEvent[]): Promise<AvailabilityStatus> {
   const now = Date.now();
 
-  // Find any active event occurring right now that marks the user as busy
   const activeEvent = events.find((event) => {
     if (!event.isBusy) return false;
     const start = new Date(event.start).getTime();
@@ -252,10 +249,7 @@ export async function createCalendarEvent(data: {
   });
 
   const item = response.data;
-  
-  // Invalidate the cache tag so that the new event is fetched immediately
   safeRevalidateTag("calendar");
-
 
   return {
     id: item.id || "",
@@ -307,8 +301,6 @@ export async function updateCalendarEvent(
   });
 
   const item = response.data;
-
-  // Invalidate the cache tag so that the updated event is fetched immediately
   safeRevalidateTag("calendar");
 
   return {
@@ -344,9 +336,7 @@ export async function deleteCalendarEvent(eventId: string): Promise<void> {
     eventId: eventId,
   });
 
-  // Invalidate the cache tag so that the deleted event is removed from cache immediately
   safeRevalidateTag("calendar");
-
 }
 
 

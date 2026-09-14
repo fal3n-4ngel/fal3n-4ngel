@@ -2,28 +2,18 @@
 
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { Navbar } from "@/components/layout/Navbar";
-import { useFollowPointer } from "@/hooks";
 import Link from "next/link";
-import { useRef } from "react";
 
 export default function Custom404() {
-  const ref = useRef(null);
-  const { x, y } = useFollowPointer(ref);
-
   return (
     <main className="relative flex h-screen w-full flex-col overflow-hidden text-white selection:bg-white/30">
       <div className="absolute left-0 top-0 z-50 w-full">
         <Navbar />
       </div>
 
-      {/* Custom Follow Cursor */}
-      <CustomCursor x={x} y={y} />
+      <CustomCursor />
 
-      {/* Main 404 Content */}
-      <div
-        className="z-10 flex flex-1 flex-col items-center justify-center space-y-8 px-6 text-center"
-        ref={ref}
-      >
+      <div className="z-10 flex flex-1 flex-col items-center justify-center space-y-8 px-6 text-center">
         <h1 className="interactable font-elgoc text-8xl font-light leading-none tracking-tight md:text-[12vw]">
           404
         </h1>

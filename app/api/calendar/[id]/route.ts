@@ -36,7 +36,6 @@ export async function PATCH(
 
     const { summary, start, end, description, recurrence, timeZone } = body;
 
-    // Validate fields if provided
     if (summary !== undefined && (typeof summary !== "string" || !summary.trim())) {
       return NextResponse.json(
         { error: "Bad Request", message: "Field 'summary' must be a non-empty string" },
@@ -93,9 +92,10 @@ export async function PATCH(
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to update calendar event", message: error.message },
+      { error: "Failed to update calendar event", message },
       {
         status: 500,
         headers: {
@@ -136,9 +136,10 @@ export async function DELETE(
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Failed to delete calendar event", message: error.message },
+      { error: "Failed to delete calendar event", message },
       {
         status: 500,
         headers: {

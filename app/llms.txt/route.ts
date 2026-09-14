@@ -1,10 +1,17 @@
 import { EXPERIENCE_DATA } from "@/data/experience";
 import { projects as LOCAL_PROJECTS } from "@/data/projects";
-import { SKILLS_DATA } from "@/data/skills";
 import { getAwards, getExperiences, getProjects } from "@/lib/integrations/notion";
 import { NextResponse } from "next/server";
 
-export const revalidate = 3600; // Cache for 1 hour
+export const revalidate = 3600;
+
+const SKILLS_DATA = {
+  frameworks: "Next.js, React, Node.js, Express, Three.js",
+  languages: "TypeScript, JavaScript, Python, C/C++, HTML/CSS, SQL",
+  databases: "PostgreSQL, MongoDB, Redis, Firebase Firestore",
+  styling: "Tailwind CSS, Framer Motion, GSAP, Radix UI",
+  mobile: "React Native, Flutter",
+};
 
 export async function GET() {
   let experiences = await getExperiences().catch(() => []);
