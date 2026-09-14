@@ -14,16 +14,42 @@ function safeRevalidateTag(tag: string) {
 
 
 
-const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
-const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
-const API_KEY = process.env.GOOGLE_API_KEY;
-const READONLY_CALENDAR_IDS = process.env.GOOGLE_READONLY_CALENDAR_IDS;
+const sanitizeEnv = (val?: string) => {
+  if (!val) return undefined;
+  let clean = val.trim();
+  if ((clean.startsWith('"') && clean.endsWith('"')) || (clean.startsWith("'") && clean.endsWith("'"))) {
+    clean = clean.slice(1, -1).trim();
+  }
+  return clean.replace(/\r?\n|\r/g, "");
+};
+
+const getCalendarId = () => sanitizeEnv(process.env.GOOGLE_CALENDAR_ID);
+const getServiceAccountEmail = () => sanitizeEnv(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+const getReadOnlyCalendarIds = () => {
+  const raw = sanitizeEnv(process.env.GOOGLE_READONLY_CALENDAR_IDS);
+  if (!raw) return [];
+  return raw
+    .split(",")
+    .map((id) => sanitizeEnv(id.replace(/\r?\n|\r/g, "")))
+    .filter((id): id is string => !!id && id.length > 0);
+};
+
 let hasWarnedCredentials = false;
 
 const getFormattedPrivateKey = () => {
-  if (!PRIVATE_KEY) return undefined;
-  let cleanKey = PRIVATE_KEY.trim();
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY;
+  if (!privateKey) return undefined;
+  let cleanKey = privateKey.trim();
+  if (cleanKey.startsWith("{") && cleanKey.endsWith("}")) {
+    try {
+      const parsed = JSON.parse(cleanKey);
+      if (parsed.private_key) {
+        cleanKey = parsed.private_key;
+      }
+    } catch {
+      // ignore
+    }
+  }
   if (cleanKey.startsWith('"') && cleanKey.endsWith('"')) {
     cleanKey = cleanKey.slice(1, -1);
   }
@@ -55,26 +81,28 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
     const timeMin = start || new Date().toISOString();
     const timeMax = end || new Date(new Date(timeMin).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
-    if (!CALENDAR_ID) {
+    const calendarId = getCalendarId();
+    const serviceAccountEmail = getServiceAccountEmail();
+    const formattedKey = getFormattedPrivateKey();
+    const apiKey = sanitizeEnv(process.env.GOOGLE_API_KEY);
+
+    if (!calendarId) {
       console.warn("⚠️ GOOGLE_CALENDAR_ID env var is missing. Google Calendar integration is disabled.");
       return [];
     }
 
-    if (SERVICE_ACCOUNT_EMAIL && PRIVATE_KEY) {
-      const formattedKey = getFormattedPrivateKey();
+    if (serviceAccountEmail && formattedKey) {
       const auth = new google.auth.JWT({
-        email: SERVICE_ACCOUNT_EMAIL,
+        email: serviceAccountEmail,
         key: formattedKey,
         scopes: ["https://www.googleapis.com/auth/calendar.readonly"],
       });
 
       const calendar = google.calendar({ version: "v3", auth });
 
-      let calendarIds = [CALENDAR_ID];
-      if (READONLY_CALENDAR_IDS) {
-        const extraIds = READONLY_CALENDAR_IDS.split(",")
-          .map((id) => id.replace(/\r?\n|\r/g, "").trim())
-          .filter((id) => id.length > 0);
+      let calendarIds = [calendarId];
+      const extraIds = getReadOnlyCalendarIds();
+      if (extraIds.length > 0) {
         calendarIds = Array.from(new Set([...calendarIds, ...extraIds]));
       }
 
@@ -117,10 +145,10 @@ async function fetchCalendarEventsRaw(start?: string, end?: string): Promise<Cal
       return allEvents;
     }
 
-    if (API_KEY) {
+    if (apiKey) {
       const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
-        CALENDAR_ID
-      )}/events?key=${API_KEY}&timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(
+        calendarId
+      )}/events?key=${apiKey}&timeMin=${encodeURIComponent(timeMin)}&timeMax=${encodeURIComponent(
         timeMax
       )}&singleEvents=true&orderBy=startTime&maxResults=15`;
 
@@ -216,50 +244,70 @@ export async function createCalendarEvent(data: {
   recurrence?: string[];
   timeZone?: string;
 }): Promise<CalendarEvent & { id: string }> {
-  if (!CALENDAR_ID) {
-    throw new Error("GOOGLE_CALENDAR_ID is missing.");
+  const calendarId = getCalendarId();
+  const serviceAccountEmail = getServiceAccountEmail();
+  const formattedKey = getFormattedPrivateKey();
+
+  if (!calendarId) {
+    throw new Error("GOOGLE_CALENDAR_ID environment variable is missing.");
   }
-  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+  if (!serviceAccountEmail || !formattedKey) {
     throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
   }
 
-  const formattedKey = getFormattedPrivateKey();
   const auth = new google.auth.JWT({
-    email: SERVICE_ACCOUNT_EMAIL,
+    email: serviceAccountEmail,
     key: formattedKey,
     scopes: ["https://www.googleapis.com/auth/calendar"],
   });
 
   const calendar = google.calendar({ version: "v3", auth });
-  const response = await calendar.events.insert({
-    calendarId: CALENDAR_ID,
-    requestBody: {
-      summary: data.summary,
-      description: data.description,
-      start: {
-        dateTime: data.start,
-        timeZone: data.timeZone,
+  try {
+    const response = await calendar.events.insert({
+      calendarId,
+      requestBody: {
+        summary: data.summary,
+        description: data.description,
+        start: {
+          dateTime: data.start,
+          timeZone: data.timeZone,
+        },
+        end: {
+          dateTime: data.end,
+          timeZone: data.timeZone,
+        },
+        recurrence: data.recurrence,
       },
-      end: {
-        dateTime: data.end,
-        timeZone: data.timeZone,
-      },
-      recurrence: data.recurrence,
-    },
-  });
+    });
 
-  const item = response.data;
-  safeRevalidateTag("calendar");
+    const item = response.data;
+    safeRevalidateTag("calendar");
 
-  return {
-    id: item.id || "",
-    summary: item.summary || data.summary,
-    start: item.start?.dateTime || item.start?.date || data.start,
-    end: item.end?.dateTime || item.end?.date || data.end,
-    isBusy: item.transparency !== "transparent",
-    description: item.description || undefined,
-    recurrence: item.recurrence || undefined,
-  };
+    return {
+      id: item.id || "",
+      summary: item.summary || data.summary,
+      start: item.start?.dateTime || item.start?.date || data.start,
+      end: item.end?.dateTime || item.end?.date || data.end,
+      isBusy: item.transparency !== "transparent",
+      description: item.description || undefined,
+      recurrence: item.recurrence || undefined,
+    };
+  } catch (err: unknown) {
+    const gError = err as {
+      code?: number;
+      response?: { data?: { error?: { message?: string; errors?: unknown[] } } };
+      message?: string;
+    };
+    const detailMsg = gError.response?.data?.error?.message || gError.message || "Unknown error";
+    console.error(`❌ Google Calendar events.insert failed for calendarId [${calendarId}]:`, detailMsg);
+
+    if (gError.code === 404 || detailMsg.toLowerCase().includes("not found")) {
+      throw new Error(
+        `Calendar [${calendarId}] not found (404). Ensure this calendar exists and that the Service Account (${serviceAccountEmail}) is added under "Share with specific people or groups" in Google Calendar settings with "Make changes to events" permission.`
+      );
+    }
+    throw new Error(`Google Calendar API error: ${detailMsg}`);
+  }
 }
 
 export async function updateCalendarEvent(
@@ -273,70 +321,98 @@ export async function updateCalendarEvent(
     timeZone?: string;
   }
 ): Promise<CalendarEvent & { id: string }> {
-  if (!CALENDAR_ID) {
-    throw new Error("GOOGLE_CALENDAR_ID is missing.");
+  const calendarId = getCalendarId();
+  const serviceAccountEmail = getServiceAccountEmail();
+  const formattedKey = getFormattedPrivateKey();
+
+  if (!calendarId) {
+    throw new Error("GOOGLE_CALENDAR_ID environment variable is missing.");
   }
-  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+  if (!serviceAccountEmail || !formattedKey) {
     throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
   }
 
-  const formattedKey = getFormattedPrivateKey();
   const auth = new google.auth.JWT({
-    email: SERVICE_ACCOUNT_EMAIL,
+    email: serviceAccountEmail,
     key: formattedKey,
     scopes: ["https://www.googleapis.com/auth/calendar"],
   });
 
   const calendar = google.calendar({ version: "v3", auth });
-  const response = await calendar.events.patch({
-    calendarId: CALENDAR_ID,
-    eventId: eventId,
-    requestBody: {
-      summary: data.summary,
-      description: data.description,
-      ...(data.start ? { start: { dateTime: data.start, timeZone: data.timeZone } } : {}),
-      ...(data.end ? { end: { dateTime: data.end, timeZone: data.timeZone } } : {}),
-      recurrence: data.recurrence,
-    },
-  });
+  try {
+    const response = await calendar.events.patch({
+      calendarId,
+      eventId: eventId,
+      requestBody: {
+        summary: data.summary,
+        description: data.description,
+        ...(data.start ? { start: { dateTime: data.start, timeZone: data.timeZone } } : {}),
+        ...(data.end ? { end: { dateTime: data.end, timeZone: data.timeZone } } : {}),
+        recurrence: data.recurrence,
+      },
+    });
 
-  const item = response.data;
-  safeRevalidateTag("calendar");
+    const item = response.data;
+    safeRevalidateTag("calendar");
 
-  return {
-    id: item.id || eventId,
-    summary: item.summary || "",
-    start: item.start?.dateTime || item.start?.date || "",
-    end: item.end?.dateTime || item.end?.date || "",
-    isBusy: item.transparency !== "transparent",
-    description: item.description || undefined,
-    recurrence: item.recurrence || undefined,
-    recurringEventId: item.recurringEventId || undefined,
-  };
+    return {
+      id: item.id || eventId,
+      summary: item.summary || "",
+      start: item.start?.dateTime || item.start?.date || "",
+      end: item.end?.dateTime || item.end?.date || "",
+      isBusy: item.transparency !== "transparent",
+      description: item.description || undefined,
+      recurrence: item.recurrence || undefined,
+      recurringEventId: item.recurringEventId || undefined,
+    };
+  } catch (err: unknown) {
+    const gError = err as {
+      code?: number;
+      response?: { data?: { error?: { message?: string } } };
+      message?: string;
+    };
+    const detailMsg = gError.response?.data?.error?.message || gError.message || "Unknown error";
+    console.error(`❌ Google Calendar events.patch failed for calendarId [${calendarId}]:`, detailMsg);
+    throw new Error(`Google Calendar API error: ${detailMsg}`);
+  }
 }
 
 export async function deleteCalendarEvent(eventId: string): Promise<void> {
-  if (!CALENDAR_ID) {
-    throw new Error("GOOGLE_CALENDAR_ID is missing.");
+  const calendarId = getCalendarId();
+  const serviceAccountEmail = getServiceAccountEmail();
+  const formattedKey = getFormattedPrivateKey();
+
+  if (!calendarId) {
+    throw new Error("GOOGLE_CALENDAR_ID environment variable is missing.");
   }
-  if (!SERVICE_ACCOUNT_EMAIL || !PRIVATE_KEY) {
+  if (!serviceAccountEmail || !formattedKey) {
     throw new Error("Google Service Account credentials (GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY) are required for write operations.");
   }
 
-  const formattedKey = getFormattedPrivateKey();
   const auth = new google.auth.JWT({
-    email: SERVICE_ACCOUNT_EMAIL,
+    email: serviceAccountEmail,
     key: formattedKey,
     scopes: ["https://www.googleapis.com/auth/calendar"],
   });
 
   const calendar = google.calendar({ version: "v3", auth });
-  await calendar.events.delete({
-    calendarId: CALENDAR_ID,
-    eventId: eventId,
-  });
+  try {
+    await calendar.events.delete({
+      calendarId,
+      eventId: eventId,
+    });
 
-  safeRevalidateTag("calendar");
+    safeRevalidateTag("calendar");
+  } catch (err: unknown) {
+    const gError = err as {
+      code?: number;
+      response?: { data?: { error?: { message?: string } } };
+      message?: string;
+    };
+    const detailMsg = gError.response?.data?.error?.message || gError.message || "Unknown error";
+    console.error(`❌ Google Calendar events.delete failed for calendarId [${calendarId}]:`, detailMsg);
+    throw new Error(`Google Calendar API error: ${detailMsg}`);
+  }
 }
 
 

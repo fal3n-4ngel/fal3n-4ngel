@@ -39,7 +39,7 @@ export async function GET() {
     
     const availability = {
       status: rawAvailability.status,
-      currentEvent: rawAvailability.status === "Busy" ? "Busy" : undefined,
+      currentEvent: rawAvailability.status === "Busy" ? (rawAvailability.currentEvent || "Busy") : undefined,
     };
 
     return NextResponse.json(

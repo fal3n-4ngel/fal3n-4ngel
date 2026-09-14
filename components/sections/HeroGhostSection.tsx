@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanyard } from "@/hooks";
+import type { AvailabilityStatus } from "@/lib/integrations/google-calendar";
 import { getCalendarAvailabilityStatus } from "@/lib/integrations/google-calendar";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -13,7 +14,7 @@ const GhostCanvas = dynamic(() => import("@/components/features/GhostCanvas"), {
 export const HeroGhostSection: React.FC = () => {
   const [statusText, setStatusText] = useState("Alive");
   const [statusDotColor, setStatusDotColor] = useState("bg-emerald-400 shadow-[0_0_8px_#34d399]");
-  const [calendarStatus, setCalendarStatus] = useState<string | null>(null);
+  const [calendarInfo, setCalendarInfo] = useState<AvailabilityStatus | null>(null);
   const [isAscii, setIsAscii] = useState(true);
 
   const [flags, setFlags] = useState({
@@ -25,11 +26,23 @@ export const HeroGhostSection: React.FC = () => {
   const { data: lanyardData } = useLanyard("849515993546096660");
 
   useEffect(() => {
-    getCalendarAvailabilityStatus().then((cal) => {
-      if (cal?.status) {
-        setCalendarStatus(cal.status);
+    let isMounted = true;
+    const fetchCalendar = async () => {
+      try {
+        const cal = await getCalendarAvailabilityStatus();
+        if (isMounted && cal) {
+          setCalendarInfo(cal);
+        }
+      } catch {
+        // silent fallback
       }
-    });
+    };
+    fetchCalendar();
+    const interval = setInterval(fetchCalendar, 60000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   useEffect(() => {
@@ -54,10 +67,19 @@ export const HeroGhostSection: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const isBusyCalendar = calendarInfo?.status === "Busy";
+    const calendarEventName =
+      calendarInfo?.currentEvent &&
+      calendarInfo.currentEvent.trim() &&
+      calendarInfo.currentEvent.trim().toLowerCase() !== "busy"
+        ? calendarInfo.currentEvent.trim()
+        : null;
+    const busyStatusText = calendarEventName ? `Busy: ${calendarEventName}` : "Busy (In a meeting)";
+
     if (!lanyardData) {
-      if (calendarStatus === "Busy") {
-        setStatusText("Busy (In a meeting)");
-        setStatusDotColor("bg-amber-400 shadow-[0_0_8px_#fbbf24]");
+      if (isBusyCalendar) {
+        setStatusText(busyStatusText);
+        setStatusDotColor("bg-amber-400 shadow-[0_0_8px_#fbbf24] animate-pulse");
       } else if (!flags.isMusic) {
         setStatusText("Alive");
         setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399]");
@@ -85,7 +107,10 @@ export const HeroGhostSection: React.FC = () => {
 
     setFlags({ isCoding: coding, isMusic: music, isGaming: gaming });
 
-    if (music) {
+    if (isBusyCalendar) {
+      setStatusText(busyStatusText);
+      setStatusDotColor("bg-amber-400 shadow-[0_0_8px_#fbbf24] animate-pulse");
+    } else if (music) {
       const spotify = lanyardData.activities?.find((act) => act.name === "Spotify");
       const song = spotify?.details
         ? `${spotify.details} - ${spotify.state}`
@@ -101,9 +126,6 @@ export const HeroGhostSection: React.FC = () => {
     } else if (gaming && gameAct) {
       setStatusText(`Playing: ${gameAct.name}`);
       setStatusDotColor("bg-purple-400 shadow-[0_0_8px_#c084fc] animate-pulse");
-    } else if (calendarStatus === "Busy") {
-      setStatusText("Busy (In a meeting)");
-      setStatusDotColor("bg-amber-400 shadow-[0_0_8px_#fbbf24]");
     } else if (lanyardData.discord_status === "online") {
       setStatusText("Online Now");
       setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399]");
@@ -117,10 +139,10 @@ export const HeroGhostSection: React.FC = () => {
       setStatusText("Alive");
       setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399]");
     }
-  }, [lanyardData, calendarStatus, flags.isMusic]);
+  }, [lanyardData, calendarInfo, flags.isMusic]);
 
   return (
-    <section className="relative flex h-screen h-[100dvh] max-h-[100dvh] w-full flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-6 md:py-8 select-none">
+    <section className="relative flex h-[100svh] min-h-[100svh] sm:h-screen w-full flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-6 md:py-8 select-none">
       <header className="relative z-30 flex w-full items-center justify-between font-sans text-xs sm:text-sm tracking-wide gap-2">
         <Link
           href="/"
@@ -142,6 +164,18 @@ export const HeroGhostSection: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3 flex-shrink-0">
+          <button
+            type="button"
+            onClick={() => setIsAscii((prev) => !prev)}
+            aria-label="Toggle 3D ASCII Ghost"
+            className="interactable flex items-center gap-1.5 px-2.5 py-1 rounded border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-colors font-mono text-[11px] text-zinc-300 hover:text-white cursor-pointer"
+          >
+            <span className="text-zinc-500">RENDER:</span>
+            <span className={isAscii ? "text-emerald-400 font-medium" : "text-zinc-400"}>
+              {isAscii ? "ASCII" : "3D"}
+            </span>
+          </button>
+
           <a
             href="mailto:hello@adithyakrishnan.com"
             className="interactable text-zinc-300 hover:text-white transition-colors text-xs truncate max-w-[180px] sm:max-w-none"
@@ -183,7 +217,10 @@ export const HeroGhostSection: React.FC = () => {
         <div className="flex flex-col gap-1.5 pointer-events-auto max-w-[80%] sm:max-w-none">
           <div className="flex items-center gap-2 text-left">
             <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform`} />
-            <span className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium truncate">
+            <span
+              className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium truncate"
+              title={statusText}
+            >
               {statusText}
             </span>
           </div>

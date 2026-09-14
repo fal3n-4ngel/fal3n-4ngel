@@ -21,7 +21,8 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1,
+      syncTouch: true,
       infinite: false,
       autoResize: true,
     });

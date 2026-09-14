@@ -150,6 +150,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, event: created }, { status: 201 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("❌ Failed to book meeting:", message, error);
     return NextResponse.json(
       { error: "Failed to book meeting", message },
       { status: 500 }

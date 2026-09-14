@@ -588,6 +588,8 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
 
     let ghostBaseX = initW >= 1024 ? 2.4 : 0;
     let ghostBaseY = initW < 768 ? 1.8 : (initW < 1024 ? 1.1 : 0.2);
+    let lastW = initW;
+    let lastH = initH;
 
     const onResize = () => {
       if (!mount) return;
@@ -595,8 +597,16 @@ export const GhostCanvas: React.FC<GhostCanvasProps> = ({
       const w = rect.width || mount.clientWidth;
       const h = rect.height || mount.clientHeight;
       if (w > 20 && h > 20) {
-        camera.aspect = w / h;
         const isMob = w < 768;
+        const deltaW = Math.abs(w - lastW);
+        const deltaH = Math.abs(h - lastH);
+        if (isMob && deltaW < 10 && deltaH < 140) {
+          return;
+        }
+        lastW = w;
+        lastH = h;
+
+        camera.aspect = w / h;
         const sc = isMob ? 0.52 : 0.66;
         ghostGroup.scale.set(sc, sc, sc);
         if (isMob) {
