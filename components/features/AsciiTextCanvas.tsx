@@ -24,6 +24,7 @@ type AsciiIconType =
   | "navigation"
   | "projects"
   | "achievements"
+  | "background"
   | "calendar"
   | "ghost";
 
@@ -35,7 +36,7 @@ function matchAsciiIcon(text: string): AsciiIconType | null {
   if (upper === "CONTACT" || upper === "EMAIL") return "contact";
   if (upper === "NAVIGATION" || upper === "NAV") return "navigation";
   if (upper === "PROJECTS") return "projects";
-  if (upper === "ACHIEVEMENTS") return "achievements";
+  if (upper === "BACKGROUND" || upper === "ACHIEVEMENTS" || upper === "EXPERIENCE") return "background";
   if (upper === "BOOK A MEETING" || upper === "CALENDAR") return "calendar";
   if (upper.includes("GHOST") || upper.includes("MASCOT") || upper.includes("👻")) return "ghost";
   return null;
@@ -246,6 +247,67 @@ function drawAsciiIcon(
     ctx.moveTo(cx - size * 0.25, topY + cupH + size * 0.16);
     ctx.lineTo(cx + size * 0.25, topY + cupH + size * 0.16);
     ctx.stroke();
+    return;
+  }
+
+  if (icon === "background") {
+    const bw = size * 1.02;
+    const bh = size * 0.66;
+    const bx = cx - bw / 2;
+    const by = cy - size * 0.15;
+
+    ctx.lineWidth = 14;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(bx, by, bw, bh, 14);
+    } else {
+      ctx.rect(bx, by, bw, bh);
+    }
+    ctx.stroke();
+
+    const hw = bw * 0.38;
+    const hh = size * 0.20;
+    ctx.beginPath();
+    ctx.moveTo(cx - hw / 2, by);
+    ctx.lineTo(cx - hw / 2, by - hh + 8);
+    ctx.quadraticCurveTo(cx - hw / 2, by - hh, cx - hw / 2 + 10, by - hh);
+    ctx.lineTo(cx + hw / 2 - 10, by - hh);
+    ctx.quadraticCurveTo(cx + hw / 2, by - hh, cx + hw / 2, by - hh + 8);
+    ctx.lineTo(cx + hw / 2, by);
+    ctx.stroke();
+
+    const seamY = by + bh * 0.42;
+    ctx.beginPath();
+    ctx.moveTo(bx + 4, seamY);
+    ctx.lineTo(bx + bw - 4, seamY);
+    ctx.stroke();
+
+    const sOffset = bw * 0.25;
+    ctx.beginPath();
+    ctx.moveTo(cx - sOffset, by + 4);
+    ctx.lineTo(cx - sOffset, by + bh - 4);
+    ctx.moveTo(cx + sOffset, by + 4);
+    ctx.lineTo(cx + sOffset, by + bh - 4);
+    ctx.stroke();
+
+    const cw = size * 0.15;
+    const ch = size * 0.13;
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(cx - cw / 2, seamY - ch / 2, cw, ch, 4);
+    } else {
+      ctx.rect(cx - cw / 2, seamY - ch / 2, cw, ch);
+    }
+    ctx.fill();
+
+    ctx.fillStyle = "#000000";
+    ctx.beginPath();
+    ctx.arc(cx, seamY, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
     return;
   }
 

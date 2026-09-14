@@ -132,9 +132,9 @@ export const Footer: React.FC = () => {
 
               <a
                 href="/#achievements"
-                onMouseEnter={() => triggerAsciiMorph("ACHIEVEMENTS")}
+                onMouseEnter={() => triggerAsciiMorph("BACKGROUND")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
-                onTouchStart={() => triggerAsciiMorph("ACHIEVEMENTS")}
+                onTouchStart={() => triggerAsciiMorph("BACKGROUND")}
                 className="flex items-center justify-between border-b border-white/5 pb-2 text-zinc-300 hover:text-white transition-colors"
               >
                 <span>Background</span>

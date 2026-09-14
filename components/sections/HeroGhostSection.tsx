@@ -152,7 +152,7 @@ export const HeroGhostSection: React.FC = () => {
 
         <nav className="hidden sm:flex items-center gap-6 md:gap-8 text-xs text-zinc-400">
           <a href="#achievements" className="interactable hover:text-white transition-colors">
-            achievements
+            background
           </a>
           <a href="#projects" className="interactable hover:text-white transition-colors">
             projects
