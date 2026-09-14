@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
 import LoadingPage from "./loading";
 
@@ -14,25 +13,11 @@ import { preloadImages } from "@/lib/preload-images";
 
 const PRELOAD_TIMEOUT_MS = 3000;
 
-const ProjectsSection = dynamic(() => import("@/components/sections/ProjectsSection"), {
-  ssr: false,
-});
-const AchievementsSection = dynamic(
-  () => import("@/components/sections/AchievementsSection").then((mod) => mod.AchievementsSection),
-  { ssr: false }
-);
-const ContactSection = dynamic(
-  () => import("@/components/sections/ContactSection").then((mod) => mod.ContactSection),
-  { ssr: false }
-);
-const AsciiTextCanvas = dynamic(
-  () => import("@/components/features/AsciiTextCanvas").then((mod) => mod.AsciiTextCanvas),
-  { ssr: false }
-);
-const Footer = dynamic(
-  () => import("@/components/layout/Footer").then((mod) => ({ default: mod.Footer })),
-  { ssr: true }
-);
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { AchievementsSection } from "@/components/sections/AchievementsSection";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { AsciiTextCanvas } from "@/components/features/AsciiTextCanvas";
+import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   const ref = useRef(null);
