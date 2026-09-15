@@ -1,8 +1,8 @@
 import Maintenance from "@/components/layout/Maintenance";
 import LenisProvider from "@/components/providers/LenisProvider";
 import { getSiteConfig } from "@/lib/integrations/notion";
-import { Analytics } from "@Vercel/analytics/react";
-import { SpeedInsights } from "@Vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
@@ -34,6 +34,21 @@ export const metadata: Metadata = {
 
   description:
     "Adithya Krishnan is a Software Engineer and Open Source Developer from Kerala, India, specializing in frontend development, full-stack engineering, cloud technologies, and developer tools.",
+
+  keywords: [
+    "Adithya Krishnan",
+    "Software Engineer",
+    "Full Stack Engineer",
+    "Frontend Developer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Java Spring Boot",
+    "Three.js",
+    "Kerala Software Engineer",
+    "Open Source Developer",
+    "fal3n-4ngel",
+  ],
 
   authors: [
     {
@@ -142,7 +157,7 @@ const personSchema = {
 
   sameAs: [
     "https://github.com/fal3n-4ngel",
-    "https://linkedin.com/in/adithyakrishnans",
+    "https://www.linkedin.com/in/fal3n-4ngel/",
     "https://twitter.com/fal3n4ngel",
   ],
 
