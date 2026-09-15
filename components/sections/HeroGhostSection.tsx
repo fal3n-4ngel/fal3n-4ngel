@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanyard } from "@/hooks";
 import type { AvailabilityStatus } from "@/lib/integrations/google-calendar";
 import { getCalendarAvailabilityStatus } from "@/lib/integrations/google-calendar";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
@@ -244,13 +244,20 @@ export const HeroGhostSection: React.FC = () => {
         }}
         className="relative z-20 flex flex-1 flex-col justify-end pb-6 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none will-change-transform"
       >
-        <h1 className="interactable pointer-events-auto text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">
-          <span className="text-white font-normal">I’m Adi</span>
-          <span className="text-zinc-500 font-light mx-2 sm:mx-3">—</span>
-          <span className="text-zinc-200">a Multidisciplinary Software Engineer,</span>
-          <br className="hidden sm:inline" />{" "}
-          <span className="text-zinc-400 font-light">
-            building for the web, cloud, and everything in between.
+        <h1 className="interactable pointer-events-auto font-display text-2xl sm:text-4xl md:text-5xl lg:text-[48px] xl:text-[56px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">
+          <span className="block">
+            <span className="text-white font-normal">I’m Adi</span>
+            <span className="text-zinc-500 font-light mx-2 sm:mx-3">—</span>
+            <span className="text-zinc-200">a Multidisciplinary</span>
+          </span>
+          <span className="block text-zinc-200">
+            Software Engineer,
+          </span>
+          <span className="block text-zinc-400 font-light">
+            building for the web, cloud,
+          </span>
+          <span className="block text-zinc-400 font-light">
+            and everything in between.
           </span>
         </h1>
 
