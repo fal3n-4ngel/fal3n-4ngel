@@ -1,11 +1,12 @@
 "use client";
 
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanyard } from "@/hooks";
 import type { AvailabilityStatus } from "@/lib/integrations/google-calendar";
 import { getCalendarAvailabilityStatus } from "@/lib/integrations/google-calendar";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const GhostCanvas = dynamic(() => import("@/components/features/GhostCanvas"), {
   ssr: false,
@@ -140,8 +141,55 @@ export const HeroGhostSection: React.FC = () => {
     }
   }, [lanyardData, calendarInfo, flags.isMusic]);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // 3D Ghost background layer - moves at ~0.35x speed (deeper layer), gently recedes and softens
+  const ghostY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? ["0%", "0%"] : ["0%", "28%"]
+  );
+  const ghostScale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? [1, 1] : [1, 0.9]
+  );
+  const ghostOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.2]);
+
+  // Foreground text drift - moves upward faster (~0.55x speed) and fades cleanly
+  const textY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? ["0px", "0px"] : ["0px", "-110px"]
+  );
+  const textOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+
+  // Quote counter-drift - drifts slightly more to give typographic depth separation
+  const quoteY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? ["0px", "0px"] : ["0px", "-140px"]
+  );
+
+  // Status footer fade-out
+  const footerOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const footerY = useTransform(
+    scrollYProgress,
+    [0, 0.3],
+    shouldReduceMotion ? ["0px", "0px"] : ["0px", "-24px"]
+  );
+
   return (
-    <section className="relative flex h-[100svh] min-h-[100svh] sm:h-screen w-full flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-6 md:py-8 select-none">
+    <section
+      ref={sectionRef}
+      className="relative flex h-[100svh] min-h-[100svh] sm:h-screen w-full flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-6 md:py-8 select-none"
+    >
       <header className="relative z-30 flex w-full items-center justify-between font-sans text-xs sm:text-sm tracking-wide gap-2">
         <Link
           href="/"
@@ -163,7 +211,6 @@ export const HeroGhostSection: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3 flex-shrink-0">
-
           <a
             href="mailto:hello@adithyakrishnan.com"
             className="interactable text-zinc-300 hover:text-white transition-colors text-xs truncate max-w-[180px] sm:max-w-none"
@@ -173,13 +220,30 @@ export const HeroGhostSection: React.FC = () => {
         </div>
       </header>
 
-      <GhostCanvas
-        isMusic={flags.isMusic}
-        isCoding={flags.isCoding}
-        isGaming={flags.isGaming}
-      />
+      {/* 3D Ghost Layer with Parallax Depth & Soft Recede */}
+      <motion.div
+        style={{
+          y: ghostY,
+          scale: ghostScale,
+          opacity: ghostOpacity,
+        }}
+        className="absolute inset-0 z-10 w-full h-full will-change-transform pointer-events-auto"
+      >
+        <GhostCanvas
+          isMusic={flags.isMusic}
+          isCoding={flags.isCoding}
+          isGaming={flags.isGaming}
+        />
+      </motion.div>
 
-      <div className="relative z-20 flex flex-1 flex-col justify-end pb-6 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none">
+      {/* Foreground Typography with Dynamic Scroll Drift */}
+      <motion.div
+        style={{
+          y: textY,
+          opacity: textOpacity,
+        }}
+        className="relative z-20 flex flex-1 flex-col justify-end pb-6 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none will-change-transform"
+      >
         <h1 className="interactable pointer-events-auto text-2xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[62px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">
           <span className="text-white font-normal">I’m Adi</span>
           <span className="text-zinc-500 font-light mx-2 sm:mx-3">—</span>
@@ -190,42 +254,54 @@ export const HeroGhostSection: React.FC = () => {
           </span>
         </h1>
 
-        <blockquote className="hidden sm:block interactable pointer-events-auto mt-6 sm:mt-8 border-l border-white/20 pl-3.5 sm:pl-4 max-w-xl">
+        <motion.blockquote
+          style={{ y: quoteY }}
+          className="hidden sm:block interactable pointer-events-auto mt-6 sm:mt-8 border-l border-white/20 pl-3.5 sm:pl-4 max-w-xl will-change-transform"
+        >
           <p className="font-mono text-xs sm:text-[13px] text-zinc-300 italic leading-relaxed">
             “Like I always say, can&apos;t find a door? Make your own.”
           </p>
           <cite className="mt-1.5 block font-mono text-[11px] text-zinc-500 not-italic">
             — Edward Elric, Fullmetal Alchemist
           </cite>
-        </blockquote>
-      </div>
+        </motion.blockquote>
+      </motion.div>
 
-      <footer className="relative z-30 flex w-full items-end justify-between pt-4 pb-2 sm:pb-0 pointer-events-none gap-4">
-          <div className="flex flex-col gap-1.5 pointer-events-auto max-w-[80%] sm:max-w-none">
-            <div className="flex items-center gap-2 text-left">
-              <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform`} />
-              <span
-                className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium truncate"
-                title={statusText}
-              >
-                {statusText}
-              </span>
-            </div>
-            <div className="font-mono text-[10px] sm:text-[11px] text-zinc-500 tracking-widest uppercase truncate">
-              Software Engineer · Kerala, India
-            </div>
-          </div>
-
-          <a
-            href="#achievements"
-            aria-label="Scroll to achievements"
-            className="interactable group pointer-events-auto flex items-center justify-center p-2 text-zinc-400 hover:text-white transition-colors text-lg flex-shrink-0"
-          >
-            <span className="transition-transform duration-300 group-hover:translate-y-1">
-              ↓
+      {/* Bottom Status Footer with Quick Fade on Scroll */}
+      <motion.footer
+        style={{
+          y: footerY,
+          opacity: footerOpacity,
+        }}
+        className="relative z-30 flex w-full items-end justify-between pt-4 pb-2 sm:pb-0 pointer-events-none gap-4 will-change-transform"
+      >
+        <div className="flex flex-col gap-1.5 pointer-events-auto max-w-[80%] sm:max-w-none">
+          <div className="flex items-center gap-2 text-left">
+            <span
+              className={`inline-block h-2 w-2 flex-shrink-0 rounded-full ${statusDotColor} transition-transform`}
+            />
+            <span
+              className="font-mono text-[11px] sm:text-xs text-zinc-300 tracking-wide font-medium truncate"
+              title={statusText}
+            >
+              {statusText}
             </span>
-          </a>
-      </footer>
+          </div>
+          <div className="font-mono text-[10px] sm:text-[11px] text-zinc-500 tracking-widest uppercase truncate">
+            Software Engineer · Kerala, India
+          </div>
+        </div>
+
+        <a
+          href="#achievements"
+          aria-label="Scroll to achievements"
+          className="interactable group pointer-events-auto flex items-center justify-center p-2 text-zinc-400 hover:text-white transition-colors text-lg flex-shrink-0"
+        >
+          <span className="transition-transform duration-300 group-hover:translate-y-1">
+            ↓
+          </span>
+        </a>
+      </motion.footer>
     </section>
   );
 };
