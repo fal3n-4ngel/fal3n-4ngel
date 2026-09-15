@@ -27,6 +27,19 @@ export default function BookMeetingPage() {
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  // Ensure page always starts at top when navigated to
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+    const lenis = (
+      window as unknown as {
+        lenis?: { scrollTo: (target: number, opts?: { immediate?: boolean }) => void };
+      }
+    ).lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+  }, []);
+
   // Get next 7 weekdays (skipping Saturday and Sunday)
   const getNextWeekdays = () => {
     const dates: Date[] = [];

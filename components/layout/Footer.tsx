@@ -143,6 +143,8 @@ export const Footer: React.FC = () => {
 
               <Link
                 href="/book"
+                scroll={true}
+                onClick={() => scrollToTop(true)}
                 onMouseEnter={() => triggerAsciiMorph("BOOK A MEETING")}
                 onMouseLeave={() => triggerAsciiMorph(null)}
                 onTouchStart={() => triggerAsciiMorph("BOOK A MEETING")}

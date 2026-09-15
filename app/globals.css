@@ -32,7 +32,6 @@ html,
 body {
   color: rgb(var(--foreground-rgb));
   background: transparent;
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
