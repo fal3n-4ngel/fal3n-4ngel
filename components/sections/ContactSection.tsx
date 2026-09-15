@@ -24,9 +24,16 @@ export const ContactSection: React.FC = () => {
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
+            <span>[ 03 // GET IN TOUCH ]</span>
+          </div>
+
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white leading-none">
             Contact
           </h2>
+          <p className="mt-3 text-sm sm:text-base font-light text-zinc-400 leading-relaxed">
+            Have an idea, opportunity, or just want to chat? Say hello.
+          </p>
         </div>
 
         <div className="flex flex-col lg:w-1/2">

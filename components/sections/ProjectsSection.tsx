@@ -316,10 +316,14 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
         {/* ── Left Column: Section Title & Subtitle (Sticky on Desktop, matches Background section) ── */}
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
-          <h2 className="interactable text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
+            <span>[ 02 // SELECTED WORKS ]</span>
+          </div>
+
+          <h2 className="interactable font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white leading-none">
             Projects
           </h2>
-          <p className="mt-2.5 sm:mt-3 text-sm sm:text-base font-light text-zinc-400">
+          <p className="mt-3 text-sm sm:text-base font-light text-zinc-400 leading-relaxed">
             Selected case studies, experiments, and systems.
           </p>
 

@@ -15,6 +15,7 @@ const config: Config = {
       fontFamily: {
         elgoc: ["Elgoc-Thin", "sans-serif"],
         sans: ["var(--font-inter)"],
+        display: ["var(--font-space-grotesk)", "var(--font-inter)", "sans-serif"],
       },
       animation: {
         "spin-slow": "spin 6s linear infinite",

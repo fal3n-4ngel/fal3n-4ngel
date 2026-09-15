@@ -3,6 +3,7 @@
 import { EXPERIENCE_DATA, ExperienceItem } from "@/data/experience";
 import { AwardItemData, getAwards, getExperiences } from "@/lib/integrations/notion";
 import React, { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const DEFAULT_AWARDS: AwardItemData[] = [
   {
@@ -22,6 +23,7 @@ const DEFAULT_AWARDS: AwardItemData[] = [
 export const AchievementsSection: React.FC = () => {
   const [experiences, setExperiences] = useState<ExperienceItem[]>(EXPERIENCE_DATA);
   const [awards, setAwards] = useState<AwardItemData[]>(DEFAULT_AWARDS);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     getExperiences().then((data) => {
@@ -57,12 +59,22 @@ export const AchievementsSection: React.FC = () => {
       className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-        {/* ── Left Column: Section Title & Subtitle ── */}
-        <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
-          <h2 className="interactable text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white">
+        {/* ── Left Column: Section Title & Subtitle (Sticky on Desktop) ── */}
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          className="flex flex-col lg:w-1/2 lg:sticky lg:top-24"
+        >
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
+            <span>[ 01 // OVERVIEW ]</span>
+          </div>
+
+          <h2 className="interactable font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white leading-none">
             Background
           </h2>
-          <p className="mt-2.5 sm:mt-3 text-sm sm:text-base font-light text-zinc-400">
+          <p className="mt-3 text-sm sm:text-base font-light text-zinc-400 leading-relaxed">
             Where I’ve worked, learned, and built.
           </p>
 
@@ -71,27 +83,38 @@ export const AchievementsSection: React.FC = () => {
               href="/Resume_Adithya_Krishnan_sept.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="interactable inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"
+              className="interactable group inline-flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors"
             >
               <span>[ Open Curriculum Vitae ]</span>
-              <span>↗</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                ↗
+              </span>
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Right Column: Experience, Skills & Awards ───────────── */}
         <div className="flex flex-col gap-12 sm:gap-14 lg:w-1/2">
+          {/* ── 1. Experience ── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Experience
             </h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
               {experiences.map((exp, idx) => (
-                <div
+                <motion.div
                   key={`${exp.title}-${exp.company || idx}`}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: idx * 0.04,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
                   className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
-                  <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
+                  <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors duration-200">
                     {exp.title}
                   </span>
                   <span className="font-mono text-xs sm:text-[13px] text-zinc-400">
@@ -110,10 +133,21 @@ export const AchievementsSection: React.FC = () => {
                     {" · "}
                     {exp.period}
                   </span>
-                </div>
+                </motion.div>
               ))}
-              <div className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default">
-                <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
+
+              <motion.div
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.5,
+                  delay: experiences.length * 0.04,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+                className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
+              >
+                <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors duration-200">
                   Bachelor of Technology (CSE)
                 </span>
                 <span className="font-mono text-xs sm:text-[13px] text-zinc-400">
@@ -127,42 +161,60 @@ export const AchievementsSection: React.FC = () => {
                   </a>
                   {" · "}2021 - 2025
                 </span>
-              </div>
+              </motion.div>
             </div>
           </div>
 
+          {/* ── 2. Skills ── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Skills
             </h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
-              {skillsData.map((item) => (
-                <div
+              {skillsData.map((item, idx) => (
+                <motion.div
                   key={item.category}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: idx * 0.04,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
                   className="interactable group flex flex-col gap-1 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
-                  <span className="text-sm sm:text-[15px] font-medium text-zinc-100 group-hover:text-white transition-colors">
+                  <span className="text-sm sm:text-[15px] font-medium text-zinc-100 group-hover:text-white transition-colors duration-200">
                     {item.category}
                   </span>
                   <span className="text-sm text-zinc-300 font-light leading-relaxed">
                     {item.technologies}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
+          {/* ── 3. Awards ── */}
           <div className="flex flex-col">
             <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
               Awards
             </h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
               {awards.map((item, idx) => (
-                <div
+                <motion.div
                   key={`${item.title}-${item.date || idx}`}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: idx * 0.04,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
                   className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
-                  <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors">
+                  <span className="text-sm sm:text-[15px] font-normal text-zinc-100 group-hover:text-white transition-colors duration-200">
                     {item.title}
                   </span>
                   <span className="font-mono text-xs sm:text-[13px] text-zinc-400">
@@ -175,7 +227,7 @@ export const AchievementsSection: React.FC = () => {
                       {item.team}
                     </span>
                   )}
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
