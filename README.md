@@ -17,7 +17,7 @@
 <br />
 
 - [fal3n-4ngel/fal3n-4ngel](https://github.com/fal3n-4ngel/fal3n-4ngel) — : > _(today)_
-- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(yesterday)_
+- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(today)_
 
 </details>
 
@@ -27,7 +27,7 @@
 
 - [aks-hayy/WatchTower](https://github.com/aks-hayy/WatchTower) _(4 months ago)_
 - [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) — Find, verify, and analyze leaked credentials _(9 years ago)_
-- [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) — Official awesome-list of CodeRabbit Starters & Resources ⚡️ _(1 year ago)_
+- [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) — Official awesome-list of CodeRabbit Starters & Resources ⚡️ _(2 years ago)_
 - [pear-devs/pear-desktop](https://github.com/pear-devs/pear-desktop) — Pear 🍐 is extension for music player _(7 years ago)_
 
 </details>
