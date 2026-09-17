@@ -11,7 +11,7 @@ import {
   useTransform,
 } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const PROJECT_BACKGROUNDS = [
   "/editorial/bg-limestone.jpg",   // 0: Warm travertine limestone & olive branch shadow (Continuum Home)
@@ -20,21 +20,16 @@ const PROJECT_BACKGROUNDS = [
   "/editorial/bg-butterfly.jpg",   // 3: Swallowtail butterfly on yellow flower petals (Roshan Sahu style)
 ];
 
-const PROJECT_GRADIENTS = [
-  "bg-gradient-to-br from-[#801b1b] via-[#5c1313] to-[#2b0808]", // 0: Crimson / Terracotta
-  "bg-gradient-to-br from-[#8c6b1b] via-[#5a430d] to-[#291e04]", // 1: Golden Amber / Ochre
-  "bg-gradient-to-br from-[#1e3a5f] via-[#12253f] to-[#08111e]", // 2: Steel Cobalt / Deep Twilight
-  "bg-gradient-to-br from-[#1c4031] via-[#10271e] to-[#07130e]", // 3: Alpine Emerald / Forest
-  "bg-gradient-to-br from-[#4a2840] via-[#2f1929] to-[#160a13]", // 4: Deep Mulberry / Plum
-  "bg-gradient-to-br from-[#733d22] via-[#4d2714] to-[#241107]", // 5: Burnt Clay / Sienna
-  "bg-gradient-to-br from-[#2b333e] via-[#1a2027] to-[#0c0f13]", // 6: Slate Graphite / Minimalist Titanium
-  "bg-gradient-to-br from-[#1d4444] via-[#112a2a] to-[#071313]", // 7: Deep Pine / Teal
-  "bg-gradient-to-br from-[#403828] via-[#2a2418] to-[#120f09]", // 8: Warm Sand / Raw Linen
-  "bg-gradient-to-br from-[#2e233c] via-[#1d1627] to-[#0c0911]", // 9: Obsidian Violet / Indigo
-];
-
 const SCALE_X_MIN = 0.68; // width scale when not focused (noticeably more compact)
-const SCALE_Y_MIN = 0.48; // height scale when not focused (clearly secondary)
+const SCALE_Y_MIN = 0.58; // height scale when not focused — softer than 0.48, still clear hierarchy
+
+// Fixed, explicit height for the mobile metadata bar.
+const MOBILE_METADATA_HEIGHT = 76;
+
+// Scroll distance (in vh) allocated per card transition.
+// 55vh on mobile matches the compact card unit height for a natural 1:1 scroll feel.
+const PER_CARD_VH_DESKTOP = 90;
+const PER_CARD_VH_MOBILE = 55;
 
 function getCardScaleY(idx: number, p: number): number {
   const d = Math.abs(idx - p);
@@ -95,14 +90,13 @@ const ProjectImage: React.FC<{
         loading={priority ? "eager" : "lazy"}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
-        className={`max-w-[85vw] sm:max-w-[70vw] md:max-w-[54vw] lg:max-w-[56vw] xl:max-w-[58vw] max-h-[58vh] sm:max-h-[64vh] w-auto h-auto object-contain block transition-opacity duration-300 ${
+        className={`max-w-[92vw] sm:max-w-[70vw] md:max-w-[54vw] lg:max-w-[56vw] xl:max-w-[58vw] max-h-[240px] sm:max-h-[280px] md:max-h-[58vh] lg:max-h-[64vh] w-auto h-auto object-contain block transition-opacity duration-300 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
       />
     </div>
   );
 };
-
 
 function getCardY(
   idx: number,
@@ -167,17 +161,25 @@ const SemiCircleScrollCard: React.FC<{
   progress: ReturnType<typeof useTransform<number, number>>;
   cardHeight: number;
   windowHeight: number;
+  isMobile: boolean;
   shouldReduceMotion: boolean | null;
   onSelect: (idx: number) => void;
-}> = ({ project, idx, total, progress, cardHeight, windowHeight, shouldReduceMotion, onSelect }) => {
-  // Pure 2D Flat Motion: continuous contiguous stack with ZERO gaps at all times
+}> = ({ project, idx, total, progress, cardHeight, windowHeight, isMobile, shouldReduceMotion, onSelect }) => {
+  // Desktop: gap-math keeps cards gapless at all scroll positions
   const y = useTransform(progress, (p) => getCardY(idx, p, cardHeight, windowHeight, total));
   const scaleX = useTransform(progress, (p) => getCardScaleX(idx, p));
   const scaleY = useTransform(progress, (p) => getCardScaleY(idx, p));
 
+  // Mobile: compact card unit (cardHeight + metadata height).
+  // Step = mobileUnitHeight guarantees adjacent cards touch with exactly zero gap.
+  // When p = 0, card 0 is centered in viewport. Card 1 is immediately below its metadata block.
+  const mobileUnitHeight = cardHeight + MOBILE_METADATA_HEIGHT;
+  const mobileCenterY = windowHeight / 2 - mobileUnitHeight / 2;
+  const mobileY = useTransform(progress, (p) => mobileCenterY + (idx - p) * mobileUnitHeight);
+
   // Subtle parallax between the inner preview box, the backdrop, and the card wrapper
-  const innerParallaxY = useTransform(progress, (p) => (idx - p) * 34);
-  const bgParallaxY = useTransform(progress, (p) => (p - idx) * 16);
+  const innerParallaxY = useTransform(progress, (p) => (idx - p) * 16);
+  const bgParallaxY = useTransform(progress, (p) => (p - idx) * 8);
 
   // Text is tied directly to this card: fades in as card enters center, fades out as card leaves
   const textOpacity = useTransform(progress, (p) => {
@@ -206,7 +208,6 @@ const SemiCircleScrollCard: React.FC<{
 
   const projectType = project.type || "WEBSITE";
   const isGithub = project.view?.includes("github.com");
-  const bgGradient = PROJECT_GRADIENTS[idx % PROJECT_GRADIENTS.length];
   const bgImage = PROJECT_BACKGROUNDS[idx % PROJECT_BACKGROUNDS.length] || "/editorial/bg-limestone.jpg";
 
   return (
@@ -215,13 +216,14 @@ const SemiCircleScrollCard: React.FC<{
         shouldReduceMotion
           ? { zIndex }
           : {
-              y,
+              y: isMobile ? mobileY : y,
               zIndex,
+              willChange: "transform",
             }
       }
-      className="absolute top-0 right-0 flex items-center justify-end pr-0 pointer-events-auto"
+      className="absolute top-0 inset-x-0 md:left-auto md:right-0 flex flex-col md:flex-row items-stretch md:items-center md:justify-end pr-0 pointer-events-auto"
     >
-      {/* ── Minimal Project Details (Matching Reference Style) ── */}
+      {/* ── Minimal Project Details (Desktop only) ── */}
       <motion.div
         style={{
           opacity: shouldReduceMotion ? 1 : textOpacity,
@@ -255,47 +257,48 @@ const SemiCircleScrollCard: React.FC<{
         </div>
       </motion.div>
 
-      {/* ── Big Project Image Card (Touching Right Edge) ── */}
+      {/* ── Project Image Card ── */}
       <motion.div
         onClick={() => onSelect(idx)}
         style={
-          shouldReduceMotion
-            ? { height: `${cardHeight}px` }
+          shouldReduceMotion || isMobile
+            ? { height: `${cardHeight}px`, willChange: "transform" }
             : {
                 scaleX,
                 scaleY,
                 height: `${cardHeight}px`,
+                willChange: "transform",
               }
         }
-        className="w-[95vw] sm:w-[92vw] md:w-[68vw] lg:w-[72vw] xl:w-[75vw] 2xl:w-[76vw] max-w-[1550px] origin-right cursor-pointer select-none shrink-0"
+        className="w-full md:w-[68vw] lg:w-[72vw] xl:w-[75vw] 2xl:w-[76vw] max-w-[1550px] origin-right cursor-pointer select-none shrink-0"
       >
-        <div
-          className={`group relative w-full h-full ${bgGradient} border-l border-white/20 overflow-hidden flex items-center justify-center p-4 sm:p-7 lg:p-12 transition-all duration-300`}
-        >
+        <div className="group relative w-full h-full border-l border-white/20 overflow-hidden flex items-center justify-center p-2.5 sm:p-4 md:p-7 lg:p-12">
           {/* Editorial Photographic Backdrop with subtle counter parallax */}
           <motion.div
             style={{
               y: shouldReduceMotion ? 0 : bgParallaxY,
               scale: 1.1,
+              willChange: "transform",
             }}
-            className="absolute inset-0 z-0 overflow-hidden"
+            className="absolute inset-0 z-0"
           >
             <Image
               src={bgImage}
               alt="Project Background"
               fill
               priority={idx < 3}
-              sizes="(max-width: 1024px) 95vw, 80vw"
+              sizes="(max-width: 768px) 100vw, 80vw"
               className="object-cover object-center"
             />
           </motion.div>
 
-          {/* Website Preview Image with vertical parallax, unclipped, zero black bars */}
+          {/* Website Preview Image with vertical parallax */}
           <motion.div
             style={{
               y: shouldReduceMotion ? 0 : innerParallaxY,
+              willChange: "transform",
             }}
-            className="relative z-10 flex items-center justify-center pointer-events-auto"
+            className="relative z-10 w-[92%] sm:w-[88%] md:w-auto flex items-center justify-center pointer-events-auto"
           >
             <ProjectImage
               src={project.url1}
@@ -305,13 +308,50 @@ const SemiCircleScrollCard: React.FC<{
             />
           </motion.div>
 
-          {/* Direct Action Pill on Hover */}
-          <div className="absolute top-4 right-4 z-30 flex items-center gap-1.5 border border-white/25 bg-black/90 px-3 py-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
+          {/* Hover pill — desktop only, hidden on touch devices. Scoped transition
+              (was transition-all, which forces the browser to diff every animatable
+              property on every hover frame instead of just the two that change). */}
+          <div className="hidden md:flex absolute top-4 right-4 z-30 items-center gap-1.5 border border-white/25 bg-black/90 px-3 py-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-white backdrop-blur-md opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-300 transform translate-y-1 group-hover:translate-y-0">
             <span>{isGithub ? "View Code" : "Open Project"}</span>
             <span className="text-zinc-400">→</span>
           </div>
         </div>
       </motion.div>
+
+      {/* ── Mobile Metadata Block — full-width, attached directly below card ──
+          Fixed, explicit height (matches MOBILE_METADATA_HEIGHT) so it can never
+          drift from the tiling math regardless of text length/wrapping. */}
+      <div
+        style={{ height: `${MOBILE_METADATA_HEIGHT}px` }}
+        className="md:hidden w-full bg-black border-b border-white/10 px-4 py-3 flex flex-col justify-center overflow-hidden select-text pointer-events-auto shrink-0"
+      >
+        <div className="flex items-baseline justify-between gap-2 mb-1">
+          <h3 className="text-lg font-light uppercase tracking-tight text-white leading-tight truncate">
+            <a
+              href={project.view || "https://github.com/fal3n-4ngel"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-zinc-300 transition-colors"
+            >
+              {project.name}
+            </a>
+          </h3>
+          <a
+            href={project.view || "https://github.com/fal3n-4ngel"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs tracking-widest text-zinc-400 hover:text-white shrink-0"
+          >
+            [OPEN]
+          </a>
+        </div>
+        <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 truncate">
+          {skills.slice(0, 3).join(", ")}
+        </div>
+        <div className="text-[11px] font-mono uppercase tracking-widest text-zinc-500 mt-0.5 truncate">
+          ROLE: {projectType.toUpperCase()}
+        </div>
+      </div>
     </motion.div>
   );
 };
@@ -323,8 +363,24 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
     initialProjects && initialProjects.length > 0 ? initialProjects : fallbackProjects
   );
   const [activeIdx, setActiveIdx] = useState(0);
-  const [cardHeight, setCardHeight] = useState(600);
-  const [windowHeight, setWindowHeight] = useState(900);
+  const [cardHeight, setCardHeight] = useState(() => {
+    if (typeof window !== "undefined") {
+      const h = window.innerHeight;
+      const w = window.innerWidth;
+      if (w < 768) {
+        return Math.round(Math.min(320, Math.max(260, h * 0.38)));
+      }
+      return Math.round(Math.max(500, h * 0.74));
+    }
+    return 600;
+  });
+  const [windowHeight, setWindowHeight] = useState(() =>
+    typeof window !== "undefined" ? window.innerHeight : 900
+  );
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") return window.innerWidth < 768;
+    return false;
+  });
   const shouldReduceMotion = useReducedMotion();
 
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -342,10 +398,18 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
   useEffect(() => {
     const handleResize = () => {
       const h = window.innerHeight;
+      const w = window.innerWidth;
       setWindowHeight(h);
-      // Focused card covers 74% of viewport height
-      const ch = Math.round(Math.max(500, h * 0.74));
-      setCardHeight(ch);
+      const isMob = w < 768;
+      setIsMobile(isMob);
+      if (isMob) {
+        // Mobile: compact, well-proportioned card matching roshan-sahu reference (pic 3)
+        // Card image is ~260-320px (about 38% of viewport), NOT a giant 700px wall
+        setCardHeight(Math.round(Math.min(320, Math.max(260, h * 0.38))));
+      } else {
+        // Desktop: focused card covers 74% of viewport height
+        setCardHeight(Math.round(Math.max(500, h * 0.74)));
+      }
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -355,19 +419,29 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
   const total = projectList.length;
 
   // Track scroll position within this pinned section
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: rawScrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Timing: cards animate over (total - 1) * 90vh, then footer curtain covers over 100vh
-  const cardsScrollVh = Math.max(1, total - 1) * 90;
+  // Direct 1:1 scroll tracking without spring resistance / magnetic drag.
+  // Lenis provides the root smooth easing; bypassing useSpring eliminates
+  // the rubber-band / magnetic touch feeling completely.
+  const scrollYProgress = rawScrollYProgress;
+
+  // Timing: cards animate over (total - 1) * perCardVh, then footer curtain covers over 100vh.
+  // perCardVh now differs by device: mobile cards travel a full windowHeight per
+  // step, so the scroll distance per step must also be a full 100vh, or the
+  // visual motion and the user's actual scroll input fall out of sync.
+  const perCardVh = isMobile ? PER_CARD_VH_MOBILE : PER_CARD_VH_DESKTOP;
+  const cardsScrollVh = Math.max(1, total - 1) * perCardVh;
   const curtainVh = 100;
   const totalScrollVh = cardsScrollVh + curtainVh;
   const cardsEndFraction = cardsScrollVh / totalScrollVh;
 
   // Continuous progress mapped from 0 to total - 1 (holds steady on last card during curtain reveal)
   const progress = useTransform(scrollYProgress, (v) => {
+    if (total <= 1) return 0;
     if (v <= 0) return 0;
     if (v >= cardsEndFraction) return total - 1;
     return (v / cardsEndFraction) * (total - 1);
@@ -381,6 +455,7 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
 
   // Sync active project index for bottom-left pagination & mobile footer
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (total <= 1) return;
     const cardV = Math.min(1, Math.max(0, latest / cardsEndFraction));
     const targetIdx = Math.min(total - 1, Math.max(0, Math.round(cardV * (total - 1))));
     if (targetIdx !== activeIdx) {
@@ -390,6 +465,20 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
 
   const activeProject = projectList[activeIdx] || projectList[0];
 
+  // Shared scroll-to-index helper (used by clicks AND settle-snap below)
+  const scrollToIndex = useCallback(
+    (targetIndex: number, behavior: ScrollBehavior = "smooth") => {
+      if (!sectionRef.current || total <= 1) return;
+      const sectionTop = sectionRef.current.offsetTop;
+      const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
+      const clamped = Math.min(total - 1, Math.max(0, targetIndex));
+      const targetScrollY =
+        sectionTop + (clamped / (total - 1)) * (cardsEndFraction * totalScrollable);
+      window.scrollTo({ top: targetScrollY, behavior });
+    },
+    [total, cardsEndFraction]
+  );
+
   // Scroll to project on clicking card or index pill
   const handleSelectProject = (targetIndex: number) => {
     if (targetIndex === activeIdx) {
@@ -398,13 +487,7 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
       window.open(url, "_blank", "noopener,noreferrer");
       return;
     }
-
-    if (!sectionRef.current) return;
-    const sectionTop = sectionRef.current.offsetTop;
-    const totalScrollable = sectionRef.current.offsetHeight - window.innerHeight;
-    const targetScrollY =
-      sectionTop + (targetIndex / (total - 1)) * (cardsEndFraction * totalScrollable);
-    window.scrollTo({ top: targetScrollY, behavior: "smooth" });
+    scrollToIndex(targetIndex);
   };
 
   return (
@@ -420,6 +503,7 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
           scale: shouldReduceMotion ? 1 : stageScale,
           opacity: shouldReduceMotion ? 1 : stageOpacity,
           y: shouldReduceMotion ? 0 : stageY,
+          willChange: "transform",
         }}
         className="sticky top-0 h-screen w-full overflow-hidden p-0 m-0 bg-black origin-center"
       >
@@ -433,7 +517,7 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
                 <button
                   key={i}
                   onClick={() => handleSelectProject(i)}
-                  className={`interactable px-1.5 py-0.5 text-[10px] transition-all ${
+                  className={`interactable px-1.5 py-0.5 text-[10px] transition-colors ${
                     isActive
                       ? "bg-white text-black font-medium"
                       : "text-zinc-500 hover:text-white"
@@ -481,6 +565,7 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
               progress={progress}
               cardHeight={cardHeight}
               windowHeight={windowHeight}
+              isMobile={isMobile}
               shouldReduceMotion={shouldReduceMotion}
               onSelect={handleSelectProject}
             />
