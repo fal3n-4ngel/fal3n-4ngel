@@ -84,7 +84,7 @@ export const projectSkills: Record<string, string[]> = {
 
 export const projects: Project[] = [
   {
-    url1: "/Continuum.png",
+    url1: "https://sqsq3dahgxfa1ffa.public.blob.vercel-storage.com/clean-porfolio/Continuum.png",
     name: "PHub Dashboard",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -142,45 +142,5 @@ export const projects: Project[] = [
     view: `${GITHUB_BASE}/Deflated-Pappadam/Smart-Certify`,
     description:
       "A blockchain-based certification platform that uniquely identifies organizations through secure wallet IDs and authenticates users via AADHAR integration, ensuring tamper-proof documentation. This project secured the winning spot at BlockHash 2023 by the Kerala Blockchain Academy.",
-  },
-  {
-    url1: "/Betterfunds.png",
-    name: "BETTER FUNDS",
-    type: PROJECT_TYPES.WEBSITE,
-    event: EVENT_TYPES.HACKATHON,
-    date: "2024",
-    view: "https://better-funds.vercel.app/",
-    description:
-      "Developed in a 24-hour hackathon (Zilckathon - HFT), Better Funds is a blockchain-based incentivized crowdfunding platform. Contributors earn tokens proportional to their contributions, which can be redeemed in a marketplace.",
-  },
-  {
-    url1: "/SustainableGoals.png",
-    name: "SUS GOALS",
-    type: PROJECT_TYPES.WEBSITE,
-    event: EVENT_TYPES.SIDE,
-    date: "2023",
-    view: "https://sus-goals.vercel.app/",
-    description:
-      "A college project centered on promoting sustainable development goals (SDGs). SUS Goals provides users with daily tasks to complete and maintains a global counter of completed tasks, helping SDGs through an engaging digital experience.",
-  },
-  {
-    url1: "/Drishti.png",
-    name: "DRISHTI",
-    type: PROJECT_TYPES.MOBILE,
-    event: EVENT_TYPES.HACKATHON,
-    date: "2022",
-    view: `${GITHUB_BASE}/fal3n-4ngel/Drishti-Client`,
-    description:
-      "Drishti simplifies hazard reporting and notifications, focusing on incidents like snapped powerlines or broken pipelines. Developed for Define Hack 2022, it enables users to report hazards, receive alerts, and track report status, while admins manage responses through a web service.",
-  },
-  {
-    url1: "/Ctracker.png",
-    name: "C-TRACKER",
-    type: PROJECT_TYPES.JAVA_SWING,
-    event: EVENT_TYPES.COLLEGE,
-    date: "2023",
-    view: `${GITHUB_BASE}/fal3n-4ngel/CTracker`,
-    description:
-      "A Java Swing GUI application tailored as an academic-themed task manager. C-Tracker employs SQLite for efficient database management and features tools for adding, editing, deleting, and tracking academic tasks.",
-  },
+  }
 ];

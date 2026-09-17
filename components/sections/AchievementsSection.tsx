@@ -2,8 +2,8 @@
 
 import { EXPERIENCE_DATA, ExperienceItem } from "@/data/experience";
 import { AwardItemData, getAwards, getExperiences } from "@/lib/integrations/notion";
-import React, { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
 
 const DEFAULT_AWARDS: AwardItemData[] = [
   {
@@ -24,6 +24,7 @@ export const AchievementsSection: React.FC = () => {
   const [experiences, setExperiences] = useState<ExperienceItem[]>(EXPERIENCE_DATA);
   const [awards, setAwards] = useState<AwardItemData[]>(DEFAULT_AWARDS);
   const shouldReduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     getExperiences().then((data) => {
@@ -55,8 +56,9 @@ export const AchievementsSection: React.FC = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="achievements"
-      className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
+      className="relative z-10 w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
         {/* ── Left Column: Section Title & Subtitle (Sticky on Desktop) ── */}

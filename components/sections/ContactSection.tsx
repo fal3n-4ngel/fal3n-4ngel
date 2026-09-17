@@ -20,7 +20,7 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
+      className="relative w-full bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
         <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
