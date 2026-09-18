@@ -99,7 +99,6 @@ const LoadingPage = ({
         },
       }}
     >
-      
       <AnimatePresence>
         {showText && (
           <motion.div
@@ -122,7 +121,7 @@ const LoadingPage = ({
               className="mt-4 font-mono text-sm text-gray-500 dark:text-gray-400"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 0.2 }}
             >
               {Math.round(progress)}%
             </motion.div>
@@ -130,7 +129,6 @@ const LoadingPage = ({
         )}
       </AnimatePresence>
 
-      
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {dots.map((dot, i) => (
           <motion.div

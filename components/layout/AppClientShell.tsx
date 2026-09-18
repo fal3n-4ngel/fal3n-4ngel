@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
@@ -10,15 +10,10 @@ export const AppClientShell: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 400);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
-      <AnimatePresence>
-        {isLoading && <LoadingPage onComplete={() => setIsLoading(false)} progress={100} />}
+      <AnimatePresence mode="wait">
+        {isLoading && <LoadingPage onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
       <CustomCursor />
       {children}

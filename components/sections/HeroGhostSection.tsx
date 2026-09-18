@@ -190,34 +190,46 @@ export const HeroGhostSection: React.FC = () => {
       ref={sectionRef}
       className="relative flex h-[100svh] min-h-[100svh] sm:h-screen w-full flex-col justify-between overflow-hidden bg-black text-white px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-6 md:py-8 select-none"
     >
-      <header className="relative z-30 flex w-full items-center justify-between font-sans text-xs sm:text-sm tracking-wide gap-2">
+      <header className="relative z-30 flex w-full items-center justify-between font-sans gap-4 py-2 pt-10 select-none">
         <Link
           href="/"
-          className="interactable text-white font-medium hover:text-zinc-300 transition-colors tracking-wide truncate max-w-[170px] sm:max-w-none"
+          className="interactable text-white text-lg sm:text-xl md:text-2xl font-normal tracking-tight hover:text-zinc-300 transition-colors"
         >
           Adi
         </Link>
 
-        <nav className="hidden sm:flex items-center gap-6 md:gap-8 text-xs text-zinc-400">
-          <a href="#achievements" className="interactable hover:text-white transition-colors">
-            background
+        <nav className="flex items-center gap-5 sm:gap-8 md:gap-10 text-sm sm:text-base md:text-[17px] font-light ">
+          <a
+            href="https://github.com/fal3n-4ngel"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="interactable text-zinc-400 hover:text-white transition-colors lowercase"
+          >
+            github
           </a>
-          <a href="#projects" className="interactable hover:text-white transition-colors">
-            projects
+          <a
+            href="https://www.linkedin.com/in/fal3n-4ngel/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="interactable text-zinc-400 hover:text-white transition-colors lowercase"
+          >
+            linkedin
           </a>
-          <a href="#contact" className="interactable hover:text-white transition-colors">
-            contact
+          <a
+            href="/Resume_Adithya_Krishnan_sept.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="interactable text-zinc-400 hover:text-white transition-colors lowercase"
+          >
+            resume
           </a>
-        </nav>
-
-        <div className="flex items-center gap-3 flex-shrink-0">
           <a
             href="mailto:hello@adithyakrishnan.com"
-            className="interactable text-zinc-300 hover:text-white transition-colors text-xs truncate max-w-[180px] sm:max-w-none"
+            className="interactable text-zinc-300 hover:text-white transition-colors truncate max-w-[200px] sm:max-w-none"
           >
             hello@adithyakrishnan.com
           </a>
-        </div>
+        </nav>
       </header>
 
       {/* 3D Ghost Layer with Parallax Depth & Soft Recede */}
@@ -244,24 +256,62 @@ export const HeroGhostSection: React.FC = () => {
         }}
         className="relative z-20 flex flex-1 flex-col justify-end pb-6 sm:pb-12 md:pb-14 lg:pb-0 lg:justify-center max-w-2xl lg:max-w-3xl pointer-events-none will-change-transform"
       >
-        <h1 className="interactable pointer-events-auto font-display text-2xl sm:text-4xl md:text-5xl lg:text-[48px] xl:text-[56px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]">
-          <span className="block">
+        <motion.h1
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+            },
+          }}
+          className="interactable pointer-events-auto font-display text-2xl sm:text-4xl md:text-5xl lg:text-[48px] xl:text-[56px] font-light tracking-tight text-white leading-[1.2] sm:leading-[1.14]"
+        >
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, y: 24 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+            }}
+            className="block"
+          >
             <span className="text-white font-normal">I’m Adi</span>
             <span className="text-zinc-500 font-light mx-2 sm:mx-3">—</span>
             <span className="text-zinc-200">a Multidisciplinary</span>
-          </span>
-          <span className="block text-zinc-200">
+          </motion.span>
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, y: 24 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+            }}
+            className="block text-zinc-200"
+          >
             Software Engineer,
-          </span>
-          <span className="block text-zinc-400 font-light">
+          </motion.span>
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, y: 24 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+            }}
+            className="block text-zinc-400 font-light"
+          >
             building for the web, cloud,
-          </span>
-          <span className="block text-zinc-400 font-light">
+          </motion.span>
+          <motion.span
+            variants={{
+              hidden: { opacity: 0, y: 24 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+            }}
+            className="block text-zinc-400 font-light"
+          >
             and everything in between.
-          </span>
-        </h1>
+          </motion.span>
+        </motion.h1>
 
         <motion.blockquote
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
           style={{ y: quoteY }}
           className="hidden sm:block interactable pointer-events-auto mt-6 sm:mt-8 border-l border-white/20 pl-3.5 sm:pl-4 max-w-xl will-change-transform"
         >

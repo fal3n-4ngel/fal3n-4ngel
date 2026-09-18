@@ -130,14 +130,14 @@ export const CustomCursor: React.FC<CustomCursorProps> = ({ x, y }) => {
         translateY: "-50%",
       }}
       animate={{
-        width: isInteracting ? "200px" : "40px",
-        height: isInteracting ? "200px" : "40px",
+        width: isInteracting ? (cursorState.interactionType === "project" ? "72px" : "56px") : "14px",
+        height: isInteracting ? (cursorState.interactionType === "project" ? "72px" : "56px") : "14px",
       }}
       transition={{
         type: "spring",
         damping: 24,
-        stiffness: 140,
-        mass: 0.4,
+        stiffness: 220,
+        mass: 0.3,
       }}
       className={cursorClasses}
     />
