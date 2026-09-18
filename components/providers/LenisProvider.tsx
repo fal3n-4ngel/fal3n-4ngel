@@ -17,7 +17,6 @@ export default function LenisProvider({ children }: LenisProviderProps) {
   const pathname = usePathname();
   const isFirstMount = useRef(true);
 
-  // Synchronize Lenis with Framer Motion's unified animation loop
   useEffect(() => {
     function update(data: { timestamp?: number } | number) {
       const time =
@@ -27,7 +26,6 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       lenisRef.current?.lenis?.raf(time);
     }
 
-    // Bind Lenis raf to Framer Motion's frame.update recurring ticker
     frame.update(update, true);
 
     return () => {
@@ -35,7 +33,6 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     };
   }, []);
 
-  // Expose global window.lenis for existing utilities and components
   useEffect(() => {
     const lenisInstance = lenisRef.current?.lenis;
     if (lenisInstance && typeof window !== "undefined") {
@@ -48,14 +45,12 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     };
   }, []);
 
-  // Handle route transitions & hash navigation with stopInertiaOnNavigate
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     if (isFirstMount.current) {
       isFirstMount.current = false;
 
-      // If initial URL has a hash (e.g. #projects), scroll to it once fonts and layout are fully ready
       if (window.location.hash) {
         const hash = window.location.hash;
         const syncHash = () => {
@@ -63,8 +58,8 @@ export default function LenisProvider({ children }: LenisProviderProps) {
           lenisRef.current?.lenis?.scrollTo(hash, { immediate: true });
         };
 
-        if (typeof document !== "undefined" && (document as any).fonts?.ready) {
-          (document as any).fonts.ready.then(() => {
+        if (typeof document !== "undefined" && "fonts" in document) {
+          document.fonts.ready.then(() => {
             requestAnimationFrame(syncHash);
           });
         }
@@ -78,7 +73,6 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       return;
     }
 
-    // Actual pathname route transition (not initial load)
     if (window.location.hash) {
       lenisRef.current?.lenis?.scrollTo(window.location.hash, { immediate: true });
       return;
@@ -88,7 +82,6 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname]);
 
-  // Smooth scroll for in-page anchor links (e.g. <a href="#projects">)
   useEffect(() => {
     if (typeof window === "undefined") return;
 

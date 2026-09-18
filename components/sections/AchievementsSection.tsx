@@ -20,6 +20,29 @@ const DEFAULT_AWARDS: AwardItemData[] = [
   },
 ];
 
+const SKILLS_DATA = [
+  {
+    category: "Frontend",
+    technologies: "React, Next.js, TypeScript, JavaScript, Tailwind CSS, Three.js, Framer Motion, HTML5/CSS3",
+  },
+  {
+    category: "Backend",
+    technologies: "Java Spring Boot, Python, Node.js, .NET, PostgreSQL, MongoDB, Redis, REST APIs, Microservices",
+  },
+  {
+    category: "Mobile & Cloud",
+    technologies: "Flutter, Kotlin, Firebase, Docker, Git, Google Cloud Platform, Linux, CI/CD",
+  },
+];
+
+function notifyLayoutResize() {
+  if (typeof window === "undefined") return;
+  setTimeout(() => {
+    (window as unknown as { lenis?: { resize: () => void } }).lenis?.resize();
+    window.dispatchEvent(new Event("resize"));
+  }, 50);
+}
+
 export const AchievementsSection: React.FC<{
   initialExperiences?: ExperienceItem[];
   initialAwards?: AwardItemData[];
@@ -38,12 +61,7 @@ export const AchievementsSection: React.FC<{
       getExperiences().then((data) => {
         if (data && data.length > 0) {
           setExperiences(data);
-          if (typeof window !== "undefined") {
-            setTimeout(() => {
-              (window as unknown as { lenis?: { resize: () => void } }).lenis?.resize();
-              window.dispatchEvent(new Event("resize"));
-            }, 50);
-          }
+          notifyLayoutResize();
         }
       });
     }
@@ -51,33 +69,12 @@ export const AchievementsSection: React.FC<{
       getAwards().then((data) => {
         if (data && data.length > 0) {
           setAwards(data);
-          if (typeof window !== "undefined") {
-            setTimeout(() => {
-              (window as unknown as { lenis?: { resize: () => void } }).lenis?.resize();
-              window.dispatchEvent(new Event("resize"));
-            }, 50);
-          }
+          notifyLayoutResize();
         }
       });
     }
   }, [initialExperiences, initialAwards]);
 
-  const skillsData = [
-    {
-      category: "Frontend",
-      technologies: "React, Next.js, TypeScript, JavaScript, Tailwind CSS, Three.js, Framer Motion, HTML5/CSS3",
-    },
-    {
-      category: "Backend",
-      technologies: "Java Spring Boot, Python, Node.js, .NET, PostgreSQL, MongoDB, Redis, REST APIs, Microservices",
-    },
-    {
-      category: "Mobile & Cloud",
-      technologies: "Flutter, Kotlin, Firebase, Docker, Git, Google Cloud Platform, Linux, CI/CD",
-    },
-  ];
-
-  // Parallax curtain recession as ProjectsSection rises over Background
   const { scrollYProgress: exitProgress } = useScroll({
     target: sectionRef,
     offset: ["end end", "end start"],
@@ -102,7 +99,6 @@ export const AchievementsSection: React.FC<{
         className="w-full origin-center"
       >
         <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-          {/* ── Left Column: Section Title & Subtitle (Sticky on Desktop) ── */}
           <motion.div
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -136,9 +132,7 @@ export const AchievementsSection: React.FC<{
           </div>
         </motion.div>
 
-        {/* ── Right Column: Experience, Skills & Awards ───────────── */}
         <div className="flex flex-col gap-12 sm:gap-14 lg:w-1/2">
-          {/* ── 1. Experience ── */}
           <div className="flex flex-col">
             <motion.h3
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
@@ -214,7 +208,6 @@ export const AchievementsSection: React.FC<{
             </div>
           </div>
 
-          {/* ── 2. Skills ── */}
           <div className="flex flex-col">
             <motion.h3
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
@@ -226,7 +219,7 @@ export const AchievementsSection: React.FC<{
               Skills
             </motion.h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
-              {skillsData.map((item, idx) => (
+              {SKILLS_DATA.map((item, idx) => (
                 <motion.div
                   key={item.category}
                   initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
@@ -250,7 +243,6 @@ export const AchievementsSection: React.FC<{
             </div>
           </div>
 
-          {/* ── 3. Awards ── */}
           <div className="flex flex-col">
             <motion.h3
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}

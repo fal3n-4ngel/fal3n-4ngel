@@ -620,7 +620,6 @@ export const AsciiTextCanvas: React.FC = () => {
         morphTo(formatted);
       } else {
         if (revertTimeout) clearTimeout(revertTimeout);
-        // Hold morphed text before reverting to avoid flicker
         revertTimeout = setTimeout(() => {
           morphTo(defaultText);
           revertTimeout = null;

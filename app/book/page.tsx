@@ -27,7 +27,6 @@ export default function BookMeetingPage() {
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // Ensure page always starts at top when navigated to
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
     const lenis = (
@@ -40,11 +39,9 @@ export default function BookMeetingPage() {
     }
   }, []);
 
-  // Get next 7 weekdays (skipping Saturday and Sunday)
   const getNextWeekdays = () => {
     const dates: Date[] = [];
     const current = new Date();
-    // Start from tomorrow
     current.setDate(current.getDate() + 1);
 
     while (dates.length < 7) {
@@ -65,7 +62,6 @@ export default function BookMeetingPage() {
     }
   }, [weekdays, selectedDate]);
 
-  // Fetch busy slots for the next 7 days
   useEffect(() => {
     const fetchBusy = async () => {
       if (weekdays.length === 0) return;
@@ -90,16 +86,12 @@ export default function BookMeetingPage() {
     fetchBusy();
   }, [weekdays]);
 
-  // Generate slots for the selected date from 9:00 AM to 5:00 PM IST
   const generateSlots = (date: Date) => {
     const slots: Date[] = [];
-    const dateStr = date.toISOString().split("T")[0]; // YYYY-MM-DD
+    const dateStr = date.toISOString().split("T")[0];
 
-    // 9:00 to 24:00 IST (UTC +5:30)
     for (let hour = 9; hour < 24; hour++) {
       for (const min of [0, 30]) {
-        // Construct the IST time string
-        // Pad hour and minute
         const hrStr = String(hour).padStart(2, "0");
         const minStr = String(min).padStart(2, "0");
         const slotDate = new Date(`${dateStr}T${hrStr}:${minStr}:00+05:30`);
@@ -116,7 +108,6 @@ export default function BookMeetingPage() {
     return busySlots.some((busy) => {
       const busyStart = new Date(busy.start).getTime();
       const busyEnd = new Date(busy.end).getTime();
-      // Overlap condition
       return slotStartMs < busyEnd && slotEndMs > busyStart;
     });
   };
@@ -222,9 +213,7 @@ export default function BookMeetingPage() {
           </FadeUp>
         ) : (
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            {/* Left side: Date & Time Selector */}
             <div className="space-y-8 lg:col-span-7">
-              {/* Duration selector */}
               <FadeUp>
                 <div className="space-y-3">
                   <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
@@ -251,7 +240,6 @@ export default function BookMeetingPage() {
                 </div>
               </FadeUp>
 
-              {/* Date selector */}
               <FadeUp>
                 <div className="space-y-3">
                   <label className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
@@ -288,7 +276,6 @@ export default function BookMeetingPage() {
                 </div>
               </FadeUp>
 
-              {/* Time Slots */}
               <FadeUp>
                 <div className="space-y-3">
                   <label className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-neutral-500">
@@ -342,7 +329,6 @@ export default function BookMeetingPage() {
               </FadeUp>
             </div>
 
-            {/* Right side: Input Form */}
             <div className="lg:col-span-5">
               <FadeUp>
                 <div className="space-y-6 rounded-lg border border-white/10 bg-white/[0.01] p-6">

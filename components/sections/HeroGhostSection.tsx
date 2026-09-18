@@ -33,8 +33,8 @@ export const HeroGhostSection: React.FC = () => {
         if (isMounted && cal) {
           setCalendarInfo(cal);
         }
-      } catch {
-        // silent fallback
+      } catch (err) {
+        void err;
       }
     };
     fetchCalendar();
@@ -57,8 +57,8 @@ export const HeroGhostSection: React.FC = () => {
             setStatusDotColor("bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse");
           }
         }
-      } catch {
-        // silent fallback
+      } catch (err) {
+        void err;
       }
     };
     checkSpotifyStatus();
@@ -149,7 +149,6 @@ export const HeroGhostSection: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  // 3D Ghost background layer - moves at ~0.35x speed (deeper layer), gently recedes and softens
   const ghostY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -162,7 +161,6 @@ export const HeroGhostSection: React.FC = () => {
   );
   const ghostOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.2]);
 
-  // Foreground text drift - moves upward faster (~0.55x speed) and fades cleanly
   const textY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -170,14 +168,12 @@ export const HeroGhostSection: React.FC = () => {
   );
   const textOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
-  // Quote counter-drift - drifts slightly more to give typographic depth separation
   const quoteY = useTransform(
     scrollYProgress,
     [0, 1],
     shouldReduceMotion ? ["0px", "0px"] : ["0px", "-140px"]
   );
 
-  // Status footer fade-out
   const footerOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const footerY = useTransform(
     scrollYProgress,
@@ -232,7 +228,6 @@ export const HeroGhostSection: React.FC = () => {
         </nav>
       </header>
 
-      {/* 3D Ghost Layer with Parallax Depth & Soft Recede */}
       <motion.div
         style={{
           y: ghostY,
@@ -248,7 +243,6 @@ export const HeroGhostSection: React.FC = () => {
         />
       </motion.div>
 
-      {/* Foreground Typography with Dynamic Scroll Drift */}
       <motion.div
         style={{
           y: textY,
@@ -324,7 +318,6 @@ export const HeroGhostSection: React.FC = () => {
         </motion.blockquote>
       </motion.div>
 
-      {/* Bottom Status Footer with Quick Fade on Scroll */}
       <motion.footer
         style={{
           y: footerY,

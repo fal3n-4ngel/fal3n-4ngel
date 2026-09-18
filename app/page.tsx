@@ -6,7 +6,6 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { AsciiTextCanvas } from "@/components/features/AsciiTextCanvas";
 import { Footer } from "@/components/layout/Footer";
 import { getAwards, getExperiences, getProjects } from "@/lib/integrations/notion";
-import { Project } from "@/types/projects";
 
 export default async function Home() {
   const [initialProjects, initialExperiences, initialAwards] = await Promise.all([
@@ -25,7 +24,6 @@ export default async function Home() {
             initialAwards={initialAwards ?? []}
           />
           <ProjectsSection initialProjects={initialProjects ?? []} />
-          {/* Footer & Contact Section */}
           <div
             id="footer-curtain"
             className="relative z-30 w-full bg-black border-t border-white/10"
