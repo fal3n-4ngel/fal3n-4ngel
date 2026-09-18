@@ -77,9 +77,23 @@ export const projectSkills: Record<string, string[]> = {
   "STREAM OWN YOUR OWN": WEB_STACK,
   "SMART CERTIFY": [...WEB_STACK, ...BLOCKCHAIN_STACK, "Ipfs"],
   "BETTER FUNDS": [...WEB_STACK, ...BLOCKCHAIN_STACK],
-  "SUS GOALS": [...WEB_STACK, "Firebase"],
   DRISHTI: ["Flutter", "Firebase", "MongoDB"],
   "C-TRACKER": ["Java", "MySQL"],
+};
+
+export const projectImageMap: Record<string, string> = {
+  "PHub Dashboard": "/projects/Continuum-Home.png",
+  "Continuum Home": "/projects/Continuum-Home.png",
+  "Continuum": "/projects/Continuum-Home.png",
+  DASH: "/projects/DASH - Distributed Adaptive Serveless Hosting.png",
+  "FLASH DRIVE": "/projects/Flashdrive.png",
+  "Flash Drive": "/projects/Flashdrive.png",
+  Tuples: "/projects/Tuples.png",
+  "STREAM OWN YOUR OWN": "/projects/SOYO - Stream On Your Own.png",
+  SOYO: "/projects/SOYO - Stream On Your Own.png",
+  "Stream On Your Own": "/projects/SOYO - Stream On Your Own.png",
+  "SMART CERTIFY": "/projects/Smart-Certify.png",
+  "Smart Certify": "/projects/Smart-Certify.png",
 };
 
 export const projects: Project[] = [

@@ -1,6 +1,7 @@
 "use server";
 
 import { EXPERIENCE_DATA, ExperienceItem } from "@/data/experience";
+import { projectImageMap } from "@/data/projects";
 import { Project } from "@/types/projects";
 import { Client } from "@notionhq/client";
 import { unstable_cache } from "next/cache";
@@ -121,9 +122,11 @@ export const getProjects = unstable_cache(
 
       return response.results.map((page: unknown) => {
         const p = page as NotionPage;
+        const name = p.properties.Name?.title?.[0]?.plain_text || "";
+        const localImg = projectImageMap[name] || projectImageMap[name.trim()] || "";
         return {
-          url1: p.properties["Image URL"]?.url || "",
-          name: p.properties.Name?.title?.[0]?.plain_text || "",
+          url1: localImg || p.properties["Image URL"]?.url || "",
+          name,
           type: p.properties.Type?.select?.name || "",
           event: p.properties.Event?.select?.name || "",
           date: p.properties.Date?.rich_text?.[0]?.plain_text || "",

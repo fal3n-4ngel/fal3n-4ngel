@@ -25,10 +25,10 @@ export default async function Home() {
             initialAwards={initialAwards ?? []}
           />
           <ProjectsSection initialProjects={initialProjects ?? []} />
-          {/* Footer Curtain: rises from below with a sharp parallax curtain edge covering the projects section */}
+          {/* Footer & Contact Section */}
           <div
             id="footer-curtain"
-            className="relative z-30 w-full bg-black shadow-[0_-50px_140px_rgba(0,0,0,0.98)] border-t border-white/15 -mt-[100vh]"
+            className="relative z-30 w-full bg-black border-t border-white/10"
           >
             <ContactSection />
             <AsciiTextCanvas />
