@@ -1,10 +1,13 @@
 "use client";
 
 import { scrollToTop } from "@/lib/utils/smoothScroll";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 
 export const Footer: React.FC = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   const triggerAsciiMorph = (text: string | null) => {
     if (typeof window !== "undefined") {
       window.dispatchEvent(
@@ -19,7 +22,13 @@ export const Footer: React.FC = () => {
       className="w-full bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-16 md:py-24 text-zinc-400"
     >
       <div className="flex w-full flex-col justify-between gap-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-24"
+        >
           <div className="flex flex-col">
             <h4
               onMouseEnter={() => triggerAsciiMorph("CONTACT")}
@@ -166,18 +175,30 @@ export const Footer: React.FC = () => {
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <blockquote className="block sm:hidden border-l border-white/20 pl-3.5 max-w-sm">
+        <motion.blockquote
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="block sm:hidden border-l border-white/20 pl-3.5 max-w-sm"
+        >
           <p className="font-mono text-xs text-zinc-300 italic leading-relaxed">
             “Like I always say, can&apos;t find a door? Make your own.”
           </p>
           <cite className="mt-1.5 block font-mono text-[11px] text-zinc-500 not-italic">
             — Edward Elric, Fullmetal Alchemist
           </cite>
-        </blockquote>
+        </motion.blockquote>
 
-        <div className="pt-8 flex items-center justify-between text-xs font-mono text-zinc-600">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          className="pt-8 flex items-center justify-between text-xs font-mono text-zinc-600"
+        >
           <span>© {new Date().getFullYear()} Adithya Krishnan</span>
           <button
             type="button"
@@ -190,7 +211,7 @@ export const Footer: React.FC = () => {
             <span>mascot</span>
             <span>👻</span>
           </button>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

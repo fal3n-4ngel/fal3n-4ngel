@@ -2,9 +2,9 @@
 
 import { projects as fallbackProjects, projectImageMap, projectSkills } from "@/data/projects";
 import { Project } from "@/types/projects";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 const PROJECT_BACKGROUNDS = [
   "/editorial/bg-limestone.jpg",
@@ -19,8 +19,6 @@ const ProjectCardItem: React.FC<{
   idx: number;
   shouldReduceMotion: boolean | null;
 }> = ({ project, idx, shouldReduceMotion }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, amount: 0.15 });
   const [isHovered, setIsHovered] = useState(false);
 
   const bgImage =
@@ -46,10 +44,10 @@ const ProjectCardItem: React.FC<{
 
   return (
     <motion.article
-      ref={cardRef}
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.12, margin: "0px 0px -40px 0px" }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="group relative w-full flex flex-col scroll-mt-28"
     >
       {/* ── Project Title Header ── */}
@@ -118,7 +116,13 @@ const ProjectCardItem: React.FC<{
       </a>
 
       {/* ── Bottom Data Block matching Thieb Reference (media_1789703664017.png) ── */}
-      <div className="flex flex-col sm:flex-row items-start justify-between gap-6 sm:gap-8 pt-6">
+      <motion.div
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.1 }}
+        transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col sm:flex-row items-start justify-between gap-6 sm:gap-8 pt-6"
+      >
         {/* Left Metadata Column */}
         <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-sans text-xs sm:text-[13px] uppercase tracking-wider shrink-0 select-none">
           <span className="text-zinc-500 font-normal">TYPE</span>
@@ -160,7 +164,7 @@ const ProjectCardItem: React.FC<{
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.article>
   );
 };
@@ -207,7 +211,13 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
         {/* ── Left Column: Sticky Section Header & Filter Navigation (Aligns with Background Overview) ── */}
-        <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24 shrink-0 mb-12 lg:mb-0">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col lg:w-1/2 lg:sticky lg:top-24 shrink-0 mb-12 lg:mb-0"
+        >
           <div className="flex items-center gap-2 font-mono text-[11px] sm:text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
             <span>[ 02 // SELECTED WORKS ]</span>
           </div>
@@ -255,7 +265,7 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
               <span>Explore 40+ Repos on GitHub ↗</span>
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Right Column: Project Showcase Cards (Aligns with Background Experience/Awards) ── */}
         <div className="flex flex-col lg:w-1/2 gap-14 sm:gap-18 md:gap-20 w-full min-w-0">

@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
   const email = "hello@adithyakrishnan.com";
 
   const handleCopy = async () => {
@@ -23,7 +25,13 @@ export const ContactSection: React.FC = () => {
       className="relative w-full bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
     >
       <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-        <div className="flex flex-col lg:w-1/2 lg:sticky lg:top-24">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col lg:w-1/2 lg:sticky lg:top-24"
+        >
           <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
             <span>[ 03 // GET IN TOUCH ]</span>
           </div>
@@ -34,9 +42,15 @@ export const ContactSection: React.FC = () => {
           <p className="mt-3 text-sm sm:text-base font-light text-zinc-400 leading-relaxed">
             Have an idea, opportunity, or just want to chat? Say hello.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col lg:w-1/2">
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col lg:w-1/2"
+        >
           <span className="font-sans text-xs sm:text-sm text-zinc-400">Email</span>
 
           <a
@@ -54,7 +68,7 @@ export const ContactSection: React.FC = () => {
               [ {copied ? "Copied!" : "Copy Email"} ]
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

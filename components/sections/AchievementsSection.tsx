@@ -104,10 +104,10 @@ export const AchievementsSection: React.FC<{
         <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
           {/* ── Left Column: Section Title & Subtitle (Sticky on Desktop) ── */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col lg:w-1/2 lg:sticky lg:top-24"
           >
             <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
@@ -140,20 +140,26 @@ export const AchievementsSection: React.FC<{
         <div className="flex flex-col gap-12 sm:gap-14 lg:w-1/2">
           {/* ── 1. Experience ── */}
           <div className="flex flex-col">
-            <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
+            <motion.h3
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4"
+            >
               Experience
-            </h3>
+            </motion.h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
               {experiences.map((exp, idx) => (
                 <motion.div
                   key={`${exp.title}-${exp.company || idx}`}
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: false, amount: 0.1 }}
                   transition={{
                     duration: 0.5,
                     delay: idx * 0.04,
-                    ease: [0.25, 0.1, 0.25, 1],
+                    ease: [0.16, 1, 0.3, 1],
                   }}
                   className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
@@ -180,13 +186,13 @@ export const AchievementsSection: React.FC<{
               ))}
 
               <motion.div
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: false, amount: 0.1 }}
                 transition={{
                   duration: 0.5,
                   delay: experiences.length * 0.04,
-                  ease: [0.25, 0.1, 0.25, 1],
+                  ease: [0.16, 1, 0.3, 1],
                 }}
                 className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
               >
@@ -210,20 +216,26 @@ export const AchievementsSection: React.FC<{
 
           {/* ── 2. Skills ── */}
           <div className="flex flex-col">
-            <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
+            <motion.h3
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4"
+            >
               Skills
-            </h3>
+            </motion.h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
               {skillsData.map((item, idx) => (
                 <motion.div
                   key={item.category}
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: false, amount: 0.1 }}
                   transition={{
                     duration: 0.5,
                     delay: idx * 0.04,
-                    ease: [0.25, 0.1, 0.25, 1],
+                    ease: [0.16, 1, 0.3, 1],
                   }}
                   className="interactable group flex flex-col gap-1 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >
@@ -240,20 +252,26 @@ export const AchievementsSection: React.FC<{
 
           {/* ── 3. Awards ── */}
           <div className="flex flex-col">
-            <h3 className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4">
+            <motion.h3
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="interactable text-lg sm:text-xl font-normal tracking-tight text-white mb-3 sm:mb-4"
+            >
               Awards
-            </h3>
+            </motion.h3>
             <div className="flex flex-col divide-y divide-white/5 border-t border-white/10">
               {awards.map((item, idx) => (
                 <motion.div
                   key={`${item.title}-${item.date || idx}`}
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: false, amount: 0.1 }}
                   transition={{
                     duration: 0.5,
                     delay: idx * 0.04,
-                    ease: [0.25, 0.1, 0.25, 1],
+                    ease: [0.16, 1, 0.3, 1],
                   }}
                   className="interactable group flex flex-col gap-0.5 py-4 transition-colors hover:bg-white/[0.03] cursor-default"
                 >

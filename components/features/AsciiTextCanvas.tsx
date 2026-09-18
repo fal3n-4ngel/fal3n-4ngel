@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 interface AsciiParticle {
@@ -801,8 +802,16 @@ export const AsciiTextCanvas: React.FC = () => {
     };
   }, []);
 
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section className="relative w-full overflow-hidden border-t border-white/10 bg-black">
+    <motion.section
+      initial={shouldReduceMotion ? false : { opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false, amount: 0.15 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="relative w-full overflow-hidden border-t border-white/10 bg-black"
+    >
       <div
         ref={containerRef}
         className="relative w-full overflow-hidden select-none bg-black cursor-pointer touch-pan-y"
@@ -815,7 +824,7 @@ export const AsciiTextCanvas: React.FC = () => {
           style={{ touchAction: "pan-y" }}
         />
       </div>
-    </section>
+    </motion.section>
   );
 };
 
