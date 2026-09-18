@@ -15,14 +15,12 @@ export default function LenisProvider({ children }: LenisProviderProps) {
 
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.09,
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.13,
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1,
+      wheelMultiplier: 1.2,
+      touchMultiplier: 1.8,
       syncTouch: false,
       infinite: false,
       autoResize: true,
@@ -52,24 +50,71 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     };
   }, []);
 
-  // Scroll to top immediately on route changes
+  const isFirstMount = useRef(true);
+
+  // Handle route changes and initial hash navigation
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window === "undefined") return;
+
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+
+      // If initial URL has a hash (e.g. #projects), scroll to it once fonts and layout are fully ready
       if (window.location.hash) {
-        const id = window.location.hash.replace("#", "");
-        const el = document.getElementById(id);
-        if (el && lenisRef.current) {
-          lenisRef.current.scrollTo(el, { immediate: true });
-          return;
+        const hash = window.location.hash;
+        const syncHash = () => {
+          lenisRef.current?.resize();
+          lenisRef.current?.scrollTo(hash, { immediate: true });
+        };
+
+        if (typeof document !== "undefined" && (document as any).fonts?.ready) {
+          (document as any).fonts.ready.then(() => {
+            requestAnimationFrame(syncHash);
+          });
+        }
+        const t1 = setTimeout(syncHash, 150);
+        const t2 = setTimeout(syncHash, 400);
+        return () => {
+          clearTimeout(t1);
+          clearTimeout(t2);
+        };
+      }
+      return;
+    }
+
+    // Actual pathname route transition (not initial load)
+    if (window.location.hash) {
+      lenisRef.current?.scrollTo(window.location.hash, { immediate: true });
+      return;
+    }
+
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+  }, [pathname]);
+
+  // Smooth scroll for in-page anchor links (e.g. <a href="#projects">)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest("a");
+      if (!target) return;
+
+      const href = target.getAttribute("href");
+      if (href && href.startsWith("#") && href.length > 1) {
+        if (lenisRef.current) {
+          e.preventDefault();
+          lenisRef.current.scrollTo(href, { duration: 1.1 });
+          window.history.pushState(null, "", href);
         }
       }
+    };
 
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(0, { immediate: true });
-      }
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
-    }
-  }, [pathname]);
+    document.addEventListener("click", handleAnchorClick);
+    return () => document.removeEventListener("click", handleAnchorClick);
+  }, []);
 
   return <div data-lenis-prevent={false}>{children}</div>;
 }

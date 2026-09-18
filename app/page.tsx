@@ -5,24 +5,26 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { AsciiTextCanvas } from "@/components/features/AsciiTextCanvas";
 import { Footer } from "@/components/layout/Footer";
-import { getProjects } from "@/lib/integrations/notion";
+import { getAwards, getExperiences, getProjects } from "@/lib/integrations/notion";
 import { Project } from "@/types/projects";
 
 export default async function Home() {
-  let initialProjects: Project[] = [];
-  try {
-    initialProjects = (await getProjects()) ?? [];
-  } catch {
-    initialProjects = [];
-  }
+  const [initialProjects, initialExperiences, initialAwards] = await Promise.all([
+    getProjects().catch(() => []),
+    getExperiences().catch(() => []),
+    getAwards().catch(() => []),
+  ]);
 
   return (
     <div className="h-full min-h-screen w-full bg-black text-white selection:bg-white selection:text-black">
       <AppClientShell>
         <main className="flex min-h-screen w-full flex-col items-center bg-black">
           <HeroGhostSection />
-          <AchievementsSection />
-          <ProjectsSection initialProjects={initialProjects} />
+          <AchievementsSection
+            initialExperiences={initialExperiences ?? []}
+            initialAwards={initialAwards ?? []}
+          />
+          <ProjectsSection initialProjects={initialProjects ?? []} />
           {/* Footer Curtain: rises from below with a sharp parallax curtain edge covering the projects section */}
           <div
             id="footer-curtain"

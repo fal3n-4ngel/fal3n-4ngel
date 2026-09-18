@@ -20,24 +20,47 @@ const DEFAULT_AWARDS: AwardItemData[] = [
   },
 ];
 
-export const AchievementsSection: React.FC = () => {
-  const [experiences, setExperiences] = useState<ExperienceItem[]>(EXPERIENCE_DATA);
-  const [awards, setAwards] = useState<AwardItemData[]>(DEFAULT_AWARDS);
+export const AchievementsSection: React.FC<{
+  initialExperiences?: ExperienceItem[];
+  initialAwards?: AwardItemData[];
+}> = ({ initialExperiences, initialAwards }) => {
+  const [experiences, setExperiences] = useState<ExperienceItem[]>(
+    initialExperiences && initialExperiences.length > 0 ? initialExperiences : EXPERIENCE_DATA
+  );
+  const [awards, setAwards] = useState<AwardItemData[]>(
+    initialAwards && initialAwards.length > 0 ? initialAwards : DEFAULT_AWARDS
+  );
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    getExperiences().then((data) => {
-      if (data && data.length > 0) {
-        setExperiences(data);
-      }
-    });
-    getAwards().then((data) => {
-      if (data && data.length > 0) {
-        setAwards(data);
-      }
-    });
-  }, []);
+    if (!initialExperiences || initialExperiences.length === 0) {
+      getExperiences().then((data) => {
+        if (data && data.length > 0) {
+          setExperiences(data);
+          if (typeof window !== "undefined") {
+            setTimeout(() => {
+              (window as unknown as { lenis?: { resize: () => void } }).lenis?.resize();
+              window.dispatchEvent(new Event("resize"));
+            }, 50);
+          }
+        }
+      });
+    }
+    if (!initialAwards || initialAwards.length === 0) {
+      getAwards().then((data) => {
+        if (data && data.length > 0) {
+          setAwards(data);
+          if (typeof window !== "undefined") {
+            setTimeout(() => {
+              (window as unknown as { lenis?: { resize: () => void } }).lenis?.resize();
+              window.dispatchEvent(new Event("resize"));
+            }, 50);
+          }
+        }
+      });
+    }
+  }, [initialExperiences, initialAwards]);
 
   const skillsData = [
     {
@@ -54,24 +77,42 @@ export const AchievementsSection: React.FC = () => {
     },
   ];
 
+  // Parallax curtain recession as ProjectsSection rises over Background
+  const { scrollYProgress: exitProgress } = useScroll({
+    target: sectionRef,
+    offset: ["end end", "end start"],
+  });
+  const exitScale = useTransform(exitProgress, [0, 1], [1, 0.95]);
+  const exitOpacity = useTransform(exitProgress, [0, 0.85], [1, 0.4]);
+  const exitY = useTransform(exitProgress, [0, 1], ["0%", "-4%"]);
+
   return (
     <section
       ref={sectionRef}
       id="achievements"
-      className="relative z-10 w-full border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 py-14 sm:py-20 md:py-28"
+      className="relative z-10 w-full min-h-screen border-t border-white/10 bg-black px-6 sm:px-12 md:px-20 lg:px-28 xl:px-36 pt-16 sm:pt-20 md:pt-24 pb-6 sm:pb-8 md:pb-10 flex flex-col justify-center overflow-hidden"
     >
-      <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
-        {/* ── Left Column: Section Title & Subtitle (Sticky on Desktop) ── */}
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-          className="flex flex-col lg:w-1/2 lg:sticky lg:top-24"
-        >
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
-            <span>[ 01 // OVERVIEW ]</span>
-          </div>
+      <motion.div
+        style={{
+          scale: shouldReduceMotion ? 1 : exitScale,
+          opacity: shouldReduceMotion ? 1 : exitOpacity,
+          y: shouldReduceMotion ? 0 : exitY,
+          willChange: "transform",
+        }}
+        className="w-full origin-center"
+      >
+        <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:gap-24">
+          {/* ── Left Column: Section Title & Subtitle (Sticky on Desktop) ── */}
+          <motion.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+            className="flex flex-col lg:w-1/2 lg:sticky lg:top-24"
+          >
+            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-3">
+              <span>[ 01 // OVERVIEW ]</span>
+            </div>
 
           <h2 className="interactable font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white leading-none">
             Background
@@ -235,6 +276,7 @@ export const AchievementsSection: React.FC = () => {
           </div>
         </div>
       </div>
+      </motion.div>
     </section>
   );
 };

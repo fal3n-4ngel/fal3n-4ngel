@@ -84,7 +84,7 @@ export const projectSkills: Record<string, string[]> = {
 
 export const projects: Project[] = [
   {
-    url1: "https://sqsq3dahgxfa1ffa.public.blob.vercel-storage.com/clean-porfolio/Continuum.png",
+    url1: "/projects/Continuum-Home.png",
     name: "PHub Dashboard",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -94,7 +94,7 @@ export const projects: Project[] = [
       "A dynamic personal dashboard hub for managing expenses, media watchlist (anime/movies/shows), and custom integrations with Firebase Authentication and OpenAPI support.",
   },
   {
-    url1: "/Dash.png",
+    url1: "/projects/DASH - Distributed Adaptive Serveless Hosting.png",
     name: "DASH",
     type: PROJECT_TYPES.DESKTOP,
     event: EVENT_TYPES.COLLEGE,
@@ -104,7 +104,7 @@ export const projects: Project[] = [
       "DASH - Distributed Adaptive Serverless Hosting offers a peer-to-peer, cost-effective, and efficient alternative for hosting serverless functions. It delivers a streamlined solution designed with developers in mind, providing simplicity and effectiveness without compromising performance.",
   },
   {
-    url1: "/Flashdrive.png",
+    url1: "/projects/Flashdrive.png",
     name: "FLASH DRIVE",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -114,7 +114,7 @@ export const projects: Project[] = [
       "A Next.js web platform featuring an AI image generator with custom-trained Stable Diffusion model and arcade games. Built with Firebase and EpicRealism image model, it evolved from a DBMS course project into a playground for implementing advanced web technologies.",
   },
   {
-    url1: "/Tuples.png",
+    url1: "/projects/Tuples.png",
     name: "Tuples",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -124,7 +124,7 @@ export const projects: Project[] = [
       "A community platform designed exclusively for students at MBCET. It enables users to find friend matches based on shared interests, create and join projects, and engage in collaborative chats and topic-based community groups. Created as a B.Tech mini project.",
   },
   {
-    url1: "/SOYO.png",
+    url1: "/projects/SOYO - Stream On Your Own.png",
     name: "STREAM OWN YOUR OWN",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.SIDE,
@@ -134,7 +134,7 @@ export const projects: Project[] = [
       "A Next.js-powered local streaming solution that turns your computer into a personal media server. Built to solve the problem of limited mobile storage, SOYO lets you stream your video library across all devices on your network through a clean, modern interface.",
   },
   {
-    url1: "/Smartcertify.png",
+    url1: "/projects/Smart-Certify.png",
     name: "SMART CERTIFY",
     type: PROJECT_TYPES.WEBSITE,
     event: EVENT_TYPES.BLOCKHASH,
