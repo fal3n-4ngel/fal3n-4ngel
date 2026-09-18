@@ -1,58 +1,54 @@
 "use client";
 
-import Lenis from "lenis";
+import React, { useEffect, useRef } from "react";
+import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
+import type Lenis from "lenis";
+import { cancelFrame, frame } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+
+export { useLenis };
 
 interface LenisProviderProps {
   children: React.ReactNode;
 }
 
 export default function LenisProvider({ children }: LenisProviderProps) {
-  const lenisRef = useRef<Lenis | null>(null);
-  const rafRef = useRef<number | undefined>(undefined);
+  const lenisRef = useRef<LenisRef>(null);
   const pathname = usePathname();
+  const isFirstMount = useRef(true);
 
+  // Synchronize Lenis with Framer Motion's unified animation loop
   useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.11,
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1.05,
-      touchMultiplier: 1.5,
-      syncTouch: false,
-      infinite: false,
-      autoResize: true,
-    });
-
-    lenisRef.current = lenis;
-    if (typeof window !== "undefined") {
-      (window as unknown as { lenis?: Lenis }).lenis = lenis;
+    function update(data: { timestamp?: number } | number) {
+      const time =
+        typeof data === "object" && data?.timestamp
+          ? data.timestamp
+          : performance.now();
+      lenisRef.current?.lenis?.raf(time);
     }
 
-    function raf(time: number) {
-      lenis.raf(time);
-      rafRef.current = requestAnimationFrame(raf);
-    }
-
-    rafRef.current = requestAnimationFrame(raf);
+    // Bind Lenis raf to Framer Motion's frame.update recurring ticker
+    frame.update(update, true);
 
     return () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-      lenis.destroy();
-      lenisRef.current = null;
+      cancelFrame(update);
+    };
+  }, []);
+
+  // Expose global window.lenis for existing utilities and components
+  useEffect(() => {
+    const lenisInstance = lenisRef.current?.lenis;
+    if (lenisInstance && typeof window !== "undefined") {
+      (window as unknown as { lenis?: Lenis }).lenis = lenisInstance;
+    }
+    return () => {
       if (typeof window !== "undefined") {
         delete (window as unknown as { lenis?: Lenis }).lenis;
       }
     };
   }, []);
 
-  const isFirstMount = useRef(true);
-
-  // Handle route changes and initial hash navigation
+  // Handle route transitions & hash navigation with stopInertiaOnNavigate
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -63,8 +59,8 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       if (window.location.hash) {
         const hash = window.location.hash;
         const syncHash = () => {
-          lenisRef.current?.resize();
-          lenisRef.current?.scrollTo(hash, { immediate: true });
+          lenisRef.current?.lenis?.resize();
+          lenisRef.current?.lenis?.scrollTo(hash, { immediate: true });
         };
 
         if (typeof document !== "undefined" && (document as any).fonts?.ready) {
@@ -84,13 +80,11 @@ export default function LenisProvider({ children }: LenisProviderProps) {
 
     // Actual pathname route transition (not initial load)
     if (window.location.hash) {
-      lenisRef.current?.scrollTo(window.location.hash, { immediate: true });
+      lenisRef.current?.lenis?.scrollTo(window.location.hash, { immediate: true });
       return;
     }
 
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    }
+    lenisRef.current?.lenis?.scrollTo(0, { immediate: true });
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname]);
 
@@ -104,9 +98,9 @@ export default function LenisProvider({ children }: LenisProviderProps) {
 
       const href = target.getAttribute("href");
       if (href && href.startsWith("#") && href.length > 1) {
-        if (lenisRef.current) {
+        if (lenisRef.current?.lenis) {
           e.preventDefault();
-          lenisRef.current.scrollTo(href, { duration: 1.1 });
+          lenisRef.current.lenis.scrollTo(href, { duration: 1.1 });
           window.history.pushState(null, "", href);
         }
       }
@@ -116,5 +110,30 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     return () => document.removeEventListener("click", handleAnchorClick);
   }, []);
 
-  return <div data-lenis-prevent={false}>{children}</div>;
+  return (
+    <ReactLenis
+      root
+      ref={lenisRef}
+      autoRaf={false}
+      options={{
+        lerp: 0.09,
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.4,
+        syncTouch: false,
+        autoResize: true,
+        autoToggle: true,
+        anchors: true,
+        stopInertiaOnNavigate: true,
+        allowNestedScroll: true,
+        overscroll: true,
+      }}
+    >
+      <div data-lenis-prevent={false}>{children}</div>
+    </ReactLenis>
+  );
 }
