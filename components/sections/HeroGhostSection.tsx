@@ -194,7 +194,7 @@ export const HeroGhostSection: React.FC = () => {
           Adi
         </Link>
 
-        <nav className="flex items-center gap-5 sm:gap-8 md:gap-10 text-sm sm:text-base md:text-[17px] font-light ">
+        <nav className="flex items-center gap-4 sm:gap-8 md:gap-10 text-sm sm:text-base md:text-[17px] font-light">
           <a
             href="https://github.com/fal3n-4ngel"
             target="_blank"
@@ -212,18 +212,12 @@ export const HeroGhostSection: React.FC = () => {
             linkedin
           </a>
           <a
-            href="/Resume_Adithya_Krishnan_sept.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:hello@adithyakrishnan.com"
+            title="hello@adithyakrishnan.com"
             className="interactable text-zinc-400 hover:text-white transition-colors lowercase"
           >
-            resume
-          </a>
-          <a
-            href="mailto:hello@adithyakrishnan.com"
-            className="interactable text-zinc-300 hover:text-white transition-colors truncate max-w-[200px] sm:max-w-none"
-          >
-            hello@adithyakrishnan.com
+            <span className="hidden sm:inline">hello@adithyakrishnan.com</span>
+            <span className="sm:hidden">email</span>
           </a>
         </nav>
       </header>
