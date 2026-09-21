@@ -248,7 +248,7 @@ export const ProjectsSection: React.FC<{ initialProjects?: Project[] }> = ({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 font-mono text-xs text-zinc-400 hover:text-white transition-colors"
             >
-              <span>Explore 40+ Repos on GitHub ↗</span>
+              <span>Explore on GitHub ↗</span>
             </a>
           </div>
         </motion.div>
