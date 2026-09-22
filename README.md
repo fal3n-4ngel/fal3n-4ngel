@@ -17,8 +17,6 @@
 <br />
 
 - [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(today)_
-- [fal3n-4ngel/fal3n-4ngel](https://github.com/fal3n-4ngel/fal3n-4ngel) — : > _(yesterday)_
-- [fal3n-4ngel/Monolith-Dashboard](https://github.com/fal3n-4ngel/Monolith-Dashboard) _(2 days ago)_
 
 </details>
 
