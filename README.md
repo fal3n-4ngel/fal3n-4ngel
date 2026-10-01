@@ -25,7 +25,7 @@
 <br />
 
 - [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) — A spy satellite simulator in your browser, except the data is real. Live open source spatial intelligence on a photorealistic 3D globe. _(3 months ago)_
-- [aks-hayy/WatchTower](https://github.com/aks-hayy/WatchTower) _(4 months ago)_
+- [aks-hayy/WatchTower](https://github.com/aks-hayy/WatchTower) _(5 months ago)_
 - [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) — Find, verify, and analyze leaked credentials _(9 years ago)_
 - [coderabbitai/awesome-coderabbit](https://github.com/coderabbitai/awesome-coderabbit) — Official awesome-list of CodeRabbit Starters & Resources ⚡️ _(2 years ago)_
 
