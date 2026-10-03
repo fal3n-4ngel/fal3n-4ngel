@@ -16,7 +16,7 @@
 <summary>🌱 Worklog</summary>
 <br />
 
-- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(yesterday)_
+- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(3 days ago)_
 
 </details>
 
