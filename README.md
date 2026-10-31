@@ -16,7 +16,7 @@
 <summary>🌱 Worklog</summary>
 <br />
 
-- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(29 days ago)_
+- [fal3n-4ngel/Continuum-Home](https://github.com/fal3n-4ngel/Continuum-Home) — Unified self-hostable dashboard for expenses, portfolios, media watchlists & books with native Custom GPT / OpenAPI 3.1 support. _(1 month ago)_
 
 </details>
 
@@ -26,7 +26,7 @@
 
 - [digitallyinduced/ihp](https://github.com/digitallyinduced/ihp) — 🔥 The fastest way to build type safe web apps. IHP is a new batteries-included web framework optimized for longterm productivity and programmer happiness _(9 years ago)_
 - [bilawalsidhu/gods-eye-view](https://github.com/bilawalsidhu/gods-eye-view) — A spy satellite simulator in your browser, except the data is real. Live open source spatial intelligence on a photorealistic 3D globe. _(4 months ago)_
-- [aks-hayy/WatchTower](https://github.com/aks-hayy/WatchTower) _(5 months ago)_
+- [aks-hayy/WatchTower](https://github.com/aks-hayy/WatchTower) _(6 months ago)_
 - [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) — Find, verify, and analyze leaked credentials _(9 years ago)_
 
 </details>
