@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ current }) => (
         Contact
       </Link>
       <a
-        href="/Resume_Adithya_Krishnan_sept.pdf"
+        href="/Resume_Adithya_Krishnan_nov.pdf"
         target="_blank"
         rel="noopener noreferrer"
         className="interactable hidden md:inline text-zinc-500 hover:text-zinc-300 transition-colors"

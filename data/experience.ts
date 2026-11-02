@@ -7,7 +7,7 @@ export interface ExperienceItem {
 
 export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
-    title: "Software Engineer",
+    title: "Software Engineer II",
     company: "Equifax",
     companyUrl: "https://www.equifax.co.in/?ref=adithyakrishnan.com",
     period: "Feb 2025 - Present",
